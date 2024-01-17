@@ -16,14 +16,14 @@
 		- YAN Nanlin ~4h-6h
 		- MANOUBI  Taysir ~9h-12h ~~Heu... j'ai paniqué~~
 	
-	## Princpale objectif
+## Princpale objectif
 
-	# Epic
-		Pour la semaine prochaine, il faut avoir, à minima :
-		- rafraichi/developpé les compétences obligatoire pour le succès du projet, notamment :
-			- Python (le langage de dev)
-			- Git et Github (pour la collabo sans accro)
-			- S'habituer a Trello
+### Epic
+Pour la semaine prochaine, il faut avoir, à minima :
+	- rafraichi/developpé les compétences obligatoire pour le succès du projet, notamment :
+		- Python (le langage de dev)
+		- Git et Github (pour la collabo sans accro)
+		- S'habituer a Trello
 
 		- terminé le setup (depot-distant github, un env de travail commun a tous)
 		- terminé la simulation d'environnement (Une classe Simulenv)
