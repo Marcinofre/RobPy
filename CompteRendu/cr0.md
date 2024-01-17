@@ -19,13 +19,14 @@
 ## Princpale objectif
 
 ### Epic
-Pour la semaine prochaine, il faut avoir, à minima :
-	- rafraichi/developpé les compétences obligatoire pour le succès du projet, notamment :
-		- Python (le langage de dev)
-		- Git et Github (pour la collabo sans accro)
-		- S'habituer a Trello
 
-		- terminé le setup (depot-distant github, un env de travail commun a tous)
-		- terminé la simulation d'environnement (Une classe Simulenv)
-		- entamé un agent princpale (robot) qui peut évoluer dans l'environnement simulé
+Pour la semaine prochaine, il faut avoir, à minima :	
+- rafraichi/developpé les compétences obligatoire pour le succès du projet, notamment :
+- Python (le langage de dev)
+- Git et Github (pour la collabo sans accro)
+- S'habituer a Trello
+
+- terminé le setup (depot-distant github, un env de travail commun a tous)
+- terminé la simulation d'environnement (Une classe Simulenv)
+- entamé un agent princpale (robot) qui peut évoluer dans l'environnement simulé
 	
