@@ -17,8 +17,8 @@ class Robot :
 		self.posLeftSide = (x - (width/2), y)
 		self.posRightSide = (x + (width/2), y)
 
-		#Vitesse du Robot (x, y, norme)
-		self.vectV = (1,1,1)
+		#Vitesse du Robot (x, y)
+		self.vectV = (1,1)
 
 		#Ajout des Moteurs au robot (droite et gauche)
 		self._motorRight = Moteur("droit")
@@ -30,10 +30,10 @@ class Robot :
 			Print l'ensemble des positions disponible du robot
 		"""
 		print(f"Position du robot : {self.posCenter}")
-		print(f"position Avant : {self.posFront}")
-		print(f"position Arrière : {self.posRear}")
-		print(f"position Coté gauche : {self.posLeftSide}")
-		print(f"position Coté droit : {self.posRightSide}")
+		#print(f"position Avant : {self.posFront}")
+		#print(f"position Arrière : {self.posRear}")
+		#print(f"position Coté gauche : {self.posLeftSide}")
+		#print(f"position Coté droit : {self.posRightSide}")
 
 	def runRobot(self) :
 		"""
