@@ -54,6 +54,21 @@ class Robot :
 		self.posLeftSide = (plside[0] + (-1*biasX), plside[1] + (-1*biasY))
 		self.posRightSide = (prside[0] + (-1*biasX), prside[1] + (-1*biasY))
 
+		
+	def allPos(self) :
+		"""
+			Print l'ensemble des positions disponible du robot
+		"""
+		print(f"Position du robot : ({self.posx},{self.posy})")
+		print(f"position Avant : {self.posFront}")
+		print(f"position Arrière : {self.posRear}")
+		print(f"position Coté gauche : {self.posLeftSide}")
+		print(f"position Coté droit : {self.posRightSide}")
+	
+
+
+
+
 
 
 
