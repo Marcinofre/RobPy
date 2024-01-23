@@ -9,8 +9,7 @@ class Robot :
 		self._dim = (width, length)
 		
 		#Position en x et y du centre du robot 
-		self.posx = x
-		self.posy = y
+		self.posCenter = (x,y)
 		
 		#Position globale du robot (devant, derriere, droit et gauche)
 		self.posFront = (x, y + length/2)
@@ -18,8 +17,8 @@ class Robot :
 		self.posLeftSide = (x - (width/2), y)
 		self.posRightSide = (x + (width/2), y)
 
-		#Vitesse du Robot
-		self.speed = 1.0
+		#Vitesse du Robot (x, y, norme)
+		self.vectV = (1,1,1)
 
 		#Ajout des Moteurs au robot (droite et gauche)
 		self._motorRight = Moteur("droit")
@@ -30,11 +29,18 @@ class Robot :
 		"""
 			Print l'ensemble des positions disponible du robot
 		"""
-		print(f"Position du robot : ({self.posx},{self.posy})")
+		print(f"Position du robot : {self.posCenter}")
 		print(f"position Avant : {self.posFront}")
 		print(f"position Arrière : {self.posRear}")
 		print(f"position Coté gauche : {self.posLeftSide}")
 		print(f"position Coté droit : {self.posRightSide}")
+
+	def runRobot(self) :
+		"""
+			Fais rouler le robot tout droit
+		"""
+		self.posCenter = (self.posCenter[0] + self.vectV[0], self.posCenter[1] + self.vectV[1])
+
 
 
 
