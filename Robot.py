@@ -18,41 +18,12 @@ class Robot :
 		self.posLeftSide = (x - (width/2), y)
 		self.posRightSide = (x + (width/2), y)
 
+		#Vitesse du Robot
+		self.speed = 1.0
+
 		#Ajout des Moteurs au robot (droite et gauche)
 		self._motorRight = Moteur("droit")
 		self._motorLeft = Moteur("gauche")
-
-	
-	def rotate(self) :
-		""" 
-			Tourne le robot de 90 degree vers la droite
-		"""
-
-		#Init biais
-		biasX = 0
-		biasY = 0
-
-		if (self.posx, self.posy) != (0,0) :
-			biasX = self.posx
-			biasY = self.posx
-		
-		# Translation vers le centre
-		pfront = (self.posFront[0] + biasX, self.posFront[1] + biasY)
-		prear  = (self.posRear[0] + biasX, self.posRear[1] + biasY)
-		plside = (self.posLeftSide[0] + biasX, self.posLeftSide[1] + biasY)
-		prside = (self.posRightSide[0] + biasX, self.posRightSide[1] + biasY)
-
-		#Rotation
-		pfront = (-1*pfront[1], pfront[0])
-		prear  = (-1*prear[1], prear[0])
-		plside = (-1*plside[1], plside[0])
-		prside = (-1*prside[1], prside[0])
-
-		# Translation vers le point de départ
-		self.posFront = (pfront[0] + (-1*biasX), pfront[1] + (-1*biasY))
-		self.posRear = (prear[0] + (-1*biasX), prear[1] + (-1*biasY))
-		self.posLeftSide = (plside[0] + (-1*biasX), plside[1] + (-1*biasY))
-		self.posRightSide = (prside[0] + (-1*biasX), prside[1] + (-1*biasY))
 
 		
 	def allPos(self) :
@@ -64,6 +35,9 @@ class Robot :
 		print(f"position Arrière : {self.posRear}")
 		print(f"position Coté gauche : {self.posLeftSide}")
 		print(f"position Coté droit : {self.posRightSide}")
+
+
+
 	
 
 
