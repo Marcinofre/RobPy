@@ -37,7 +37,7 @@ class Robot :
 
 	def runRobot(self) :
 		"""
-			Fais rouler le robot tout droit
+			Fais rouler le robot dans la direction du vecteur vitesse
 		"""
 		self.posCenter = (self.posCenter[0] + self.vectV[0], self.posCenter[1] + self.vectV[1])
 
