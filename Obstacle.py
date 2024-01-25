@@ -1,7 +1,7 @@
 from Vecteur import Vecteur
 class Obstacle :
     """
-        Un obstacle est une partie de l'environnement et entraine une erreur lorsque le robot rentre en collision avec
+        Un obstacle est défini par un vecteur et est une partie de l'environnement
     """
 
     def __init__(self, x1, x2, y1, y2) :
