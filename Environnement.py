@@ -63,10 +63,17 @@ class Environnement :
 			self.onGoing = False
 
 	def addObstacle(self, obs) :
+		"""
+			Prend en argument obs soit une List soit un objet de la classe Obstacle :
+				- Si c'est un objet de la classe Obstacle, il est ajouté au setObstacle.
+				- Si c'est une List, il parcourt la liste et chaque élément de la classe Obstacle est ajouté au setObstacle.
+				- Si c'est ni l'un ni l'autre, on affiche : L'élément n'est pas un obstacle.
+		"""
 		if isinstance(obs, list):
 			for obj in obs :
 				if isinstance(obj, obs) :
 					self.setObstacle.add(obj)
-		else :
-			if isinstance(obs, Obstacle) :
+		elif isinstance(obs, Obstacle):
 				self.setObstacle.add(obs)
+		else :
+			print("L'élément n'est pas un obstacle")
