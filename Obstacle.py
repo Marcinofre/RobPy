@@ -13,6 +13,6 @@ class Obstacle :
         arg y2 -> Position en y d'arrivée du vecteur
 
         Attribut d'instance d'Obstacle :
-        VecteurObstacle -> Création d'une instance de la classe Vecteur avec comme attribut en x : x2-x1, en y : y2-y1
+        Vecteur -> Création d'une instance de la classe Vecteur avec comme attribut en x : x2-x1, en y : y2-y1
         """
-        VecteurObstacle : Vecteur(x2-x1, y2-y1)
+        Vecteur : Vecteur(x2-x1, y2-y1)
