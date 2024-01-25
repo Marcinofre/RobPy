@@ -1,8 +1,14 @@
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
-	"""
+	
+	---
 
+	Attribut de classe Environnement :
+	setObstacle	   -> Un ensemble contenant tous les obstacles de l'environnement
+	"""
+	setObstacle = set()
+	
 	def __init__(self, x, y, agent, clockPace = 1) -> None:
 		"""
 			Constructeur de la classe Environnement.

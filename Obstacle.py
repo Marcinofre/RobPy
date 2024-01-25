@@ -1,4 +1,4 @@
-import Vecteur from Vecteur
+from Vecteur import Vecteur
 class Obstacle :
     """
         Un obstacle est une partie de l'environnement et entraine une erreur lorsque le robot rentre en collision avec
