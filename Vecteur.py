@@ -1,6 +1,6 @@
 class Vecteur:
     """
-        Un vecteur permet de modéliser le robot et ses mouvements, et les différents obstacles de l'environnement
+        Un vecteur permet de modéliser le robot (et ses mouvements) et les différents obstacles de l'environnement
     """
     def __init__(self,x,y) :
         """
