@@ -1,14 +1,9 @@
+from Obstacle import Obstacle
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
-	
-	---
-
-	Attribut de classe Environnement :
-	setObstacle	   -> Un ensemble contenant tous les obstacles de l'environnement
 	"""
-	setObstacle = set()
-	
+
 	def __init__(self, x, y, agent, clockPace = 1) -> None:
 		"""
 			Constructeur de la classe Environnement.
@@ -23,6 +18,7 @@ class Environnement :
 			currentClock 		-> variable qui retient le temps courant
 			clockPace			-> Increment de temps de la simulation
 			maxReachablePoint 	-> Définition de l'aire de simulation par le point maximal (diagonale au centre)
+			setObstacle	        -> Un ensemble contenant tous les obstacles de l'environnement
 		"""
 		
 		self.onGoing = False
@@ -30,6 +26,7 @@ class Environnement :
 		self.clockPace = clockPace
 		self.maxReachablePoint = (x,y)
 		self.agent = agent
+		setObstacle = set()
 
 
 
@@ -55,9 +52,6 @@ class Environnement :
 			print("L'environnement est déjà en cours d'éxécution")
 		else :
 			self.onGoing = True
-
-		
-	
 	
 	def stopEnv(self):
 		"""
@@ -67,3 +61,12 @@ class Environnement :
 			print("L'environnement est déjà arrêté")
 		else :
 			self.onGoing = False
+
+	def addObstacle(self, obs) :
+		if isinstance(obs, list):
+			for obj in obs :
+				if isinstance(obj, obs) :
+					self.setObstacle.add(obj)
+		else :
+			if isinstance(obs, Obstacle) :
+				self.setObstacle.add(obs)
