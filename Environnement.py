@@ -77,3 +77,11 @@ class Environnement :
 				self.setObstacle.add(obs)
 		else :
 			print("L'élément n'est pas un obstacle")
+
+	def doesCollide(self, obs, rob):
+		"""
+			Prend en argument un obstacle et un robot.
+        	Détermine si rob est en collision avec obs, renvoie True ou False. 
+			Fait un produit de produit vectoriel de la forme (AB ^ AC)(AB ^ AD) ET (CD ^ CA)(CD ^CB)
+        """
+		pass
