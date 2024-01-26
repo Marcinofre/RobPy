@@ -49,4 +49,7 @@ class Vecteur:
         angleParDegree=math.degrees(angleParRadians)
         return angleParDegree
     
-
+    def rotationAngle(self, angle):
+        """
+            On tourne le vecteur d'un angle 
+        """
