@@ -26,14 +26,14 @@ class Vecteur:
         return self.x*other.y-self.y*self.x 
     
 
-    def produitScalaire(self,other):
+    def produitScalaire(self, other):
         """
             Calculer le produit Scalaire de deux vecteur
         """
 
-        return self.x*other.x-self.y*other.y
+        return self.x*other.x+self.y*other.y
 
-
+    #Code a revoir, ne passe pas les tests
     def calculerAngle(self,other):
         """
             Calculer l'angle en degree entre 2 differents vecteur
@@ -45,12 +45,12 @@ class Vecteur:
         #calculer Cos
         cos_2vect=prod_scalaire/(norme1+norme2)
         #calculer Acos(cos)
-        angleParRadians=math.acos(cos_2vect)
+        angleParRadians=math.acos(cos_2vect) # --> leve un valueError : math domain error
         angleParDegree=math.degrees(angleParRadians)
         return angleParDegree
     
 
-
+    #Ne retourne pas de bonne valeurs
     def rotationAngle(self, angle):
         """
             On tourne le vecteur d'un angle 
