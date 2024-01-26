@@ -1,3 +1,4 @@
+import math
 class Vecteur:
     """
         Un vecteur permet de modéliser le robot (et ses mouvements) et les différents obstacles de l'environnement
@@ -16,3 +17,36 @@ class Vecteur:
             Permet de calculer la norme d'un vecteur
         """
         return (self.x**2+self.y**2)**0.5
+    
+    
+    def produitVectoriel(self,other):
+        """
+            Calculer le produit vectoriel de deux vecteur 
+        """
+        return self.x*other.y-self.y*self.x 
+    
+
+    def produitScalaire(self,other):
+        """
+            Calculer le produit Scalaire de deux vecteur
+        """
+
+        return self.x*other.x-self.y*other.y
+
+
+    def calculerAngle(self,other):
+        """
+            Calculer l'angle en degree entre 2 differents vecteur
+        """
+
+        prod_scalaire=self.produitScalaire(other)
+        norme1=self.calcNorm()
+        norme2=other.calcNorm()
+        #calculer Cos
+        cos_2vect=prod_scalaire/(norme1+norme2)
+        #calculer Acos(cos)
+        angleParRadians=math.acos(cos_2vect)
+        angleParDegree=math.degrees(angleParRadians)
+        return angleParDegree
+    
+
