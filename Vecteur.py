@@ -56,6 +56,5 @@ class Vecteur:
         """
         anglerad = math.radians(angle)
         newx = self.x*math.cos(anglerad) - self.y*math.sin(anglerad)
-        newy = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
+        self.y = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
         self.x = newx
-        self.y = newy
