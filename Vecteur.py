@@ -64,3 +64,9 @@ class Vecteur:
     
 
 
+    def rotationAngle(self, angle):
+        """
+            On tourne le vecteur d'un angle 
+        """
+        self.x = self.x*math.cos(angle) - self.y*math.sin(angle)
+        self.y = self.x*math.sin(angle) + self.y*math.cos(angle)
