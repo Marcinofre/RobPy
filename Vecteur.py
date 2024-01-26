@@ -50,3 +50,17 @@ class Vecteur:
         return angleParDegree
     
 
+    def rotation1vecteur(self,angle_degree):
+        """
+            Rotation un vecteur par un point fixé
+        """
+        #radians=angle_degree*(pi/180)
+        angleParRadians=math.radians(angle_degree)
+        #newX = x*cos(radians)-y*sin(radians)
+        newX=self.x*math.cos(angleParRadians)-self.y*math.sin(angleParRadians)
+        #newY = x*sin(radians)+y*cos(radians)
+        newY=self.x*math.sin(angleParRadians)-self.y*math.cos(angleParRadians)
+        return Vecteur(newX,newY)
+    
+
+
