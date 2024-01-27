@@ -1,4 +1,5 @@
 import math
+
 class Vecteur:
     """
         Un vecteur permet de modéliser le robot (et ses mouvements) et les différents obstacles de l'environnement
@@ -33,7 +34,7 @@ class Vecteur:
 
         return self.x*other.x+self.y*other.y
 
-    #Code a revoir, ne passe pas les tests
+    #Un petit soucis, lorsque le produit vect est 0 l'angle = 90 donc si tu as un vecteur (0,0) il doit retourner 90
     def calculerAngle(self,other):
         """
             Calculer l'angle en degree entre 2 differents vecteur
@@ -42,13 +43,18 @@ class Vecteur:
         prod_scalaire=self.produitScalaire(other)
         norme1=self.calcNorm()
         norme2=other.calcNorm()
+        if (self.produitScalaire(other)==0):
+            return 90
         #calculer Cos
-        cos_2vect=prod_scalaire/(norme1+norme2)
+        cos_2vect=max(min((prod_scalaire/(norme1*norme2)), 1), -1)#L'intervalle accepté pour Acos est [-1, 1], valeur de cosinus doit entre [-1,1]
         #calculer Acos(cos)
-        angleParRadians=math.acos(cos_2vect) # --> leve un valueError : math domain error
+
+        angleParRadians=math.acos(cos_2vect) 
         angleParDegree=math.degrees(angleParRadians)
-        return angleParDegree
-    
+        if (angleParDegree-int(angleParDegree)<=0.5):
+            return math.floor(angleParDegree)
+        else:
+            return math.ceil(angleParDegree)
 
     def rotationAngle(self, angledeg):
         """
