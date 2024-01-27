@@ -71,7 +71,7 @@ class TestClassVecteur(unittest.TestCase):
 
 		v = vect(1,0)
 		v.rotationAngle(45)
-		self.assertEqual((v.x, v.y), (v2.x, v2.y))
+		self.assertEqual((v.x, v.y), (0.7, 0.7))
 
 		v = vect(1,0)
 		v.rotationAngle(-90)
