@@ -63,15 +63,15 @@ class TestClassVecteur(unittest.TestCase):
 		
 		v = vect(1,0)
 		v.rotationAngle(90)
-		#self.assertEqual((v.x, v.y), (v1.x, v1.y))
+		self.assertEqual((v.x, v.y), (v1.x, v1.y))
 		
 		v = vect(1,0)
 		v.rotationAngle(180)
-		#self.assertEqual((v.x, v.y), (v6.x, v6.y))
+		self.assertEqual((v.x, v.y), (v4.x, v4.y))
 
 		v = vect(1,0)
 		v.rotationAngle(45)
-		#self.assertEqual((v.x, v.y), (v2.x, v2.y))
+		self.assertEqual((v.x, v.y), (v2.x, v2.y))
 
 		v = vect(1,0)
 		v.rotationAngle(-90)
