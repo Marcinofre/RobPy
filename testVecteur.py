@@ -55,11 +55,8 @@ class TestClassVecteur(unittest.TestCase):
 	def test_rotationAngle(self):
 		
 		v1 = vect(0,1)
-		v2 = vect(1,1)
 		v3 = vect(0,-1)
 		v4 = vect(-1,0)
-		v5 = vect(0,0)
-		v6 = vect(-1,-1)
 		
 		v = vect(1,0)
 		v.rotationAngle(90)
