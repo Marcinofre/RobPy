@@ -60,8 +60,11 @@ class Vecteur:
         """
             On tourne le vecteur d'un angle en degré donné en paramètre
         """
+        # Le module math utilise des radians pour calculer le cos et le sin on convertit donc les degrés
         anglerad = math.radians(angledeg)
+        # On met dans des variables temporaires les nouvelles valeurs de x et y
         newx = self.x*math.cos(anglerad) - self.y*math.sin(anglerad)
         newy = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
+        # On arrondis les valeurs à 1 chiffre après la virgule
         self.x = round(newx,1)
         self.y = round(newy,1)
