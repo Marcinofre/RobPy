@@ -42,13 +42,13 @@ class TestClassVecteur(unittest.TestCase):
 		v6 = vect(-1,-1)
 
 
-		#self.assertEqual(v.calculerAngle(v), 0)
-		#self.assertEqual(v.calculerAngle(v1), 90)
-		#self.assertEqual(v.calculerAngle(v2), 45)
-		#self.assertEqual(v.calculerAngle(v3), 90)
-		#self.assertEqual(v.calculerAngle(v4), 180)
-		#self.assertEqual(v.calculerAngle(v5), 90)
-		#self.assertEqual(v.calculerAngle(v6), 175)
+		self.assertEqual(v.calculerAngle(v), 0)
+		self.assertEqual(v.calculerAngle(v1), 90)
+		self.assertEqual(v.calculerAngle(v2), 45)
+		self.assertEqual(v.calculerAngle(v3), 90)
+		self.assertEqual(v.calculerAngle(v4), 180)
+		self.assertEqual(v.calculerAngle(v5), 90)
+		self.assertEqual(v.calculerAngle(v6), 135)
 		self.assertEqual(v2.calculerAngle(v6), 180)
 
 
