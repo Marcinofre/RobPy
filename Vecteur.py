@@ -1,4 +1,5 @@
 import math
+
 class Vecteur:
     """
         Un vecteur permet de modéliser le robot (et ses mouvements) et les différents obstacles de l'environnement
