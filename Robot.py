@@ -42,7 +42,7 @@ class Robot :
 		"""
 			Fais rouler le robot dans la direction du vecteur vitesse
 		"""
-		self.posCenter = (self.posCenter[0] + self.vectV[0], self.posCenter[1] + self.vectV[1])
+		self.posCenter = (self.posCenter[0]*self.vectV[0], self.posCenter[1]*self.vectV[1])
 
 	def avancerRobot(self):
 		"""
