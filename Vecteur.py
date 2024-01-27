@@ -51,8 +51,10 @@ class Vecteur:
 
         angleParRadians=math.acos(cos_2vect) 
         angleParDegree=math.degrees(angleParRadians)
-        return int(angleParDegree)
-    
+        if (angleParDegree-int(angleParDegree)<=0.5):
+            return math.floor(angleParDegree)
+        else:
+            return math.ceil(angleParDegree)
 
     def rotationAngle(self, angle):
         """
