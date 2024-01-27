@@ -50,11 +50,12 @@ class Vecteur:
         return angleParDegree
     
 
-    def rotationAngle(self, angle):
+    def rotationAngle(self, angledeg):
         """
-            On tourne le vecteur d'un angle 
+            On tourne le vecteur d'un angle en degré donné en paramètre
         """
-        anglerad = math.radians(angle)
+        anglerad = math.radians(angledeg)
         newx = self.x*math.cos(anglerad) - self.y*math.sin(anglerad)
-        self.y = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
-        self.x = newx
+        newy = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
+        self.x = round(newx)
+        self.y = round(newy)
