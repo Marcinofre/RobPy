@@ -42,12 +42,15 @@ class Vecteur:
         prod_scalaire=self.produitScalaire(other)
         norme1=self.calcNorm()
         norme2=other.calcNorm()
+        if (norme1==0) or (norme2==0):
+            raise ValueError("Erreur de norme de vecteur (0,0)")
         #calculer Cos
-        cos_2vect=prod_scalaire/(norme1+norme2)
+        cos_2vect=max(min((prod_scalaire/(norme1*norme2)), 1), -1)#L'intervalle accepté pour Acos est [-1, 1], valeur de cosinus doit entre [-1,1]
         #calculer Acos(cos)
+
         angleParRadians=math.acos(cos_2vect) # --> leve un valueError : math domain error
         angleParDegree=math.degrees(angleParRadians)
-        return angleParDegree
+        return int(angleParDegree)
     
 
     def rotationAngle(self, angle):

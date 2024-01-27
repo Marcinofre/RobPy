@@ -40,10 +40,10 @@ class TestClassVecteur(unittest.TestCase):
 		v4 = vect(5.68, 7.687)
 		v6 = vect(-15.6, 4.81)
 
-		#self.assertEqual(v.calculerAngle(v1), 48)
-		#self.assertEqual(v.calculerAngle(v), 0.0)
-		self.assertEqual(v2.calculerAngle(v3), 90.0)
-		#self.assertEqual(v4.calculerAngle(v6), 109)
+		self.assertEqual(v.calculerAngle(v1), 48)
+		self.assertEqual(v.calculerAngle(v), 0.0)
+		#self.assertEqual(v2.calculerAngle(v3), 90.0)
+		self.assertEqual(v4.calculerAngle(v6), 109)
 
 	def test_rotationAngle(self):
 		v  = vect(10,0)
