@@ -63,5 +63,5 @@ class Vecteur:
         anglerad = math.radians(angledeg)
         newx = self.x*math.cos(anglerad) - self.y*math.sin(anglerad)
         newy = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
-        self.x = round(newx)
-        self.y = round(newy)
+        self.x = round(newx,1)
+        self.y = round(newy,1)
