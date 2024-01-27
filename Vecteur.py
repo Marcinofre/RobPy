@@ -43,8 +43,8 @@ class Vecteur:
         prod_scalaire=self.produitScalaire(other)
         norme1=self.calcNorm()
         norme2=other.calcNorm()
-        if (norme1==0) or (norme2==0):
-            raise ValueError("Erreur de norme de vecteur (0,0)")
+        if((self.x==0)and(self.y==0))or((other.x==0)and(other.y==0)):
+            return 90
         #calculer Cos
         cos_2vect=max(min((prod_scalaire/(norme1*norme2)), 1), -1)#L'intervalle accepté pour Acos est [-1, 1], valeur de cosinus doit entre [-1,1]
         #calculer Acos(cos)
