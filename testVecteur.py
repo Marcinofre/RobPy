@@ -48,7 +48,7 @@ class TestClassVecteur(unittest.TestCase):
 		self.assertEqual(v.calculerAngle(v3), 90)
 		self.assertEqual(v.calculerAngle(v4), 180)
 		self.assertEqual(v.calculerAngle(v5), 90)
-		self.assertEqual(v.calculerAngle(v6), 175)
+		self.assertEqual(v.calculerAngle(v6), 135)
 		self.assertEqual(v2.calculerAngle(v6), 180)
 
 
