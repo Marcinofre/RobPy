@@ -55,13 +55,13 @@ class Robot :
 		"""
 			Met à jour la position du robot en le faisant avancer vers l'arrière en fonction du vecteur vitesse et direction
 		"""
-		self.posCenter=(self.posCenter[0]+(self.vectD*(-Vecteur.calcNorm(self.vectV.x))) , self.posCenter[1]+(self.vectD*(Vecteur.calcNorm(self.vectV.y))))
+		self.posCenter=(self.posCenter[0]+(self.vectD*(-Vecteur.calcNorm(self.vectV.x))) , self.posCenter[1]+(self.vectD*(-Vecteur.calcNorm(self.vectV.y))))
     
 	def tournerRobot(self,deg):
 		"""
 			Modifie la direction du vecteur direction en fonction de la valeur en degrés de paramètre deg 
 		"""
-		self.vectD.rotationAngle(self,deg)
+		self.vectD.rotationAngle(deg)
 
  
  
