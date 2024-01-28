@@ -129,9 +129,7 @@ class Robot :
 		"""
 		self.vectD.rotationAngle(deg)
 
-	def test(self):
 
-		self.vectD.calcNorm()
  
  
 
