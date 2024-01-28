@@ -45,7 +45,33 @@ class Robot(unittest.TestCase) :
 		
 		self.assertEqual(robot.posCenter, (startx,starty))
 	
-	
+	def test_tournerRobot(self):
+		
+		robot = r(0,0,0,0)
+		
+		robot.vectD = vec(0,0)
+		robot.tournerRobot(15)
+		x = robot.vectD.x
+		y = robot.vectD.y
+		self.assertEqual((x,y), (0,0))
+
+		robot.vectD = vec(1,1)
+		robot.tournerRobot(180)
+		x = robot.vectD.x
+		y = robot.vectD.y
+		self.assertEqual((x,y), (-1,-1))
+
+		robot.vectD = vec(0.1,0.1)
+		robot.tournerRobot(90)
+		x = robot.vectD.x
+		y = robot.vectD.y
+		self.assertEqual((x,y), (-0.1,0.1))
+
+		robot.vectD = vec(0.1,0.1)
+		robot.tournerRobot(-90)
+		x = robot.vectD.x
+		y = robot.vectD.y
+		self.assertEqual((x,y), (0.1,-0.1))
 		
 
 
