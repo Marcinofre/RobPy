@@ -29,6 +29,11 @@ class Robot :
 		self._motorRight = Moteur("droit")
 		self._motorLeft = Moteur("gauche")
 
+	dicoMouv = {
+					'avancer' : avancerRobot(),
+					'reculer' : reculerRobot(),
+					'tourner' : tournerRobot(),
+				}
 		
 	def allPos(self) :
 		"""
@@ -65,11 +70,17 @@ class Robot :
 		parameter = instruction[index+1:]
 		
 		return (command, parameter)
-
-
 	
-	
-	
+	def executeInstruction(self, tup_comm_param):
+		"""
+			Exécute une commande en fonction de l'instruction du premier élement du tuple et de la liste de parametre
+			arg tup_comm_param --> tuple (<instruction>, list[param])
+		"""
+		
+		comm, listparam = tup_comm_param
+		try:
+			Robot.dicoMouv['']
+		
 	def runRobot(self) :
 		"""
 			Fais rouler le robot dans la direction du vecteur vitesse
