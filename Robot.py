@@ -14,7 +14,7 @@ class Robot :
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction par défaut (0, 0)
         
-		self.vectV = Vecteur(0, 0)  # Vecteur vitesse par défaut (0, 0)
+		self.vectV = 1.0  # Scalaire de la vitesse par défaut 1.0
 	
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
