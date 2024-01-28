@@ -7,10 +7,11 @@ class Robot(unittest.TestCase) :
 	def test_avancerRobot(self):
 		robot = r(0,0,0,0)
 		robot.vectD = vec(0.1, 0)
-		robot.scalVitesse= 1.0
+		robot.scalVitesse= 2.0
 		
 		print()
-		robot.avancerRobot()
+		for time in range(11):
+			robot.avancerRobot()
 		print(robot.posCenter)
 		
 
