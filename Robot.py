@@ -55,7 +55,8 @@ class Robot :
 	def parsingInstruction(self, instruction):
 		"""
 			Récupère l'instruction d'un fichier (une ligne) et parse les éléments de cette commande pour récupérer les paramètres et l'instruction			arg instrcution --> chaine de caractère contenant la commande à parser
-			format de texte : <instruction>: <param1> <param2> etc...\\n
+			format de texte : <instruction>: <param1> <param2> etc...
+			retourne un tuple (<instruction>, list[parametre])
 		"""
 		instruction = instruction.lower()
 		sep = ":"
