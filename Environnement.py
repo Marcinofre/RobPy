@@ -1,4 +1,5 @@
 from Obstacle import Obstacle
+from Robot import Robot
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
@@ -62,12 +63,47 @@ class Environnement :
 		else :
 			self.onGoing = False
 
-	def runAgent(self, agent, fileInstruction) :
+	
+	def activateAgent(self, agent : Robot):
+		agent.isActivate = True
+	
+	def runAgent(self, agent :Robot, fileInstruction) :
 		"""
 			Mets en action le robot
 		"""
-		agent.activate
-		genFileInstruction = agent.readInstruction(fileInstruction)
+		if agent.isActivate:
+			try :
+				genFileInstruction = agent.readInstruction(fileInstruction)
+			except:
+				return
+			
+			var = True
+			while var:
+				try :
+					line = next(genFileInstruction)
+					#print(line)
+				except:
+					var = False
+				
+				try :
+					
+					comm_arg = agent.parsingInstruction(line)
+					#print(comm_arg[1])
+				except:
+					
+					continue
+				
+				try :
+					duree = comm_arg[1]["duree"]
+				except:
+					duree = 1
+				for i in range(int(duree)):
+					next(self.clockCount())
+					agent.executeInstruction(comm_arg)
+					print(agent.posCenter)
+
+		else:
+			print("Agent non activé. Veuillez activer l'agent")
 
 
 
