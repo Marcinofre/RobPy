@@ -1,5 +1,6 @@
 from Vecteur import Vecteur
 from Moteur import Moteur
+import os
 import math
 
 class Robot :
@@ -39,6 +40,17 @@ class Robot :
 		#print(f"position Coté gauche : {self.posLeftSide}")
 		#print(f"position Coté droit : {self.posRightSide}")
 
+	def readInstruction(self, instructionFile):
+		"""
+			Lis les instructions d'un fichier script
+			arg instrcutionFile --> fichier txt contenant une suite d'instruction pour le robot
+			format de texte : <instruction>: <param1> <param2> etc...\\n
+		"""
+
+
+	
+	
+	
 	def runRobot(self) :
 		"""
 			Fais rouler le robot dans la direction du vecteur vitesse
