@@ -50,8 +50,9 @@ class Robot :
 			raise Exception("File not found. Or file doesn't exist")
 		else :
 			with open(instructionFile,"r") as file:
-				
-
+				for line in file:
+					yield line
+	
 
 
 	
