@@ -29,11 +29,6 @@ class Robot :
 		self._motorRight = Moteur("droit")
 		self._motorLeft = Moteur("gauche")
 
-	dicoMouv = {
-					'avancer' : avancerRobot(),
-					'reculer' : reculerRobot(),
-					'tourner' : tournerRobot(),
-				}
 		
 	def allPos(self) :
 		"""
@@ -67,19 +62,37 @@ class Robot :
 		sep = ":"
 		index = instruction.find(sep)
 		command = instruction[0:index]
-		parameter = instruction[index+1:]
-		
-		return (command, parameter)
+		parameter = instruction[index+1:].split(" ")
+		dicoArg = dict()
+		for arg in parameter:
+			try:
+				number = int(arg[1:])
+			except:
+				raise ValueError(f"{arg[1:]} is not a number")
+			
+			if arg[0] == 'd':
+				if number <= 0:
+					number = 1
+				dicoArg['duree'] = number
+			if arg[0] == 'r':
+				dicoArg['angle'] = number
+			if arg[0] == 'v':
+				dicoArg['vitesse'] = number
+
+		return (command, dicoArg)
 	
-	def executeInstruction(self, tup_comm_param):
+	def executeInstruction(self, instruction):
 		"""
 			Exécute une commande en fonction de l'instruction du premier élement du tuple et de la liste de parametre
-			arg tup_comm_param --> tuple (<instruction>, list[param])
+			arg tup_comm_param --> tuple (<instruction>, dico[param])
 		"""
-		
-		comm, listparam = tup_comm_param
-		try:
-			Robot.dicoMouv['']
+
+		commande, dicoparam = Robot.parsingInstruction(instruction)
+		if commande == 'avancer'
+		self.fonction()
+
+
+			
 		
 	def runRobot(self) :
 		"""
