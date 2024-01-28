@@ -111,13 +111,13 @@ class Robot :
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		self.posCenter = (self.posCenter[0] + (self.vectD * self.scalVitesse) , self.posCenter[1]+ (self.vectD * self.scalVitesse ))
+		self.posCenter = (self.posCenter[0] + (self.vectD.x * self.scalVitesse) , self.posCenter[1]+ (self.vectD.y * self.scalVitesse ))
     
 	def reculerRobot(self):
 		"""
 			Met à jour la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
 		"""
-		self.posCenter = (self.posCenter[0] + (self.vectD * (- self.scalVitesse)) , self.posCenter[1] + (self.vectD * (- self.scalVitesse)))
+		self.posCenter = (self.posCenter[0] + (self.vectD.x * (- self.scalVitesse)) , self.posCenter[1] + (self.vectD.y * (- self.scalVitesse)))
     
 	def tournerRobot(self,deg):
 		"""

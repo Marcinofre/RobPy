@@ -7,7 +7,7 @@ class Robot(unittest.TestCase) :
 	def test_avancerRobot(self):
 		robot = r(0,0,0,0)
 		robot.vectD = vec(0.1, 0)
-		robot.Vitesse= vec(1,2)
+		robot.scalVitesse= 1.0
 		
 		print()
 		robot.avancerRobot()
