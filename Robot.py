@@ -44,7 +44,6 @@ class Robot :
 		"""
 			Lis les instructions d'un fichier script
 			arg instrcutionFile --> fichier .txt contenant une suite d'instruction pour le robot
-			format de texte : <instruction>: <param1> <param2> etc...\\n
 		"""
 		if not os.path.exists(instructionFile):
 			raise Exception("File not found. Or file doesn't exist")
@@ -52,7 +51,12 @@ class Robot :
 			with open(instructionFile,"r") as file:
 				for line in file:
 					yield line
-	
+
+	def parsingInstruction(self, instruction):
+		"""
+			Récupère l'instruction d'un fichier et le parse les éléments de cette commande pour récupérer les paramètres et l'instruction			arg instrcution --> chaine de caractère contenant la commande à parser
+			format de texte : <instruction>: <param1> <param2> etc...\\n
+		"""
 
 
 	
