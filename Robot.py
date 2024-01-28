@@ -10,6 +10,8 @@ class Robot :
 	def __init__(self, width, length, x:float=0, y:float=0) -> None:
 		
 		self._dim = (width, length)
+
+		self.isActivate = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
         
@@ -53,7 +55,7 @@ class Robot :
 		dicoArg = dict()
 		for arg in parameter:
 			try:
-				number = int(arg[1:])
+				number = float(arg[1:])
 			except:
 				raise ValueError(f"{arg[1:]} is not a number")
 			
@@ -75,16 +77,17 @@ class Robot :
 		"""
 
 		commande, dicoparam = dicInstruction
-		self.scalVitesse = dicoparam['vitesse']
+		try :
+			self.scalVitesse = dicoparam['vitesse']
+		except:
+			pass
+	
 		if commande == 'avancer':
-			for time in range(dicoparam['duree']):
-				self.avancerRobot()
+			self.avancerRobot()
 		if commande == 'reculer':
-			for time in range(dicoparam['duree']):
-				self.reculerRobot()
+			self.reculerRobot()
 		if commande == 'tourner':
-			for time in range(dicoparam['duree']):
-				self.tournerRobot(dicoparam['angle'])
+			self.tournerRobot(dicoparam['angle'])
 		
 
 	def avancerRobot(self):
