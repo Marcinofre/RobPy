@@ -62,6 +62,15 @@ class Environnement :
 		else :
 			self.onGoing = False
 
+	def runAgent(self, agent, fileInstruction) :
+		"""
+			Mets en action le robot
+		"""
+		agent.activate
+		genFileInstruction = agent.readInstruction(fileInstruction)
+
+
+
 	def addObstacle(self, obs) :
 		"""
 			Prend en argument obs soit une List soit un objet de la classe Obstacle :
