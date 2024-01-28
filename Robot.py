@@ -12,9 +12,9 @@ class Robot :
 		
 		self._dim = (width, length)
 		
-		self.vectD = Vecteur(0, 0)  # Vecteur direction par défaut (0, 0)
+		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
         
-		self.vectV = 1.0  # Scalaire de la vitesse par défaut 1.0
+		self.Vitesse = 1.0  # Scalaire de la vitesse, par défaut 1.0
 	
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
@@ -113,15 +113,15 @@ class Robot :
 
 	def avancerRobot(self):
 		"""
-			Met à jour la position du robot en le faisant avancer vers l'avant en fonction du vecteur vitesse et direction
+			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		self.posCenter=(self.posCenter[0]+(self.vectD*(Vecteur.calcNorm(self.vectV.x))) , self.posCenter[1]+(self.vectD*(Vecteur.calcNorm(self.vectV.y))))
+		self.posCenter=(self.posCenter[0] + (self.vectD * self.Vitesse ) , self.posCenter[1]+ (self.vectD * self.Vitesse ))
     
 	def reculerRobot(self):
 		"""
-			Met à jour la position du robot en le faisant avancer vers l'arrière en fonction du vecteur vitesse et direction
+			Met à jour la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
 		"""
-		self.posCenter=(self.posCenter[0]+(self.vectD*(-Vecteur.calcNorm(self.vectV.x))) , self.posCenter[1]+(self.vectD*(-Vecteur.calcNorm(self.vectV.y))))
+		self.posCenter=(self.posCenter[0] + (self.vectD * (- self.Vitesse)) , self.posCenter[1] + (self.vectD * (- self.Vitesse)))
     
 	def tournerRobot(self,deg):
 		"""
@@ -129,6 +129,9 @@ class Robot :
 		"""
 		self.vectD.rotationAngle(deg)
 
+	def test(self):
+
+		self.vectD.calcNorm()
  
  
 
