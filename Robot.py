@@ -81,15 +81,26 @@ class Robot :
 
 		return (command, dicoArg)
 	
-	def executeInstruction(self, instruction):
+	def executeInstruction(self, dicInstruction):
 		"""
 			Exécute une commande en fonction de l'instruction du premier élement du tuple et de la liste de parametre
-			arg tup_comm_param --> tuple (<instruction>, dico[param])
+			arg instruction --> tuple (<instruction>, dico[param])
 		"""
 
-		commande, dicoparam = Robot.parsingInstruction(instruction)
-		if commande == 'avancer'
-		self.fonction()
+		commande, dicoparam = dicInstruction
+		self.scalVitesse = dicoparam['vitesse']
+		if commande == 'avancer':
+			for time in range(dicoparam['duree']):
+				self.avancerRobot()
+		if commande == 'reculer':
+			for time in range(dicoparam['duree']):
+				self.reculerRobot()
+		if commande == 'tourner':
+			for time in range(dicoparam['duree']):
+				self.tournerRobot(dicoparam['angle'])
+			
+
+			
 
 
 			
