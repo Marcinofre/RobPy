@@ -1,5 +1,6 @@
 from Robot import Robot as r
 from Vecteur import Vecteur as vec
+import random as rand
 import unittest
 
 class Robot(unittest.TestCase) :
@@ -27,6 +28,27 @@ class Robot(unittest.TestCase) :
 		for time in range(5):
 			robot.avancerRobot()
 		self.assertEqual(robot.posCenter, (7.5, -300.0))
+
+	def test_reculerRobot(self):
+		robot = r(0,0,0,0)
+		
+		startx = rand.randint(0,160)
+		starty = rand.randint(0,160)
+		robot.posCenter = (startx,starty)
+		robot.scalVitesse = rand.randint(0,10)
+		robot.vectD = vec(rand.random(),rand.random())
+		it = rand.randint(0,142)
+		for count in range(it):
+			robot.reculerRobot()
+		for count in range(it):
+			robot.avancerRobot()
+		
+		self.assertEqual(robot.posCenter, (startx,starty))
+	
+	
+		
+
+
 
 		
 
