@@ -43,9 +43,15 @@ class Robot :
 	def readInstruction(self, instructionFile):
 		"""
 			Lis les instructions d'un fichier script
-			arg instrcutionFile --> fichier txt contenant une suite d'instruction pour le robot
+			arg instrcutionFile --> fichier .txt contenant une suite d'instruction pour le robot
 			format de texte : <instruction>: <param1> <param2> etc...\\n
 		"""
+		if not os.path.exists(instructionFile):
+			raise Exception("File not found. Or file doesn't exist")
+		else :
+			with open(instructionFile,"r") as file:
+				
+
 
 
 	
