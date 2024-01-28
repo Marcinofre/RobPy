@@ -85,14 +85,6 @@ class Robot :
 		if commande == 'tourner':
 			for time in range(dicoparam['duree']):
 				self.tournerRobot(dicoparam['angle'])
-			
-
-	
-	def runRobot(self) :
-		"""
-			Mets en action le robot
-		"""
-
 		
 
 	def avancerRobot(self):
