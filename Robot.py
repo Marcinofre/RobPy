@@ -1,5 +1,4 @@
 from Vecteur import Vecteur
-from Moteur import Moteur
 import os
 import math
 
@@ -19,15 +18,7 @@ class Robot :
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
 		
-		#Position globale du robot (devant, derriere, droit et gauche)
-		self.posFront = (x, y + length/2)
-		self.posRear = (x, y - length/2)
-		self.posLeftSide = (x - (width/2), y)
-		self.posRightSide = (x + (width/2), y)
 
-		#Ajout des Moteurs au robot (droite et gauche)
-		self._motorRight = Moteur("droit")
-		self._motorLeft = Moteur("gauche")
 
 		
 	def allPos(self) :
@@ -35,10 +26,6 @@ class Robot :
 			Print l'ensemble des positions disponible du robot
 		"""
 		print(f"Position du robot : {self.posCenter}")
-		#print(f"position Avant : {self.posFront}")
-		#print(f"position Arrière : {self.posRear}")
-		#print(f"position Coté gauche : {self.posLeftSide}")
-		#print(f"position Coté droit : {self.posRightSide}")
 
 	def readInstruction(self, instructionFile):
 		"""
@@ -105,6 +92,7 @@ class Robot :
 		"""
 			Mets en action le robot
 		"""
+
 		
 
 	def avancerRobot(self):
