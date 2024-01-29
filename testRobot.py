@@ -72,6 +72,25 @@ class Robot(unittest.TestCase) :
 		x = robot.vectD.x
 		y = robot.vectD.y
 		self.assertEqual((x,y), (0.1,-0.1))
+
+	def test_readInstruction(self):
+		robot = r(0,0,0,0)
+
+		#Doit pouvoir lever une exeption si le fichier est introuvable ou inexistant
+		genText = robot.readInstruction("fichier qui n'existe pas")
+		self.assertRaises(next(genText))
+
+		#Doit rendre un string
+		genText = robot.readInstruction("CompteRendu/cr1.md")
+		self.assertIsInstance(next(genText), str)
+
+	def test_parsingInstruction(self):
+		robot = r(0,0,0,0)
+
+		robot.parsingInstruction("instruction pas typé")
+		self.assert
+
+	
 		
 
 
