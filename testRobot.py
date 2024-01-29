@@ -77,8 +77,10 @@ class Robot(unittest.TestCase) :
 		robot = r(0,0,0,0)
 
 		#Doit pouvoir lever une exeption si le fichier est introuvable ou inexistant
-		genText = robot.readInstruction("fichier qui n'existe pas")
-		self.assertRaises(next(genText))
+		with self.assertRaises(Exception):
+			genText = robot.readInstruction("fichier qui n'existe pas")
+			next(genText)
+		
 
 		#Doit rendre un string
 		genText = robot.readInstruction("CompteRendu/cr1.md")
@@ -87,8 +89,17 @@ class Robot(unittest.TestCase) :
 	def test_parsingInstruction(self):
 		robot = r(0,0,0,0)
 
-		robot.parsingInstruction("instruction pas typé")
-		self.assert
+		with self.assertRaises(ValueError):
+			robot.parsingInstruction("instruction: sans nombre")
+			robot.parsingInstruction("malformaté: d 5 v 2")
+			robot.parsingInstruction("reculer: ")
+			robot.parsingInstruction("AvANcer:5 2")
+
+		
+		self.assertTupleEqual(robot.parsingInstruction("AvANcer:d5 v2"), ("avancer", {"duree":5, "vitesse":2}))
+		self.assertTupleEqual(robot.parsingInstruction("RECULER:g5 l2"), ("reculer", {}))
+
+
 
 	
 		
