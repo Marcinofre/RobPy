@@ -24,7 +24,7 @@ class Vecteur:
         """
             Calculer le produit vectoriel de deux vecteur 
         """
-        return self.x*other.y-self.y*self.x 
+        return self.x*other.y-self.y*other.x 
     
 
     def produitScalaire(self, other):
