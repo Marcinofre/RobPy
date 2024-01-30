@@ -1,4 +1,7 @@
 class Moteur :
+	"""
+		Modélisation d'un moteur du robot de Sorbonne Université
+	"""
 	def __init__(self, name, state = "inactive") -> None:
 		"""
 			Constructeur d'un moteur
