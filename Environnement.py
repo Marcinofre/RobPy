@@ -65,13 +65,13 @@ class Environnement :
 
 	
 	def activateAgent(self, agent : Robot):
-		agent.isActivate = True
+		agent.isActive = True
 	
 	def runAgent(self, agent :Robot, fileInstruction) :
 		"""
 			Mets en action le robot
 		"""
-		if agent.isActivate:
+		if agent.isActive:
 			try :
 				genFileInstruction = agent.readInstruction(fileInstruction)
 			except:
@@ -123,7 +123,7 @@ class Environnement :
 		else :
 			print("L'élément n'est pas un obstacle")
 
-	def doesCollide(self, obs, rob):
+	def doesCollide(self, agent : Robot):
 		"""
 			Prend en argument un obstacle et un robot.
         	Détermine si rob est en collision avec obs, renvoie True ou False. 

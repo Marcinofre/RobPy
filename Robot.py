@@ -17,7 +17,7 @@ class Robot :
 
 			Attribut d'instance env. :
 			dim				-> Dimension du robot défini par sa largeur et sa longueur
-			isActivate		-> Booléen qui définit si le robot est allumé ou non
+			isActive		-> Booléen qui définit si le robot est allumé ou non
 			scalVitesse		-> Scalaire définissant la vitesse du robot
 			vectD 	        -> Vecteur direction du mouvement du robot
 			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
@@ -25,7 +25,7 @@ class Robot :
 		
 		self._dim = (width, length)
 
-		self.isActivate = False
+		self.isActive = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
         
