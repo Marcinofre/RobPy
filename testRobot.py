@@ -101,10 +101,20 @@ class Robot(unittest.TestCase) :
 
 	def test_executeInstruction(self):
 		robot = r(0,0,0,0)
+		robot.vectD = vec(1,1)
 
 		with self.assertRaises(Exception):
 			robot.executeInstruction(("tourner", {}))
 		
+		robot.executeInstruction(("avancer", {"durée": 1, "vitesse": 0}))
+		self.assertEqual(robot.scalVitesse, 0)
+		self.assertTupleEqual(robot.posCenter, (0,0))
+
+		robot.executeInstruction(("tourner", {"durée": 2, "angle": 180,  "vitesse": 5}))
+		robot.executeInstruction(("tourner", {"durée": 2, "angle": 180,  "vitesse": 4.5}))
+		self.assertEqual(robot.scalVitesse, 4.5)
+		self.assertTupleEqual((robot.vectD.x,robot.vectD.y ), (1,1))
+
 
 
 
