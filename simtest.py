@@ -9,7 +9,7 @@ r.vectD = vect(1,1)
 #Activation de l'agent
 e.runEnv()
 e.activateAgent(r)
-e.runAgent(r,"scriptRobot.txt")
+e.runAgent(r,"scriptCarre.txt")
 print(e.currentClock)
 print(r.posCenter)
 

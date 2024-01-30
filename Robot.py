@@ -8,10 +8,24 @@ class Robot :
 	"""
 
 	def __init__(self, width, length, x:float=0, y:float=0) -> None:
+		"""
+			Constructeur de la classe Robot :
+			arg width : Largeur du robot
+			arg length : Longueur du robot
+
+			---
+
+			Attribut d'instance env. :
+			dim				-> Dimension du robot défini par sa largeur et sa longueur
+			isActive		-> Booléen qui définit si le robot est allumé ou non
+			scalVitesse		-> Scalaire définissant la vitesse du robot
+			vectD 	        -> Vecteur direction du mouvement du robot
+			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
+		"""
 		
 		self._dim = (width, length)
 
-		self.isActivate = False
+		self.isActive = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
         
