@@ -130,3 +130,4 @@ class Environnement :
 			Fait un produit de produit vectoriel de la forme (AB ^ AC)(AB ^ AD) ET (CD ^ CA)(CD ^CB)
         """
 		pass
+		# Pré-requis manquant : Fonction de création de vecteur à partir des coordonnées de deux points
