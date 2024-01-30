@@ -72,10 +72,8 @@ class Environnement :
 			Mets en action le robot
 		"""
 		if agent.isActivate:
-			try :
-				genFileInstruction = agent.readInstruction(fileInstruction)
-			except:
-				return
+
+			genFileInstruction = agent.readInstruction(fileInstruction)
 			
 			var = True
 			while var:
@@ -104,6 +102,7 @@ class Environnement :
 
 		else:
 			print("Agent non activé. Veuillez activer l'agent")
+			raise Exception("Agent not activated. Programme Stop")
 
 
 
