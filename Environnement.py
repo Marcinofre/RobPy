@@ -71,22 +71,22 @@ class Environnement :
 		"""
 			Mets en action le robot
 		"""
-		if agent.isActivate:
+		if agent.isActive:
 
 			genFileInstruction = agent.readInstruction(fileInstruction)
 
-			var = True
-			while var:
+
+			while True:
 				try :
 					line = next(genFileInstruction)
 					#print(line)
 				except:
-					var = False
+					break
 				
 				try :
 					
 					comm_arg = agent.parsingInstruction(line)
-					#print(comm_arg[1])
+					print(comm_arg[0])
 				except:
 					
 					continue

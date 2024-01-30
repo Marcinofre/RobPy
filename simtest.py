@@ -10,6 +10,5 @@ r.vectD = vect(1,1)
 e.runEnv()
 e.activateAgent(r)
 e.runAgent(r,"scriptCarre.txt")
-print(e.currentClock)
-print(r.posCenter)
+
 
