@@ -87,7 +87,10 @@ class Robot :
 		if commande == 'reculer':
 			self.reculerRobot()
 		if commande == 'tourner':
-			self.tournerRobot(dicoparam['angle'])
+			try :
+				self.tournerRobot(dicoparam['angle'])
+			except :
+				raise Exception("No value 'Angle'")
 		
 
 	def avancerRobot(self):
