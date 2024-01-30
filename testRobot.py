@@ -102,7 +102,9 @@ class Robot(unittest.TestCase) :
 	def test_executeInstruction(self):
 		robot = r(0,0,0,0)
 
-		with self.assertRaises():
+		with self.assertRaises(Exception):
+			robot.executeInstruction(("tourner", {}))
+		
 
 
 
