@@ -25,7 +25,7 @@ class TestClassVecteur(unittest.TestCase):
 		v1 = vect(15, -1)
 		v2 = vect(-5, 90)
 		v3 = vect(0,0)
-		self.assertEqual(v.produitVectoriel(v1), 0)
+		self.assertEqual(v.produitVectoriel(v1), -64)
 		self.assertEqual(v2.produitVectoriel(v3), 0)
 
 	def test_produitScalaire(self):
