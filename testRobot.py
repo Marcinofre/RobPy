@@ -113,19 +113,8 @@ class Robot(unittest.TestCase) :
 		robot.executeInstruction(("tourner", {"durée": 2, "angle": 180,  "vitesse": 5}))
 		robot.executeInstruction(("tourner", {"durée": 2, "angle": 180,  "vitesse": 4.5}))
 		self.assertEqual(robot.scalVitesse, 4.5)
-		self.assertTupleEqual((robot.vectD.x,robot.vectD.y ), (1,1))
-
-
-
-
+		self.assertTupleEqual((robot.vectD.x,robot.vectD.y), (1,1))
 
 	
-		
-
-
-
-		
-
-
 if __name__ == "__main__":
 	unittest.main() 
