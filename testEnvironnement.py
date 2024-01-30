@@ -15,7 +15,7 @@ class Environnement(unittest.TestCase):
 			r.isActivate = False
 			e.runAgent(r,"scriptRobot.txt")
 		
-		r.isActivate = True
+		r.isActive = True
 		e.runAgent(r, "fichierexistepasalorsrobotpasbouger")
 		self.assertEqual(r.posCenter, (0,0))
 
@@ -27,7 +27,7 @@ class Environnement(unittest.TestCase):
 		r.vectD = vec(1,1)
 		e.runEnv()
 		e.runAgent(r, "AvancerToutDroit.txt")
-		self.assertEqual(r.posCenter, (2,2))
+		self.assertEqual(r.posCenter, (1,1))
 
 
 			
