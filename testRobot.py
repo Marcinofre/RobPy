@@ -99,6 +99,11 @@ class Robot(unittest.TestCase) :
 		self.assertTupleEqual(robot.parsingInstruction("AvANcer:d5 v2"), ("avancer", {"duree":5, "vitesse":2}))
 		self.assertTupleEqual(robot.parsingInstruction("RECULER:g5 l2"), ("reculer", {}))
 
+	def test_executeInstruction():
+		robot = r(0,0,0,0)
+
+		with self.assertRaises()
+
 
 
 	
