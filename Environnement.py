@@ -71,12 +71,10 @@ class Environnement :
 		"""
 			Mets en action le robot
 		"""
-		if agent.isActive:
-			try :
-				genFileInstruction = agent.readInstruction(fileInstruction)
-			except:
-				return
-			
+		if agent.isActivate:
+
+			genFileInstruction = agent.readInstruction(fileInstruction)
+
 			var = True
 			while var:
 				try :
@@ -94,16 +92,18 @@ class Environnement :
 					continue
 				
 				try :
-					duree = comm_arg[1]["duree"]
+					duree = int(comm_arg[1]["duree"])
 				except:
 					duree = 1
-				for i in range(int(duree)):
-					next(self.clockCount())
+				while duree:
+					print(next(self.clockCount()))
 					agent.executeInstruction(comm_arg)
 					print(agent.posCenter)
+					duree -= 1
 
 		else:
 			print("Agent non activé. Veuillez activer l'agent")
+			raise Exception("Agent not activated. Programme Stop")
 
 
 
