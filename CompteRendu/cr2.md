@@ -25,5 +25,6 @@
 		- avoir une interface graphique fonctionnnelle
 		- refactoriser le code (github)
 		- avoir une physique basique 
+		- Ah et maintenant, dans le trello, l'heure totale doit-être donné.
 		- vous avez une semaine, bon courage !
 
