@@ -23,7 +23,9 @@ class Interface:
         canvas = tkinter.Canvas(fenetre, width, height, bg = 'white')
         canvas.pack()
         canvas.create_rectangle(0, 0, agent.width, agent.length)
-        fenetre.mainloop()
 
     def ajoutObstacle(self, obs):
         self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
+
+    def affiche(self):
+        self.fenetre.mainloop()
