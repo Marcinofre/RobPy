@@ -1,5 +1,5 @@
-from Robot import Robot as r
-from Vecteur import Vecteur as vec
+from Module.Agent.Robot import Robot as r
+from Module.Vecteur import Vecteur as vec
 import random as rand
 import unittest
 

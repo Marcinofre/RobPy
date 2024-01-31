@@ -1,7 +1,7 @@
 import unittest
-from Robot import Robot as rob
-from Environnement import Environnement as env
-from Vecteur import Vecteur as vec
+from Module.Agent.Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
+from Module.Vecteur import Vecteur as vec
 
 
 class Environnement(unittest.TestCase):

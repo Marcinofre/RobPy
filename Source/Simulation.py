@@ -1,5 +1,5 @@
-from Environnement import Environnement as env
-from Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
+from Module.Agent.Robot import Robot as rob
 
 rpy = rob(0,0,0,0)
 en = env(15,15, rpy)

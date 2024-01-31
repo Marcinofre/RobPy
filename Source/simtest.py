@@ -1,6 +1,6 @@
-from Environnement import Environnement as env
-from Robot import Robot as rob
-from Vecteur import Vecteur as vect
+from Module.Env.Environnement import Environnement as env
+from Module.Agent.Robot import Robot as rob
+from Module.Vecteur import Vecteur as vect
 
 r = rob(0,0,0,0)
 e = env(100,100, r)
