@@ -1,6 +1,6 @@
 import tkinter
-from Robot import Robot
-from Obstacle import Obstacle
+from Module.Agent.Robot import Robot
+from Module.Env.Obstacle import Obstacle
 
 class Interface:
     """
