@@ -28,6 +28,8 @@ class Interface:
         """
             Ajoute un obstacle dans l'interface graphique
         """
+        if self.canvas.find_overlapping(obs.x0, obs.y0, obs.x1, obs.y1):
+            raise Exception("Il y a déjà un objet à cet endroit là")
         self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
 
     def affiche(self):
