@@ -19,10 +19,10 @@ class Interface:
             fenetre    -> Fenetre de l'interface graphique
             canvas     -> Partie de la fenetre ou l'agent sera representé
         """
-        fenetre = tkinter.Tk()
-        canvas = tkinter.Canvas(fenetre, width, height, bg = 'white')
-        canvas.pack()
-        canvas.create_rectangle(0, 0, agent.width, agent.length)
+        self.fenetre = tkinter.Tk()
+        self.canvas = tkinter.Canvas(self.fenetre, width=width, height=height, bg = 'white')
+        self.canvas.pack()
+        self.canvas.create_rectangle(agent._dim[0]/2, agent._dim[1]/2, -agent._dim[0]/2, -agent._dim[1]/2)
 
     def ajoutObstacle(self, obs):
         """
