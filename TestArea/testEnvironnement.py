@@ -26,7 +26,7 @@ class Environnement(unittest.TestCase):
 		r.posCenter = (0,0)
 		r.vectD = vec(1,1)
 		e.runEnv()
-		e.runAgent(r, "AvancerToutDroit.txt")
+		e.runAgent(r, "Script/AvancerToutDroit.txt")
 		self.assertEqual(r.posCenter, (1,1))
 
 
