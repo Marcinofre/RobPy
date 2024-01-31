@@ -1,5 +1,6 @@
 import tkinter
 from Robot import Robot
+from Obstacle import Obstacle
 
 class Interface:
     """
@@ -23,3 +24,6 @@ class Interface:
         canvas.pack()
         canvas.create_rectangle(0, 0, agent.width, agent.length)
         fenetre.mainloop()
+
+    def ajoutObstacle(self, obs):
+        self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
