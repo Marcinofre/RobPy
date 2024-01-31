@@ -1,4 +1,4 @@
-from Vecteur import Vecteur
+from Module.Vecteur import Vecteur
 class Obstacle :
     """
         Un obstacle est une partie de l'environnement et est representé par un vecteur

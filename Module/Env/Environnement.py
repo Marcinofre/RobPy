@@ -1,5 +1,5 @@
-from Obstacle import Obstacle
-from Robot import Robot
+from Module.Env.Obstacle import Obstacle
+from Module.Agent.Robot import Robot
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)

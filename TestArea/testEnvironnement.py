@@ -1,7 +1,7 @@
 import unittest
-from Robot import Robot as rob
-from Environnement import Environnement as env
-from Vecteur import Vecteur as vec
+from Module.Agent.Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
+from Module.Vecteur import Vecteur as vec
 
 
 class Environnement(unittest.TestCase):
@@ -26,7 +26,7 @@ class Environnement(unittest.TestCase):
 		r.posCenter = (0,0)
 		r.vectD = vec(1,1)
 		e.runEnv()
-		e.runAgent(r, "AvancerToutDroit.txt")
+		e.runAgent(r, "Script/AvancerToutDroit.txt")
 		self.assertEqual(r.posCenter, (1,1))
 
 
