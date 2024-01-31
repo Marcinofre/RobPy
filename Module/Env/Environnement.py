@@ -1,4 +1,5 @@
-from Obstacle import Obstacle
+from Module.Env.Obstacle import Obstacle
+from Module.Agent.Robot import Robot
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
@@ -62,6 +63,50 @@ class Environnement :
 		else :
 			self.onGoing = False
 
+	
+	def activateAgent(self, agent : Robot):
+		agent.isActive = True
+	
+	def runAgent(self, agent :Robot, fileInstruction) :
+		"""
+			Mets en action le robot
+		"""
+		if agent.isActive:
+
+			genFileInstruction = agent.readInstruction(fileInstruction)
+
+
+			while True:
+				try :
+					line = next(genFileInstruction)
+					#print(line)
+				except:
+					break
+				
+				try :
+					
+					comm_arg = agent.parsingInstruction(line)
+					print(comm_arg[0])
+				except:
+					
+					continue
+				
+				try :
+					duree = int(comm_arg[1]["duree"])
+				except:
+					duree = 1
+				while duree:
+					print(next(self.clockCount()))
+					agent.executeInstruction(comm_arg)
+					print(agent.posCenter)
+					duree -= 1
+
+		else:
+			print("Agent non activé. Veuillez activer l'agent")
+			raise Exception("Agent not activated. Programme Stop")
+
+
+
 	def addObstacle(self, obs) :
 		"""
 			Prend en argument obs soit une List soit un objet de la classe Obstacle :
@@ -78,10 +123,11 @@ class Environnement :
 		else :
 			print("L'élément n'est pas un obstacle")
 
-	def doesCollide(self, obs, rob):
+	def doesCollide(self, agent : Robot):
 		"""
 			Prend en argument un obstacle et un robot.
         	Détermine si rob est en collision avec obs, renvoie True ou False. 
 			Fait un produit de produit vectoriel de la forme (AB ^ AC)(AB ^ AD) ET (CD ^ CA)(CD ^CB)
         """
 		pass
+		# Pré-requis manquant : Fonction de création de vecteur à partir des coordonnées de deux points

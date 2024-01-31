@@ -1,0 +1,16 @@
+Avancer:d1 v1
+Tourner:r-90
+Avancer:d1 v1
+Tourner:r-90
+Avancer:d1 v1
+Tourner:r-90
+Avancer:d1 v1
+Tourner:r-90
+Tourner:r90
+Reculer:d1 v1
+Tourner:r90
+Reculer:d1 v1
+Tourner:r90
+Reculer:d1 v1
+Tourner:r90
+Reculer:d1 v1
