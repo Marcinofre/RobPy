@@ -2,7 +2,7 @@ from Module.Env.Environnement import Environnement as env
 from Module.Vecteur import Vecteur as vect
 from Module.Agent.Robot import Robot
 from Module.Env.Obstacle import Obstacle
-from Interface import Interface
+from Module.Interface import Interface
 
 r = Robot(75,125)
 
