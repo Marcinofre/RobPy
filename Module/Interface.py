@@ -24,7 +24,7 @@ class Interface:
         self.canvas.pack()
         self.canvas.create_rectangle(agent._dim[0]/2, agent._dim[1]/2, -agent._dim[0]/2, -agent._dim[1]/2)
 
-    def ajoutObstacle(self, obs):
+    def ajoutObstacle(self, obs : Obstacle):
         """
             Ajoute un obstacle dans l'interface graphique
         """
