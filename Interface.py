@@ -6,6 +6,18 @@ class Interface:
         L'interface permet une représentation graphique des mouvements du robots dans l'environnements
     """
     def __init__(self,width,height, agent : Robot):
+        """
+            Constructeur de la classe Interface :
+            arg width  -> largeur de l'interface graphique
+            arg height -> hauteur de l'interface graphique
+            arg agent  -> Le robot qui se déplace dans l'interface graphique
+
+            ---
+
+            Attributs d'instance :
+            fenetre    -> Fenetre de l'interface graphique
+            canvas     -> Partie de la fenetre ou l'agent sera representé
+        """
         fenetre = tkinter.Tk()
         canvas = tkinter.Canvas(fenetre, width, height, bg = 'white')
         canvas.pack()
