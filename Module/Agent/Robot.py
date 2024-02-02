@@ -42,6 +42,7 @@ class Robot :
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
 
+		pi = math.pi
 
 	def VitesseAngulaire(self) :
 		"""
