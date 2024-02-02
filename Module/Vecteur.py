@@ -68,3 +68,9 @@ class Vecteur:
         # On arrondit les valeurs à 1 chiffre après la virgule
         self.x = round(newx,1)
         self.y = round(newy,1)
+    
+    def creerVecteur(self, x0, y0, x1, y1) :
+        """
+            Prend les coordonnés des points A et B et retournent le vecteur AB
+        """
+        return Vecteur(x1-x0,y1-y0)  
