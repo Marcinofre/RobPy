@@ -15,12 +15,21 @@ class Moteur :
 		self._name = name
 		self.state = state
 		self.Vitesse = 1.0
+		
 
 	def add_accelere(self,acceleration) :
 		"""
-			Augmente la vitesse du moteur
+			Augmente la vitesse du moteur en addition
 		"""
 		self.Vitesse = self.Vitesse + acceleration
+
+
+	def mult_accelere(self,acceleration) :
+		"""
+			Augmente la vitesse du moteur en multiplication
+		"""
+		self.Vitesse = self.Vitesse * acceleration
+
 
 
 	def avance(self) :
