@@ -49,13 +49,13 @@ class Robot :
 		if self.MoteurD.Vitesse != self.MoteurG.Vitesse :
 		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.
 			
-			# Cas 1 : Le moteur droit est le plus rapide 
+			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
 				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
 				angle = diff / self.rayon
 				self.Vecteur.vectD.rotationAngle(-angle)
 
-			# Cas 2 : Le moteur gauche est le plus rapide 
+			# Cas 2 : Le moteur gauche est le plus rapide, on touren à droite
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
 				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
 				angle = diff / self.rayon
