@@ -36,6 +36,7 @@ class Interface:
         y1 = y0 + rect_height
         self.canvas.create_rectangle(x0, y0, x1, y1)
         self.canvas.create_line(agent.posCenter[0], agent.posCenter[1], agent.posCenter[0]+agent.vectD.x, agent.posCenter[1]+agent.vectD.y)
+        self.fenetre.mainloop()
 
     def ajoutObstacle(self, obs : Obstacle):
         """
@@ -45,8 +46,9 @@ class Interface:
             raise Exception("Il y a déjà un objet à cet endroit là")
         self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
 
-    def affiche(self):
+    def update(self):
         """
             Affiche la fenetre de l'interface graphique
         """
-        self.fenetre.mainloop()
+        self.fenetre.update()
+        self.fenetre.update_idletasks()
