@@ -69,7 +69,9 @@ class Vecteur:
         self.x = round(newx,1)
         self.y = round(newy,1)
     
-    def creerVecteur(self, x0, y0, x1, y1) :
+
+    @staticmethod
+    def creerVecteur(x0, y0, x1, y1) :
         """
             Prend les coordonnés des points A et B et retournent le vecteur AB
         """

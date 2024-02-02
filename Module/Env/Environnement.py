@@ -136,6 +136,6 @@ class Environnement :
 			CA = Vecteur.creerVecteur(i.x0, i.y0, self.agent.posCenter[0], self.agent.posCenter[1])
 			CB = Vecteur.creerVecteur(i.x0, i.y0, self.agent.posCenter[0]+self.agent.vectD.x, self.agent.posCenter[1]+self.agent.vectD.y)
 			CD = Vecteur.creerVecteur(i.x0, i.y0, i.x1, i.y1)
-			if (AB.produitVectoriel(AC)*AB.produitVectoriel(AD))<0 and (CD.produitVectoriel(CA)*CD.produitVectoriel(CB))<0 :\
+			if (AB.produitVectoriel(AC)*AB.produitVectoriel(AD))<0 and (CD.produitVectoriel(CA)*CD.produitVectoriel(CB))<0 :
 				return True
 		return False
