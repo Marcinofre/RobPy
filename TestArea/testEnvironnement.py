@@ -2,6 +2,7 @@ import unittest
 from Module.Agent.Robot import Robot as rob
 from Module.Env.Environnement import Environnement as env
 from Module.Vecteur import Vecteur as vec
+from Module.Env.Obstacle import Obstacle as obs
 
 
 class Environnement(unittest.TestCase):
@@ -28,6 +29,13 @@ class Environnement(unittest.TestCase):
 		e.runEnv()
 		e.runAgent(r, "Script/AvancerToutDroit.txt")
 		self.assertEqual(r.posCenter, (1,1))
+	
+	def test_ajoutObstacle(self):
+		r = rob(0,0,0,0)
+		e = env(100,100, r)
+		o = obs(2, 2, 5, 5)
+		e.addObstacle(o)
+		self.assertEqual(e.setObstacle[0], obs(2, 2, 5, 5))
 
 
 			

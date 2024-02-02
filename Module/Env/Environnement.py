@@ -28,7 +28,7 @@ class Environnement :
 		self.clockPace = clockPace
 		self.maxReachablePoint = (x,y)
 		self.agent = agent
-		setObstacle = set()
+		self.setObstacle = set()
 
 
 
@@ -117,7 +117,7 @@ class Environnement :
 		"""
 		if isinstance(obs, list):
 			for obj in obs :
-				if isinstance(obj, obs) :
+				if isinstance(obj, Obstacle) :
 					self.setObstacle.add(obj)
 		elif isinstance(obs, Obstacle):
 				self.setObstacle.add(obs)
