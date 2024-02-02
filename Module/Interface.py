@@ -6,7 +6,7 @@ class Interface:
     """
         L'interface permet une représentation graphique des mouvements du robots dans l'environnements
     """
-    def __init__(self,width,height, agent : Robot):
+    def __init__(self, agent : Robot, width = 1280,height = 720):
         """
             Constructeur de la classe Interface :
             arg width  -> largeur de l'interface graphique
@@ -20,9 +20,13 @@ class Interface:
             canvas     -> Partie de la fenetre ou l'agent sera representé
         """
         self.fenetre = tkinter.Tk()
-        self.canvas = tkinter.Canvas(self.fenetre, width=width, height=height, bg = 'white')
-        self.canvas.pack()
-        self.canvas.create_rectangle(agent._dim[0]/2, agent._dim[1]/2, -agent._dim[0]/2, -agent._dim[1]/2)
+        self.framel = tkinter.Frame(self.fenetre)
+        self.framel.pack(side=tkinter.LEFT)
+        self.framer = tkinter.Frame(self.fenetre)
+        self.framer.pack(side=tkinter.RIGHT)
+        self.canvas = tkinter.Canvas(self.framel, width=width, height=height, bg = 'gray')
+        self.canvas.pack(side=tkinter.LEFT)
+        self.canvas.create_rectangle(-agent._dim[0]/2, -agent._dim[1]/2, agent._dim[0]/2, agent._dim[1]/2)
 
     def ajoutObstacle(self, obs : Obstacle):
         """
