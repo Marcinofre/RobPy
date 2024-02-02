@@ -20,9 +20,9 @@ class Interface:
             canvas     -> Partie de la fenetre ou l'agent sera representé
         """
         self.fenetre = tkinter.Tk()
-        self.framel = tkinter.Frame(self.fenetre)
+        self.framel = tkinter.Frame(self.fenetre, height = 720, width = 1024)
         self.framel.pack(side=tkinter.LEFT)
-        self.framer = tkinter.Frame(self.fenetre)
+        self.framer = tkinter.Frame(self.fenetre, height = 720, width = 256)
         self.framer.pack(side=tkinter.RIGHT)
         self.canvas = tkinter.Canvas(self.framel, width=width, height=height, bg = 'gray')
         self.canvas.pack(side=tkinter.LEFT)
