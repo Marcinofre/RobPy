@@ -35,7 +35,7 @@ class Environnement(unittest.TestCase):
 		e = env(100,100, r)
 		o = obs(2, 2, 5, 5)
 		e.addObstacle(o)
-		self.assertEqual(e.setObstacle[0], obs(2, 2, 5, 5))
+		self.assertTrue(o in e.setObstacle)
 
 
 			
