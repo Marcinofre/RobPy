@@ -53,13 +53,13 @@ class Robot :
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
 				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
 				angle = diff / self.rayon
-				self.vectD += (angle,0)
-				
+				self.Vecteur.vectD.rotationAngle(-angle)
+
 			# Cas 2 : Le moteur gauche est le plus rapide 
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
 				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
 				angle = diff / self.rayon
-				self.vectD += (0,angle)
+				self.Vecteur.vectD.rotationAngle(angle)
 
 
 	def allPos(self) :
