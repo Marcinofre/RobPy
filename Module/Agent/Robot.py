@@ -30,7 +30,7 @@ class Robot :
 
 		self.MoteurG = Moteur
 
-		self.Rayon = 0.25
+		self.rayon = 0.25
 		" rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite" 
 
 		self.isActive = False
