@@ -41,7 +41,20 @@ class Robot :
 	
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
-		
+
+	def VitesseAngulaire(self) :
+		"""
+			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
+		"""
+		if self.MoteurD.Vitesse != self.MoteurG.Vitesse :
+			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
+				difference = self.MoteurD.Vitesse - self.MoteurG.Vitesse
+				angle = difference / self.rayon
+				self.vectD += (angle,0)
+			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
+				difference = self.MoteurG.Vitesse - self.MoteurD.Vitesse
+				angle = difference / self.rayon
+				self.vectD += (0,angle)
 
 
 	def allPos(self) :
