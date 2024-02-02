@@ -42,8 +42,6 @@ class Robot :
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
 
-		pi = math.pi
-
 	def VitesseAngulaire(self) :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
@@ -55,12 +53,16 @@ class Robot :
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
 				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
 				angle = diff / self.rayon
+				pi = math.pi
+				angle = angle * ( 180/pi )
 				self.Vecteur.vectD.rotationAngle(-angle)
 
 			# Cas 2 : Le moteur gauche est le plus rapide, on touren à droite
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
 				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
 				angle = diff / self.rayon
+				pi = math.pi
+				angle = angle * ( 180/pi )
 				self.Vecteur.vectD.rotationAngle(angle)
 
 
