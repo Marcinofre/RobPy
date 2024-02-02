@@ -1,6 +1,7 @@
 from Module.Vecteur import Vecteur
 import os
 import math
+from Moteur import Moteur
 
 class Robot :
 	"""
@@ -24,6 +25,10 @@ class Robot :
 		"""
 		
 		self._dim = (width, length)
+
+		self.MoteurD = Moteur
+
+		self.MoteurG = Moteur
 
 		self.isActive = False
 		
