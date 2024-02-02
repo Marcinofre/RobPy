@@ -30,6 +30,9 @@ class Robot :
 
 		self.MoteurG = Moteur
 
+		self.rayon = 5 
+		" rayon du cercle passant par les deux roues, à définir, 5 n'est qu'une valeur abstraite" 
+
 		self.isActive = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
@@ -41,7 +44,6 @@ class Robot :
 		
 
 
-		
 	def allPos(self) :
 		"""
 			Print l'ensemble des positions disponible du robot
