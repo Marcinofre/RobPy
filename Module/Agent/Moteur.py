@@ -16,6 +16,13 @@ class Moteur :
 		self.state = state
 		self.Vitesse = 1.0
 
+	def add_accelere(self,acceleration) :
+		"""
+			Augmente la vitesse du moteur
+		"""
+		self.Vitesse = self.Vitesse + acceleration
+
+
 	def avance(self) :
 		"""
 			Change l'etat du moteur en 'activeForward' 
