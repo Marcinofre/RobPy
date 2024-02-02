@@ -14,6 +14,7 @@ class Moteur :
 		
 		self._name = name
 		self.state = state
+		self.Vitesse = 1.0
 
 	def avance(self) :
 		"""
