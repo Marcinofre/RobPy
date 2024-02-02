@@ -47,13 +47,18 @@ class Robot :
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
 		if self.MoteurD.Vitesse != self.MoteurG.Vitesse :
+		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.
+			
+			# Cas 1 : Le moteur droit est le plus rapide 
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
-				difference = self.MoteurD.Vitesse - self.MoteurG.Vitesse
-				angle = difference / self.rayon
+				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
+				angle = diff / self.rayon
 				self.vectD += (angle,0)
+				
+			# Cas 2 : Le moteur gauche est le plus rapide 
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
-				difference = self.MoteurG.Vitesse - self.MoteurD.Vitesse
-				angle = difference / self.rayon
+				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
+				angle = diff / self.rayon
 				self.vectD += (0,angle)
 
 
