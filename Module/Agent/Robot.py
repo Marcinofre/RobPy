@@ -30,18 +30,18 @@ class Robot :
 
 		self.MoteurG = Moteur
 
-		self.rayon = 5 
-		" rayon du cercle passant par les deux roues, à définir, 5 n'est qu'une valeur abstraite" 
+		self.Rayon = 0.25
+		" rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite" 
 
 		self.isActive = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
         
-		self.scalVitesse = 1.0  # Scalaire de la vitesse, par défaut 1.0
+		self.scalVitesse = 5.0  # Scalaire de la vitesse, par défaut 1.0
 	
 		#Position en x et y du centre du robot
 		self.posCenter = (x,y)
-		
+
 
 	def VitesseAngulaire(self) :
 		"""
