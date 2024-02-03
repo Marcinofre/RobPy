@@ -14,21 +14,21 @@ class Moteur :
 		
 		self._name = name
 		self.state = state
-		self.Vitesse = 1.0
+		self.scalVitesse = 1.0  # Scalaire de la vitesse, par défaut 1.0
 		
 
 	def add_accelere(self,acceleration) :
 		"""
 			Augmente la vitesse du moteur en addition
 		"""
-		self.Vitesse = self.Vitesse + acceleration
+		self.Vitesse = self.scalVitesse + acceleration
 
 
 	def mult_accelere(self,acceleration) :
 		"""
 			Augmente la vitesse du moteur en multiplication
 		"""
-		self.Vitesse = self.Vitesse * acceleration
+		self.Vitesse = self.scalVitesse * acceleration
 
 
 
