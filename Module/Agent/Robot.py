@@ -55,7 +55,7 @@ class Robot :
 				angle = diff / self.rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
-				self.Vecteur.vectD.rotationAngle(-angle)
+				self.vectD.rotationAngle(-angle)
 
 			# Cas 2 : Le moteur gauche est le plus rapide, on touren à droite
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
@@ -63,7 +63,7 @@ class Robot :
 				angle = diff / self.rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
-				self.Vecteur.vectD.rotationAngle(angle)
+				self.vectD.rotationAngle(angle)
 
 
 	def allPos(self) :
