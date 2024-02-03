@@ -34,7 +34,7 @@ class Interface:
         y0 = (720 - rect_height) / 2
         x1 = x0 + rect_width
         y1 = y0 + rect_height
-        self.canvas.create_rectangle(x0, y0, x1, y1)
+        self.rob = self.canvas.create_rectangle(x0, y0, x1, y1)
         self.canvas.create_line(agent.posCenter[0], agent.posCenter[1], agent.posCenter[0]+agent.vectD.x, agent.posCenter[1]+agent.vectD.y)
         self.fenetre.mainloop()
 
@@ -48,7 +48,20 @@ class Interface:
 
     def update(self):
         """
-            Affiche la fenetre de l'interface graphique
+            Update la fenetre de l'interface graphique
         """
         self.fenetre.update()
         self.fenetre.update_idletasks()
+
+    def mouv(self, agent : Robot):
+        """
+            Update la position du robot dans l'interface graphique
+        """
+        rect_width = agent._dim[0]
+        rect_height = agent._dim[1]
+        x0 = (1024 - rect_width) / 2
+        y0 = (720 - rect_height) / 2
+        x1 = x0 + rect_width
+        y1 = y0 + rect_height
+        self.canvas.coords(self.rob, x0, y0, x1, y1)
+        self.canvas.after(50, self.mouv(agent))
