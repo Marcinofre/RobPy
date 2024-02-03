@@ -1,7 +1,7 @@
-from Module.Vecteur import Vecteur
+from Vecteur import Vecteur
 import os
 import math
-from Module.Agent.Moteur import Moteur
+from Moteur import Moteur
 
 class Robot :
 	"""
