@@ -35,8 +35,10 @@ class Robot :
 		self.isActive = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
-		
-		self.posCenter = (x,y) # Position en x et y du centre du robot
+        
+		self.scalVitesse = 1.0  # Scalaire de la vitesse, par défaut 1.0
+	
+		self.posCenter = (x,y)	# Position en x et y du centre du robot
 
 
 	def VitesseAngulaire(self) :
@@ -44,7 +46,7 @@ class Robot :
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
 		if self.MoteurD.Vitesse != self.MoteurG.Vitesse :
-		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.
+		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.@@
 			
 			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
