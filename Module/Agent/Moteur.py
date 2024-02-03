@@ -23,6 +23,12 @@ class Moteur :
 		"""
 		self.Vitesse = self.Vitesse * acceleration
 
+	def ralentie(self,ralentissement) :
+		"""
+			Ralentie la vitesse du Moteur
+		"""
+		self.Vitesse = self.Vitesse / ralentissement
+
 
 
 	def avance(self) :
