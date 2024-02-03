@@ -30,13 +30,14 @@ class Interface:
         self.canvas.pack()
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
-        x0 = (1024 - rect_width) / 2
-        y0 = (720 - rect_height) / 2
-        x1 = x0 + rect_width
-        y1 = y0 + rect_height
+        x0 = ((1024 - rect_width) / 2) + agent.posCenter[0]
+        y0 = ((720 - rect_height) / 2) + agent.posCenter[1]
+        x1 = x0 + rect_width + agent.posCenter[0]
+        y1 = y0 + rect_height + agent.posCenter[1]
         self.rob = self.canvas.create_rectangle(x0, y0, x1, y1)
         self.canvas.create_line(agent.posCenter[0], agent.posCenter[1], agent.posCenter[0]+agent.vectD.x, agent.posCenter[1]+agent.vectD.y)
-        self.fenetre.mainloop()
+        self.canvas.after(50, self.mouv, agent)
+        self.fenetre.after(50, self.update)
 
     def ajoutObstacle(self, obs : Obstacle):
         """
@@ -52,6 +53,12 @@ class Interface:
         """
         self.fenetre.update()
         self.fenetre.update_idletasks()
+    
+    def affiche(self):
+        """
+            Affiche la fenêtre de l'interface graphique
+        """
+        self.fenetre.mainloop()
 
     def mouv(self, agent : Robot):
         """
@@ -59,9 +66,8 @@ class Interface:
         """
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
-        x0 = (1024 - rect_width) / 2
-        y0 = (720 - rect_height) / 2
-        x1 = x0 + rect_width
-        y1 = y0 + rect_height
+        x0 = ((1024 - rect_width) / 2) + agent.posCenter[0]
+        y0 = ((720 - rect_height) / 2) + agent.posCenter[1]
+        x1 = x0 + rect_width + agent.posCenter[0]
+        y1 = y0 + rect_height + agent.posCenter[1]
         self.canvas.coords(self.rob, x0, y0, x1, y1)
-        self.canvas.after(50, self.mouv(agent))
