@@ -26,12 +26,11 @@ class Robot :
 		
 		self._dim = (width, length)
 
-		self.MoteurD = Moteur
+		self.MoteurD = Moteur # Moteur de la roue droite
 
-		self.MoteurG = Moteur
+		self.MoteurG = Moteur # Moteur de la roue gauche
 
-		self.rayon = 0.25
-		" rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite" 
+		self.Rayon = 0.25 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
 		self.isActive = False
 		
@@ -39,8 +38,9 @@ class Robot :
         
 		self.scalVitesse = 5.0  # Scalaire de la vitesse, par défaut 1.0
 	
-		#Position en x et y du centre du robot
+		# Position en x et y du centre du robot
 		self.posCenter = (x,y)
+
 
 	def VitesseAngulaire(self) :
 		"""
@@ -52,7 +52,7 @@ class Robot :
 			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
 				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
-				angle = diff / self.rayon
+				angle = diff / self.Rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
 				self.vectD.rotationAngle(-angle)
@@ -60,7 +60,7 @@ class Robot :
 			# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
 				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
-				angle = diff / self.rayon
+				angle = diff / self.Rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
 				self.vectD.rotationAngle(angle)
