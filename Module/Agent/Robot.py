@@ -35,11 +35,8 @@ class Robot :
 		self.isActive = False
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
-        
-		self.scalVitesse = 5.0  # Scalaire de la vitesse, par défaut 1.0
-	
-		# Position en x et y du centre du robot
-		self.posCenter = (x,y)
+		
+		self.posCenter = (x,y) # Position en x et y du centre du robot
 
 
 	def VitesseAngulaire(self) :
