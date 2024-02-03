@@ -34,7 +34,7 @@ class Robot :
 
 		self.isActive = False
 		
-		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
+		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
         
 		self.scalVitesse = 1.0  # Scalaire de la vitesse du Robot, par défaut 1.0
 	
@@ -140,6 +140,13 @@ class Robot :
 		"""
 		self.MoteurD.Vitesse = self.MoteurD.Vitesse * acceleration
 		self.MoteurG.Vitesse = self.MoteurG.Vitesse * acceleration
+
+	def ralentirRobot(self,ralentissement) :
+		"""
+			Ralentie la vitesse des deux moteurs 
+		"""
+		self.MoteurD.Vitesse = self.MoteurD.Vitesse * ralentissement
+		self.MoteurG.Vitesse = self.MoteurG.Vitesse * ralentissement
 
 	def avancerRobot(self):
 		"""
