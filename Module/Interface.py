@@ -22,6 +22,7 @@ class Interface:
             framer     -> Frame contenant les différents widget permettant de manipuler les attributs et prenant 20% de la fenêtre
             canvas     -> Partie de la fenetre, dans framel, ou l'agent sera representé
         """
+
         self.fenetre = tkinter.Tk()
 
         self.framel = tkinter.Frame(self.fenetre, height = 720, width = 1024, highlightbackground="black",highlightthickness=2)
@@ -32,6 +33,15 @@ class Interface:
 
         self.canvas = tkinter.Canvas(self.framel, width=1024, height=720, bg = 'gray')
         self.canvas.pack()
+
+        #pas tester encore (afficher la vitesse de Moteur gauche)
+        self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{agent.MoteurG.Vitesse}")
+        self.vitesse_labelL.pack()
+
+        #(afficher la vitesse de Moteur droite)
+        self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{agent.MoteurD.Vitesse} ")
+        self.vitesse_labelR.pack()
+
 
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
