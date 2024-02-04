@@ -49,9 +49,12 @@ class Moteur :
 		"""
 		self.state = "inactive"
 
-		
-	#pour l'instant 
+
+	#pour l'instant YNL 
 	def vitesse_set(self,nouv_vitesse):
+		"""
+			modifier la vitesse
+		"""
 		self.Vitesse=nouv_vitesse
 		
 		

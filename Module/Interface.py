@@ -34,21 +34,29 @@ class Interface:
         self.canvas = tkinter.Canvas(self.framel, width=1024, height=720, bg = 'gray')
         self.canvas.pack()
 
-        #pas tester encore (afficher la vitesse de Moteur gauche)
+        #pas tester encore (afficher la vitesse de Moteur gauche) YNL
         self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{agent.MoteurG.Vitesse}")
         self.vitesse_labelL.pack()
 
-        #(afficher la vitesse de Moteur droite)
+        #(afficher la vitesse de Moteur droite) YNL
         self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{agent.MoteurD.Vitesse} ")
         self.vitesse_labelR.pack()
 
-        #modifier vitesse de Moteur gauche
+        # entrer nouv valeur de vitesse YNL
+        self.entre_vitesseG=tkinter.Entry(self.framer)
+        self.entre_vitesseG.pack()
+
+        self.entre_vitesseD=tkinter.Entry(self.framer)
+        self.entre_vitesseD.pack()
+
+        # modifier vitesse de Moteur gauche YNL
         self.modifier_vitesseL=tkinter.Button(self.framer,text="modifier_MG",command=self.modifier_MG)
         self.modifier_vitesseL.pack()
 
-        #modifier vitesse de Moteur droite
+        # modifier vitesse de Moteur droite YNL
         self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MG)
         self.modifier_vitesseR.pack()
+
 
 
 
@@ -95,5 +103,8 @@ class Interface:
         x1 = x0 + rect_width + agent.posCenter[0]
         y1 = y0 + rect_height + agent.posCenter[1]
         self.canvas.coords(self.rob, x0, y0, x1, y1)
+
+
+
 
     
