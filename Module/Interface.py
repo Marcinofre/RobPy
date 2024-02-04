@@ -42,7 +42,7 @@ class Interface:
         self.vitesse_labelL.pack()
 
         #(afficher la vitesse de Moteur droite) YNL
-        self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , Vitesse G : 0")
+        self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , VitesseD : 0")
         self.vitesse_label.pack()
 
         #self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{self.agent.MoteurD.Vitesse} ")
@@ -66,7 +66,8 @@ class Interface:
         #self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MD)
         #self.modifier_vitesseR.pack()
 
-
+        # mettre à jour de affichage
+        self.mjAffichageVitesse()
 
 
         rect_width = agent._dim[0]
@@ -114,6 +115,14 @@ class Interface:
         self.canvas.coords(self.rob, x0, y0, x1, y1)
 
 
+# mise à jour de affichage YNL
+    def mjAffichageVitesse(self):
+        vitesseG=self.agent.MoteurG.Vitesse
+        vitesseD=self.agent.MoteurD.Vitesse
+        self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
+        self.fenetre.after(50,self.mjAffichageVitesse)
+
+# fonction pour modifier vitesse de robot YNL
     def modifier_vitesseRobot(self):
         try:
             nVitesseG=float(self.entre_vitesseG.get())
