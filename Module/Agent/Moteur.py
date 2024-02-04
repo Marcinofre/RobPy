@@ -48,4 +48,10 @@ class Moteur :
 			Change l'etat du moteur en 'inactive'
 		"""
 		self.state = "inactive"
+
+		
+	#pour l'instant 
+	def vitesse_set(self,nouv_vitesse):
+		self.Vitesse=nouv_vitesse
+		
 		
