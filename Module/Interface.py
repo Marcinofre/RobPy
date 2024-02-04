@@ -42,12 +42,15 @@ class Interface:
         self.vitesse_labelL.pack()
 
         #(afficher la vitesse de Moteur droite) YNL
-        self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{self.agent.MoteurD.Vitesse} ")
-        self.vitesse_labelR.pack()
+        self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , Vitesse G : 0")
+        self.vitesse_label.pack()
+
+        #self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{self.agent.MoteurD.Vitesse} ")
+        #self.vitesse_labelR.pack()
 
         # entrer nouv valeur de vitesse YNL
-        self.entre_vitesseG=tkinter.Entry(self.framer)
-        self.entre_vitesseG.pack()
+        #self.entre_vitesseG=tkinter.Entry(self.framer)
+        #self.entre_vitesseG.pack()
 
         self.entre_vitesseD=tkinter.Entry(self.framer)
         self.entre_vitesseD.pack()
