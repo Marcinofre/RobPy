@@ -46,8 +46,8 @@ class Interface:
         #pas tester encore (afficher la vitesse de Moteur gauche) YNL
         self.agent=agent
         
-        self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{self.agent.MoteurG.Vitesse}")
-        self.vitesse_labelL.pack()
+        #self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{self.agent.MoteurG.Vitesse}")
+        #self.vitesse_labelL.pack()
 
         #(afficher la vitesse de Moteur droite) YNL
         self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , VitesseD : 0")
