@@ -92,12 +92,14 @@ class Interface:
                                 arrow=tkinter.LAST)
         self.canvas.after(50, self.mouv, agent)
         self.fenetre.after(50, self.update)
+        
+        self.fenetre.bind('<Key>',self.showKeyEvent)
         self.fenetre.bind('a', self.decreaseRightSpeed)
-        self.fenetre.bind('z', self.increaseRightSpeed)
-        self.fenetre.bind('e', self.activateRight)
-        self.fenetre.bind('i', self.decreaseLeftSpeed)
-        self.fenetre.bind('o', self.increaseLeftSpeed)
-        self.fenetre.bind('p', self.activateLeft)
+        #self.fenetre.bind('z', self.increaseRightSpeed)
+        #self.fenetre.bind('e', self.activateRight)
+        #self.fenetre.bind('i', self.decreaseLeftSpeed)
+        #self.fenetre.bind('o', self.increaseLeftSpeed)
+        #self.fenetre.bind('p', self.activateLeft)
 
     def ajoutObstacle(self, obs : Obstacle):
         """
@@ -154,6 +156,10 @@ class Interface:
             self.agent.MoteurD.vitesse_set(nVitesseD)
         except ValueError:
             print("Veuillez entrer un nombre valide.")
+
+    def showKeyEvent(self,event):
+        print('Vous avez appuyé sur : ', repr(event.char) )
+    
         
 
 
