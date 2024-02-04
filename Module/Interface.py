@@ -57,8 +57,8 @@ class Interface:
         #self.vitesse_labelR.pack()
 
         # entrer nouv valeur de vitesse YNL
-        #self.entre_vitesseG=tkinter.Entry(self.framer)
-        #self.entre_vitesseG.pack()
+        self.entre_vitesseG=tkinter.Entry(self.framer)
+        self.entre_vitesseG.pack()
 
         self.entre_vitesseD=tkinter.Entry(self.framer)
         self.entre_vitesseD.pack()
