@@ -147,7 +147,7 @@ class Interface:
             self.agent.MoteurG.vitesse_set(nVitesseG)
             self.agent.MoteurD.vitesse_set(nVitesseD)
         except ValueError:
-            print("le nombre valide svp!!")
+            print("Veuillez entrer un nombre valide.")
         
 
 
