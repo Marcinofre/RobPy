@@ -15,5 +15,6 @@ int.ajoutObstacle(obs)
 r.posCenter = (50,100)
 r.vectD.x = 20
 r.vectD.y = 0
+r.avancerRobot
 int.affiche()
 

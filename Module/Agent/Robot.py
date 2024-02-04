@@ -1,7 +1,7 @@
-from Vecteur import Vecteur
+from Module.Vecteur import Vecteur
 import os
 import math
-from Moteur import Moteur
+from Module.Agent.Moteur import Moteur
 
 class Robot :
 	"""
@@ -26,9 +26,9 @@ class Robot :
 		
 		self._dim = (width, length)
 
-		self.MoteurD = Moteur # Moteur de la roue droite
+		self.MoteurD = Moteur("Droit") # Moteur de la roue droite
 
-		self.MoteurG = Moteur # Moteur de la roue gauche
+		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
 		self.Rayon = 0.25 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
