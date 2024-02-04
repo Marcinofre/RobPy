@@ -138,15 +138,15 @@ class Robot :
 		"""
 			Augmente la vitesse des deux moteurs 
 		"""
-		self.MoteurD.Vitesse = self.MoteurD.Vitesse * acceleration
-		self.MoteurG.Vitesse = self.MoteurG.Vitesse * acceleration
+		self.MoteurD.accelere(acceleration)
+		self.MoteurG.accelere(acceleration)
 
 	def ralentirRobot(self,ralentissement) :
 		"""
 			Ralentie la vitesse des deux moteurs 
 		"""
-		self.MoteurD.Vitesse = self.MoteurD.Vitesse / ralentissement
-		self.MoteurG.Vitesse = self.MoteurG.Vitesse / ralentissement
+		self.MoteurD.ralentie(ralentissement)
+		self.MoteurG.ralentie(ralentissement)
 
 	def avancerRobot(self):
 		"""
