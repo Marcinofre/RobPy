@@ -12,6 +12,8 @@ obs = Obstacle(241,134,201,-100)
 
 time.sleep(1)
 int.ajoutObstacle(obs)
-r.posCenter = (100,200)
-
+r.posCenter = (50,100)
+r.vectD.x = 20
+r.vectD.y = 0
 int.affiche()
+

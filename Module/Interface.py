@@ -22,11 +22,22 @@ class Interface:
             canvas     -> Partie de la fenetre, dans framel, ou l'agent sera representé
         """
         self.fenetre = tkinter.Tk()
-        self.framel = tkinter.Frame(self.fenetre, height = 720, width = 1024, highlightbackground="black",highlightthickness=2)
+        self.framel = tkinter.Frame(self.fenetre, 
+                                    height = 720, 
+                                    width = 1024,
+                                    highlightbackground="black",
+                                    highlightthickness=2)
         self.framel.pack(side=tkinter.LEFT)
-        self.framer = tkinter.Frame(self.fenetre, height = 720, width = 256, highlightbackground="black",highlightthickness=2)
+        self.framer = tkinter.Frame(self.fenetre, 
+                                    height = 720, 
+                                    width = 256, 
+                                    highlightbackground="black",
+                                    highlightthickness=2)
         self.framer.pack(side=tkinter.RIGHT)
-        self.canvas = tkinter.Canvas(self.framel, width=1024, height=720, bg = 'gray')
+        self.canvas = tkinter.Canvas(self.framel, 
+                                     width=1024, 
+                                     height=720, 
+                                     bg = 'gray')
         self.canvas.pack()
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
@@ -35,7 +46,11 @@ class Interface:
         x1 = x0 + rect_width + agent.posCenter[0]
         y1 = y0 + rect_height + agent.posCenter[1]
         self.rob = self.canvas.create_rectangle(x0, y0, x1, y1)
-        self.canvas.create_line(agent.posCenter[0], agent.posCenter[1], agent.posCenter[0]+agent.vectD.x, agent.posCenter[1]+agent.vectD.y)
+        self.line = self.canvas.create_line((x0+x1)/2, 
+                                (y0+y1)/2, 
+                                (x0+x1)/2+agent.vectD.x, 
+                                (y0+y1)/2+agent.vectD.y,
+                                arrow=tkinter.LAST)
         self.canvas.after(50, self.mouv, agent)
         self.fenetre.after(50, self.update)
 
@@ -46,13 +61,14 @@ class Interface:
         if self.canvas.find_overlapping(obs.x0, obs.y0, obs.x1, obs.y1):
             raise Exception("Il y a déjà un objet à cet endroit là")
         self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
-
+ 
     def update(self):
         """
             Update la fenetre de l'interface graphique
         """
         self.fenetre.update()
         self.fenetre.update_idletasks()
+        self.fenetre.after(50, self.update)
     
     def affiche(self):
         """
@@ -71,3 +87,7 @@ class Interface:
         x1 = x0 + rect_width + agent.posCenter[0]
         y1 = y0 + rect_height + agent.posCenter[1]
         self.canvas.coords(self.rob, x0, y0, x1, y1)
+        xcen = (x0+x1)/2
+        ycen = (y0+y1)/2
+        self.canvas.coords(self.line, xcen, ycen, xcen+ agent.vectD.x, ycen + agent.vectD.y)
+        self.canvas.after(50, self.mouv, agent)
