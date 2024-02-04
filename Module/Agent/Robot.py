@@ -36,7 +36,7 @@ class Robot :
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
         
-		self.vitesseMoyenne = (self.MoteurD + self.MoteurG) / 2
+		self.vitesseMoyenne = 0
 	
 		self.posCenter = (x,y)	# Position en x et y du centre du robot
 
@@ -75,11 +75,11 @@ class Robot :
 
 		#Si le moteur droit est inactif ou que sa vitessde est de 0 alors la vitesse moyenne du robot est celui du moteur gauche
 		if self.MoteurD.state == 'inactive' or self.MoteurD.vitesseMoteur == 0:
-			self.vitesseMoyenne = self.MoteurG
+			self.vitesseMoyenne = self.MoteurG.vitesseMoteur
 
 		#Idem pour le moteur gauche
 		if self.MoteurG.state == 'inactive' or self.MoteurG.vitesseMoteur == 0:
-			self.vitesseMoyenne = self.MoteurD
+			self.vitesseMoyenne = self.MoteurD.vitesseMoteur
 
 		#Sinon la moyenne et l'addition du moteur gauche et droit diviser par deux
 		else:

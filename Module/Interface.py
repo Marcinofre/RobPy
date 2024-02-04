@@ -97,9 +97,9 @@ class Interface:
         self.fenetre.bind('a', self.decreaseRightSpeed)
         self.fenetre.bind('z', self.increaseRightSpeed)
         self.fenetre.bind('e', self.activateRight)
-        #self.fenetre.bind('i', self.decreaseLeftSpeed)
-        #self.fenetre.bind('o', self.increaseLeftSpeed)
-        #self.fenetre.bind('p', self.activateLeft)
+        self.fenetre.bind('i', self.decreaseLeftSpeed)
+        self.fenetre.bind('o', self.increaseLeftSpeed)
+        self.fenetre.bind('p', self.activateLeft)
 
     def ajoutObstacle(self, obs : Obstacle):
         """
@@ -142,8 +142,8 @@ class Interface:
 
 
     def mjAffichageVitesse(self):
-        vitesseG=self.agent.MoteurG.Vitesse
-        vitesseD=self.agent.MoteurD.Vitesse
+        vitesseG=self.agent.MoteurG.vitesseMoteur
+        vitesseD=self.agent.MoteurD.vitesseMoteur
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
         self.fenetre.after(50,self.mjAffichageVitesse)
 
