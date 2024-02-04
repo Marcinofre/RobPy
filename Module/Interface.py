@@ -86,7 +86,7 @@ class Interface:
         y1 = y0 + rect_height + agent.posCenter[1]
         self.rob = self.canvas.create_rectangle(x0, y0, x1, y1)
         self.line = self.canvas.create_line((x0+x1)/2, 
-                                (y0+y1)/2, 
+                                (y0+y1)/2,
                                 (x0+x1)/2+agent.vectD.x, 
                                 (y0+y1)/2+agent.vectD.y,
                                 arrow=tkinter.LAST)
@@ -96,7 +96,7 @@ class Interface:
         self.fenetre.bind('<Key>',self.showKeyEvent)
         self.fenetre.bind('a', self.decreaseRightSpeed)
         self.fenetre.bind('z', self.increaseRightSpeed)
-        #self.fenetre.bind('e', self.activateRight)
+        self.fenetre.bind('e', self.activateRight)
         #self.fenetre.bind('i', self.decreaseLeftSpeed)
         #self.fenetre.bind('o', self.increaseLeftSpeed)
         #self.fenetre.bind('p', self.activateLeft)
@@ -174,7 +174,7 @@ class Interface:
     
     def increaseRightSpeed(self, event):
         """
-            Réduit la vitesse du robot lors d'un event
+            Augmente la vitesse du robot lors d'un event
         """
         
         #Augmentaion de la vitesse du moteur concerné
@@ -184,5 +184,13 @@ class Interface:
         self.agent.calcVitesseMoyenne()
         print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
 
+    def activateRight(self, event) :
+        self.agent.MoteurD.activeMoteur()
+        print("Moteur activé")
+    
+    def activateLeft(self, event) :
+        self.agent.MoteurD.activeMoteur()
+        print("Moteur activé")
+    
 
     
