@@ -64,7 +64,7 @@ class Robot :
 				angle = angle * ( 180/pi )
 				self.vectD.rotationAngle(angle)
 
-	def calcViteseMoyenne(self) :
+	def calcVitesseMoyenne(self) :
 		"""
 			Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
 		"""
@@ -84,6 +84,8 @@ class Robot :
 		#Sinon la moyenne et l'addition du moteur gauche et droit diviser par deux
 		else:
 			self.vitesseMoyenne = (self.MoteurD.vitesseMoteur + self.MoteurG.vitesseMoteur)/2
+
+	
 
 	def allPos(self) :
 		"""
