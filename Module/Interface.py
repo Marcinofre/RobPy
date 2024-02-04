@@ -95,7 +95,7 @@ class Interface:
         
         self.fenetre.bind('<Key>',self.showKeyEvent)
         self.fenetre.bind('a', self.decreaseRightSpeed)
-        #self.fenetre.bind('z', self.increaseRightSpeed)
+        self.fenetre.bind('z', self.increaseRightSpeed)
         #self.fenetre.bind('e', self.activateRight)
         #self.fenetre.bind('i', self.decreaseLeftSpeed)
         #self.fenetre.bind('o', self.increaseLeftSpeed)
@@ -172,7 +172,17 @@ class Interface:
         self.agent.calcVitesseMoyenne()
         print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
     
+    def increaseRightSpeed(self, event):
+        """
+            Réduit la vitesse du robot lors d'un event
+        """
         
+        #Augmentaion de la vitesse du moteur concerné
+        self.agent.MoteurD.augmenteVitesse()
+
+        #calcule de la nouvelle moyenne du robot
+        self.agent.calcVitesseMoyenne()
+        print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
 
 
     
