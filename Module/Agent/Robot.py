@@ -1,7 +1,7 @@
-from Module.Vecteur import Vecteur
+from Vecteur import Vecteur
 import os
 import math
-from Module.Agent.Moteur import Moteur
+from Moteur import Moteur
 
 class Robot :
 	"""
@@ -26,44 +26,43 @@ class Robot :
 		
 		self._dim = (width, length)
 
-		self.MoteurD = Moteur
+		self.MoteurD = Moteur # Moteur de la roue droite
 
-		self.MoteurG = Moteur
+		self.MoteurG = Moteur # Moteur de la roue gauche
 
-		self.rayon = 0.25
-		" rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite" 
+		self.Rayon = 0.25 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
 		self.isActive = False
 		
-		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0)
+		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
         
-		self.scalVitesse = 5.0  # Scalaire de la vitesse, par défaut 1.0
+		self.scalVitesse = 1.0  # Scalaire de la vitesse du Robot, par défaut 1.0
 	
-		#Position en x et y du centre du robot
-		self.posCenter = (x,y)
+		self.posCenter = (x,y)	# Position en x et y du centre du robot
+
 
 	def VitesseAngulaire(self) :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
 		if self.MoteurD.Vitesse != self.MoteurG.Vitesse :
-		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.
+		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.@@
 			
 			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
 			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
 				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
-				angle = diff / self.rayon
+				angle = diff / self.Rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
-				self.Vecteur.vectD.rotationAngle(-angle)
+				self.vectD.rotationAngle(-angle)
 
-			# Cas 2 : Le moteur gauche est le plus rapide, on touren à droite
+			# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
 			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
 				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
-				angle = diff / self.rayon
+				angle = diff / self.Rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
-				self.Vecteur.vectD.rotationAngle(angle)
+				self.vectD.rotationAngle(angle)
 
 
 	def allPos(self) :
@@ -134,7 +133,20 @@ class Robot :
 				self.tournerRobot(dicoparam['angle'])
 			except :
 				raise Exception("No value 'Angle'")
-		
+				
+	def accelererRobot(self,acceleration) :
+		"""
+			Augmente la vitesse des deux moteurs 
+		"""
+		self.MoteurD.Vitesse = self.MoteurD.Vitesse * acceleration
+		self.MoteurG.Vitesse = self.MoteurG.Vitesse * acceleration
+
+	def ralentirRobot(self,ralentissement) :
+		"""
+			Ralentie la vitesse des deux moteurs 
+		"""
+		self.MoteurD.Vitesse = self.MoteurD.Vitesse / ralentissement
+		self.MoteurG.Vitesse = self.MoteurG.Vitesse / ralentissement
 
 	def avancerRobot(self):
 		"""
@@ -144,7 +156,7 @@ class Robot :
     
 	def reculerRobot(self):
 		"""
-			Met à jour la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
+			Met à jourÒÒ la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
 		"""
 		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * (- self.scalVitesse)), 1), round(self.posCenter[1]+ (self.vectD.y * (- self.scalVitesse) ), 1))
     

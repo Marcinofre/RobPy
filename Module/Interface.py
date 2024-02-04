@@ -1,4 +1,5 @@
 import tkinter
+from typing import Any
 from Module.Agent.Robot import Robot
 from Module.Env.Obstacle import Obstacle
 
@@ -21,6 +22,7 @@ class Interface:
             framer     -> Frame contenant les différents widget permettant de manipuler les attributs et prenant 20% de la fenêtre
             canvas     -> Partie de la fenetre, dans framel, ou l'agent sera representé
         """
+
         self.fenetre = tkinter.Tk()
         self.framel = tkinter.Frame(self.fenetre, 
                                     height = 720, 
@@ -39,6 +41,43 @@ class Interface:
                                      height=720, 
                                      bg = 'gray')
         self.canvas.pack()
+
+
+        #pas tester encore (afficher la vitesse de Moteur gauche) YNL
+        self.agent=agent
+        
+        self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{self.agent.MoteurG.Vitesse}")
+        self.vitesse_labelL.pack()
+
+        #(afficher la vitesse de Moteur droite) YNL
+        self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , VitesseD : 0")
+        self.vitesse_label.pack()
+
+        #self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{self.agent.MoteurD.Vitesse} ")
+        #self.vitesse_labelR.pack()
+
+        # entrer nouv valeur de vitesse YNL
+        #self.entre_vitesseG=tkinter.Entry(self.framer)
+        #self.entre_vitesseG.pack()
+
+        self.entre_vitesseD=tkinter.Entry(self.framer)
+        self.entre_vitesseD.pack()
+
+        # modifier vitesse de Moteur gauche YNL
+        self.modifier_vitesse=tkinter.Button(self.framer,text="Modifier",command=self.modifier_vitesseRobot)
+        self.modifier_vitesse.pack()
+        
+        #self.modifier_vitesseL=tkinter.Button(self.framer,text="modifier_MG",command=self.modifier_MG)
+        #self.modifier_vitesseL.pack()
+
+        # modifier vitesse de Moteur droite YNL
+        #self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MD)
+        #self.modifier_vitesseR.pack()
+
+        # mettre à jour de affichage
+        self.mjAffichageVitesse()
+
+
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
         x0 = ((1024 - rect_width) / 2) + agent.posCenter[0]
@@ -91,3 +130,25 @@ class Interface:
         ycen = (y0+y1)/2
         self.canvas.coords(self.line, xcen, ycen, xcen+ agent.vectD.x, ycen + agent.vectD.y)
         self.canvas.after(50, self.mouv, agent)
+
+
+
+    def mjAffichageVitesse(self):
+        vitesseG=self.agent.MoteurG.Vitesse
+        vitesseD=self.agent.MoteurD.Vitesse
+        self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
+        self.fenetre.after(50,self.mjAffichageVitesse)
+
+
+    def modifier_vitesseRobot(self):
+        try:
+            nVitesseG=float(self.entre_vitesseG.get())
+            nVitesseD=float(self.entre_vitesseD.get())
+            self.agent.MoteurG.vitesse_set(nVitesseG)
+            self.agent.MoteurD.vitesse_set(nVitesseD)
+        except ValueError:
+            print("le nombre valide svp!!")
+        
+
+
+    
