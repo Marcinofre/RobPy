@@ -158,7 +158,19 @@ class Interface:
             print("Veuillez entrer un nombre valide.")
 
     def showKeyEvent(self,event):
-        print('Vous avez appuyé sur : ', repr(event.char) )
+        print('Vous avez appuyé sur : ', repr(event.char))
+
+    def decreaseRightSpeed(self, event):
+        """
+            Réduit la vitesse du robot lors d'un event
+        """
+        
+        #Réduction de la vitesse du moteur concerné
+        self.agent.MoteurD.reduitVitesse()
+
+        #calcule de la nouvelle moyenne du robot
+        self.agent.calcVitesseMoyenne()
+        print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
     
         
 
