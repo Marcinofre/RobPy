@@ -44,26 +44,29 @@ class Interface:
 
         self.agent=agent
 
-        self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , VitesseD : 0")
+        self.buttonframe = tkinter.Frame(self.framer)
+        self.buttonframe.pack(fill=tkinter.X)
+
+        self.vitesse_label=tkinter.Label(self.buttonframe,text="VitesseG : 0 , VitesseD : 0")
         self.vitesse_label.pack()
 
-        self.incrR = tkinter.Button(self.framer, text ="+", command=self.increaseRightSpeed)
-        self.incrR.pack(side=tkinter.RIGHT)
-        
-        self.decrR = tkinter.Button(self.framer, text ="-", command=self.decreaseRightSpeed)
+        self.decrR = tkinter.Button(self.buttonframe, text ="-", command=self.decreaseRightSpeed)
         self.decrR.pack(side=tkinter.RIGHT)
 
-        self.incrL = tkinter.Button(self.framer, text ="+", command=self.increaseLeftSpeed)
+        self.incrR = tkinter.Button(self.buttonframe, text ="+", command=self.increaseRightSpeed)
+        self.incrR.pack(side=tkinter.RIGHT)
+
+        self.incrL = tkinter.Button(self.buttonframe, text ="+", command=self.increaseLeftSpeed)
         self.incrL.pack(side=tkinter.LEFT)
         
-        self.decrL = tkinter.Button(self.framer, text ="-", command=self.decreaseLeftSpeed)
+        self.decrL = tkinter.Button(self.buttonframe, text ="-", command=self.decreaseLeftSpeed)
         self.decrL.pack(side=tkinter.LEFT)
 
-        self.stopR = tkinter.Button(self.framer, text ="activate", command=self.activateRight)
-        self.stopR.pack(side=tkinter.RIGHT)
+        self.stopL = tkinter.Button(self.buttonframe, text ="activateL", command=self.activateLeft)
+        self.stopL.pack(side=tkinter.BOTTOM)
 
-        self.stopL = tkinter.Button(self.framer, text ="activate", command=self.activateLeft)
-        self.stopL.pack(side=tkinter.RIGHT)
+        self.stopR = tkinter.Button(self.buttonframe, text ="activateR", command=self.activateRight)
+        self.stopR.pack(side=tkinter.BOTTOM)
 
         self.mjAffichageVitesse()
 
