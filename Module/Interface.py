@@ -42,6 +42,15 @@ class Interface:
         self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{agent.MoteurD.Vitesse} ")
         self.vitesse_labelR.pack()
 
+        #modifier vitesse de Moteur gauche
+        self.modifier_vitesseL=tkinter.Button(self.framer,text="modifier_MG",command=self.modifier_MG)
+        self.modifier_vitesseL.pack()
+
+        #modifier vitesse de Moteur droite
+        self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MG)
+        self.modifier_vitesseR.pack()
+
+
 
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
