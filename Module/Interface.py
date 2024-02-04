@@ -56,12 +56,15 @@ class Interface:
         self.entre_vitesseD.pack()
 
         # modifier vitesse de Moteur gauche YNL
-        self.modifier_vitesseL=tkinter.Button(self.framer,text="modifier_MG",command=self.modifier_MG)
-        self.modifier_vitesseL.pack()
+        self.modifier_vitesse=tkinter.Button(self.framer,text="Modifier",command=self.modifier_vitesseRobot)
+        self.modifier_vitesse.pack()
+        
+        #self.modifier_vitesseL=tkinter.Button(self.framer,text="modifier_MG",command=self.modifier_MG)
+        #self.modifier_vitesseL.pack()
 
         # modifier vitesse de Moteur droite YNL
-        self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MD)
-        self.modifier_vitesseR.pack()
+        #self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MD)
+        #self.modifier_vitesseR.pack()
 
 
 
