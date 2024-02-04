@@ -43,38 +43,21 @@ class Interface:
         self.canvas.pack()
 
 
-        #pas tester encore (afficher la vitesse de Moteur gauche) YNL
         self.agent=agent
-        
-        #self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{self.agent.MoteurG.Vitesse}")
-        #self.vitesse_labelL.pack()
 
-        #(afficher la vitesse de Moteur droite) YNL
+
         self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , VitesseD : 0")
         self.vitesse_label.pack()
 
-        #self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{self.agent.MoteurD.Vitesse} ")
-        #self.vitesse_labelR.pack()
-
-        # entrer nouv valeur de vitesse YNL
         self.entre_vitesseG=tkinter.Entry(self.framer)
         self.entre_vitesseG.pack()
 
         self.entre_vitesseD=tkinter.Entry(self.framer)
         self.entre_vitesseD.pack()
 
-        # modifier vitesse de Moteur gauche YNL
         self.modifier_vitesse=tkinter.Button(self.framer,text="Modifier",command=self.modifier_vitesseRobot)
         self.modifier_vitesse.pack()
         
-        #self.modifier_vitesseL=tkinter.Button(self.framer,text="modifier_MG",command=self.modifier_MG)
-        #self.modifier_vitesseL.pack()
-
-        # modifier vitesse de Moteur droite YNL
-        #self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MD)
-        #self.modifier_vitesseR.pack()
-
-        # mettre à jour de affichage
         self.mjAffichageVitesse()
 
 
