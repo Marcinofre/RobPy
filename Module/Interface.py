@@ -42,24 +42,30 @@ class Interface:
                                      bg = 'gray')
         self.canvas.pack()
 
-
         self.agent=agent
-
 
         self.vitesse_label=tkinter.Label(self.framer,text="VitesseG : 0 , VitesseD : 0")
         self.vitesse_label.pack()
 
-        self.entre_vitesseG=tkinter.Entry(self.framer)
-        self.entre_vitesseG.pack()
-
-        self.entre_vitesseD=tkinter.Entry(self.framer)
-        self.entre_vitesseD.pack()
-
-        self.modifier_vitesse=tkinter.Button(self.framer,text="Modifier",command=self.modifier_vitesseRobot)
-        self.modifier_vitesse.pack()
+        self.incrR = tkinter.Button(self.framer, text ="+", command=self.increaseRightSpeed)
+        self.incrR.pack(side=tkinter.RIGHT)
         
-        self.mjAffichageVitesse()
+        self.decrR = tkinter.Button(self.framer, text ="-", command=self.decreaseRightSpeed)
+        self.decrR.pack(side=tkinter.RIGHT)
 
+        self.incrL = tkinter.Button(self.framer, text ="+", command=self.increaseLeftSpeed)
+        self.incrL.pack(side=tkinter.LEFT)
+        
+        self.decrL = tkinter.Button(self.framer, text ="-", command=self.decreaseLeftSpeed)
+        self.decrL.pack(side=tkinter.LEFT)
+
+        self.stopR = tkinter.Button(self.framer, text ="activate", command=self.activateRight)
+        self.stopR.pack(side=tkinter.RIGHT)
+
+        self.stopL = tkinter.Button(self.framer, text ="activate", command=self.activateLeft)
+        self.stopL.pack(side=tkinter.RIGHT)
+
+        self.mjAffichageVitesse()
 
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
@@ -130,20 +136,10 @@ class Interface:
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
         self.fenetre.after(50,self.mjAffichageVitesse)
 
-
-    def modifier_vitesseRobot(self):
-        try:
-            nVitesseG=float(self.entre_vitesseG.get())
-            nVitesseD=float(self.entre_vitesseD.get())
-            self.agent.MoteurG.vitesse_set(nVitesseG)
-            self.agent.MoteurD.vitesse_set(nVitesseD)
-        except ValueError:
-            print("Veuillez entrer un nombre valide.")
-
     def showKeyEvent(self,event):
         print('Vous avez appuyé sur : ', repr(event.char))
 
-    def decreaseRightSpeed(self, event):
+    def decreaseRightSpeed(self, event=None):
         """
             Réduit la vitesse du robot lors d'un event
         """
@@ -155,7 +151,7 @@ class Interface:
         self.agent.calcVitesseMoyenne()
         print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
     
-    def increaseRightSpeed(self, event):
+    def increaseRightSpeed(self, event=None):
         """
             Augmente la vitesse du robot lors d'un event
         """
@@ -167,15 +163,15 @@ class Interface:
         self.agent.calcVitesseMoyenne()
         print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
 
-    def activateRight(self, event) :
+    def activateRight(self, event=None) :
         self.agent.MoteurD.activeMoteur()
         print("Moteur activé")
     
-    def activateLeft(self, event) :
+    def activateLeft(self, event=None) :
         self.agent.MoteurG.activeMoteur()
         print("Moteur activé")
 
-    def decreaseLeftSpeed(self, event):
+    def decreaseLeftSpeed(self, event=None):
         """
             Réduit la vitesse du robot lors d'un event
         """
@@ -187,7 +183,7 @@ class Interface:
         self.agent.calcVitesseMoyenne()
         print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
     
-    def increaseLeftSpeed(self, event):
+    def increaseLeftSpeed(self, event=None):
         """
             Augmente la vitesse du robot lors d'un event
         """
