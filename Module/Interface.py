@@ -34,12 +34,15 @@ class Interface:
         self.canvas = tkinter.Canvas(self.framel, width=1024, height=720, bg = 'gray')
         self.canvas.pack()
 
+
         #pas tester encore (afficher la vitesse de Moteur gauche) YNL
-        self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{agent.MoteurG.Vitesse}")
+        self.agent=agent
+        
+        self.vitesse_labelL=tkinter.Label(self.framer,text=f"Vmoteur gauche:{self.agent.MoteurG.Vitesse}")
         self.vitesse_labelL.pack()
 
         #(afficher la vitesse de Moteur droite) YNL
-        self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{agent.MoteurD.Vitesse} ")
+        self.vitesse_labelR=tkinter.Label(self.framer,text=f"Vmoteur droite:{self.agent.MoteurD.Vitesse} ")
         self.vitesse_labelR.pack()
 
         # entrer nouv valeur de vitesse YNL
@@ -54,7 +57,7 @@ class Interface:
         self.modifier_vitesseL.pack()
 
         # modifier vitesse de Moteur droite YNL
-        self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MG)
+        self.modifier_vitesseR=tkinter.Button(self.framer,text="modifier_MD",command=self.modifier_MD)
         self.modifier_vitesseR.pack()
 
 
@@ -105,6 +108,15 @@ class Interface:
         self.canvas.coords(self.rob, x0, y0, x1, y1)
 
 
+    def modifier_vitesseRobot(self):
+        try:
+            nVitesseG=float(self.entre_vitesseG.get())
+            nVitesseD=float(self.entre_vitesseD.get())
+            self.agent.MoteurG.vitesse_set(nVitesseG)
+            self.agent.MoteurD.vitesse_set(nVitesseD)
+        except ValueError:
+            print("le nombre valide svp!!")
+        
 
 
     
