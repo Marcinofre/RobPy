@@ -189,8 +189,32 @@ class Interface:
         print("Moteur activé")
     
     def activateLeft(self, event) :
-        self.agent.MoteurD.activeMoteur()
+        self.agent.MoteurG.activeMoteur()
         print("Moteur activé")
+
+    def decreaseLeftSpeed(self, event):
+        """
+            Réduit la vitesse du robot lors d'un event
+        """
+        
+        #Réduction de la vitesse du moteur concerné
+        self.agent.MoteurG.reduitVitesse()
+
+        #calcule de la nouvelle moyenne du robot
+        self.agent.calcVitesseMoyenne()
+        print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
+    
+    def increaseLeftSpeed(self, event):
+        """
+            Augmente la vitesse du robot lors d'un event
+        """
+        
+        #Augmentaion de la vitesse du moteur concerné
+        self.agent.MoteurG.augmenteVitesse()
+
+        #calcule de la nouvelle moyenne du robot
+        self.agent.calcVitesseMoyenne()
+        print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
     
 
     
