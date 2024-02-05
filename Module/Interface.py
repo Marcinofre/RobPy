@@ -68,7 +68,17 @@ class Interface:
         self.stopR = tkinter.Button(self.buttonframe, text ="activateR", command=self.activateRight)
         self.stopR.pack(side=tkinter.BOTTOM)
 
+        self.scale_vitesseG = tkinter.Scale(self.framer, from_=0.1, to=0.5,resolution=0.01, orient=tkinter.HORIZONTAL, label="Vitesse G",command=self.update_VitesseS)
+        self.scale_vitesseG.pack()
+
+        self.scale_vitesseD = tkinter.Scale(self.framer, from_=0.1, to=0.5,resolution=0.01,orient=tkinter.HORIZONTAL, label="Vitesse D",command=self.update_VitesseS)
+        self.scale_vitesseD.pack()
+
+
+
         self.mjAffichageVitesse()
+        self.update_VitesseS()
+
 
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
@@ -138,6 +148,19 @@ class Interface:
         vitesseD=self.agent.MoteurD.vitesseMoteur
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
         self.fenetre.after(50,self.mjAffichageVitesse)
+
+    def update_VitesseS(self,_=None):
+        vitesseG=self.scale_vitesseG.get()
+        vitesseD=self.scale_vitesseD.get()
+
+        self.agent.MoteurG.vitesse_set(vitesseG)
+        self.agent.MoteurD.vitesse_set(vitesseD)
+        self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
+        self.fenetre.after(50,self.update_VitesseS)
+        
+
+
+    
 
     def showKeyEvent(self,event):
         print('Vous avez appuyé sur : ', repr(event.char))
