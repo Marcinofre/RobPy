@@ -10,19 +10,19 @@ class Robot(unittest.TestCase) :
 		robot.vectD = vec(0.1, 0)
 		
 		
-		robot.scalVitesse = 2.0
+		robot.vitesseMoyenne = 2.0
 		for time in range(10):
 			robot.avancerRobot()
 
 		self.assertEqual(robot.posCenter, (round(2.0*0.1*10, 2), 0.0))
 		
-		robot.scalVitesse = 0
+		robot.vitesseMoyenne = 0
 		robot.posCenter = (0.0,0.0)
 		for time in range(10):
 			robot.avancerRobot()
 		self.assertEqual(robot.posCenter, (0.0, 0.0))
 
-		robot.scalVitesse = 15
+		robot.vitesseMoyenne = 15
 		robot.posCenter = (0.0,0.0)
 		robot.vectD = vec(0.1, -4)
 		for time in range(5):
@@ -35,7 +35,7 @@ class Robot(unittest.TestCase) :
 		startx = rand.randint(0,160)
 		starty = rand.randint(0,160)
 		robot.posCenter = (startx,starty)
-		robot.scalVitesse = rand.randint(0,10)
+		robot.vitesseMoyenne = rand.randint(0,10)
 		robot.vectD = vec(rand.random(),rand.random())
 		it = rand.randint(0,142)
 		for count in range(it):
@@ -107,12 +107,12 @@ class Robot(unittest.TestCase) :
 			robot.executeInstruction(("tourner", {}))
 		
 		robot.executeInstruction(("avancer", {"durée": 1, "vitesse": 0}))
-		self.assertEqual(robot.scalVitesse, 0)
+		self.assertEqual(robot.vitesseMoyenne, 0)
 		self.assertTupleEqual(robot.posCenter, (0,0))
 
 		robot.executeInstruction(("tourner", {"durée": 2, "angle": 180,  "vitesse": 5}))
 		robot.executeInstruction(("tourner", {"durée": 2, "angle": 180,  "vitesse": 4.5}))
-		self.assertEqual(robot.scalVitesse, 4.5)
+		self.assertEqual(robot.vitesseMoyenne, 4.5)
 		self.assertTupleEqual((robot.vectD.x,robot.vectD.y), (1,1))
 
 	

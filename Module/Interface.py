@@ -39,16 +39,22 @@ class Interface:
         self.canvas = tkinter.Canvas(self.framel, 
                                      width=1024, 
                                      height=720, 
-                                     bg = 'gray')
+                                     bg = 'grey')
         self.canvas.pack()
 
         self.agent=agent
 
         self.buttonframe = tkinter.Frame(self.framer)
-        self.buttonframe.pack(fill=tkinter.X)
+        self.buttonframe.pack(fill=tkinter.BOTH)
 
         self.vitesse_label=tkinter.Label(self.buttonframe,text="VitesseG : 0 , VitesseD : 0")
         self.vitesse_label.pack()
+
+        self.stopL = tkinter.Button(self.buttonframe, text ="activateL", command=self.activateLeft)
+        self.stopL.pack(side=tkinter.BOTTOM)
+
+        self.stopR = tkinter.Button(self.buttonframe, text ="activateR", command=self.activateRight)
+        self.stopR.pack(side=tkinter.BOTTOM)
 
         self.decrR = tkinter.Button(self.buttonframe, text ="-", command=self.decreaseRightSpeed)
         self.decrR.pack(side=tkinter.RIGHT)
@@ -62,23 +68,9 @@ class Interface:
         self.decrL = tkinter.Button(self.buttonframe, text ="-", command=self.decreaseLeftSpeed)
         self.decrL.pack(side=tkinter.LEFT)
 
-        self.stopL = tkinter.Button(self.buttonframe, text ="activateL", command=self.activateLeft)
-        self.stopL.pack(side=tkinter.BOTTOM)
-
-        self.stopR = tkinter.Button(self.buttonframe, text ="activateR", command=self.activateRight)
-        self.stopR.pack(side=tkinter.BOTTOM)
-
-        self.scale_vitesseG = tkinter.Scale(self.framer, from_=0.1, to=0.5,resolution=0.01, orient=tkinter.HORIZONTAL, label="Vitesse G",command=self.update_VitesseS)
-        self.scale_vitesseG.pack()
-
-        self.scale_vitesseD = tkinter.Scale(self.framer, from_=0.1, to=0.5,resolution=0.01,orient=tkinter.HORIZONTAL, label="Vitesse D",command=self.update_VitesseS)
-        self.scale_vitesseD.pack()
-
-
 
         self.mjAffichageVitesse()
-        self.update_VitesseS()
-
+        self.mjAffichage_Robot()
 
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
@@ -149,18 +141,9 @@ class Interface:
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
         self.fenetre.after(50,self.mjAffichageVitesse)
 
-    def update_VitesseS(self,_=None):
-        vitesseG=self.scale_vitesseG.get()
-        vitesseD=self.scale_vitesseD.get()
-
-        self.agent.MoteurG.vitesseMoteur=vitesseG
-        self.agent.MoteurD.vitesseMoteur=vitesseD
-        self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
-        self.fenetre.after(50,self.update_VitesseS)
-        
-
-
-    
+    def mjAffichage_Robot(self):
+        self.agent.avancerRobot()
+        self.fenetre.after(50,self.mjAffichage_Robot)
 
     def showKeyEvent(self,event):
         print('Vous avez appuyé sur : ', repr(event.char))
@@ -182,7 +165,7 @@ class Interface:
             Augmente la vitesse du robot lors d'un event
         """
         
-        #Augmentaion de la vitesse du moteur concerné
+        #Augmentation de la vitesse du moteur concerné
         self.agent.MoteurD.augmenteVitesse()
 
         #calcule de la nouvelle moyenne du robot
@@ -190,12 +173,21 @@ class Interface:
         print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
 
     def activateRight(self, event=None) :
-        self.agent.MoteurD.activeMoteur()
-        print("Moteur activé")
+        if self.agent.MoteurD.state == "inactive":
+            self.agent.MoteurD.activeMoteur()
+            print("Moteur droit activé")
+        else :
+            self.agent.MoteurD.desactiveMoteur()
+            print("Moteur droit desactivé")
     
     def activateLeft(self, event=None) :
-        self.agent.MoteurG.activeMoteur()
-        print("Moteur activé")
+        if self.agent.MoteurG.state == "inactive":
+            self.agent.MoteurG.activeMoteur()
+            print("Moteur gauche activé")
+        else :
+            self.agent.MoteurG.desactiveMoteur()
+            print("Moteur gauche desactivé")
+
 
     def decreaseLeftSpeed(self, event=None):
         """

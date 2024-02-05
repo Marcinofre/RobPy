@@ -19,7 +19,7 @@ class Robot :
 			Attribut d'instance env. :
 			dim				-> Dimension du robot défini par sa largeur et sa longueur
 			isActive		-> Booléen qui définit si le robot est allumé ou non
-			scalVitesse		-> Scalaire définissant la vitesse du robot
+			vitesseMoyenne		-> Scalaire définissant la vitesse du robot
 			vectD 	        -> Vecteur direction du mouvement du robot
 			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
 		"""
@@ -30,7 +30,7 @@ class Robot :
 
 		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
-		self.Rayon = 0.25 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
+		self.Rayon = width/2 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
 		self.isActive = False
 		
@@ -45,24 +45,24 @@ class Robot :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
-		if self.MoteurD.Vitesse != self.MoteurG.Vitesse :
+		if self.MoteurD.vitesseMoteur  != self.MoteurG.vitesseMoteur :
 		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.@@
 			
 			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
-			if self.MoteurD.Vitesse > self.MoteurG.Vitesse :
-				diff = self.MoteurD.Vitesse - self.MoteurG.Vitesse
-				angle = diff / self.Rayon
-				pi = math.pi
-				angle = angle * ( 180/pi )
-				self.vectD.rotationAngle(-angle)
-
-			# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
-			if self.MoteurG.Vitesse > self.MoteurD.Vitesse :
-				diff = self.MoteurG.Vitesse - self.MoteurD.Vitesse
+			if self.MoteurD.vitesseMoteur  > self.MoteurG.vitesseMoteur :
+				diff = self.MoteurD.vitesseMoteur  - self.MoteurG.vitesseMoteur 
 				angle = diff / self.Rayon
 				pi = math.pi
 				angle = angle * ( 180/pi )
 				self.vectD.rotationAngle(angle)
+
+			# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
+			if self.MoteurG.vitesseMoteur  > self.MoteurD.vitesseMoteur  :
+				diff = self.MoteurG.vitesseMoteur  - self.MoteurD.vitesseMoteur 
+				angle = diff / self.Rayon
+				pi = math.pi
+				angle = angle * ( 180/pi )
+				self.vectD.rotationAngle(-angle)
 
 	def calcVitesseMoyenne(self) :
 		"""
@@ -70,15 +70,15 @@ class Robot :
 		"""
 
 		#Si le moteur droit et gauche est inactif alors la vitesse du robot = 0
-		if self.MoteurD.state == 'inactive' and self.MoteurG.state == 'inactive' :
+		if (self.MoteurD.state == 'inactive') and (self.MoteurG.state == 'inactive') :
 			self.vitesseMoyenne = 0
 
 		#Si le moteur droit est inactif ou que sa vitessde est de 0 alors la vitesse moyenne du robot est celui du moteur gauche
-		if self.MoteurD.state == 'inactive' or self.MoteurD.vitesseMoteur == 0:
+		if (self.MoteurD.state == 'inactive') or (self.MoteurD.vitesseMoteur == 0):
 			self.vitesseMoyenne = self.MoteurG.vitesseMoteur
 
 		#Idem pour le moteur gauche
-		if self.MoteurG.state == 'inactive' or self.MoteurG.vitesseMoteur == 0:
+		if (self.MoteurG.state == 'inactive') or (self.MoteurG.vitesseMoteur == 0):
 			self.vitesseMoyenne = self.MoteurD.vitesseMoteur
 
 		#Sinon la moyenne et l'addition du moteur gauche et droit diviser par deux
@@ -142,7 +142,7 @@ class Robot :
 
 		commande, dicoparam = dicInstruction
 		try :
-			self.scalVitesse = dicoparam['vitesse']
+			self.vitesseMoyenne = dicoparam['vitesse']
 		except:
 			pass
 	
@@ -174,13 +174,19 @@ class Robot :
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.scalVitesse), 1), round(self.posCenter[1]+ (self.vectD.y * self.scalVitesse ), 1))
+		if self.MoteurD.state == "inactive" and self.MoteurD.state == "inactive":
+			pass
+		else :
+			self.VitesseAngulaire()
+			self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
+					 		  round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
     
 	def reculerRobot(self):
 		"""
-			Met à jourÒÒ la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
+			Met à jour la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
 		"""
-		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * (- self.scalVitesse)), 1), round(self.posCenter[1]+ (self.vectD.y * (- self.scalVitesse) ), 1))
+		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * (- self.vitesseMoyenne)), 1),
+						  round(self.posCenter[1]+ (self.vectD.y * (- self.vitesseMoyenne) ), 1))
     
 	def tournerRobot(self,deg):
 		"""
