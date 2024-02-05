@@ -153,8 +153,8 @@ class Interface:
         vitesseG=self.scale_vitesseG.get()
         vitesseD=self.scale_vitesseD.get()
 
-        self.agent.MoteurG.vitesse_set(vitesseG)
-        self.agent.MoteurD.vitesse_set(vitesseD)
+        self.agent.MoteurG.vitesseMoteur=vitesseG
+        self.agent.MoteurD.vitesseMoteur=vitesseD
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
         self.fenetre.after(50,self.update_VitesseS)
         
