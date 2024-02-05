@@ -47,35 +47,48 @@ class Interface:
         self.buttonframe = tkinter.Frame(self.framer)
         self.buttonframe.pack(fill=tkinter.BOTH)
 
-        self.vitesse_label=tkinter.Label(self.buttonframe,text="VitesseG : 0 , VitesseD : 0")
+        self.vitesse_label=tkinter.Label(self.buttonframe,
+                                         text=f"VitesseG : {self.agent.MoteurG.vitesseMoteur}, VitesseD : {self.agent.MoteurD.vitesseMoteur}")
         self.vitesse_label.pack()
 
-        self.stopL = tkinter.Button(self.buttonframe, text ="activateL", command=self.activateLeft)
+        self.stopL = tkinter.Button(self.buttonframe, 
+                                    text ="activateL", 
+                                    command=self.activateLeft)
         self.stopL.pack(side=tkinter.BOTTOM)
 
-        self.stopR = tkinter.Button(self.buttonframe, text ="activateR", command=self.activateRight)
+        self.stopR = tkinter.Button(self.buttonframe, 
+                                    text ="activateR", 
+                                    command=self.activateRight)
         self.stopR.pack(side=tkinter.BOTTOM)
 
-        self.decrR = tkinter.Button(self.buttonframe, text ="-", command=self.decreaseRightSpeed)
+        self.decrR = tkinter.Button(self.buttonframe, 
+                                    text ="-", 
+                                    command=self.decreaseRightSpeed,
+                                    state="disabled")
         self.decrR.pack(side=tkinter.RIGHT)
 
-        self.incrR = tkinter.Button(self.buttonframe, text ="+", command=self.increaseRightSpeed)
+        self.incrR = tkinter.Button(self.buttonframe, 
+                                    text ="+", 
+                                    command=self.increaseRightSpeed,
+                                    state="disabled")
         self.incrR.pack(side=tkinter.RIGHT)
 
-        self.incrL = tkinter.Button(self.buttonframe, text ="+", command=self.increaseLeftSpeed)
+        self.incrL = tkinter.Button(self.buttonframe, 
+                                    text ="+", 
+                                    command=self.increaseLeftSpeed,
+                                    state="disabled")
         self.incrL.pack(side=tkinter.LEFT)
         
-        self.decrL = tkinter.Button(self.buttonframe, text ="-", command=self.decreaseLeftSpeed)
+        self.decrL = tkinter.Button(self.buttonframe, 
+                                    text ="-", 
+                                    command=self.decreaseLeftSpeed,
+                                    state="disabled")
         self.decrL.pack(side=tkinter.LEFT)
-
-
-        self.mjAffichageVitesse()
-        self.mjAffichage_Robot()
 
         rect_width = agent._dim[0]
         rect_height = agent._dim[1]
-        x0 = ((1024 - rect_width) / 2) + agent.posCenter[0]
-        y0 = ((720 - rect_height) / 2) + agent.posCenter[1]
+        x0 = (rect_width / 2) + agent.posCenter[0]
+        y0 = (rect_height / 2) + agent.posCenter[1]
         x1 = x0 + rect_width + agent.posCenter[0]
         y1 = y0 + rect_height + agent.posCenter[1]
         self.rob = self.canvas.create_rectangle(x0, y0, x1, y1)
@@ -84,8 +97,8 @@ class Interface:
                                 (x0+x1)/2+agent.vectD.x, 
                                 (y0+y1)/2+agent.vectD.y,
                                 arrow=tkinter.LAST)
-        self.canvas.after(50, self.mouv, agent)
-        self.fenetre.after(50, self.update)
+        
+        
         
         self.fenetre.bind('<Key>',self.showKeyEvent)
         self.fenetre.bind('a', self.decreaseRightSpeed)
@@ -94,6 +107,9 @@ class Interface:
         self.fenetre.bind('i', self.decreaseLeftSpeed)
         self.fenetre.bind('o', self.increaseLeftSpeed)
         self.fenetre.bind('p', self.activateLeft)
+        
+        #rappelle de la fenetre, pour rafraichissement
+        self.fenetre.after(50, self.update)
 
     def ajoutObstacle(self, obs : Obstacle):
         """
@@ -107,9 +123,14 @@ class Interface:
         """
             Update la fenetre de l'interface graphique
         """
+        
+        
+        self.fenetre.after(50,self.mjAffichageVitesse)
+        self.fenetre.after(50,self.mjAffichage_Robot)
+        self.canvas.after(50, self.mouv)
+        self.fenetre.after(50, self.update)
         self.fenetre.update()
         self.fenetre.update_idletasks()
-        self.fenetre.after(50, self.update)
     
     def affiche(self):
         """
@@ -117,21 +138,20 @@ class Interface:
         """
         self.fenetre.mainloop()
 
-    def mouv(self, agent : Robot):
+    def mouv(self):
         """
             Update la position du robot dans l'interface graphique
         """
-        rect_width = agent._dim[0]
-        rect_height = agent._dim[1]
-        x0 = ((1024 - rect_width) / 2) + agent.posCenter[0]
-        y0 = ((720 - rect_height) / 2) + agent.posCenter[1]
-        x1 = x0 + rect_width + agent.posCenter[0]
-        y1 = y0 + rect_height + agent.posCenter[1]
+        rect_width = self.agent._dim[0]
+        rect_height = self.agent._dim[1]
+        x0 = (rect_width) / 2 + self.agent.posCenter[0]
+        y0 = (rect_height / 2) + self.agent.posCenter[1]
+        x1 = x0 + rect_width + self.agent.posCenter[0]
+        y1 = y0 + rect_height + self.agent.posCenter[1]
         self.canvas.coords(self.rob, x0, y0, x1, y1)
         xcen = (x0+x1)/2
         ycen = (y0+y1)/2
-        self.canvas.coords(self.line, xcen, ycen, xcen+ agent.vectD.x, ycen + agent.vectD.y)
-        self.canvas.after(50, self.mouv, agent)
+        self.canvas.coords(self.line, xcen, ycen, xcen+ self.agent.vectD.x, ycen + self.agent.vectD.y)
 
 
 
@@ -139,11 +159,9 @@ class Interface:
         vitesseG=self.agent.MoteurG.vitesseMoteur
         vitesseD=self.agent.MoteurD.vitesseMoteur
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
-        self.fenetre.after(50,self.mjAffichageVitesse)
 
     def mjAffichage_Robot(self):
         self.agent.avancerRobot()
-        self.fenetre.after(50,self.mjAffichage_Robot)
 
     def showKeyEvent(self,event):
         print('Vous avez appuyé sur : ', repr(event.char))
@@ -172,20 +190,49 @@ class Interface:
         self.agent.calcVitesseMoyenne()
         print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
 
+
     def activateRight(self, event=None) :
         if self.agent.MoteurD.state == "inactive":
+            
+            #Active le moteur droit
             self.agent.MoteurD.activeMoteur()
+
+            #Active les boutons de vitesse du moteur droit
+            self.incrR.config(state="normal")
+            self.decrR.config(state="normal")
+
+            #Affichage console
             print("Moteur droit activé")
         else :
+            
+            #Desactive le moteur droit
             self.agent.MoteurD.desactiveMoteur()
+
+            #Désactive les boutons de vitesse pour le moteur droit
+            self.incrR.config(state="disabled")
+            self.decrR.config(state="disabled")
+            
+            #Affichage console
             print("Moteur droit desactivé")
     
     def activateLeft(self, event=None) :
         if self.agent.MoteurG.state == "inactive":
+            #Active le moteur gauche
             self.agent.MoteurG.activeMoteur()
+            
+            #Active les boutons de vitesse pour le moteur gauche
+            self.incrL.config(state="normal")
+            self.decrL.config(state="normal")
             print("Moteur gauche activé")
         else :
+            #Desactive le moteur gauche
             self.agent.MoteurG.desactiveMoteur()
+            
+            #Desactive les boutons de vitesse pour le moteur gauche
+            self.incrL.config(state="disabled")
+            self.decrL.config(state="disabled")
+            
+            #Affichage console
             print("Moteur gauche desactivé")
 
 
