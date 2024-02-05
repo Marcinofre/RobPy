@@ -10,11 +10,9 @@ r = Robot(75,125)
 int = Interface(r)
 obs = Obstacle(241,134,201,-100)
 
-time.sleep(1)
 int.ajoutObstacle(obs)
-r.posCenter = (50,100)
+r.posCenter = (150,150)
 r.vectD.x = 0
 r.vectD.y = -10
-r.avancerRobot()
 int.affiche()
 
