@@ -45,11 +45,11 @@ class Robot :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
-		if self.MoteurD.vitesseMoteur  != self.MoteurG.vitesseMoteur :
+		if self.MoteurD.vitesseMoteur != self.MoteurG.vitesseMoteur :
 		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.@@
 			
 			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
-			if self.MoteurD.vitesseMoteur  > self.MoteurG.vitesseMoteur :
+			if self.MoteurD.vitesseMoteur > self.MoteurG.vitesseMoteur :
 				diff = self.MoteurD.vitesseMoteur  - self.MoteurG.vitesseMoteur 
 				angle = diff / self.Rayon
 				pi = math.pi
@@ -76,14 +76,16 @@ class Robot :
 		#Si le moteur droit est inactif ou que sa vitessde est de 0 alors la vitesse moyenne du robot est celui du moteur gauche
 		if (self.MoteurD.state == 'inactive') or (self.MoteurD.vitesseMoteur == 0):
 			self.vitesseMoyenne = self.MoteurG.vitesseMoteur
+			return
 
 		#Idem pour le moteur gauche
 		if (self.MoteurG.state == 'inactive') or (self.MoteurG.vitesseMoteur == 0):
 			self.vitesseMoyenne = self.MoteurD.vitesseMoteur
+			return
 
 		#Sinon la moyenne et l'addition du moteur gauche et droit diviser par deux
 		else:
-			self.vitesseMoyenne = (self.MoteurD.vitesseMoteur + self.MoteurG.vitesseMoteur)/2
+			self.vitesseMoyenne = round((self.MoteurD.vitesseMoteur + self.MoteurG.vitesseMoteur)/2,2)
 
 	
 
@@ -174,7 +176,7 @@ class Robot :
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		if self.MoteurD.state == "inactive" and self.MoteurD.state == "inactive":
+		if self.MoteurD.state == "inactive" and self.MoteurG.state == "inactive":
 			pass
 		else :
 			self.VitesseAngulaire()
