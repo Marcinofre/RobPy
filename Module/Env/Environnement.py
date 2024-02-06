@@ -1,5 +1,6 @@
 from Module.Env.Obstacle import Obstacle
 from Module.Agent.Robot import Robot
+from Module.Vecteur import Vecteur
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
@@ -27,7 +28,7 @@ class Environnement :
 		self.clockPace = clockPace
 		self.maxReachablePoint = (x,y)
 		self.agent = agent
-		setObstacle = set()
+		self.setObstacle = set()
 
 
 
@@ -116,18 +117,25 @@ class Environnement :
 		"""
 		if isinstance(obs, list):
 			for obj in obs :
-				if isinstance(obj, obs) :
+				if isinstance(obj, Obstacle) :
 					self.setObstacle.add(obj)
 		elif isinstance(obs, Obstacle):
 				self.setObstacle.add(obs)
 		else :
 			print("L'élément n'est pas un obstacle")
 
-	def doesCollide(self, agent : Robot):
+	def doesCollide(self):
 		"""
-			Prend en argument un obstacle et un robot.
         	Détermine si rob est en collision avec obs, renvoie True ou False. 
-			Fait un produit de produit vectoriel de la forme (AB ^ AC)(AB ^ AD) ET (CD ^ CA)(CD ^CB)
+			Fait un produit de produit vectoriel de la forme (AB ^ AC)(AB ^ AD) ET (CD ^ CA)(CD ^ CB)
         """
-		pass
-		# Pré-requis manquant : Fonction de création de vecteur à partir des coordonnées de deux points
+		for i in self.setObstacle:
+			AB = self.agent.vectD
+			AC = Vecteur.creerVecteur(self.agent.posCenter[0], self.agent.posCenter[1], i.x0, i.y0)
+			AD = Vecteur.creerVecteur(self.agent.posCenter[0], self.agent.posCenter[1], i.x1, i.y1)
+			CA = Vecteur.creerVecteur(i.x0, i.y0, self.agent.posCenter[0], self.agent.posCenter[1])
+			CB = Vecteur.creerVecteur(i.x0, i.y0, self.agent.posCenter[0]+self.agent.vectD.x, self.agent.posCenter[1]+self.agent.vectD.y)
+			CD = Vecteur.creerVecteur(i.x0, i.y0, i.x1, i.y1)
+			if (AB.produitVectoriel(AC)*AB.produitVectoriel(AD))<0 and (CD.produitVectoriel(CA)*CD.produitVectoriel(CB))<0 :
+				return True
+		return False

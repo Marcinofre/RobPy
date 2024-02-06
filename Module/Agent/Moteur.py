@@ -14,22 +14,40 @@ class Moteur :
 		
 		self._name = name
 		self.state = state
+		self.vitesseMoteur = 0  # Scalaire de la vitesse du Moteur, par défaut 0
+		self.incrementVitesseMoteur = 0.1 
 
-	def avance(self) :
+
+	def augmenteVitesse(self) :
 		"""
-			Change l'etat du moteur en 'activeForward' 
+			augmente la vitesse de 1 
 		"""
-		self.state = "activeForward"
+		self.vitesseMoteur = round(self.vitesseMoteur+self.incrementVitesseMoteur, 1)
+
+	def reduitVitesse(self) :
+		"""
+			reduit la vitesse de 1 
+		"""
+		self.vitesseMoteur = round(self.vitesseMoteur-self.incrementVitesseMoteur,1)
 	
-	def recule(self) :
+	def activeMoteur(self):
+		""" 
+			Change l'etat du moteur en 'active'
 		"""
-			Change l'etat du moteur en 'activeBackward' 
-		"""
-		self.state = "activeBackward"
-	
-	def stop(self) :
+		self.state = "active"
+
+	def desactiveMoteur(self) :
 		""" 
 			Change l'etat du moteur en 'inactive'
 		"""
 		self.state = "inactive"
+
+
+	#pour l'instant YNL 
+	def vitesse_set(self,nouv_vitesse):
+		"""
+			modifier la vitesse
+		"""
+		self.Vitesse=nouv_vitesse
+		
 		
