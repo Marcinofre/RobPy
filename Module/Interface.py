@@ -142,12 +142,12 @@ class Interface:
         
         
         self.fenetre.bind('<Key>',self.showKeyEvent)
-        self.fenetre.bind('a', self.decreaseRightSpeed)
-        self.fenetre.bind('z', self.increaseRightSpeed)
-        self.fenetre.bind('e', self.activateRight)
-        self.fenetre.bind('i', self.decreaseLeftSpeed)
-        self.fenetre.bind('o', self.increaseLeftSpeed)
-        self.fenetre.bind('p', self.activateLeft)
+        self.fenetre.bind('<Down>', self.decreaseRightSpeed)
+        self.fenetre.bind('<Up>', self.increaseRightSpeed)
+        self.fenetre.bind('w', self.activateRight)
+        self.fenetre.bind('s', self.decreaseLeftSpeed)
+        self.fenetre.bind('z', self.increaseLeftSpeed)
+        self.fenetre.bind('x', self.activateLeft)
         
         #rappelle de la fenetre, pour rafraichissement
         self.fenetre.after(50, self.update)
