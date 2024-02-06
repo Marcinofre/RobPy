@@ -1,18 +1,17 @@
 from Module.Env.Environnement import Environnement as env
 from Module.Vecteur import Vecteur as vect
 from Module.Agent.Robot import Robot
-from Module.Env.Obstacle import Obstacle
 from Module.Interface import Interface
+from Module.Env.Environnement import Environnement as env
 import time
+#Initialisation interface, Robot et Environnment
+r = Robot(30,40,180,180)
+r.vectD.x = 0
+r.vectD.y = -15
+e = env(1024, 720, r)
+int = Interface(e.agent, e)
 
-r = Robot(75,125)
 
-int = Interface(r)
-obs = Obstacle(241,134,201,-100)
-
-int.ajoutObstacle(obs)
-r.posCenter = (150,150)
+int.affiche()
 r.vectD.x = 0
 r.vectD.y = -10
-int.affiche()
-

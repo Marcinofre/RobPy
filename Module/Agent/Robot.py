@@ -40,29 +40,58 @@ class Robot :
 	
 		self.posCenter = (x,y)	# Position en x et y du centre du robot
 
+		larg = self._dim[0]/2
+		long = self._dim[1]/2
+		
+		self.vectRightTopCorner = Vecteur(larg , 
+								          -long)
+		self.vectLeftTopCorner = Vecteur(-larg , 
+								         -long)
+		self.vectRightBottomCorner = Vecteur(larg ,
+									         long)
+		self.vectLeftBottomCorner = Vecteur(-larg , 
+										     long)
+
 
 	def VitesseAngulaire(self) :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
-		if self.MoteurD.vitesseMoteur != self.MoteurG.vitesseMoteur :
 		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.@@
-			
-			# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
-			if self.MoteurD.vitesseMoteur > self.MoteurG.vitesseMoteur :
-				diff = self.MoteurD.vitesseMoteur  - self.MoteurG.vitesseMoteur 
-				angle = diff / self.Rayon
-				pi = math.pi
-				angle = angle * ( 180/pi )
-				self.vectD.rotationAngle(angle)
+		if self.MoteurD.vitesseMoteur != self.MoteurG.vitesseMoteur :
 
-			# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
-			if self.MoteurG.vitesseMoteur  > self.MoteurD.vitesseMoteur  :
-				diff = self.MoteurG.vitesseMoteur  - self.MoteurD.vitesseMoteur 
-				angle = diff / self.Rayon
+			if (self.MoteurD.state == "inactive" or self.MoteurD.vitesseMoteur == 0) and self.MoteurG.state == "active":
+				diff = self.MoteurG.vitesseMoteur 
+				angle = diff
 				pi = math.pi
-				angle = angle * ( 180/pi )
-				self.vectD.rotationAngle(-angle)
+				angle = angle * (180/pi)
+				self.rotateAllVect(angle)
+
+
+			if (self.MoteurG.state == "inactive" or self.MoteurG.vitesseMoteur == 0) and self.MoteurD.state == "active" :
+				diff = self.MoteurD.vitesseMoteur 
+				angle = diff
+				pi = math.pi
+				angle = angle * (180/pi)
+				self.rotateAllVect(-angle)
+
+			if self.MoteurD.state == "active" and self.MoteurG.state == "active":
+				
+				# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
+				if self.MoteurD.vitesseMoteur > self.MoteurG.vitesseMoteur :
+					diff = self.MoteurD.vitesseMoteur  - self.MoteurG.vitesseMoteur 
+					angle = diff / self.Rayon
+					pi = math.pi
+					angle = angle * (180/pi)
+					self.rotateAllVect(-angle)
+
+				# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
+				if self.MoteurG.vitesseMoteur  > self.MoteurD.vitesseMoteur  :
+					diff = self.MoteurG.vitesseMoteur - self.MoteurD.vitesseMoteur 
+					angle = diff / self.Rayon
+					pi = math.pi
+					angle = angle * ( 180/pi )
+					self.rotateAllVect(angle)
 
 	def calcVitesseMoyenne(self) :
 		"""
@@ -177,7 +206,7 @@ class Robot :
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
 		if self.MoteurD.state == "inactive" and self.MoteurG.state == "inactive":
-			pass
+			return
 		else :
 			self.VitesseAngulaire()
 			self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
@@ -195,6 +224,14 @@ class Robot :
 			Modifie la direction du vecteur direction en fonction de la valeur en degrés de paramètre deg 
 		"""
 		self.vectD.rotationAngle(deg)
+	
+	def rotateAllVect(self, angle) :
+		self.vectD.rotationAngle(angle)
+		self.vectRightTopCorner.rotationAngle(angle)
+		self.vectRightBottomCorner.rotationAngle(angle)
+
+		self.vectLeftTopCorner.rotationAngle(angle)
+		self.vectLeftBottomCorner.rotationAngle(angle)
 
 
  

@@ -71,8 +71,8 @@ class Vecteur:
     
 
     @staticmethod
-    def creerVecteur(x0, y0, x1, y1) :
+    def creerVecteur(coord1, coord2) :
         """
             Prend les coordonnés des points A et B et retournent le vecteur AB
         """
-        return Vecteur(x1-x0,y1-y0)  
+        return Vecteur(coord2[0]-coord1[0],coord2[1]-coord1[1])  

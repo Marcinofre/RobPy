@@ -14,7 +14,7 @@ class Moteur :
 		
 		self._name = name
 		self.state = state
-		self.vitesseMoteur = 0.1  # Scalaire de la vitesse du Moteur, par défaut 1.0
+		self.vitesseMoteur = 0  # Scalaire de la vitesse du Moteur, par défaut 0
 		self.incrementVitesseMoteur = 0.1 
 
 
