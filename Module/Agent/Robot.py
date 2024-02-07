@@ -57,41 +57,14 @@ class Robot :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 		"""
-		# Fonctionne seulement si les vitesses des deux moteurs ne sont pas égales.@@
-		if self.MoteurD.vitesseMoteur != self.MoteurG.vitesseMoteur :
-
-			if (self.MoteurD.state == "inactive" or self.MoteurD.vitesseMoteur == 0) and self.MoteurG.state == "active":
-				diff = self.MoteurG.vitesseMoteur 
-				angle = diff
-				pi = math.pi
-				angle = angle * (180/pi)
-				self.rotateAllVect(angle)
-
-
-			if (self.MoteurG.state == "inactive" or self.MoteurG.vitesseMoteur == 0) and self.MoteurD.state == "active" :
-				diff = self.MoteurD.vitesseMoteur 
-				angle = diff
-				pi = math.pi
-				angle = angle * (180/pi)
-				self.rotateAllVect(-angle)
-
-			if self.MoteurD.state == "active" and self.MoteurG.state == "active":
-				
-				# Cas 1 : Le moteur droit est le plus rapide, on tourne à gauche
-				if self.MoteurD.vitesseMoteur > self.MoteurG.vitesseMoteur :
-					diff = self.MoteurD.vitesseMoteur  - self.MoteurG.vitesseMoteur 
-					angle = diff / self.Rayon
-					pi = math.pi
-					angle = angle * (180/pi)
-					self.rotateAllVect(-angle)
-
-				# Cas 2 : Le moteur gauche est le plus rapide, on tourne à droite
-				if self.MoteurG.vitesseMoteur  > self.MoteurD.vitesseMoteur  :
-					diff = self.MoteurG.vitesseMoteur - self.MoteurD.vitesseMoteur 
-					angle = diff / self.Rayon
-					pi = math.pi
-					angle = angle * ( 180/pi )
-					self.rotateAllVect(angle)
+		# 1er Cas : La roue droite est plus rapide, l'angle est positif, le robot tourne à gauche.
+		# 2ème Cas : La roue gauche est plus rapide, l'angle est négatif, le robot tourne à droite.
+		# 3ème Cas : Les deux roues ont la même vitesse, l'angle est nul, le robot ne tourne pas.
+		diff = self.MoteurD.vitesseMoteur - self.MoteurG.vitesseMoteur 
+		angle = diff / self.Rayon
+		pi = math.pi
+		angle = angle * ( 180/pi )
+		self.rotateAllVect(angle)
 
 	def calcVitesseMoyenne(self) :
 		"""
