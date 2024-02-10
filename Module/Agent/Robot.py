@@ -30,8 +30,7 @@ class Robot :
 
 		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
-		self.rayon =  # Rayon des roues 
-
+		self.rayon =0.0  # Rayon des roues
 		self.isActive = 0
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
