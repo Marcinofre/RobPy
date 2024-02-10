@@ -158,6 +158,3 @@ class Interface:
         vitesseG=self.agent.MoteurG.vitesseMoteur
         vitesseD=self.agent.MoteurD.vitesseMoteur
         self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
-
-    def mjAffichage_Robot(self):
-        self.agent.avancerRobot()
