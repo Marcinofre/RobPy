@@ -43,15 +43,6 @@ class Robot :
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
 		
-		#ça ça degage
-		self.vectRightTopCorner = Vecteur(larg , 
-								          -long)
-		self.vectLeftTopCorner = Vecteur(-larg , 
-								         -long)
-		self.vectRightBottomCorner = Vecteur(larg ,
-									         long)
-		self.vectLeftBottomCorner = Vecteur(-larg , 
-										     long)
 
 	def VitesseAngulaire(self) :
 		"""
