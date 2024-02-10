@@ -5,7 +5,7 @@ Dans le cas de ce code, nous avons deux roues avec des vitesses différentes.
 L'idée est d'utiliser la différence de vitesse des roues pour calculer la vitesse angulaire du robot
 à l'aide des formules de trigonométrie;
 
-=> Supposons que la vitesse de la roue droite soit vG et le vitesse de la roue gauche vD.
+=> Supposons que la vitesse de la roue droite soit vD et le vitesse de la roue gauche vG.
 
 => La vitesse linéaire d'une roue est donnée par la formule : v = ω × r  
 > où r est le rayon de la roue.
@@ -14,7 +14,7 @@ L'idée est d'utiliser la différence de vitesse des roues pour calculer la vite
 > Roue gauche : ωG = vG / r 
 > Roue droite : ωD = vD / r 
 
-=> La différence de vitesse angulaire entre les roues est : Δω = ωG - ωD
+=> La différence de vitesse angulaire entre les roues est : Δω = ωD - ωG
 > Δω = ωD - ωG
 > Δω = ( vD / r ) - ( vG / r )
 > Δω = ( vD - vG ) / r
