@@ -58,14 +58,15 @@ class Interface:
 
 
         self.displaySpeedTop.pack(side=tkinter.TOP, 
-                                  fill = tkinter.BOTH)
+                                 fill = tkinter.BOTH)
         self.TextframeRight.pack(side=tkinter.RIGHT,
-                                   fill=tkinter.BOTH)
+                                 fill=tkinter.BOTH)
         self.TextframeLeft.pack(side=tkinter.LEFT, 
-                                  fill=tkinter.BOTH)
+                                 fill=tkinter.BOTH)
 
         self.vitesse_label=tkinter.Label(self.displaySpeedTop,
-                                         text=f"VitesseG : {self.agent.MoteurG.vitesseMoteur}, VitesseD : {self.agent.MoteurD.vitesseMoteur}")
+                                         text=f"VitesseG : {self.agent.MoteurG.vitesseMoteur}, 
+                                         VitesseD : {self.agent.MoteurD.vitesseMoteur}")
         self.vitesse_label.pack()
 
         x0 = agent.vectRightTopCorner.x + agent.posCenter[0]
@@ -114,7 +115,6 @@ class Interface:
         """
 
         self.fenetre.after(50, self.mjAffichageVitesse)
-        self.fenetre.after(50, self.mjAffichage_Robot)
         self.canvas.after(50, self.mouv)
         self.fenetre.after(50, self.update)
         self.fenetre.update()
