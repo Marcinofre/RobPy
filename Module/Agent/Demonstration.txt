@@ -1,6 +1,14 @@
 Démonstration de la fonction vitesseAngulaire :
 
-La vitesse angulaire est définie comme le taux de changement de l'angle θ par rapport au temps t.
+La vitesse angulaire ω est définie comme le taux de changement de l'angle θ par rapport au temps t.
 Dans le cas de ce code, nous avons deux roues avec des vitesses différentes.
 L'idée est d'utiliser la différence de vitesse des roues pour calculer la vitesse angulaire du robot
+à l'aide des formules de trigonométrie;
 
+> Supposons que la vitesse de la roue droite soit vG et le vitesse de la roue gauche vD.
+
+> La vitesse linéaire d'une roue est donnée par la formule : v = ω × r  ,où r est le rayon de la roue.
+
+> Donc la vitesseAngulaire de la roue s'écrit: ω = v / r 
+> Roue gauche : ωG = vG / r 
+> Roue droite : ωD = vD / r 
