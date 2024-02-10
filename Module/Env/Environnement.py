@@ -6,7 +6,7 @@ class Environnement :
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
 	"""
 
-	def __init__(self, x, y, agent, clockPace = 1) -> None:
+	def __init__(self, x, y, agent: Robot, clockPace:int = 1) -> None:
 		"""
 			Constructeur de la classe Environnement.
 			arg x : taille max de l'abscisse du rectangle
@@ -23,7 +23,7 @@ class Environnement :
 			setObstacle	        -> Un ensemble contenant tous les obstacles de l'environnement
 		"""
 		
-		self.onGoing = False
+		self.onGoing = 0
 		self.currentClock = 0
 		self.clockPace = clockPace
 		self.maxReachablePoint = (x,y)
@@ -53,7 +53,7 @@ class Environnement :
 		if self.onGoing :
 			print("L'environnement est déjà en cours d'éxécution")
 		else :
-			self.onGoing = True
+			self.onGoing = 1
 	
 	def stopEnv(self):
 		"""
@@ -62,51 +62,7 @@ class Environnement :
 		if not self.onGoing :
 			print("L'environnement est déjà arrêté")
 		else :
-			self.onGoing = False
-
-	
-	def activateAgent(self, agent : Robot):
-		agent.isActive = True
-	
-	def runAgent(self, agent :Robot, fileInstruction) :
-		"""
-			Mets en action le robot
-		"""
-		if agent.isActive:
-
-			genFileInstruction = agent.readInstruction(fileInstruction)
-
-
-			while True:
-				try :
-					line = next(genFileInstruction)
-					#print(line)
-				except:
-					break
-				
-				try :
-					
-					comm_arg = agent.parsingInstruction(line)
-					print(comm_arg[0])
-				except:
-					
-					continue
-				
-				try :
-					duree = int(comm_arg[1]["duree"])
-				except:
-					duree = 1
-				while duree:
-					print(next(self.clockCount()))
-					agent.executeInstruction(comm_arg)
-					print(agent.posCenter)
-					duree -= 1
-
-		else:
-			print("Agent non activé. Veuillez activer l'agent")
-			raise Exception("Agent not activated. Programme Stop")
-
-
+			self.onGoing = 0
 
 	def addObstacle(self, obs) :
 		"""

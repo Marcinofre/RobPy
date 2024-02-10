@@ -8,7 +8,7 @@ class Robot :
 		Modélisation d'un robot de Sorbonne Université
 	"""
 
-	def __init__(self, width, length, x:float=0, y:float=0) -> None:
+	def __init__(self, width:int, length:int, x:float=0, y:float=0) -> None:
 		"""
 			Constructeur de la classe Robot :
 			arg width : Largeur du robot
@@ -19,7 +19,7 @@ class Robot :
 			Attribut d'instance env. :
 			dim				-> Dimension du robot défini par sa largeur et sa longueur
 			isActive		-> Booléen qui définit si le robot est allumé ou non
-			vitesseMoyenne		-> Scalaire définissant la vitesse du robot
+			vitesseMoyenne	-> Scalaire définissant la vitesse du robot
 			vectD 	        -> Vecteur direction du mouvement du robot
 			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
 		"""
@@ -32,7 +32,7 @@ class Robot :
 
 		self.Rayon = width/2 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
-		self.isActive = False
+		self.isActive = 0
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
         
@@ -43,6 +43,7 @@ class Robot :
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
 		
+		#ça ça degage
 		self.vectRightTopCorner = Vecteur(larg , 
 								          -long)
 		self.vectLeftTopCorner = Vecteur(-larg , 
@@ -51,7 +52,6 @@ class Robot :
 									         long)
 		self.vectLeftBottomCorner = Vecteur(-larg , 
 										     long)
-
 
 	def VitesseAngulaire(self) :
 		"""
@@ -89,123 +89,21 @@ class Robot :
 		else:
 			self.vitesseMoyenne = round((self.MoteurD.vitesseMoteur + self.MoteurG.vitesseMoteur)/2,2)
 
-	
-
-	def allPos(self) :
-		"""
-			Print l'ensemble des positions disponible du robot
-		"""
-		print(f"Position du robot : {self.posCenter}")
-
-	def readInstruction(self, instructionFile):
-		"""
-			Lis les instructions d'un fichier script
-			arg instrcutionFile --> fichier .txt contenant une suite d'instruction pour le robot
-		"""
-		if not os.path.exists(instructionFile):
-			raise Exception("File not found. Or file doesn't exist")
-		else :
-			with open(instructionFile,"r") as file:
-				for line in file:
-					yield line
-
-	def parsingInstruction(self, instruction : str):
-		"""
-			Récupère l'instruction d'un fichier (une ligne) et parse les éléments de cette commande pour récupérer les paramètres et l'instruction			arg instrcution --> chaine de caractère contenant la commande à parser
-			format de texte : <instruction>: <param1> <param2> etc...
-			retourne un tuple (<instruction>, list[parametre])
-		"""
-		instruction = instruction.lower()
-		sep = ":"
-		index = instruction.find(sep)
-		command = instruction[0:index]
-		parameter = instruction[index+1:].split(" ")
-		dicoArg = dict()
-		for arg in parameter:
-			try:
-				number = float(arg[1:])
-			except:
-				raise ValueError(f"{arg[1:]} is not a number")
-			
-			if arg[0] == 'd':
-				if number <= 0:
-					number = 1
-				dicoArg['duree'] = number
-			if arg[0] == 'r':
-				dicoArg['angle'] = number
-			if arg[0] == 'v':
-				dicoArg['vitesse'] = number
-
-		return (command, dicoArg)
-	
-	def executeInstruction(self, dicInstruction):
-		"""
-			Exécute une commande en fonction de l'instruction du premier élement du tuple et de la liste de parametre
-			arg instruction --> tuple (<instruction>, dico[param])
-		"""
-
-		commande, dicoparam = dicInstruction
-		try :
-			self.vitesseMoyenne = dicoparam['vitesse']
-		except:
-			pass
-	
-		if commande == 'avancer':
-			self.avancerRobot()
-		if commande == 'reculer':
-			self.reculerRobot()
-		if commande == 'tourner':
-			try :
-				self.tournerRobot(dicoparam['angle'])
-			except :
-				raise Exception("No value 'Angle'")
-				
-	def accelererRobot(self,acceleration) :
-		"""
-			Augmente la vitesse des deux moteurs 
-		"""
-		self.MoteurD.accelere(acceleration)
-		self.MoteurG.accelere(acceleration)
-
-	def ralentirRobot(self,ralentissement) :
-		"""
-			Ralentie la vitesse des deux moteurs 
-		"""
-		self.MoteurD.ralentie(ralentissement)
-		self.MoteurG.ralentie(ralentissement)
-
 	def avancerRobot(self):
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		if self.MoteurD.state == "inactive" and self.MoteurG.state == "inactive":
+		if (not self.MoteurD.state) and (not self.MoteurG.state):
 			return
 		else :
 			self.VitesseAngulaire()
 			self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
 					 		  round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
     
-	def reculerRobot(self):
-		"""
-			Met à jour la position du robot en le faisant reculer en fonction de la vitesse et du vecteur direction
-		"""
-		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * (- self.vitesseMoyenne)), 1),
-						  round(self.posCenter[1]+ (self.vectD.y * (- self.vitesseMoyenne) ), 1))
-    
-	def tournerRobot(self,deg):
-		"""
-			Modifie la direction du vecteur direction en fonction de la valeur en degrés de paramètre deg 
-		"""
-		self.vectD.rotationAngle(deg)
 	
 	def rotateAllVect(self, angle) :
+		
 		self.vectD.rotationAngle(angle)
-		self.vectRightTopCorner.rotationAngle(angle)
-		self.vectRightBottomCorner.rotationAngle(angle)
-
-		self.vectLeftTopCorner.rotationAngle(angle)
-		self.vectLeftBottomCorner.rotationAngle(angle)
-
 
  
  

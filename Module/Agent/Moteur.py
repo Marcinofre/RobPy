@@ -2,7 +2,7 @@ class Moteur :
 	"""
 		Modélisation d'un moteur du robot de Sorbonne Université
 	"""
-	def __init__(self, name, state = "inactive") -> None:
+	def __init__(self, name:str, state:int = 0 ) -> None:
 		"""
 			Constructeur d'un moteur
 			arg name 	: Nom du moteur
@@ -32,22 +32,14 @@ class Moteur :
 	
 	def activeMoteur(self):
 		""" 
-			Change l'etat du moteur en 'active'
+			Change l'etat du moteur en 1
 		"""
-		self.state = "active"
+		self.state = 1
 
 	def desactiveMoteur(self) :
 		""" 
-			Change l'etat du moteur en 'inactive'
+			Change l'etat du moteur en 0
 		"""
-		self.state = "inactive"
+		self.state = 0
 
 
-	#pour l'instant YNL 
-	def vitesse_set(self,nouv_vitesse):
-		"""
-			modifier la vitesse
-		"""
-		self.Vitesse=nouv_vitesse
-		
-		

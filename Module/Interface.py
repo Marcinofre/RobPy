@@ -140,15 +140,6 @@ class Interface:
                                             fill="red")
         
         
-        
-        self.fenetre.bind('<Key>',self.showKeyEvent)
-        self.fenetre.bind('<Down>', self.decreaseRightSpeed)
-        self.fenetre.bind('<Up>', self.increaseRightSpeed)
-        self.fenetre.bind('w', self.activateRight)
-        self.fenetre.bind('s', self.decreaseLeftSpeed)
-        self.fenetre.bind('z', self.increaseLeftSpeed)
-        self.fenetre.bind('x', self.activateLeft)
-        
         #rappelle de la fenetre, pour rafraichissement
         self.fenetre.after(50, self.update)
 
@@ -165,7 +156,6 @@ class Interface:
             Update la fenetre de l'interface graphique
         """
 
-        
         self.fenetre.after(50, self.mjAffichageVitesse)
         self.fenetre.after(50, self.mjAffichage_Robot)
         self.canvas.after(50, self.mouv)
@@ -207,8 +197,6 @@ class Interface:
                            self.agent.posCenter[0] + self.agent.vectD.x,
                            self.agent.posCenter[1] + self.agent.vectD.y)
 
-
-
     def mjAffichageVitesse(self):
         vitesseG=self.agent.MoteurG.vitesseMoteur
         vitesseD=self.agent.MoteurD.vitesseMoteur
@@ -216,103 +204,3 @@ class Interface:
 
     def mjAffichage_Robot(self):
         self.agent.avancerRobot()
-
-    def showKeyEvent(self,event):
-        print('Vous avez appuyé sur : ', repr(event.char))
-
-    def decreaseRightSpeed(self, event=None):
-        """
-            Réduit la vitesse du robot lors d'un event
-        """
-        
-        #Réduction de la vitesse du moteur concerné
-        self.agent.MoteurD.reduitVitesse()
-
-        #calcule de la nouvelle moyenne du robot
-        self.agent.calcVitesseMoyenne()
-        print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
-    
-    def increaseRightSpeed(self, event=None):
-        """
-            Augmente la vitesse du robot lors d'un event
-        """
-        
-        #Augmentation de la vitesse du moteur concerné
-        self.agent.MoteurD.augmenteVitesse()
-
-        #calcule de la nouvelle moyenne du robot
-        self.agent.calcVitesseMoyenne()
-        print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
-
-
-    def activateRight(self, event=None) :
-        if self.agent.MoteurD.state == "inactive":
-            
-            #Active le moteur droit
-            self.agent.MoteurD.activeMoteur()
-
-            #Active les boutons de vitesse du moteur droit
-            self.incrR.config(state="normal")
-            self.decrR.config(state="normal")
-
-            #Affichage console
-            print("Moteur droit activé")
-        else :
-            
-            #Desactive le moteur droit
-            self.agent.MoteurD.desactiveMoteur()
-
-            #Désactive les boutons de vitesse pour le moteur droit
-            self.incrR.config(state="disabled")
-            self.decrR.config(state="disabled")
-            
-            #Affichage console
-            print("Moteur droit desactivé")
-    
-    def activateLeft(self, event=None) :
-        if self.agent.MoteurG.state == "inactive":
-            #Active le moteur gauche
-            self.agent.MoteurG.activeMoteur()
-            
-            #Active les boutons de vitesse pour le moteur gauche
-            self.incrL.config(state="normal")
-            self.decrL.config(state="normal")
-            print("Moteur gauche activé")
-        else :
-            #Desactive le moteur gauche
-            self.agent.MoteurG.desactiveMoteur()
-            
-            #Desactive les boutons de vitesse pour le moteur gauche
-            self.incrL.config(state="disabled")
-            self.decrL.config(state="disabled")
-            
-            #Affichage console
-            print("Moteur gauche desactivé")
-
-
-    def decreaseLeftSpeed(self, event=None):
-        """
-            Réduit la vitesse du robot lors d'un event
-        """
-        
-        #Réduction de la vitesse du moteur concerné
-        self.agent.MoteurG.reduitVitesse()
-
-        #calcule de la nouvelle moyenne du robot
-        self.agent.calcVitesseMoyenne()
-        print(f"réduction vitesse : {self.agent.vitesseMoyenne}")
-    
-    def increaseLeftSpeed(self, event=None):
-        """
-            Augmente la vitesse du robot lors d'un event
-        """
-        
-        #Augmentaion de la vitesse du moteur concerné
-        self.agent.MoteurG.augmenteVitesse()
-
-        #calcule de la nouvelle moyenne du robot
-        self.agent.calcVitesseMoyenne()
-        print(f"augmente vitesse : {self.agent.vitesseMoyenne}")
-    
-
-    
