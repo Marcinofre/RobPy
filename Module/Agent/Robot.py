@@ -30,7 +30,7 @@ class Robot :
 
 		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
-		self.Rayon = width/2 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
+		self.rayon =  # Rayon des roues 
 
 		self.isActive = 0
 		
