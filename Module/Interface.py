@@ -68,7 +68,6 @@ class Interface:
                                          text=f"VitesseG : {self.agent.MoteurG.vitesseMoteur}, VitesseD : {self.agent.MoteurD.vitesseMoteur}")
         self.vitesse_label.pack()
 
-
         x0 = agent.vectRightTopCorner.x + agent.posCenter[0]
         y0 = agent.vectRightTopCorner.y + agent.posCenter[1]
         
