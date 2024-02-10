@@ -1,12 +1,13 @@
 from Module.Env.Obstacle import Obstacle
 from Module.Agent.Robot import Robot
 from Module.Vecteur import Vecteur
+from Module.Interface import Interface
 class Environnement :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
 	"""
 
-	def __init__(self, x, y, agent: Robot, clockPace:int = 1) -> None:
+	def __init__(self, x, y, agent: Robot, interface = None, clockPace:int = 1) -> None:
 		"""
 			Constructeur de la classe Environnement.
 			arg x : taille max de l'abscisse du rectangle
@@ -29,6 +30,7 @@ class Environnement :
 		self.maxReachablePoint = (x,y)
 		self.agent = agent
 		self.setObstacle = set()
+		self.interface = interface
 
 
 
@@ -95,3 +97,9 @@ class Environnement :
 			if (AB.produitVectoriel(AC)*AB.produitVectoriel(AD))<0 and (CD.produitVectoriel(CA)*CD.produitVectoriel(CB))<0 :
 				return True
 		return False
+	
+	def ajoutInterface(self, int : Interface) :
+		"""
+			Permet d'ajouter l'interface graphique en tant qu'attribut de l'environnement
+		"""
+		self.interface = int

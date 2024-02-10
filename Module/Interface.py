@@ -51,64 +51,22 @@ class Interface:
 
         #Ajout de l'attribut agent et de l'environnment
         self.agent=agent
-        self.env = env
 
         self.displaySpeedTop = tkinter.Frame(self.framer)
-        self.buttonframeRight = tkinter.Frame(self.framer)
-        self.buttonframeLeft = tkinter.Frame(self.framer)
+        self.TextframeRight = tkinter.Frame(self.framer)
+        self.TextframeLeft = tkinter.Frame(self.framer)
 
 
         self.displaySpeedTop.pack(side=tkinter.TOP, 
                                   fill = tkinter.BOTH)
-        self.buttonframeRight.pack(side=tkinter.RIGHT,
+        self.TextframeRight.pack(side=tkinter.RIGHT,
                                    fill=tkinter.BOTH)
-        self.buttonframeLeft.pack(side=tkinter.LEFT, 
+        self.TextframeLeft.pack(side=tkinter.LEFT, 
                                   fill=tkinter.BOTH)
 
         self.vitesse_label=tkinter.Label(self.displaySpeedTop,
                                          text=f"VitesseG : {self.agent.MoteurG.vitesseMoteur}, VitesseD : {self.agent.MoteurD.vitesseMoteur}")
         self.vitesse_label.pack()
-
-        #Mise en place des bouttons d'activation moteur
-        self.stopL = tkinter.Button(self.buttonframeLeft, 
-                                    text ="activateL", 
-                                    command=self.activateLeft)
-        self.stopR = tkinter.Button(self.buttonframeRight, 
-                                    text ="activateR", 
-                                    command=self.activateRight)
-        
-        #Dispostion en bas dans leur frame correspondante
-        self.stopL.pack(side=tkinter.BOTTOM)
-        self.stopR.pack(side=tkinter.BOTTOM)
-
-
-        #Commande du moteur droit du robot
-        self.decrR = tkinter.Button(self.buttonframeRight, 
-                                    text ="-", 
-                                    command=self.decreaseRightSpeed,
-                                    state="disabled")
-        self.incrR = tkinter.Button(self.buttonframeRight, 
-                                    text ="+", 
-                                    command=self.increaseRightSpeed,
-                                    state="disabled")
-        
-        #Dispostion à droite dans leur frame correspondante
-        self.decrR.pack(side=tkinter.RIGHT)
-        self.incrR.pack(side=tkinter.RIGHT)
-
-        #Commande du Moteur gauche du Robot
-        self.incrL = tkinter.Button(self.buttonframeLeft, 
-                                    text ="+", 
-                                    command=self.increaseLeftSpeed,
-                                    state="disabled")
-        self.decrL = tkinter.Button(self.buttonframeLeft, 
-                                    text ="-", 
-                                    command=self.decreaseLeftSpeed,
-                                    state="disabled")
-        
-        #Disposition à gauche dans leur frame correspondante
-        self.incrL.pack(side=tkinter.LEFT)
-        self.decrL.pack(side=tkinter.LEFT)
 
 
         x0 = agent.vectRightTopCorner.x + agent.posCenter[0]
