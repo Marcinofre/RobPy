@@ -39,6 +39,8 @@ class Robot :
 		self.vitesseMoyenne = 0
 	
 		self.posCenter = (x,y)	# Position en x et y du centre du robot
+		
+		self.rotation = 0
 
 	def VitesseAngulaire(self) :
 		"""
@@ -76,6 +78,7 @@ class Robot :
 			Rotation en degré du robot, ce qui demande une rotation du vecteur directeur et du vecteur representé par les 4 coins du robot
 		"""
 		self.vectD.rotationAngle(angle)
+		self.rotation = angle
 
 	def getCarcasse(self):
 		"""
@@ -83,12 +86,24 @@ class Robot :
 		"""
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
+
+		TRC = (self.posCenter[0]+larg, self.posCenter[1]-long)
+		TLC = (self.posCenter[0]+larg, self.posCenter[1]+long)
+		BRC = (self.posCenter[0]-larg, self.posCenter[1]-long)
+		BLC = (self.posCenter[0]-larg, self.posCenter[1]+long)
 		
-		TopRightCorner = (self.posCenter[0]+larg, self.posCenter[1]-long)
-		TopLeftCorner = (self.posCenter[0]+larg, self.posCenter[1]+long)
-		BottomRightCorner = (self.posCenter[0]-larg, self.posCenter[1]-long)
-		BottomLeftCorner = (self.posCenter[0]-larg, self.posCenter[1]+long)
-		return [TopRightCorner,BottomRightCorner,BottomLeftCorner,TopLeftCorner]
+		if self.rotation!=0 :
+			rad = math.radians(self.rotation)
+			TRC = (round(TRC[0]*math.cos(rad) - TRC[1]*math.sin(rad),1),
+		  		  round(TRC[0]*math.sin(rad) + TRC[1]*math.cos(rad),1))
+			TLC = (round(TLC[0]*math.cos(rad) - TLC[1]*math.sin(rad),1),
+		  		  round(TLC[0]*math.sin(rad) + TLC[1]*math.cos(rad),1))
+			BRC = (round(BRC[0]*math.cos(rad) - BRC[1]*math.sin(rad),1),
+		  		  round(BRC[0]*math.sin(rad) + BRC[1]*math.cos(rad),1))
+			BLC = (round(BLC[0]*math.cos(rad) - BLC[1]*math.sin(rad),1),
+		  		  round(BLC[0]*math.sin(rad) + BLC[1]*math.cos(rad),1))
+
+		return [TRC,TLC,BRC,BLC]
 
 
  
