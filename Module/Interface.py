@@ -1,3 +1,4 @@
+import itertools
 import tkinter
 from Module.Env.Obstacle import Obstacle
 
@@ -56,8 +57,8 @@ class Interface:
         self.TextframeLeft = tkinter.Frame(self.framer)
 
 
-        self.displaySpeedTop.pack(side=tkinter.TOP, 
-                                 fill = tkinter.BOTH)
+        self.displaySpeedTop.pack(side=tkinter.TOP,
+                                  fill = tkinter.BOTH)
         self.TextframeRight.pack(side=tkinter.RIGHT,
                                  fill=tkinter.BOTH)
         self.TextframeLeft.pack(side=tkinter.LEFT, 
@@ -65,15 +66,16 @@ class Interface:
 
         self.vitesse_label=tkinter.Label(self.displaySpeedTop,
                                          text=f"VitesseG : {self.env.agent.MoteurG.vitesseMoteur}, VitesseD : {self.env.agent.MoteurD.vitesseMoteur}")
+        self.zone_saisie_vitesse = tkinter.Entry(self.TextframeRight)
         self.vitesse_label.pack()
+        self.zone_saisie_vitesse.pack()
 
         initialPosition = env.agent.getCarcasse()
         self.rob = self.canvas.create_polygon(*initialPosition,
                                               fill="white",
                                               outline="black")
         
-        self.line = self.canvas.create_line(self.env.agent.posCenter[0], 
-                                            self.env.agent.posCenter[1],
+        self.line = self.canvas.create_line(*self.env.agent.posCenter,
                                             self.env.agent.posCenter[0]+self.env.agent.vectD.x, 
                                             self.env.agent.posCenter[1]+self.env.agent.vectD.y,
                                             arrow=tkinter.LAST,
@@ -83,6 +85,11 @@ class Interface:
         
         #rappelle de la fenetre, pour rafraichissement
         self.fenetre.after(50, self.update)
+
+    #Voir source de cette fonction : https://stackoverflow.com/questions/32449670/tkinter-tclerror-bad-screen-distance-in-pythons-tkinter-when-trying-to-modi
+    def flatten(self, list_of_lists):
+        """Flatten one level of nesting"""
+        return itertools.chain.from_iterable(list_of_lists)
 
     def ajoutObstacle(self, obs : Obstacle):
         """
@@ -115,7 +122,7 @@ class Interface:
         """
         position = self.env.agent.getCarcasse()
         self.canvas.coords(self.rob, 
-                           *position)
+                           *self.flatten(position))
         self.canvas.coords(self.line, 
                            self.env.agent.posCenter[0], 
                            self.env.agent.posCenter[1],
@@ -125,4 +132,4 @@ class Interface:
     def mjAffichageVitesse(self):
         vitesseG=self.env.agent.MoteurG.vitesseMoteur
         vitesseD=self.env.agent.MoteurD.vitesseMoteur
-        self.vitesse_label.config(text=f"VitesseG : {vitesseG} , VitesseD : {vitesseD}")
+        self.vitesse_label.config(text=f"VitesseG : {vitesseG}, VitesseD : {vitesseD}")
