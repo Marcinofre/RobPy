@@ -1,12 +1,12 @@
 import tkinter
 from Module.Env.Obstacle import Obstacle
-from Module.Env.Environnement import Environnement
+
 
 class Interface:
     """
         L'interface permet une représentation graphique des mouvements du robots dans l'environnements
     """
-    def __init__(self, env: Environnement, width = 1280,height = 720):
+    def __init__(self, env, width = 1280,height = 720):
         """
             Constructeur de la classe Interface :
             arg width  -> largeur de l'interface graphique
@@ -47,9 +47,10 @@ class Interface:
                                      bg = 'grey')
         self.canvas.pack()
 
-        #Ajout de l'attribut agent et de l'environnment
+        #Ajout de l'environnment comme attribut
         self.env=env
 
+        #Création de zone prédeterminé (une l'affichage de la vitesse)
         self.displaySpeedTop = tkinter.Frame(self.framer)
         self.TextframeRight = tkinter.Frame(self.framer)
         self.TextframeLeft = tkinter.Frame(self.framer)
@@ -63,27 +64,11 @@ class Interface:
                                  fill=tkinter.BOTH)
 
         self.vitesse_label=tkinter.Label(self.displaySpeedTop,
-                                         text=f"VitesseG : {self.env.agent.MoteurG.vitesseMoteur}, 
-                                         VitesseD : {self.env.agent.MoteurD.vitesseMoteur}")
+                                         text=f"VitesseG : {self.env.agent.MoteurG.vitesseMoteur}, VitesseD : {self.env.agent.MoteurD.vitesseMoteur}")
         self.vitesse_label.pack()
 
-        x0 = self.env.agent.vectRightTopCorner.x + self.env.agent.posCenter[0]
-        y0 = self.env.agent.vectRightTopCorner.y + self.env.agent.posCenter[1]
-        
-        x1 = self.env.agent.vectLeftTopCorner.x + self.env.agent.posCenter[0]
-        y1 = self.env.agent.vectLeftTopCorner.y + self.env.agent.posCenter[1]
-
-        x2 = self.env.agent.vectLeftBottomCorner.x + self.env.agent.posCenter[0]
-        y2 = self.env.agent.vectLeftBottomCorner.y + self.env.agent.posCenter[1]
-
-        x3 = self.env.agent.vectRightBottomCorner.x + self.env.agent.posCenter[0]
-        y3 = self.env.agent.vectRightBottomCorner.y + self.env.agent.posCenter[1]
-
-
-        self.rob = self.canvas.create_polygon(x0, y0,
-                                              x1, y1,
-                                              x2, y2,
-                                              x3, y3,
+        initialPosition = env.agent.getCarcasse()
+        self.rob = self.canvas.create_polygon(*initialPosition,
                                               fill="white",
                                               outline="black")
         
@@ -128,24 +113,9 @@ class Interface:
         """
             Update la position du robot dans l'interface graphique
         """
-
-        x0 = self.env.agent.vectRightTopCorner.x + self.env.agent.posCenter[0]
-        y0 = self.env.agent.vectRightTopCorner.y + self.env.agent.posCenter[1]
-        
-        x1 = self.env.agent.vectLeftTopCorner.x + self.env.agent.posCenter[0]
-        y1 = self.env.agent.vectLeftTopCorner.y + self.env.agent.posCenter[1]
-
-        x2 = self.env.agent.vectLeftBottomCorner.x + self.env.agent.posCenter[0]
-        y2 = self.env.agent.vectLeftBottomCorner.y + self.env.agent.posCenter[1]
-
-        x3 = self.env.agent.vectRightBottomCorner.x + self.env.agent.posCenter[0]
-        y3 = self.env.agent.vectRightBottomCorner.y + self.env.agent.posCenter[1]
-        
+        position = self.env.agent.getCarcasse()
         self.canvas.coords(self.rob, 
-                           x0, y0, 
-                           x1, y1, 
-                           x2, y2, 
-                           x3, y3)
+                           *position)
         self.canvas.coords(self.line, 
                            self.env.agent.posCenter[0], 
                            self.env.agent.posCenter[1],
