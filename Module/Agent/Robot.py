@@ -96,7 +96,7 @@ class Robot :
 
 	def getCarcasse(self):
 		"""
-			Renvoie les coordonnées des 4 points du robot sous la forme de Tuple de Tuple
+			Renvoie les coordonnées des 4 points du robot sous la forme de Liste de Tuple
 		"""
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
@@ -105,7 +105,7 @@ class Robot :
 		TopLeftCorner = (self.posCenter[0]+larg, self.posCenter[1]+long)
 		BottomRightCorner = (self.posCenter[0]-larg, self.posCenter[1]-long)
 		BottomLeftCorner = (self.posCenter[0]-larg, self.posCenter[1]+long)
-		return (TopRightCorner,TopLeftCorner,BottomRightCorner,BottomLeftCorner)
+		return [TopRightCorner,TopLeftCorner,BottomRightCorner,BottomLeftCorner]
 
 
  
