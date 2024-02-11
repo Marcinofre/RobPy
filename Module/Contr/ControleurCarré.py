@@ -19,17 +19,16 @@ class ControleurCarré():
             return
         if self.cur<0 or self.strats[self.cur].stop():
             self.cur+=1
-            self.strats[self.cur].step()
+            self.useStrat(self.strats[self.cur])
     
     def stop(self):
-        return self.curr ==len(self.strats)-1 and self.strats[self.cur].stop()
+        return self.curr == len(self.strats)-1 and self.strats[self.cur].stop()
     
-    def avancer_robot(self,distance):
-        strategie=AvancerDroit(distance,self.env)
-        strategie.start()
-
-        while not strategie.stop():
-            strategie.step()
-            time.sleep(1./strategie.updateTime())
+    def useStrat(self, strat):
+        strat.start()
+        while not strat.stop():
+            strat.step()
+            time.sleep(1./strat.updateTime())
 
         print("Arrivé à destination ")
+        self.step()
