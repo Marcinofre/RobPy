@@ -89,9 +89,15 @@ class Robot :
     
 	
 	def rotateAllVect(self, angle) :
+		"""
+			Rotation en degré du robot, ce qui demande une rotation du vecteur directeur et du vecteur representé par les 4 coins du robot
+		"""
 		self.vectD.rotationAngle(angle)
 
 	def getCarcasse(self):
+		"""
+			Renvoie les coordonnées des 4 points du robot sous la forme de Tuple de Tuple
+		"""
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
 		
