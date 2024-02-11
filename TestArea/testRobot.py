@@ -32,6 +32,13 @@ class Robot(unittest.TestCase) :
 	def test_getCarcasse(self):
 		robot = r(10,10)
 		self.assertEqual(robot.getCarcasse(), ((5,-5),(5,5),(-5,-5),(-5,5)))
+
+		robot2 = r(10,10,10,10)
+		self.assertEqual(robot2.getCarcasse(), ((15,5),(15,15),(5,5),(5,15)))
+
+		robot3 = r(10,10)
+		robot3.posCenter = (5,5)
+		self.assertEqual(robot3.getCarcasse(), ((10,0),(10,10),(0,0),(0,10)))
 		
 
 
