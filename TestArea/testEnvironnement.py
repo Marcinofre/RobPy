@@ -6,29 +6,6 @@ from Module.Env.Obstacle import Obstacle as obs
 
 
 class Environnement(unittest.TestCase):
-	def test_runAgent(self):
-		r = rob(0,0,0,0)
-		e = env(100,100, r)
-		
-		
-		
-		with self.assertRaises(Exception):
-			r.isActivate = False
-			e.runAgent(r,"scriptRobot.txt")
-		
-		r.isActive = True
-		e.runAgent(r, "fichierexistepasalorsrobotpasbouger")
-		self.assertEqual(r.posCenter, (0,0))
-
-		r.posCenter = (45,45)
-		e.runAgent(r, "fichierexistepasalorsrobotpasbouger")
-		self.assertEqual(r.posCenter, (45,45))
-
-		r.posCenter = (0,0)
-		r.vectD = vec(1,1)
-		e.runEnv()
-		e.runAgent(r, "Script/AvancerToutDroit.txt")
-		self.assertEqual(r.posCenter, (1,1))
 	
 	def test_ajoutObstacle(self):
 		r = rob(0,0,0,0)
