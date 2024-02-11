@@ -78,7 +78,7 @@ class Robot :
 			Rotation en degré du robot, ce qui demande une rotation du vecteur directeur et du vecteur representé par les 4 coins du robot
 		"""
 		self.vectD.rotationAngle(angle)
-		self.rotation = angle
+		self.rotation += angle
 
 	def getCarcasse(self):
 		"""
