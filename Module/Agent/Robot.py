@@ -30,7 +30,8 @@ class Robot :
 
 		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
-		self.rayon =0.0  # Rayon des roues
+		self.Rayon = width/2 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
+
 		self.isActive = 0
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
@@ -42,6 +43,15 @@ class Robot :
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
 		
+		#ça ça degage
+		self.vectRightTopCorner = Vecteur(larg , 
+								          -long)
+		self.vectLeftTopCorner = Vecteur(-larg , 
+								         -long)
+		self.vectRightBottomCorner = Vecteur(larg ,
+									         long)
+		self.vectLeftBottomCorner = Vecteur(-larg , 
+										     long)
 
 	def VitesseAngulaire(self) :
 		"""
@@ -92,8 +102,18 @@ class Robot :
     
 	
 	def rotateAllVect(self, angle) :
-		
 		self.vectD.rotationAngle(angle)
+
+	def getCarcasse(self):
+		larg = self._dim[0]/2
+		long = self._dim[1]/2
+		
+		TopRightCorner = (self.posCenter[0]+larg, self.posCenter[1]-long)
+		TopLeftCorner = (self.posCenter[0]+larg, self.posCenter[1]+long)
+		BottomRightCorner = (self.posCenter[0]-larg, self.posCenter[1]-long)
+		BottomLeftCorner = (self.posCenter[0]+-larg, self.posCenter[1]+long)
+		return (TopRightCorner,TopLeftCorner,BottomRightCorner,BottomLeftCorner)
+
 
  
  
