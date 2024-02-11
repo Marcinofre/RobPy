@@ -22,8 +22,3 @@ class AvancerDroit():
 
     def stop(self):
         return self.parcouru > self.distance
-
-strategie = AvancerDroit()
-while not strategie.stop():
-    strategie.step()
-    time.sleep(1./strategie.updateTime())
