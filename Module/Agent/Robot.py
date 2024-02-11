@@ -104,7 +104,7 @@ class Robot :
 		TopRightCorner = (self.posCenter[0]+larg, self.posCenter[1]-long)
 		TopLeftCorner = (self.posCenter[0]+larg, self.posCenter[1]+long)
 		BottomRightCorner = (self.posCenter[0]-larg, self.posCenter[1]-long)
-		BottomLeftCorner = (self.posCenter[0]+-larg, self.posCenter[1]+long)
+		BottomLeftCorner = (self.posCenter[0]-larg, self.posCenter[1]+long)
 		return (TopRightCorner,TopLeftCorner,BottomRightCorner,BottomLeftCorner)
 
 

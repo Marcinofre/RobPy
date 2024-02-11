@@ -28,6 +28,11 @@ class Robot(unittest.TestCase) :
 		for time in range(5):
 			robot.avancerRobot()
 		self.assertEqual(robot.posCenter, (7.5, -300.0))
+	
+	def test_getCarcasse(self):
+		robot = r(10,10)
+		self.assertEqual(robot.getCarcasse(), ((5,-5),(5,5),(-5,-5),(-5,5)))
+		
 
 
 	
