@@ -57,24 +57,7 @@ class Robot :
 		"""
 			Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
 		"""
-
-		#Si le moteur droit et gauche est inactif alors la vitesse du robot = 0
-		if (self.MoteurD.state == 'inactive') and (self.MoteurG.state == 'inactive') :
-			self.vitesseMoyenne = 0
-
-		#Si le moteur droit est inactif ou que sa vitessde est de 0 alors la vitesse moyenne du robot est celui du moteur gauche
-		if (self.MoteurD.state == 'inactive') or (self.MoteurD.vitesseMoteur == 0):
-			self.vitesseMoyenne = self.MoteurG.vitesseMoteur
-			return
-
-		#Idem pour le moteur gauche
-		if (self.MoteurG.state == 'inactive') or (self.MoteurG.vitesseMoteur == 0):
-			self.vitesseMoyenne = self.MoteurD.vitesseMoteur
-			return
-
-		#Sinon la moyenne et l'addition du moteur gauche et droit diviser par deux
-		else:
-			self.vitesseMoyenne = round((self.MoteurD.vitesseMoteur + self.MoteurG.vitesseMoteur)/2,2)
+		self.vitesseMoyenne = round((self.MoteurD.vitesseMoteur*self.MoteurD.state + self.MoteurG.vitesseMoteur*self.MoteurG.state)/2,2)
 
 	def avancerRobot(self):
 		"""
