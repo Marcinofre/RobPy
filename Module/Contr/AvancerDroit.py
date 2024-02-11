@@ -1,4 +1,5 @@
 from Module.Env.Environnement import Environnement
+import time
 
 class AvancerDroit():
     """
@@ -8,6 +9,8 @@ class AvancerDroit():
         self.distance = distance
         self.env = env
 
+    def updateTime(self) :
+        return self.env.clockPace
     def start(self):
         self.parcouru = 0
 
@@ -19,5 +22,8 @@ class AvancerDroit():
 
     def stop(self):
         return self.parcouru > self.distance
-    
-    
+
+strategie = AvancerDroit()
+while not strategie.stop():
+    strategie.step()
+    time.sleep(1./strategie.updateTime())
