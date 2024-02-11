@@ -1,6 +1,4 @@
 import tkinter
-from typing import Any
-from Module.Agent.Robot import Robot
 from Module.Env.Obstacle import Obstacle
 from Module.Env.Environnement import Environnement
 
