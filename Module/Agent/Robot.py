@@ -40,19 +40,6 @@ class Robot :
 	
 		self.posCenter = (x,y)	# Position en x et y du centre du robot
 
-		larg = self._dim[0]/2
-		long = self._dim[1]/2
-		
-		#ça ça degage
-		self.vectRightTopCorner = Vecteur(larg , 
-								          -long)
-		self.vectLeftTopCorner = Vecteur(-larg , 
-								         -long)
-		self.vectRightBottomCorner = Vecteur(larg ,
-									         long)
-		self.vectLeftBottomCorner = Vecteur(-larg , 
-										     long)
-
 	def VitesseAngulaire(self) :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
