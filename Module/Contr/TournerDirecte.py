@@ -1,8 +1,8 @@
 from Module.Env.Environnement import Environnement
 
-class TournerDroite():
+class TournerDirecte():
     """
-        Classe Strat de l'action de tourner à droite
+        Classe Strat de l'action de tourner dans le sens directe
     """
     def __init__(self, angle, env : Environnement):
         self.angle = angle
