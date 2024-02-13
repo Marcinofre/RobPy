@@ -68,6 +68,13 @@ class Vecteur:
         # On arrondit les valeurs à 1 chiffre après la virgule
         self.x = round(newx,1)
         self.y = round(newy,1)
+
+    def toTuple(self):
+        """
+            Retrourne le vecteur sous la forme d'un couple de point (x,y)
+        """
+        return (self.x, self.y)
+        
     
 
     @staticmethod
