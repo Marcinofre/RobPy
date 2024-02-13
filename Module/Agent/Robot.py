@@ -30,9 +30,9 @@ class Robot :
 
 		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
-		self.Rayon = width/2 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
+		self.Rayon = 1 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
-		self.isActive = 0
+		self.isActive = 1
 		
 		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
         
@@ -52,7 +52,7 @@ class Robot :
 		diff = self.MoteurD.vitesseMoteur - self.MoteurG.vitesseMoteur 
 		angle = diff / self.Rayon
 		pi = math.pi
-		angle = angle * ( 180/pi )
+		angle = angle * (180/pi)
 		self.rotateAllVect(angle)
 
 	def calcVitesseMoyenne(self) :
@@ -68,11 +68,16 @@ class Robot :
 		if (not self.MoteurD.state) and (not self.MoteurG.state):
 			return
 		else :
+			self.calcVitesseMoyenne()
+			print(self.vitesseMoyenne)
 			self.VitesseAngulaire()
 			self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
 					 		  round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
-    
-	
+
+	def setVitesseRoue(self, d, g):
+		self.MoteurD.vitesseMoteur = d
+		self.MoteurG.vitesseMoteur = g
+
 	def rotateAllVect(self, angle) :
 		"""
 			Rotation en degré du robot, ce qui demande une rotation du vecteur directeur et du vecteur representé par les 4 coins du robot
@@ -87,17 +92,27 @@ class Robot :
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
 
-		TRC = Vecteur(self.posCenter[0]+larg, self.posCenter[1]-long)
-		TLC = Vecteur(self.posCenter[0]+larg, self.posCenter[1]+long)
-		BRC = Vecteur(self.posCenter[0]-larg, self.posCenter[1]-long)
-		BLC = Vecteur(self.posCenter[0]-larg, self.posCenter[1]+long)
+		x = self.posCenter[0]
+		y = self.posCenter[1]
+
+		TRC_V = Vecteur(+larg, -long)
+		TLC_V = Vecteur(+larg, +long)
+		BRC_V = Vecteur(-larg, -long)
+		BLC_V = Vecteur(-larg, +long)
 		
 		if self.rotation!=0 :
-			TRC.rotationAngle(self.rotation)
-			TLC.rotationAngle(self.rotation)
-			BRC.rotationAngle(self.rotation)
-			BLC.rotationAngle(self.rotation)
-		return [TRC,TLC,BRC,BLC]
+			TRC_V.rotationAngle(self.rotation)
+			TLC_V.rotationAngle(self.rotation)
+			BRC_V.rotationAngle(self.rotation)
+			BLC_V.rotationAngle(self.rotation)
+		
+		TRC_T = (TRC_V.x + x,TRC_V.y + y)
+		TLC_T = (TLC_V.x + x,TLC_V.y + y)
+		BRC_T = (BRC_V.x + x,BRC_V.y + y)
+		BLC_T = (BLC_V.x + x,BLC_V.y + y)
+		
+
+		return [TRC_T,TLC_T,BLC_T,BRC_T]
 
 
  
