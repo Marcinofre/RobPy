@@ -37,9 +37,12 @@ class AvancerDroit():
         """
             Incrémente parcourue par la vitesseMoyenne de l'agent, fait avancer l'agent si stop() est false sinon ne return rien
         """
+
+        self.env.agent.setVitesseRoue(0.2,0.2)
         self.parcouru += self.env.agent.vitesseMoyenne
         if self.stop() :
             return
+        print('j\'avance')
         self.env.agent.avancerRobot()
 
     def stop(self):

@@ -43,7 +43,7 @@ class ControleurCarré():
         """
             Condition d'arrêt de step
         """
-        return self.curr == len(self.strats)-1 and self.strats[self.cur].stop()
+        return self.cur == len(self.strats)-1 and self.strats[self.cur].stop()
     
     def useStrat(self, strat):
         """

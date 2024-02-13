@@ -4,7 +4,7 @@ class TournerDirecte():
     """
         Classe Strat de l'action de tourner dans le sens directe
     """
-    def __init__(self, angle :int , env : Environnement):
+    def __init__(self, angle: int, env : Environnement):
         """
             Constructeur de la classe TournerDirecte:
             arg env : Environnement que le controleur a accès
@@ -40,6 +40,7 @@ class TournerDirecte():
         if self.stop() :
             return
         self.env.agent.rotateAllVect(5)
+        print('je tourne')
 
     def stop(self):
         """
