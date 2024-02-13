@@ -1,13 +1,15 @@
 import itertools
+from threading import Thread
+import threading
 import tkinter
 from Module.Env.Obstacle import Obstacle
 
 
-class Interface:
+class Interface():
     """
         L'interface permet une représentation graphique des mouvements du robots dans l'environnements
     """
-    def __init__(self, env, width = 1280,height = 720):
+    def __init__(self, env,controleur, width = 1280,height = 720):
         """
             Constructeur de la classe Interface :
             arg width  -> largeur de l'interface graphique
@@ -22,6 +24,11 @@ class Interface:
             framer     -> Frame contenant les différents widget permettant de manipuler les attributs et prenant 20% de la fenêtre
             canvas     -> Partie de la fenetre, dans framel, ou l'agent sera representé
         """
+
+
+        #Ajout de l'environnment et du controleur comme attribut
+        self.env=env
+        self.ctrl = controleur
 
         #Création de la fenetre
         self.fenetre = tkinter.Tk()
@@ -48,33 +55,85 @@ class Interface:
                                      bg = 'grey')
         self.canvas.pack()
 
-        #Ajout de l'environnment comme attribut
-        self.env=env
+        
 
         #Création de zone prédeterminé (une l'affichage de la vitesse)
-        self.displaySpeedTop = tkinter.Frame(self.framer)
+        self.displayTop = tkinter.Frame(self.framer)
         self.TextframeRight = tkinter.Frame(self.framer)
         self.TextframeLeft = tkinter.Frame(self.framer)
+        self.TextframeBottom = tkinter.Frame(self.framer)
 
 
-        self.displaySpeedTop.pack(side=tkinter.TOP,
+        self.TextframeBottom.pack(side=tkinter.BOTTOM, 
+                                 fill=tkinter.BOTH)
+        self.displayTop.pack(side=tkinter.TOP,
                                   fill = tkinter.BOTH)
         self.TextframeRight.pack(side=tkinter.RIGHT,
                                  fill=tkinter.BOTH)
         self.TextframeLeft.pack(side=tkinter.LEFT, 
                                  fill=tkinter.BOTH)
 
-        self.vitesse_label=tkinter.Label(self.displaySpeedTop,
-                                         text=f"VitesseG : {self.env.agent.MoteurG.vitesseMoteur}, VitesseD : {self.env.agent.MoteurD.vitesseMoteur}")
-        self.zone_saisie_vitesse = tkinter.Entry(self.TextframeRight)
-        self.vitesse_label.pack()
-        self.zone_saisie_vitesse.pack()
+        self.vitesse_label=tkinter.Label(self.displayTop,
+                                         text=f"VitesseG : {env.agent.MoteurG.vitesseMoteur}, VitesseD : {env.agent.MoteurD.vitesseMoteur}")
+        self.temps_label= tkinter.Label(self.displayTop,
+                                         text=f"Temps Courant : {env.currentClock}")
+        
 
-        initialPosition = env.agent.getCarcasse()
+        #definition des variables d'acceuil des entree
+        self.vitesseMD = tkinter.DoubleVar()
+        self.vitesseMG = tkinter.DoubleVar()
+        self.maxTime   = tkinter.DoubleVar()
+        self.paceTime  = tkinter.DoubleVar()
+
+        #Définition des label et de leurs zone d'entrée respective
+        self.label_vitesseMD = tkinter.Label(self.TextframeLeft, text="Vitesse Moteur droit :" )
+        self.label_vitesseMG = tkinter.Label(self.TextframeLeft, text="Vitesse Moteur gauche :" )
+        self.labe_maxtime = tkinter.Label(self.TextframeLeft, text="Temps Max :" )
+        self.labe_pacetime = tkinter.Label(self.TextframeLeft, text="Pas de temps :" )
+        self.zone_saisie_vitesseMD = tkinter.Entry(self.TextframeRight, textvariable=self.vitesseMD)
+        self.zone_saisie_vitesseMG = tkinter.Entry(self.TextframeRight, textvariable=self.vitesseMG)
+        self.zone_saisie_maxtime = tkinter.Entry(self.TextframeRight, textvariable=self.maxTime)
+        self.zone_saisie_pacetime = tkinter.Entry(self.TextframeRight, textvariable=self.paceTime)
+
+        #Position des labels d'affichage
+        self.temps_label.pack(side=tkinter.TOP)
+        self.vitesse_label.pack()
+        
+        #Position des zone de saisie et leur label
+        self.label_vitesseMD.pack()
+        self.zone_saisie_vitesseMD.pack()
+
+        self.label_vitesseMG.pack()
+        self.zone_saisie_vitesseMG.pack()
+        
+        self.labe_maxtime.pack()
+        self.zone_saisie_maxtime.pack()
+        
+        self.labe_pacetime.pack()
+        self.zone_saisie_pacetime.pack()
+
+        #Définition d'un bouton d'envoie + placement
+        boutton = tkinter.Button(self.TextframeBottom,
+                                 text="Envoie",
+                                 command=self.dispatchVariableCommande)
+        btn_run_env = tkinter.Button(self.TextframeBottom,
+                                 text="run",
+                                 command=self.run)
+        
+        boutton.pack()
+        btn_run_env.pack()
+        
+
+
+        
+        
+        #Dessin Robot initial
+        initialPosition = env.agent.getCarcasse() #-->Récupere la carcasse du robot (pour dessiner ses contours)
         self.rob = self.canvas.create_polygon(*initialPosition,
                                               fill="white",
                                               outline="black")
         
+        #Dessin d'une fleche représentant le vecteur direction
         self.line = self.canvas.create_line(*self.env.agent.posCenter,
                                             self.env.agent.posCenter[0]+self.env.agent.vectD.x, 
                                             self.env.agent.posCenter[1]+self.env.agent.vectD.y,
@@ -104,8 +163,8 @@ class Interface:
             Update la fenetre de l'interface graphique
         """
 
-        self.fenetre.after(50, self.mjAffichageVitesse)
-        self.canvas.after(50, self.mouv)
+        self.fenetre.after(50, self.mjAffichageLabel)
+        self.canvas.after(50, self.updateCanevas)
         self.fenetre.after(50, self.update)
         self.fenetre.update()
         self.fenetre.update_idletasks()
@@ -116,7 +175,7 @@ class Interface:
         """
         self.fenetre.mainloop()
 
-    def mouv(self):
+    def updateCanevas(self):
         """
             Update la position du robot dans l'interface graphique
         """
@@ -124,12 +183,43 @@ class Interface:
         self.canvas.coords(self.rob, 
                            *self.flatten(position))
         self.canvas.coords(self.line, 
-                           self.env.agent.posCenter[0], 
-                           self.env.agent.posCenter[1],
+                           *self.env.agent.posCenter,
                            self.env.agent.posCenter[0] + self.env.agent.vectD.x,
                            self.env.agent.posCenter[1] + self.env.agent.vectD.y)
 
-    def mjAffichageVitesse(self):
+    def mjAffichageLabel(self):
         vitesseG=self.env.agent.MoteurG.vitesseMoteur
         vitesseD=self.env.agent.MoteurD.vitesseMoteur
         self.vitesse_label.config(text=f"VitesseG : {vitesseG}, VitesseD : {vitesseD}")
+
+        self.temps_label.config(text=f"Temps Courant : {self.env.currentClock}")
+
+    def dispatchVariableCommande(self):
+        self.env.agent.MoteurD.vitesseMoteur = round(self.vitesseMD.get(), 1)
+        self.env.agent.MoteurG.vitesseMoteur = round(self.vitesseMG.get(), 1)
+        self.env.clockPace = round(self.paceTime.get(),1)
+        self.env.maxtime = round(self.maxTime.get(),1)
+
+    def run(self) :
+        """
+            Run la simulation (le controleur d'un coté et le modele de l'autre)
+        """
+        self.brain_th = threading.Thread(target=self.runCtrl, args=())
+        self.envir_th = threading.Thread(target=self.runModele, args=())
+        
+        self.envir_th.start()
+        self.brain_th.start()
+
+    def runModele(self):
+        """
+            Fais tourner le modele
+        """
+        return self.env.runSimulation()
+    
+    def runCtrl(self) : 
+        """
+            Mets en route le petit cerveau du robot 
+        """
+        self.ctrl.step()
+
+
