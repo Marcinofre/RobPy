@@ -9,12 +9,14 @@ class AvancerDroit():
         """
             Constructeur de la classe AvancerDroit:
             arg env : Environnement que le controleur a accès
-            
+            distance : Distance à parcourir dans la classe AvancerDroit
+
             ---
 
             Attributs d'instance:
             distance   -> Distance à parcourir par la classe AvancerDroit
             env        -> Environnement dans lequel on bouge un agent
+            parcouru   -> Distance parcouru jusqu'à maintenant par la classe AvancerDroit
         """
         self.distance = distance
         self.env = env
