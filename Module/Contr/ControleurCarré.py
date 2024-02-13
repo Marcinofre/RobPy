@@ -1,6 +1,6 @@
 from Module.Env.Environnement import Environnement
 from Module.Contr.AvancerDroit import AvancerDroit
-from Module.Contr.TournerDroite import TournerDroite
+from Module.Contr.TournerDirecte import TournerDirecte
 
 import time
 
@@ -16,11 +16,11 @@ class ControleurCarré():
             ---
 
             Attributs d'instances :
-            strats = Liste comprenant des instances des classes AvancerDroit et TournerDroite, les instructions que le controleur enverra au Robot
+            strats = Liste comprenant des instances des classes AvancerDroit et TournerDirecte, les instructions que le controleur enverra au Robot
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
         distance = 10
-        self.strats = [AvancerDroit(distance, env), TournerDroite(90, env), AvancerDroit(distance, env), TournerDroite(90, env),AvancerDroit(distance, env), TournerDroite(90, env),AvancerDroit(distance, env), TournerDroite(90, env)]
+        self.strats = [AvancerDroit(distance, env), TournerDirecte(90, env), AvancerDroit(distance, env), TournerDirecte(90, env),AvancerDroit(distance, env), TournerDirecte(90, env),AvancerDroit(distance, env), TournerDirecte(90, env)]
         self.cur = -1
     
     def start(self):
