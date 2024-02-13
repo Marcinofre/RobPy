@@ -1,8 +1,9 @@
+from zmq import NULL
 from Module.Env.Obstacle import Obstacle
 from Module.Agent.Robot import Robot
 from Module.Vecteur import Vecteur
-from Module.Interface import Interface
-class Environnement :
+import time
+class Environnement() :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
 	"""
@@ -23,10 +24,11 @@ class Environnement :
 			maxReachablePoint 	-> Définition de l'aire de simulation par le point maximal (diagonale au centre)
 			setObstacle	        -> Un ensemble contenant tous les obstacles de l'environnement
 		"""
-		
+
 		self.onGoing = 0
 		self.currentClock = 0
 		self.clockPace = clockPace
+		self.maxTime = 100
 		self.maxReachablePoint = (x,y)
 		self.agent = agent
 		self.setObstacle = set()
@@ -43,7 +45,7 @@ class Environnement :
 		"""
 			Générateur de temps qui incrémente self.currentClock de self.clockPace à chaque appel
 		"""
-		while self.onGoing :
+		while self.onGoing:
 			self.currentClock += self.clockPace
 			yield self.currentClock
 	
@@ -64,6 +66,21 @@ class Environnement :
 			print("L'environnement est déjà arrêté")
 		else :
 			self.onGoing = 0
+
+	def runSimulation(self):
+		#Active l'environnment
+		self.runEnv()
+		#Initialise le générateur
+		self.gentime = self.clockCount()
+		return self.run()
+		
+	def run(self):
+		while self.onGoing and self.currentClock < self.maxTime:
+			try :
+				print(next(self.gentime))
+			except:
+				return NULL
+			time.sleep(1./self.clockPace)
 
 	def addObstacle(self, obs) :
 		"""
