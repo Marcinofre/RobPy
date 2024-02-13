@@ -5,7 +5,7 @@ class AvancerDroit():
     """
         Classe Strat de l'action d'avancer tout droit
     """
-    def __init__(self, distance, env : Environnement):
+    def __init__(self, distance: int, env : Environnement):
         """
             Constructeur de la classe AvancerDroit:
             arg env : Environnement que le controleur a accès
@@ -29,7 +29,7 @@ class AvancerDroit():
     
     def start(self):
         """
-            Remet la distance parcourue à 0
+            Initialize la distance parcourue à 0
         """
         self.parcouru = 0
 
