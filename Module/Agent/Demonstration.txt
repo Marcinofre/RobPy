@@ -22,6 +22,6 @@ L'idée est d'utiliser la différence de vitesse des roues pour calculer la vite
 Δω est positive, et si la roue gauche tourne plus vite que la droite, 
 la différence de vitesse angulaire est négative.
 
-=> Ensuite, pour obtenir l'angle de rotation θ en rad/s, nous utilisons la formule : θ = Δω / r
+=> Ensuite, pour obtenir l'angle de rotation θ en rad , nous utilisons la formule : θ = Δω / Δt, où Δt=1  
 
-> Après avoir obtenu l'angle de rotation en rad/s, on le converti en deg/s :  θ * 180 / π
+> Après avoir obtenu l'angle de rotation en rad, on le converti en deg:  θ * 180 / π
