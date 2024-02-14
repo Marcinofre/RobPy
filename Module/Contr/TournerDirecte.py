@@ -1,10 +1,11 @@
-from Module.Env.Environnement import Environnement
+from Module.Env.Environnement import Environnement as env
+from Module.Agent.Robot import Robot as r
 
 class TournerDirecte():
     """
         Classe Strat de l'action de tourner dans le sens directe
     """
-    def __init__(self, angle: int, env : Environnement):
+    def __init__(self, angle: int, rob : r, en : env):
         """
             Constructeur de la classe TournerDirecte:
             arg env : Environnement que le controleur a accès
@@ -18,13 +19,14 @@ class TournerDirecte():
             parcouru   -> Rotation déjà effectué par la classe TournerDirecte
         """
         self.angle = angle
-        self.env = env
+        self.r = rob
+        self.e = en
 
     def updateTime(self) :
         """
             Permet d'obtenir l'update time de l'environnement
         """
-        return self.env.clockPace
+        return self.e.clockPace
     
     def start(self):
         """
@@ -39,7 +41,7 @@ class TournerDirecte():
         self.parcouru += 5
         if self.stop() :
             return
-        self.env.agent.rotateAllVect(5)
+        self.r.rotateAllVect(5)
         print('je tourne')
 
     def stop(self):

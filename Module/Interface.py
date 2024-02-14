@@ -198,7 +198,7 @@ class Interface():
         self.env.agent.MoteurD.vitesseMoteur = round(self.vitesseMD.get(), 1)
         self.env.agent.MoteurG.vitesseMoteur = round(self.vitesseMG.get(), 1)
         self.env.clockPace = round(self.paceTime.get(),1)
-        self.env.maxtime = round(self.maxTime.get(),1)
+        self.env.maxTime = round(self.maxTime.get(),1)
 
     def run(self) :
         """
@@ -220,6 +220,7 @@ class Interface():
         """
             Mets en route le petit cerveau du robot 
         """
-        self.ctrl.step()
+        self.ctrl.start()
+        return self.ctrl.step()
 
 

@@ -1,11 +1,12 @@
-from Module.Env.Environnement import Environnement
+from Module.Agent.Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
 
 
 class AvancerDroit():
     """
         Classe Strat de l'action d'avancer tout droit
     """
-    def __init__(self, distance: int, env : Environnement):
+    def __init__(self, distance: int, r : rob, envi: env):
         """
             Constructeur de la classe AvancerDroit:
             arg env : Environnement que le controleur a accès
@@ -19,13 +20,14 @@ class AvancerDroit():
             parcouru   -> Distance parcouru jusqu'à maintenant par la classe AvancerDroit
         """
         self.distance = distance
-        self.env = env
+        self.r = r
+        self.e = envi
 
     def updateTime(self) :
         """
             Permet d'obtenir l'update time de l'environnement
         """
-        return self.env.clockPace
+        return self.e.clockPace
     
     def start(self):
         """
@@ -38,12 +40,12 @@ class AvancerDroit():
             Incrémente parcourue par la vitesseMoyenne de l'agent, fait avancer l'agent si stop() est false sinon ne return rien
         """
 
-        self.env.agent.setVitesseRoue(0.2,0.2)
-        self.parcouru += self.env.agent.vitesseMoyenne
+        self.r.setVitesseRoue(0.2,0.2)
+        self.parcouru += self.r.vitesseMoyenne
         if self.stop() :
             return
         print('j\'avance')
-        self.env.agent.avancerRobot()
+        self.r.avancerRobot()
 
     def stop(self):
         """

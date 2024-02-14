@@ -1,4 +1,5 @@
-from Module.Env.Environnement import Environnement
+from Module.Agent.Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
 from Module.Contr.AvancerDroit import AvancerDroit
 from Module.Contr.TournerDirecte import TournerDirecte
 
@@ -8,7 +9,7 @@ class ControleurCarré():
     """
         Un controleur du robot dont le but est de lui faire tracer un carré
     """
-    def __init__(self, env : Environnement):
+    def __init__(self, robot: rob, en: env ):
         """
             Constructeur de la classe ControleurCarré:
             arg env : Environnement que le controleur a accès
@@ -20,7 +21,7 @@ class ControleurCarré():
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
         distance = 10
-        self.strats = [AvancerDroit(distance, env), TournerDirecte(90, env), AvancerDroit(distance, env), TournerDirecte(90, env),AvancerDroit(distance, env), TournerDirecte(90, env),AvancerDroit(distance, env), TournerDirecte(90, env)]
+        self.strats = [AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en), AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en),AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en),AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en)]
         self.cur = -1
     
     def start(self):

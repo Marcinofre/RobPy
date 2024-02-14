@@ -1,4 +1,3 @@
-from zmq import NULL
 from Module.Env.Obstacle import Obstacle
 from Module.Agent.Robot import Robot
 from Module.Vecteur import Vecteur
@@ -69,15 +68,18 @@ class Environnement() :
 
 	def runSimulation(self):
 		#Active l'environnment
-		self.runEnv()
+		if not self.onGoing:
+			self.runEnv()
 		#Initialise le générateur
-		self.gentime = self.clockCount()
-		return self.run()
+		gentime = self.clockCount()
+		#reset le currentClock
+		self.currentClock = 0
+		return self.run(gentime)
 		
-	def run(self):
+	def run(self, gentime):
 		while self.onGoing and self.currentClock < self.maxTime:
 			try :
-				print(next(self.gentime))
+				print(next(gentime))
 			except:
 				return NULL
 			time.sleep(1./self.clockPace)
