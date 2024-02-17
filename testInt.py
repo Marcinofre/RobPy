@@ -10,7 +10,7 @@ import time
 r = Robot(30,40,180,180)
 r.vectD = vect(0,-15)
 e = env(1024, 720, r)
-c = contrcar(e)
+c = contrcar(r,e)
 sim = Interface(e,c)
 sim.affiche()
 
