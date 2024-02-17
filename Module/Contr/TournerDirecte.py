@@ -37,12 +37,13 @@ class TournerDirecte():
             Met la vitesse des roues à une vitesse arbitraire de telle sorte a ce que la vitesse = 0 mais que la vitesse angulaire != 0.
             Incrémente parcouru par la valeur retournée par la fonction vitesse angulaire, fait tourner l'agent si stop() est false sinon ne return rien.
         """
-        self.env.agent.setVitesseRoue(-1, 1)
+        self.env.agent.setVitesseRoue(-0.04625, 0.04625)
         avancement = self.env.agent.VitesseAngulaire()
-        self.parcouru += avancement
+        print(f"{avancement}")
+        self.parcouru -= avancement
         if self.stop() :
             return
-        self.env.agent.rotateAllVect(avancement)
+        self.env.agent.avancerRobot()
         print('je tourne')
 
     def stop(self):
