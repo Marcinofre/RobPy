@@ -53,7 +53,6 @@ class Robot :
 		angle = diff / self.Rayon
 		pi = math.pi
 		angle = angle * (180/pi)
-		self.rotateAllVect(angle)
 		return angle
 
 	def calcVitesseMoyenne(self) :
@@ -71,7 +70,7 @@ class Robot :
 		else :
 			self.calcVitesseMoyenne()
 			print(self.vitesseMoyenne)
-			self.VitesseAngulaire()
+			self.rotateAllVect(self.VitesseAngulaire())
 			self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
 					 		  round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
 
