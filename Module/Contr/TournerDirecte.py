@@ -34,12 +34,15 @@ class TournerDirecte():
 
     def step(self):
         """
-            Incrémente parcouru par [A compléter], fait tourner l'agent si stop() est false sinon ne return rien
+            Met la vitesse des roues à une vitesse arbitraire de telle sorte a ce que la vitesse = 0 mais que la vitesse angulaire != 0.
+            Incrémente parcouru par la valeur retournée par la fonction vitesse angulaire, fait tourner l'agent si stop() est false sinon ne return rien.
         """
-        self.parcouru += 5
+        self.env.agent.setVitesseRoue(-1, 1)
+        avancement = self.env.agent.VitesseAngulaire()
+        self.parcouru += avancement
         if self.stop() :
             return
-        self.env.agent.rotateAllVect(5)
+        self.env.agent.rotateAllVect(avancement)
         print('je tourne')
 
     def stop(self):

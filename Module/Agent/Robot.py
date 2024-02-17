@@ -54,6 +54,7 @@ class Robot :
 		pi = math.pi
 		angle = angle * (180/pi)
 		self.rotateAllVect(angle)
+		return diff/self.Rayon
 
 	def calcVitesseMoyenne(self) :
 		"""
