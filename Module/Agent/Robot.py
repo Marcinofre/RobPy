@@ -75,6 +75,9 @@ class Robot :
 					 		  round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
 
 	def setVitesseRoue(self, d, g):
+		"""
+			Définit la vitesse des deux roue du robot
+		"""
 		self.MoteurD.vitesseMoteur = d
 		self.MoteurG.vitesseMoteur = g
 

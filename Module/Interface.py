@@ -9,7 +9,7 @@ class Interface():
     """
         L'interface permet une représentation graphique des mouvements du robots dans l'environnements
     """
-    def __init__(self, env,controleur, width = 1280,height = 720):
+    def __init__(self, env, controleur, width = 1280,height = 720):
         """
             Constructeur de la classe Interface :
             arg width  -> largeur de l'interface graphique
@@ -27,7 +27,7 @@ class Interface():
 
 
         #Ajout de l'environnment et du controleur comme attribut
-        self.env=env
+        self.env = env
         self.ctrl = controleur
 
         #Création de la fenetre
@@ -63,7 +63,7 @@ class Interface():
         self.TextframeLeft = tkinter.Frame(self.framer)
         self.TextframeBottom = tkinter.Frame(self.framer)
 
-
+        #Positionnement des différentes frame
         self.TextframeBottom.pack(side=tkinter.BOTTOM, 
                                  fill=tkinter.BOTH)
         self.displayTop.pack(side=tkinter.TOP,
@@ -79,7 +79,7 @@ class Interface():
                                          text=f"Temps Courant : {env.currentClock}")
         
 
-        #definition des variables d'acceuil des entree
+        #definition des variables d'acceuil des entrees
         self.vitesseMD = tkinter.DoubleVar()
         self.vitesseMG = tkinter.DoubleVar()
         self.maxTime   = tkinter.DoubleVar()
@@ -112,7 +112,7 @@ class Interface():
         self.labe_pacetime.pack()
         self.zone_saisie_pacetime.pack()
 
-        #Définition d'un bouton d'envoie + placement
+        #Définition d'un bouton d'envoie
         boutton = tkinter.Button(self.TextframeBottom,
                                  text="Envoie",
                                  command=self.dispatchVariableCommande)
@@ -120,15 +120,14 @@ class Interface():
                                  text="run",
                                  command=self.run)
         
+        #Positionnement des boutons
         boutton.pack()
         btn_run_env.pack()
         
 
-
-        
         
         #Dessin Robot initial
-        initialPosition = env.agent.getCarcasse() #-->Récupere la carcasse du robot (pour dessiner ses contours)
+        initialPosition = env.agent.getCarcasse()                   #--> Récupère la carcasse du robot (pour dessiner ses contours)
         self.rob = self.canvas.create_polygon(*initialPosition,
                                               fill="white",
                                               outline="black")
@@ -188,10 +187,16 @@ class Interface():
                            self.env.agent.posCenter[1] + self.env.agent.vectD.y)
 
     def mjAffichageLabel(self):
+        """
+            Mise a jour des affichages des labels de l'interfaces
+        """
+
+        #Mise a jour de l'affichage de la vitesse des moteurs
         vitesseG=self.env.agent.MoteurG.vitesseMoteur
         vitesseD=self.env.agent.MoteurD.vitesseMoteur
         self.vitesse_label.config(text=f"VitesseG : {vitesseG}, VitesseD : {vitesseD}")
 
+        #Mise à jour de l'affichage du temps courant
         self.temps_label.config(text=f"Temps Courant : {self.env.currentClock}")
 
     def dispatchVariableCommande(self):
@@ -204,9 +209,12 @@ class Interface():
         """
             Run la simulation (le controleur d'un coté et le modele de l'autre)
         """
+
+        #Initialisation des threads
         self.brain_th = threading.Thread(target=self.runCtrl, args=())
         self.envir_th = threading.Thread(target=self.runModele, args=())
         
+        #Enclenchement des threads
         self.envir_th.start()
         self.brain_th.start()
 
@@ -218,7 +226,7 @@ class Interface():
     
     def runCtrl(self) : 
         """
-            Mets en route le petit cerveau du robot 
+            Initialise le controleur et retourne une action 
         """
         self.ctrl.start()
         return self.ctrl.step()

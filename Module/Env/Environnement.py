@@ -7,7 +7,7 @@ class Environnement() :
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
 	"""
 
-	def __init__(self, x, y, agent: Robot, clockPace:int = 1) -> None:
+	def __init__(self, x, y, agent:Robot, clockPace:int = 1) -> None:
 		"""
 			Constructeur de la classe Environnement.
 			arg x : taille max de l'abscisse du rectangle

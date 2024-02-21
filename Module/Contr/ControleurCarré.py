@@ -21,7 +21,14 @@ class ControleurCarré():
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
         distance = 10
-        self.strats = [AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en), AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en),AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en),AvancerDroit(distance, robot, en), TournerDirecte(90, robot, en)]
+        self.strats = [AvancerDroit(distance, robot, en), 
+                       TournerDirecte(90, robot, en), 
+                       AvancerDroit(distance, robot, en), 
+                       TournerDirecte(90, robot, en), 
+                       AvancerDroit(distance, robot, en), 
+                       TournerDirecte(90, robot, en),
+                       AvancerDroit(distance, robot, en), 
+                       TournerDirecte(90, robot, en)]
         self.cur = -1
     
     def start(self):
