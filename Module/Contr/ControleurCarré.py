@@ -45,7 +45,6 @@ class ControleurCarré():
             return
         if self.cur<0 or self.strats[self.cur].stop():
             self.cur+=1
-            self.useStrat(self.strats[self.cur])
     
     def stop(self):
         """

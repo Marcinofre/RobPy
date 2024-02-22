@@ -22,6 +22,7 @@ class AvancerDroit():
         self.distance = distance
         self.r = r
         self.e = envi
+        self.parcouru = 0
     
     def start(self):
         """
