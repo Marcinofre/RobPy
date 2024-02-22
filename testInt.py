@@ -11,6 +11,8 @@ def update():
     while True :
         if c.stop():
             c.start()
+            for i in c.strats :
+                i.start()
         c.step()
         c.strats[c.cur].step()
         time.sleep(1./e.clockPace)
