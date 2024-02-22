@@ -8,9 +8,14 @@ class ControleurCollision():
         """
         self.r = r
         self.e = envi
-        self.loin = False
-        self.avancerVite = Avancer
-        self.avancerLentement = Avancer
+        #self.avancerVite = Avancer
+        #self.avancerLentement = Avancer
+
+    def start(self):
+        """
+        
+        """
+        pass
 
     def step(self):
         """
@@ -18,10 +23,10 @@ class ControleurCollision():
         """
         if self.stop():
             return
-        if self.loin :
-            self.avancerVite.step()
-        else :
-            self.avancerLentement.step()
+        #if self.r.loin :
+        #    self.avancerVite.step()
+        #else :
+        #    self.avancerLentement.step()
         
     def stop(self):
         """

@@ -42,6 +42,8 @@ class Robot :
 		
 		self.rotation = 0
 
+		self.loin = True
+
 	def VitesseAngulaire(self) :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
