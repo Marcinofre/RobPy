@@ -21,12 +21,6 @@ class TournerDirecte():
         self.angle = angle
         self.r = rob
         self.e = en
-
-    def updateTime(self) :
-        """
-            Permet d'obtenir l'update time de l'environnement
-        """
-        return self.e.clockPace
     
     def start(self):
         """

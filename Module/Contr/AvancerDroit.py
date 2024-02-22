@@ -22,12 +22,6 @@ class AvancerDroit():
         self.distance = distance
         self.r = r
         self.e = envi
-
-    def updateTime(self) :
-        """
-            Permet d'obtenir l'update time de l'environnement
-        """
-        return self.e.clockPace
     
     def start(self):
         """
