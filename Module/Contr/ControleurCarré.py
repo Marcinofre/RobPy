@@ -52,15 +52,3 @@ class ControleurCarré():
             Condition d'arrêt de step
         """
         return self.cur == len(self.strats)-1 and self.strats[self.cur].stop()
-    
-    def useStrat(self, strat):
-        """
-            Fonction permettant d'exécuter l'instruction désigné par step
-        """
-        strat.start()
-        while not strat.stop():
-            strat.step()
-            time.sleep(1./strat.updateTime())
-
-        print("Arrivé à destination ")
-        self.step()
