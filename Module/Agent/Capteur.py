@@ -5,4 +5,4 @@ class Capteur :
 		Modélisation du capteur de mouvement du robot de Sorbonne Université
 	"""
 
-    def __init__(self, ray:int, vision:int = 1, touchObstacle:bool=False ) -> None:
+    def __init__(self, ray:int, vision:int, touchObstacle:bool=False ) -> None:
