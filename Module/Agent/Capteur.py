@@ -5,7 +5,7 @@ class Capteur :
 		Modélisation du capteur de mouvement du robot de Sorbonne Université
 	"""()
 
-    def __init__(self, ray:Vecteur, vision:int, touchObstacle:bool=False ) -> None:
+    def __init__(self, vision:int) -> None:
 
         """
 			Constructeur d'un capteur
@@ -14,3 +14,5 @@ class Capteur :
             boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )
                                                                                -> True ( obsctale)
 	    """
+
+        
