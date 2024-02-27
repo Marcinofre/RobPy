@@ -8,10 +8,7 @@ class Capteur :
     def __init__(self) -> None:
 
         """
-			Constructeur d'un capteur =
-			    => int vision : distance de vision du capteur en mètres
-
-            Attributs d'un capteur =
+             Attributs d'un capteur
                 => Vecteur ray : vecteur représentant le rayon du capteur
 			    => int vision : distance de vision passée en paramètre du constructeur
                 => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )
