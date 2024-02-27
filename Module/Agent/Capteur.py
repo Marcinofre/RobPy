@@ -27,6 +27,11 @@ class Capteur :
             Retourne le rayon projeté à la distance passé en paramètre en mètres
         """
         return (self.ray.x * distance, self.ray.y * distance)
+    
+    def doesRayTouch (self,ray):
+        """
+            Retourne un boolean qui dis si le rayon touche un obstacle
+        """
        
 
     
