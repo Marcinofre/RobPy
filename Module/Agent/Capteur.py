@@ -32,13 +32,22 @@ class Capteur :
         """
             Retourne un boolean qui dis si le rayon touche un obstacle
         """
-        # A finir 
+        # A faire
 
     def RayTouchObsctacle (self):
         """
-            Projection du rayon qui s'incrémente jusqu'à détécter un obs
+            Projection du rayon qui s'incrémente jusqu'à détécter un obstacle
         """
-     
+        projection = 0.0 
+        while (self.dist_max < projection) and ( not self.agent.capteur.touchObstacle):
+            if self.doesRayTouch(self.ray):
+                self.agent.capteur.touchObstacle = True
+                return projection
+            else:
+                projection = projection + 0.1 
+                self.agent.capteur.projectionRay(projection)
+        return -1
+
 
        
 
