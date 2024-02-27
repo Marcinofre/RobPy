@@ -5,7 +5,7 @@ class Capteur :
 		Modélisation du capteur de mouvement du robot de Sorbonne Université
 	"""
 
-    def __init__(self, vision:int) -> None:
+    def __init__(self) -> None:
 
         """
 			Constructeur d'un capteur =
@@ -19,7 +19,7 @@ class Capteur :
 	    """
 
         self.ray = Vecteur(0, 0) 
-        self.vision = vision
+        self.vision = 0.0
         self.touchObstacle = False
 
     def projectionRay (self,distance):
