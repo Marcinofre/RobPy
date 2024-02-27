@@ -23,6 +23,7 @@ class Robot :
 			vitesseMoyenne	-> Scalaire définissant la vitesse du robot
 			vectD 	        -> Vecteur direction du mouvement du robot
 			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
+			Capteur			-> Capteur de mouvement du robot avec une vision de 1 mètre par défaut
 		"""
 		
 		self._dim = (width, length)
@@ -44,6 +45,8 @@ class Robot :
 		self.rotation = 0
 
 		self.loin = True
+
+		self.capteur = Capteur(1) # Ajout d'un capteur avec une vision jusqu'à 1 mètre par défaut
 
 	def VitesseAngulaire(self) :
 		"""
