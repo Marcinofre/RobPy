@@ -32,6 +32,14 @@ class Capteur :
         """
             Retourne un boolean qui dis si le rayon touche un obstacle
         """
+        # A finir 
+
+    def RayTouchObsctacle (self):
+        """
+            Projection du rayon qui s'incrémente jusqu'à détécter un obs
+        """
+     
+
        
 
     
