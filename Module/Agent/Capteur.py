@@ -38,13 +38,13 @@ class Capteur :
         """
             Projection du rayon qui s'incrémente jusqu'à détécter un obstacle
         """
-        projection = 0.0 
-        while (self.dist_max < projection) and ( not self.agent.capteur.touchObstacle):
+        projection = 0.01 # Initialisition de la projection du rayon à 1cm
+        while (self.vision < projection) and ( not self.agent.capteur.touchObstacle): 
             if self.doesRayTouch(self.ray):
                 self.agent.capteur.touchObstacle = True
                 return projection
             else:
-                projection = projection + 0.1 
+                projection = projection + 0.01  # Incrémentation de la projection du rayon de 1cm
                 self.agent.capteur.projectionRay(projection)
         return -1
 
