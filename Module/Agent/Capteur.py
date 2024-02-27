@@ -26,6 +26,7 @@ class Capteur :
         """
             Retourne le rayon projeté à la distance passé en paramètre en mètres
         """
+        return (self.ray.x * distance, self.ray.y * distance)
        
 
     
