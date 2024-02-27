@@ -1,11 +1,12 @@
 from Module.Env.Environnement import Environnement as env
 from Module.Agent.Robot import Robot as r
 
+
 class TournerDirecte():
     """
         Classe Strat de l'action de tourner dans le sens directe
     """
-    def __init__(self, angle: int, rob : r, en : env):
+    def __init__(self, angle: int, rob : r):
         """
             Constructeur de la classe TournerDirecte:
             arg env : Environnement que le controleur a accès
@@ -20,7 +21,6 @@ class TournerDirecte():
         """
         self.angle = angle
         self.r = rob
-        self.e = en
         self.parcouru = 0
     
     def start(self):
@@ -47,4 +47,4 @@ class TournerDirecte():
         """
             Return True si self.parcouru > self.angle sinon return False
         """
-        return self.parcouru > self.angle
+        return abs(self.parcouru) > self.angle

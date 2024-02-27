@@ -18,28 +18,5 @@ class Moteur :
 		self.incrementVitesseMoteur = 0.1 
 
 
-	def augmenteVitesse(self) :
-		"""
-			augmente la vitesse de 1 
-		"""
-		self.vitesseMoteur = round(self.vitesseMoteur+self.incrementVitesseMoteur, 1)
-
-	def reduitVitesse(self) :
-		"""
-			reduit la vitesse de 1 
-		"""
-		self.vitesseMoteur = round(self.vitesseMoteur-self.incrementVitesseMoteur,1)
-	
-	def activeMoteur(self):
-		""" 
-			Change l'etat du moteur en 1
-		"""
-		self.state = 1
-
-	def desactiveMoteur(self) :
-		""" 
-			Change l'etat du moteur en 0
-		"""
-		self.state = 0
 
 

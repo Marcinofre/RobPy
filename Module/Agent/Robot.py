@@ -9,7 +9,7 @@ class Robot :
 		Modélisation d'un robot de Sorbonne Université
 	"""
 
-	def __init__(self, width:int, length:int, x:float=0, y:float=0) -> None:
+	def __init__(self, width:int, length:int, x:float=0, y:float=0, vecteurDirecteur = Vecteur(0,-10)):
 		"""
 			Constructeur de la classe Robot :
 			arg width : Largeur du robot
@@ -28,25 +28,25 @@ class Robot :
 		
 		self._dim = (width, length)
 
-		self.MoteurD = Moteur("Droit") # Moteur de la roue droite
+		self.MoteurD = Moteur("Droit") 	# Moteur de la roue droite
 
 		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
 
-		self.Rayon = 1 # Rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
+		self.rayon = 1 					# rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
 		self.isActive = 1
 		
-		self.vectD = Vecteur(0, 0)  # Vecteur direction, par défaut (0, 0) => représente les deux roues
+		self.vectD = vecteurDirecteur 	# Vecteur direction
         
 		self.vitesseMoyenne = 0
 	
-		self.posCenter = (x,y)	# Position en x et y du centre du robot
+		self.posCenter = (x,y)			# Position en x et y du centre du robot
 		
 		self.rotation = 0
 
 		self.loin = True
 
-		self.capteur = Capteur() # Ajout d'un capteur pour le Robot
+		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
 
 	def VitesseAngulaire(self) :
 		"""
@@ -56,7 +56,7 @@ class Robot :
 		# 2ème Cas : La roue gauche est plus rapide, l'angle est négatif, le robot tourne à droite.
 		# 3ème Cas : Les deux roues ont la même vitesse, l'angle est nul, le robot ne tourne pas.
 		diff = self.MoteurD.vitesseMoteur - self.MoteurG.vitesseMoteur 
-		angle = diff / self.Rayon
+		angle = diff / self.rayon
 		pi = math.pi
 		angle = angle * (180/pi)
 		return round(angle,4)
@@ -71,14 +71,11 @@ class Robot :
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		if (not self.MoteurD.state) and (not self.MoteurG.state):
-			return
-		else :
-			self.calcVitesseMoyenne()
-			print(self.vitesseMoyenne)
-			self.rotateAllVect(self.VitesseAngulaire())
-			self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
-					 		  round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
+		self.calcVitesseMoyenne()
+		print(self.vitesseMoyenne)
+		self.rotateAllVect(self.VitesseAngulaire())
+		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
+							round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
 
 	def setVitesseRoue(self, d, g):
 		"""
@@ -92,6 +89,7 @@ class Robot :
 			Rotation en degré du robot, ce qui demande une rotation du vecteur directeur et du vecteur representé par les 4 coins du robot
 		"""
 		self.vectD.rotationAngle(angle)
+		self.capteur.ray.rotationAngle(angle)
 		self.rotation += angle
 
 	def getCarcasse(self):
@@ -123,8 +121,15 @@ class Robot :
 
 		return [TRC_T,TLC_T,BLC_T,BRC_T]
 
-
- 
+	def getRay(self, distance):
+		"""
+			Récupère le rayon projeté, puis le translate vers le centre du robot
+		"""
+		vecteurRayon = self.capteur.projectionRay(distance)
+		return Vecteur(vecteurRayon[0],vecteurRayon[1])
+	
+	def getForInterfaceRay(self):
+		return self.capteur.interfaceRay
  
 
 

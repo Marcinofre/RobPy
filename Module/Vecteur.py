@@ -19,14 +19,12 @@ class Vecteur:
         """
         return (self.x**2+self.y**2)**0.5
     
-    
     def produitVectoriel(self,other):
         """
             Calculer le produit vectoriel de deux vecteur 
         """
         return self.x*other.y-self.y*other.x 
     
-
     def produitScalaire(self, other):
         """
             Calculer le produit Scalaire de deux vecteur
@@ -34,7 +32,6 @@ class Vecteur:
 
         return self.x*other.x+self.y*other.y
 
-    #Un petit soucis, lorsque le produit vect est 0 l'angle = 90 donc si tu as un vecteur (0,0) il doit retourner 90
     def calculerAngle(self,other):
         """
             Calculer l'angle en degree entre 2 differents vecteur
@@ -74,12 +71,4 @@ class Vecteur:
             Retrourne le vecteur sous la forme d'un couple de point (x,y)
         """
         return (self.x, self.y)
-        
     
-
-    @staticmethod
-    def creerVecteur(coord1, coord2) :
-        """
-            Prend les coordonnés des points A et B et retournent le vecteur AB
-        """
-        return Vecteur(coord2[0]-coord1[0],coord2[1]-coord1[1])  

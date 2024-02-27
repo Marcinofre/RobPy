@@ -1,13 +1,14 @@
+
 from Module.Env.Obstacle import Obstacle
 from Module.Agent.Robot import Robot
 from Module.Vecteur import Vecteur
-import time
+
 class Environnement() :
 	"""
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
 	"""
 
-	def __init__(self, x, y, agent:Robot, clockPace:int = 1) -> None:
+	def __init__(self, x, y, agent:Robot) -> None:
 		"""
 			Constructeur de la classe Environnement.
 			arg x : taille max de l'abscisse du rectangle
@@ -24,13 +25,20 @@ class Environnement() :
 			setObstacle	        -> Un ensemble contenant tous les obstacles de l'environnement
 		"""
 
-		self.onGoing = 0
 		self.currentClock = 0
-		self.clockPace = clockPace
-		self.maxTime = 100
+		self.clockPace = 1
+		self.gentime = None
+		self.maxTime = 10000
 		self.maxReachablePoint = (x,y)
+		
 		self.agent = agent
 		self.setObstacle = set()
+		self.addObstacle((Obstacle(0,0,x,y)))
+
+		self.bordure_haut 	= ((0,0),(x,0))
+		self.bordure_droite 	= ((x,0),(x,y))
+		self.bordure_gauche 	= ((0,0),(0,y))
+		self.bordure_bas 	= ((0,y),(x,y))
 
 
 
@@ -39,50 +47,29 @@ class Environnement() :
 			print("l'agent est en dehors de la zone de test")
 			return 1
 
-
 	def clockCount(self) :
 		"""
 			Générateur de temps qui incrémente self.currentClock de self.clockPace à chaque appel
 		"""
-		while self.onGoing:
+		while True:
 			self.currentClock += self.clockPace
 			yield self.currentClock
 	
-	def runEnv(self):
+	def initSimulation(self):
 		"""
-			Active l'Environnement en passant l'attribut onGoing True 
+			Initialisation des variable de l'environnement pour la simulation
 		"""
-		if self.onGoing :
-			print("L'environnement est déjà en cours d'éxécution")
-		else :
-			self.onGoing = 1
-	
-	def stopEnv(self):
-		"""
-			Arrête l'Environnement en passant l'attribut onGoing à False
-		"""
-		if not self.onGoing :
-			print("L'environnement est déjà arrêté")
-		else :
-			self.onGoing = 0
-
-	def runSimulation(self):
-		#Active l'environnment
-		if not self.onGoing:
-			self.runEnv()
 		#Initialise le générateur
-		gentime = self.clockCount()
+		self.gentime = self.clockCount()
 		#reset le currentClock
 		self.currentClock = 0
-		return self.run(gentime)
 		
-	def run(self, gentime):
-		while self.onGoing and self.currentClock < self.maxTime:
-			try :
-				print(next(gentime))
-			except:
-				return NULL
-			time.sleep(1./self.clockPace)
+	def run(self):
+		try :
+			print(next(self.gentime))
+		except:
+			print("Fin du compteur")
+			return
 
 	def addObstacle(self, obs) :
 		"""
@@ -107,11 +94,50 @@ class Environnement() :
         """
 		for i in self.setObstacle:
 			AB = self.agent.vectD
-			AC = Vecteur.creerVecteur(self.agent.posCenter[0], self.agent.posCenter[1], i.x0, i.y0)
-			AD = Vecteur.creerVecteur(self.agent.posCenter[0], self.agent.posCenter[1], i.x1, i.y1)
-			CA = Vecteur.creerVecteur(i.x0, i.y0, self.agent.posCenter[0], self.agent.posCenter[1])
-			CB = Vecteur.creerVecteur(i.x0, i.y0, self.agent.posCenter[0]+self.agent.vectD.x, self.agent.posCenter[1]+self.agent.vectD.y)
-			CD = Vecteur.creerVecteur(i.x0, i.y0, i.x1, i.y1)
+			AC = self.creerVecteur((self.agent.posCenter[0], self.agent.posCenter[1]), (i.x0, i.y0))
+			AD = self.creerVecteur((self.agent.posCenter[0], self.agent.posCenter[1]), (i.x1, i.y1))
+			CA = self.creerVecteur((i.x0, i.y0), (self.agent.posCenter[0], self.agent.posCenter[1]))
+			CB = self.creerVecteur((i.x0, i.y0), (self.agent.posCenter[0]+self.agent.vectD.x, self.agent.posCenter[1]+self.agent.vectD.y))
+			CD = self.creerVecteur((i.x0, i.y0), (i.x1, i.y1))
 			if (AB.produitVectoriel(AC)*AB.produitVectoriel(AD))<0 and (CD.produitVectoriel(CA)*CD.produitVectoriel(CB))<0 :
 				return True
 		return False
+	
+	def doesRayCollide(self):
+		"""
+			Calcule de la collision entre le rayon du capteur et de la bordure haute
+		"""
+		(x1, y1) = self.agent.posCenter
+		(x2, y2) = self.agent.capteur.interfaceRay.toTuple()
+		(x2,y2) = (x2+x1, y1+y2)			
+		(x3, y3) = self.bordure_haut[0]
+		(x4, y4) = self.bordure_haut[1]
+
+		intersec1 = (x3 - x1) * (y2 - y1) - (y3 - y1) * (x2 - x1)
+		intersec2 = (x4 - x1) * (y2 - y1) - (y4 - y1) * (x2 - x1)
+		intersec3 = (x1 - x3) * (y4 - y3) - (y1 - y3) * (x4 - x3)
+		intersec4 = (x2 - x3) * (y4 - y3) - (y2 - y3) * (x4 - x3)
+		
+
+		self.agent.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
+
+	def retourCapteur(self, pas_distance):
+		distance_vue = 0
+		vision = self.agent.capteur.vision
+
+		while (not self.agent.capteur.touchObstacle) and distance_vue < vision:
+			distance_vue += pas_distance
+			self.agent.capteur.interfaceRay = self.agent.getRay(distance_vue)
+			self.doesRayCollide()
+			self.agent.capteur.distanceObstacle = self.agent.getRay(distance_vue).calcNorm()
+		print(f'je regarde à {self.agent.capteur.distanceObstacle}')
+
+	def update(self):
+		self.run()
+
+
+	def creerVecteur(self,coord1, coord2) :
+			"""
+				Prend les coordonnés des points A et B et retournent le vecteur AB
+			"""
+			return Vecteur(coord2[0]-coord1[0],coord2[1]-coord1[1])  
