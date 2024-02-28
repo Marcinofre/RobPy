@@ -5,10 +5,10 @@ from Module.Contr.ControleurCarré import ControleurCarré
 class chef:
 	def __init__(self, env:Environnement, controler, time = 10000):
 		
-		self.time = time
-		self.env = env
-		self.ctrl = controler
-		self.cycle = 0
+		self.time = time 		# ---> Temps de fps
+		self.env = env			# ---> Environnement de simulation
+		self.ctrl = controler	# ---> Controleur
+		self.cycle = 0			# ---> Cycle courrant
 		self.isRunning = True
 
 
@@ -16,6 +16,7 @@ class chef:
 		"""
 			Update l'ensemble des classe de la simulation
 		"""
+		#Initialise la simulation
 		self.env.initSimulation()
 		while self.isRunning :
 			self.updateController()		#---> Update le controler (et le robot par conséquence)

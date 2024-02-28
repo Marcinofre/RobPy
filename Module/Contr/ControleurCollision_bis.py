@@ -17,12 +17,12 @@ class ControleurCollision():
             strats = Liste comprenant des instances des classes AvancerDroit et TournerDirecte, les instructions que le controleur enverra au Robot
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
-        self.robot = robot
-        self.env = en
-        self.distance = 1
-        self.speed = 0.7
+        self.robot = robot                          # ---> Robot à controler
+        self.env = en                               # ---> Environnement ou évolue le robot
+        self.distance = 0                           # ---> Distance à parcourir
+        self.speed = 0.7                            # ---> Vitesse du robot initial
         self.strats = [VoirObstacle(robot, en)]
-        self.cur = -1
+        self.cur = -1                               # ---> Strategie courante
     
     def start(self):
         """
@@ -34,6 +34,7 @@ class ControleurCollision():
         """
             Fonction qui parcours les instructions 
         """
+        
         if self.stop():
             return
         
@@ -47,7 +48,7 @@ class ControleurCollision():
         if dist < 0 and self.distance != 0:
             new_speed = self.speed*abs(dist)/self.distance
             if self.speed > 0:
-                self.speed -= round(new_speed, 5)
+                self.speed -= round(new_speed, 5)           # ---> Arrondie pour eviter d'avoir des chiffres un peu absurde
             else:
                 self.speed = 0
 
