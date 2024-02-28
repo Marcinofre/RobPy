@@ -122,6 +122,9 @@ class Environnement() :
 		self.agent.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
 
 	def retourCapteur(self, pas_distance):
+		"""
+			Simule la réponse que reçoit le capteur si son ray rencontre un objet
+		"""
 		distance_vue = 0
 		vision = self.agent.capteur.vision
 
