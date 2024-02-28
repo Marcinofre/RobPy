@@ -1,6 +1,5 @@
 from Module.Agent.Robot import Robot as rob
 from Module.Env.Environnement import Environnement as env
-from Module.Contr.AvancerDroit import AvancerDroit
 from Module.Contr.VoirObstacle import VoirObstacle
 
 class ControleurCollision():
@@ -21,7 +20,7 @@ class ControleurCollision():
         self.robot = robot
         self.env = en
         self.distance = 1
-        self.speed = 0.8
+        self.speed = 0.7
         self.strats = [VoirObstacle(robot, en)]
         self.cur = -1
     
@@ -38,17 +37,25 @@ class ControleurCollision():
         if self.stop():
             return
         
+        #Update de la distance en fonction de la distance calculer par rapport à l'obstacle
         self.distance = self.robot.capteur.distanceObstacle
+
+        #Calcule de la dist pour le freinage par rapport à la longeur frontale du robot
         dist = self.distance - self.robot._dim[1]
+        
+        #Systeme de frein/decceleration
         if dist < 0 and self.distance != 0:
             new_speed = self.speed*abs(dist)/self.distance
             if self.speed > 0:
                 self.speed -= round(new_speed, 5)
             else:
                 self.speed = 0
+
+        #Modification de la vitesse des roues puis avance selon la vitesse moyenne
         self.robot.setVitesseRoue(self.speed, self.speed)
         self.robot.avancerRobot()
-        print(self.robot.capteur.distanceObstacle)
+        
+        print("Distance entre le robot et le mur",self.robot.capteur.distanceObstacle)
         
         if self.cur<0 or self.strats[self.cur].stop():
             self.cur+=1

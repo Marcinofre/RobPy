@@ -35,7 +35,7 @@ class chef:
 				i.start()
 			self.cycle += 1
 		else:
-			#Exécution d'un la stratégie courante
+			#Exécution de la stratégie courante
 			self.ctrl.step()
 			self.ctrl.strats[self.ctrl.cur].step()
 
