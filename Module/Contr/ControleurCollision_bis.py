@@ -20,7 +20,7 @@ class ControleurCollision():
         self.robot = robot                          # ---> Robot à controler
         self.env = en                               # ---> Environnement ou évolue le robot
         self.distance = 0                           # ---> Distance à parcourir
-        self.speed = 0.7                            # ---> Vitesse du robot initial
+        self.speed = 0.6                            # ---> Vitesse du robot initial
         self.strats = [VoirObstacle(robot, en)]
         self.cur = -1                               # ---> Strategie courante
     
@@ -34,7 +34,7 @@ class ControleurCollision():
         """
             Fonction qui parcours les instructions 
         """
-        
+
         if self.stop():
             return
         
