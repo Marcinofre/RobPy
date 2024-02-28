@@ -48,7 +48,7 @@ class ControleurCollision():
         if dist < 0 and self.distance != 0:
             new_speed = self.speed*abs(dist)/self.distance
             if self.speed > 0:
-                self.speed -= round(new_speed, 5)           # ---> Arrondie pour eviter d'avoir des chiffres un peu absurde
+                self.speed -= round(new_speed, 2)           # ---> Arrondie pour eviter d'avoir des chiffres un peu absurde
             else:
                 self.speed = 0
 
