@@ -36,11 +36,12 @@ class VoirObstacle():
             Incrémente parcourue par la vitesseMoyenne de l'agent, fait avancer l'agent si stop() est false sinon ne return rien
         """
         
-        if self.stop() :
+        if self.e.retourCapteur(self.pas_distance):
             print(f"Stopped by obstacle ? : {self.r.capteur.touchObstacle}")
             print(f"Stopped by vision_max ? : {self.r.capteur.vision < self.distance_vue}")	
             return
-        self.e.retourCapteur(self.pas_distance)
+        
+
         
 
     def stop(self):

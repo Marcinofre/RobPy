@@ -20,8 +20,8 @@ class ControleurCollision():
         """
         self.robot = robot
         self.env = en
-        self.distance = 10
-        self.speed = 1
+        self.distance = 1
+        self.speed = 0.8
         self.strats = [VoirObstacle(robot, en)]
         self.cur = -1
     
@@ -37,13 +37,19 @@ class ControleurCollision():
         """
         if self.stop():
             return
-        if self.robot.capteur.touchObstacle:
-            print("Ici")
-            self.distance = self.robot.capteur.distanceObstacle
-            self.speed -= self.speed/self.distance
-            self.robot.setVitesseRoue(self.speed,self.speed)
-            print(f"Im so speed : {self.speed}")
-            AvancerDroit(self.distance*0.5,self.speed,self.robot)
+        
+        self.distance = self.robot.capteur.distanceObstacle
+        dist = self.distance - self.robot._dim[1]
+        if dist < 0 and self.distance != 0:
+            new_speed = self.speed*abs(dist)/self.distance
+            if self.speed > 0:
+                self.speed -= round(new_speed, 5)
+            else:
+                self.speed = 0
+        self.robot.setVitesseRoue(self.speed, self.speed)
+        self.robot.avancerRobot()
+        print(self.robot.capteur.distanceObstacle)
+        
         if self.cur<0 or self.strats[self.cur].stop():
             self.cur+=1
     

@@ -131,6 +131,7 @@ class Environnement() :
 			self.doesRayCollide()
 			self.agent.capteur.distanceObstacle = self.agent.getRay(distance_vue).calcNorm()
 		print(f'je regarde à {self.agent.capteur.distanceObstacle}')
+		return True
 
 	def update(self):
 		self.run()

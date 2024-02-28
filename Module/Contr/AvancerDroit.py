@@ -37,8 +37,9 @@ class AvancerDroit():
 
         self.r.setVitesseRoue(self.speed,self.speed)
         self.parcouru += self.r.vitesseMoyenne
-        if self.stop() or self.r.vitesseMoyenne == 0 :
+        if self.stop() :
             return
+        print(f"Im so speed : {self.speed}")
         print('j\'avance')
         self.r.avancerRobot()
 

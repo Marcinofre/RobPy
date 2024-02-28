@@ -98,14 +98,14 @@ class Interface():
         self.vitesse_label.pack()
         
         #Position des zone de saisie et leur label
-        self.label_vitesseMD.pack()
-        self.zone_saisie_vitesseMD.pack()
+        #self.label_vitesseMD.pack()
+        #self.zone_saisie_vitesseMD.pack()
 
-        self.label_vitesseMG.pack()
-        self.zone_saisie_vitesseMG.pack()
+        #self.label_vitesseMG.pack()
+        #self.zone_saisie_vitesseMG.pack()
         
-        self.labe_pacetime.pack()
-        self.zone_saisie_pacetime.pack()
+        #self.labe_pacetime.pack()
+        #self.zone_saisie_pacetime.pack()
 
         #Définition d'un bouton d'envoie
         boutton = tkinter.Button(self.TextframeBottom,

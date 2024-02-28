@@ -23,7 +23,7 @@ class Capteur :
         
         self.distanceObstacle = 0
 
-    def projectionRay (self,distance):
+    def projectionRay(self,distance):
         """
             Retourne le rayon projeté à la distance passé en paramètre en mètres
         """

@@ -3,11 +3,12 @@ from Module.Env.Environnement import Environnement
 from Module.Contr.ControleurCarré import ControleurCarré
 
 class chef:
-	def __init__(self, env:Environnement, controller, time = 1):
+	def __init__(self, env:Environnement, controler, time = 10000):
 		
 		self.time = time
 		self.env = env
-		self.ctrl = controller
+		self.ctrl = controler
+		self.cycle = 0
 		self.isRunning = True
 
 
@@ -25,12 +26,14 @@ class chef:
 		"""
 			Update du controleur
 		"""
-		if self.ctrl.stop() :
+		#Si le cycle vient de débuter 
+		if self.ctrl.stop()  :
 			self.ctrl.start()
 
 			#Initialise toute les strats à 0
 			for i in self.ctrl.strats :
 				i.start()
+			self.cycle += 1
 		else:
 			#Exécution d'un la stratégie courante
 			self.ctrl.step()
