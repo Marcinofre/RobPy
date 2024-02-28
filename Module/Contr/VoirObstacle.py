@@ -28,7 +28,7 @@ class VoirObstacle():
         """
             Initialize la distance parcourue à 0
         """
-        self.r .capteur.touchObstacle = False
+        self.r. capteur.touchObstacle = False
         self.distance_vue = 0
 
     def step(self):
