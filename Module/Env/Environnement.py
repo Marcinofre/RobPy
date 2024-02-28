@@ -122,14 +122,19 @@ class Environnement() :
 		self.agent.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
 
 	def retourCapteur(self, pas_distance):
+		"""
+			Simule la réponse que reçoit le capteur si son ray rencontre un objet
+		"""
 		distance_vue = 0
 		vision = self.agent.capteur.vision
 
+		# On projete le rayon si distance_vue est inférieur à la vision
 		while (not self.agent.capteur.touchObstacle) and distance_vue < vision:
-			distance_vue += pas_distance
-			self.agent.capteur.interfaceRay = self.agent.getRay(distance_vue)
-			self.doesRayCollide()
-			self.agent.capteur.distanceObstacle = self.agent.getRay(distance_vue).calcNorm()
+			
+			distance_vue += pas_distance														#---> Incrementation de la distance
+			self.agent.capteur.interfaceRay = self.agent.getRay(distance_vue)					#---> Récupère le rayon projeté à x distance
+			self.doesRayCollide()																#---> Regarde si le rayon coupe un vecteur
+			self.agent.capteur.distanceObstacle = self.agent.getRay(distance_vue).calcNorm()	#---> Calcul de la distance entre le robot est l'obstacle
 		print(f'je regarde à {self.agent.capteur.distanceObstacle}')
 		return True
 

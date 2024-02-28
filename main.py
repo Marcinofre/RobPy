@@ -5,7 +5,7 @@ from Module.Agent.Robot import Robot
 from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.ControleurCarré import ControleurCarré 
-from Module.Contr.ControleurCollision_bis import ControleurCollision
+from Module.Contr.ControleurCollision import ControleurCollision
 
 
 
