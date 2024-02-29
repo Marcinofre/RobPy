@@ -7,7 +7,7 @@ class ControleurCarre():
     """
         Un controleur du robot dont le but est de lui faire tracer un carré
     """
-    def __init__(self, robot: rob, environemment:env):
+    def __init__(self, robot: rob):
         """
             Constructeur de la classe ControleurCarré:
             arg env : Environnement que le controleur a accès
