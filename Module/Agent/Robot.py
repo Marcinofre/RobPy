@@ -67,7 +67,7 @@ class Robot :
 		"""
 		self.vitesseMoyenne = round((self.MoteurD.vitesseMoteur*self.MoteurD.state + self.MoteurG.vitesseMoteur*self.MoteurG.state)/2,2)
 
-	def avancerRobot(self):
+	def update(self):
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
@@ -75,7 +75,7 @@ class Robot :
 		print(self.vitesseMoyenne)
 		self.rotateAllVect(self.VitesseAngulaire())
 		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
-							round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
+						round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
 
 	def setVitesseRoue(self, d, g):
 		"""
@@ -130,11 +130,5 @@ class Robot :
 	
 	def getForInterfaceRay(self):
 		return self.capteur.interfaceRay
- 
-
-
-
-
-
 	
 	
