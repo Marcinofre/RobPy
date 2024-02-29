@@ -4,7 +4,7 @@ from Module.Chef import chef
 from Module.Agent.Robot import Robot
 from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
-from Module.Contr.ControleurCarré import ControleurCarré 
+from Module.Contr.ControleurCarre import ControleurCarre
 from Module.Contr.ControleurCollision import ControleurCollision
 import time
 import threading
@@ -40,7 +40,7 @@ robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
 environnement = env(taille[0], taille[1], robot)
 
 #Initialisation du controleur du robot
-controleurRobot = ControleurCarré(robot,environnement)
+controleurRobot = ControleurCarre(robot)
 
 #Initialisation du controleur de la simulation (s'occupe de la mise a jour des composant de la simualtion)
 controleurUpdate = chef(environnement,controleurRobot,10)

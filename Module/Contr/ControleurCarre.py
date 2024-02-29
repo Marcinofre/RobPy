@@ -46,7 +46,6 @@ class ControleurCarre():
         if self.stop():
             return
         if self.cur<0 or self.strats[self.cur].stop():
-            self.robot.setVitesseRoue(0.5,0.5)
             self.cur+=1
     
     def stop(self):

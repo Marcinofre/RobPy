@@ -39,8 +39,6 @@ class AvancerDroit():
         self.parcouru += self.r.vitesseMoyenne
         if self.stop() :
             return
-        print('j\'avance')
-        self.r.avancerRobot()
 
     def stop(self):
         """

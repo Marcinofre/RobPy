@@ -1,6 +1,6 @@
 import time
 from Module.Env.Environnement import Environnement
-from Module.Contr.ControleurCarré import ControleurCarré
+from Module.Contr.ControleurCarre import ControleurCarre
 
 class chef:
 	def __init__(self, env:Environnement, controler, time = 10000):
