@@ -30,6 +30,7 @@ class Environnement() :
 		self.gentime = None
 		self.maxTime = 10000
 		self.maxReachablePoint = (x,y)
+		self.isRunning = False
 		
 		self.agent = agent
 		self.setObstacle = set()
@@ -61,6 +62,8 @@ class Environnement() :
 		"""
 		#Initialise le générateur
 		self.gentime = self.clockCount()
+		#Initialise à True isRunning pour l'updater dans le main
+		self.isRunning = True
 		#reset le currentClock
 		self.currentClock = 0
 		
@@ -140,6 +143,7 @@ class Environnement() :
 
 	def update(self):
 		self.run()
+		self.agent.update()
 
 
 	def creerVecteur(self,coord1, coord2) :

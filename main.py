@@ -6,6 +6,24 @@ from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.ControleurCarré import ControleurCarré 
 from Module.Contr.ControleurCollision import ControleurCollision
+import time
+
+def updateAll(env, rob, contr):
+		"""
+			Update l'ensemble des classe de la simulation
+		"""
+		env.initSimulation()
+		while env.isRunning :
+			updateContr(contr)		#---> Update le controler (et le robot par conséquence)
+			env.update()			#---> Update l'environnement
+			time.sleep(1./env.clockPace)	#---> frame par sec 
+
+def updateContr(contr):
+    if contr.stop() :
+        contr.start()
+    else:
+        contr.step()
+        contr.strats[contr.cur].step()
 
 
 
