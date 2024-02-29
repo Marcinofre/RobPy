@@ -44,4 +44,4 @@ class AvancerDroit():
         """
             Return True si self.parcouru > self.distance sinon return False
         """
-        return self.parcouru > self.distance
+        return self.parcouru >= self.distance

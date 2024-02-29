@@ -142,6 +142,10 @@ class Environnement() :
 		return True
 
 	def update(self):
+		print("UPDATE")
+		if self.doesCollide():
+			print("En collision!")
+			return
 		self.run()
 		self.agent.update()
 
