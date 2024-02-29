@@ -1,6 +1,5 @@
 from Module.Env.Environnement import Environnement as env
 from Module.Vecteur import Vecteur as vect
-from Module.Chef import chef
 from Module.Agent.Robot import Robot
 from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
@@ -42,12 +41,8 @@ environnement = env(taille[0], taille[1], robot)
 #Initialisation du controleur du robot
 controleurRobot = ControleurCarre(robot)
 
-#Initialisation du controleur de la simulation (s'occupe de la mise a jour des composant de la simualtion)
-controleurUpdate = chef(environnement,controleurRobot,10)
-
 #Initialisation de l'interface graphique et lancement
-sim = Interface(environnement,controleurRobot, controleurUpdate)
-
+sim = Interface(environnement,controleurRobot)
 interface = threading.Thread(target=updateAll, args=(environnement, controleurRobot))
 
 interface.start()

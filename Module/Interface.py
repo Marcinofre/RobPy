@@ -8,7 +8,7 @@ class Interface():
     """
         L'interface permet une représentation graphique des mouvements du robots dans l'environnements
     """
-    def __init__(self, env, controleur, chef, width = 1280,height = 720):
+    def __init__(self, env, controleur, width = 1280,height = 720):
         """
             Constructeur de la classe Interface :
             arg width  -> largeur de l'interface graphique
@@ -28,7 +28,6 @@ class Interface():
         #Ajout de l'environnment et du controleur comme attribut
         self.env = env
         self.ctrl = controleur
-        self.chef = chef
 
         #Création de la fenetre
         self.fenetre = tkinter.Tk()
@@ -111,17 +110,9 @@ class Interface():
         boutton = tkinter.Button(self.TextframeBottom,
                                  text="Envoie",
                                  command=self.dispatchVariableCommande)
-        btn_run_env = tkinter.Button(self.TextframeBottom,
-                                 text="run",
-                                 command=self.run)
-        btn_stop = tkinter.Button(self.TextframeBottom,
-                                 text="stop",
-                                 command=self.stop)
         
         #Positionnement des boutons
         boutton.pack()
-        btn_run_env.pack()
-        btn_stop.pack()
         
 
         
@@ -147,7 +138,7 @@ class Interface():
         
         
         #rappelle de la fenetre, pour rafraichissement
-        self.fenetre.after(50, self.update)
+        self.fenetre.after(50, self.updateAll)
 
     #Voir source de cette fonction : https://stackoverflow.com/questions/32449670/tkinter-tclerror-bad-screen-distance-in-pythons-tkinter-when-trying-to-modi
     def flatten(self, list_of_lists):
@@ -161,17 +152,6 @@ class Interface():
         if self.canvas.find_overlapping(obs.x0, obs.y0, obs.x1, obs.y1):
             raise Exception("Il y a déjà un objet à cet endroit là")
         self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
- 
-    def update(self):
-        """
-            Update la fenetre de l'interface graphique
-        """
-
-        self.fenetre.after(50, self.mjAffichageLabel)
-        self.canvas.after(50, self.updateCanevas)
-        self.fenetre.after(50, self.update)
-        self.fenetre.update()
-        self.fenetre.update_idletasks()
     
     def affiche(self):
         """
@@ -213,27 +193,6 @@ class Interface():
         self.env.agent.MoteurD.vitesseMoteur = round(self.vitesseMD.get(), 1)
         self.env.agent.MoteurG.vitesseMoteur = round(self.vitesseMG.get(), 1)
         self.env.clockPace = round(self.paceTime.get(),1)
-
-    def run(self) :
-        """
-            Run la simulation (le controleur d'un coté et le modele de l'autre)
-        """
-
-        #Rétablissement de la condition d'arret à true
-        self.chef.isRunning = True
-
-        #Initialisation du thread
-        simulation = Thread(target=self.chef.updateAll, args=())
-        
-        #Enclenchement du thread
-        simulation.start()
-
-    def stop(self):
-        """
-            Permet d'arreter la simulation en tournant la condition de boucle du cycle des update à false
-        """
-        print("Arret de la simulation")
-        self.chef.isRunning = False
     
     def updateAll(self):
         position = self.env.agent.getCarcasse()
@@ -259,3 +218,4 @@ class Interface():
 
         self.fenetre.update()
         self.fenetre.update_idletasks()
+        self.fenetre.after(50, self.updateAll)
