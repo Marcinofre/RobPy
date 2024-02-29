@@ -3,7 +3,7 @@ from Module.Env.Environnement import Environnement as env
 from Module.Contr.AvancerDroit import AvancerDroit
 from Module.Contr.TournerDirecte import TournerDirecte
 
-class ControleurCarré():
+class ControleurCarre():
     """
         Un controleur du robot dont le but est de lui faire tracer un carré
     """

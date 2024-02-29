@@ -7,8 +7,9 @@ from Module.Env.Environnement import Environnement as env
 from Module.Contr.ControleurCarré import ControleurCarré 
 from Module.Contr.ControleurCollision import ControleurCollision
 import time
+import threading
 
-def updateAll(env, rob, contr):
+def updateAll(env, contr):
 		"""
 			Update l'ensemble des classe de la simulation
 		"""
@@ -39,11 +40,16 @@ robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
 environnement = env(taille[0], taille[1], robot)
 
 #Initialisation du controleur du robot
-controleurRobot = ControleurCollision(robot,environnement)
+controleurRobot = ControleurCarré(robot,environnement)
 
 #Initialisation du controleur de la simulation (s'occupe de la mise a jour des composant de la simualtion)
 controleurUpdate = chef(environnement,controleurRobot,10)
 
 #Initialisation de l'interface graphique et lancement
 sim = Interface(environnement,controleurRobot, controleurUpdate)
+
+interface = threading.Thread(target=updateAll, args=(environnement, controleurRobot))
+
+interface.start()
+
 sim.affiche()

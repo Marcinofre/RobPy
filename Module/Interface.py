@@ -234,3 +234,28 @@ class Interface():
         """
         print("Arret de la simulation")
         self.chef.isRunning = False
+    
+    def updateAll(self):
+        position = self.env.agent.getCarcasse()
+        position_ray = self.env.agent.getForInterfaceRay()
+        self.canvas.coords(self.rob, 
+                           *self.flatten(position))
+        self.canvas.coords(self.line, 
+                           *self.env.agent.posCenter,
+                           self.env.agent.posCenter[0] + self.env.agent.vectD.x,
+                           self.env.agent.posCenter[1] + self.env.agent.vectD.y)
+        self.canvas.coords(self.line2, 
+                           *self.env.agent.posCenter,
+                            self.env.agent.posCenter[0] + position_ray.x,
+                            self.env.agent.posCenter[1] + position_ray.y)
+        
+        #Mise a jour de l'affichage de la vitesse des moteurs
+        vitesseG=self.env.agent.MoteurG.vitesseMoteur
+        vitesseD=self.env.agent.MoteurD.vitesseMoteur
+        self.vitesse_label.config(text=f"VitesseG : {vitesseG}, VitesseD : {vitesseD}")
+
+        #Mise à jour de l'affichage du temps courant
+        self.temps_label.config(text=f"Temps Courant : {self.env.currentClock}")
+
+        self.fenetre.update()
+        self.fenetre.update_idletasks()
