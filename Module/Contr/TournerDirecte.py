@@ -40,7 +40,6 @@ class TournerDirecte():
         self.parcouru -= avancement
         if self.stop() :
             return
-        self.r.rotateAllVect(avancement)
         print('je tourne')
 
     def stop(self):
