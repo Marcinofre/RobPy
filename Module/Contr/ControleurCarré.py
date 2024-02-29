@@ -36,6 +36,8 @@ class ControleurCarré():
             Remet cur à -1 pour remettre le controleur sur la première instruction possible
         """
         self.cur = -1
+        for i in self.strats :
+            i.start()
 
     def step(self):
         """
