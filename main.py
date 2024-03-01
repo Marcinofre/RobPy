@@ -44,7 +44,7 @@ controleurRobot = AvancerSansCollision(robot,environnement)
 
 #Initialisation de l'interface graphique et lancement
 sim = Interface(environnement,controleurRobot)
-sim.ajoutObstacle(Obstacle(400,200,600,200))
+sim.ajoutObstacle(Obstacle(400,200,600,180))
 environnement.addObstacle(Obstacle(400,200,600,200))
 interface = threading.Thread(target=updateAll, args=(environnement, controleurRobot))
 
