@@ -108,30 +108,15 @@ class Environnement() :
 				return True
 		return False
 	
-	def collisionLigne(self,x0, y0, x1, y1, x2,y2,x3,y3):
-
-		dx1 = x1 - x0
-		dy1 = y1 - y0
-		dx2 = x3 - x2
-		dy2 = y3 - y2
-
-		# Calculate determinant
-		det = dx1 * dy2 - dy1 * dx2
-
-		if det == 0:
-			# Lines are parallel
+	def collisionLigne(self,x1, y1, x2, y2, x3,y3,x4,y4):
+		denom = ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
+		if denom == 0:
 			return False
+		uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / denom
 
-		# Calculate intersection point
-		s = (dx1 * (y0 - y2) - dy1 * (x0 - x2)) / det
-		t = (-dx2 * (y0 - y2) + dy2 * (x0 - x2)) / det
+		uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / denom
 
-		if 0 <= s <= 1 and 0 <= t <= 1:
-			# Intersection point lies within both line segments
-			return True
-		else:
-			# Intersection point is outside the line segments
-			return False
+		return 0 <= uA <= 1 and 0 <= uB <= 1
 	
 	def doesCollidebis(self):
 		for coin,cote in zip(self.agent.getCarcasse(), self.agent.getRectangle()):
