@@ -2,7 +2,7 @@ from Module.Agent.Robot import Robot as rob
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.VoirObstacle import VoirObstacle
 
-class ControleurCollision():
+class AvancerSansCollision():
     """
         Un controleur du robot dont le but est de lui faire tracer un carré
     """

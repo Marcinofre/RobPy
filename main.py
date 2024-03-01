@@ -4,7 +4,7 @@ from Module.Agent.Robot import Robot
 from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.ControleurCarre import ControleurCarre
-from Module.Contr.ControleurCollision import ControleurCollision
+from Module.Contr.AvancerSansCollision import AvancerSansCollision
 import time
 import threading
 
