@@ -134,19 +134,20 @@ class Environnement() :
 		"""
 			Calcule de la collision entre le rayon du capteur et de la bordure haute
 		"""
-		(x1, y1) = self.agent.posCenter
-		(x2, y2) = self.agent.capteur.interfaceRay.toTuple()
-		(x2,y2) = (x2+x1, y1+y2)			
-		(x3, y3) = self.bordure_haut[0]
-		(x4, y4) = self.bordure_haut[1]
+		for i in self.setObstacle:
+			(x1, y1) = self.agent.posCenter
+			(x2, y2) = self.agent.capteur.interfaceRay.toTuple()
+			(x2,y2) = (x2+x1, y1+y2)			
+			(x3, y3) = (i.x0,i.y0)
+			(x4, y4) = (i.x1,i.y1)
 
-		intersec1 = (x3 - x1) * (y2 - y1) - (y3 - y1) * (x2 - x1)
-		intersec2 = (x4 - x1) * (y2 - y1) - (y4 - y1) * (x2 - x1)
-		intersec3 = (x1 - x3) * (y4 - y3) - (y1 - y3) * (x4 - x3)
-		intersec4 = (x2 - x3) * (y4 - y3) - (y2 - y3) * (x4 - x3)
-		
-
-		self.agent.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
+			intersec1 = (x3 - x1) * (y2 - y1) - (y3 - y1) * (x2 - x1)
+			intersec2 = (x4 - x1) * (y2 - y1) - (y4 - y1) * (x2 - x1)
+			intersec3 = (x1 - x3) * (y4 - y3) - (y1 - y3) * (x4 - x3)
+			intersec4 = (x2 - x3) * (y4 - y3) - (y2 - y3) * (x4 - x3)
+			if(intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0) :
+				self.agent.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
+				return
 
 	def retourCapteur(self, pas_distance):
 		"""
