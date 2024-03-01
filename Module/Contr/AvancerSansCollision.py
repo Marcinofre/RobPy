@@ -18,7 +18,6 @@ class AvancerSansCollision():
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
         self.robot = robot                          # ---> Robot à controler
-        self.env = en                               # ---> Environnement ou évolue le robot
         self.distance = 0                           # ---> Distance à parcourir
         self.speed = 0.6                            # ---> Vitesse du robot initial
         self.strats = [VoirObstacle(robot, en)]
@@ -56,7 +55,6 @@ class AvancerSansCollision():
 
         #Modification de la vitesse des roues puis avance selon la vitesse moyenne
         self.robot.setVitesseRoue(self.speed, self.speed)
-        self.robot.avancerRobot()
         
         print("Distance entre le robot et le mur",self.robot.capteur.distanceObstacle)
         

@@ -39,7 +39,7 @@ robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
 environnement = env(taille[0], taille[1], robot)
 
 #Initialisation du controleur du robot
-controleurRobot = ControleurCarre(robot)
+controleurRobot = AvancerSansCollision(robot,environnement)
 
 #Initialisation de l'interface graphique et lancement
 sim = Interface(environnement,controleurRobot)

@@ -40,7 +40,10 @@ class Environnement() :
 		self.bordure_droite 	= ((x,0),(x,y))
 		self.bordure_gauche 	= ((0,0),(0,y))
 		self.bordure_bas 	= ((0,y),(x,y))
-
+		self.addObstacle((Obstacle(0,0,x,0)))
+		self.addObstacle((Obstacle(x,0,x,y)))
+		self.addObstacle((Obstacle(0,0,0,y)))
+		self.addObstacle((Obstacle(0,y,x,y)))
 
 
 	def isOut(self) :
