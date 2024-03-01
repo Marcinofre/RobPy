@@ -134,18 +134,17 @@ class Environnement() :
 			return False
 	
 	def doesCollidebis(self):
-		for obs in self.setObstacle:
-			for i in self.agent.getCarcasse():
+		for coin,cote in zip(self.agent.getCarcasse(), self.agent.getRectangle()):
+			for obs in self.setObstacle:
 				min_x = min(obs.x0,obs.x1)
 				max_x = max(obs.x0,obs.x1)
 				min_y = min(obs.y0,obs.y1)
 				max_y = max(obs.y0,obs.y1)
-				if min_x<=i[0]<=max_x and min_y<=i[1]<=max_y:
+				if min_x<=coin[0]<=max_x and min_y<=coin[1]<=max_y:
 					print(f"En collision avec : {min_x} {max_x} {min_y} {max_y}")
 					return True
-			for i in self.agent.getRectangle():
-				if self.collisionLigne(obs.x0, obs.y0, obs.x1, obs.y1, i[0][0], i[0][1],i[1][0],i[1][1]):
-					print(f"Je suis : {i[0][0]},{i[0][1]},{i[1][0]},{i[1][1]}")
+				if self.collisionLigne(obs.x0, obs.y0, obs.x1, obs.y1, cote[0][0], cote[0][1],cote[1][0],cote[1][1]):
+					print(f"Je suis : {cote[0][0]},{cote[0][1]},{cote[1][0]},{cote[1][1]}")
 					print(f"En collision avec : {obs.x0} {obs.y0} {obs.x1} {obs.y1}")
 					return True
 		return False
