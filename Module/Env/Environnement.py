@@ -35,10 +35,7 @@ class Environnement() :
 		self.agent = agent
 		self.setObstacle = set()
 
-		self.bordure_haut 	= ((0,0),(x,0))
-		self.bordure_droite 	= ((x,0),(x,y))
-		self.bordure_gauche 	= ((0,0),(0,y))
-		self.bordure_bas 	= ((0,y),(x,y))
+
 		self.addObstacle((Obstacle(0,y,x,y)))
 		self.addObstacle((Obstacle(x,y,x,0)))
 		self.addObstacle((Obstacle(0,0,0,y)))
