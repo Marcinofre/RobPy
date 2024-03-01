@@ -34,16 +34,15 @@ class Environnement() :
 		
 		self.agent = agent
 		self.setObstacle = set()
-		self.addObstacle((Obstacle(0,0,x,y)))
 
 		self.bordure_haut 	= ((0,0),(x,0))
 		self.bordure_droite 	= ((x,0),(x,y))
 		self.bordure_gauche 	= ((0,0),(0,y))
 		self.bordure_bas 	= ((0,y),(x,y))
-		self.addObstacle((Obstacle(0,0,x,0)))
-		self.addObstacle((Obstacle(x,0,x,y)))
-		self.addObstacle((Obstacle(0,0,0,y)))
 		self.addObstacle((Obstacle(0,y,x,y)))
+		self.addObstacle((Obstacle(x,y,x,0)))
+		self.addObstacle((Obstacle(0,0,0,y)))
+		self.addObstacle((Obstacle(0,0,x,0)))
 
 
 	def isOut(self) :
@@ -109,6 +108,28 @@ class Environnement() :
 				return True
 		return False
 	
+	def collisionLigne(self,x0, y0, x1, y1, ix, iy):
+		vecObs = self.creerVecteur((x1,y1),(x0,y0))
+		vec1 = self.creerVecteur((x0,y0),(ix,iy))
+		vec2 = self.creerVecteur((x1,y1),(ix,iy))
+		
+		scal1 = vecObs.produitScalaire(vec1)
+		scal2 = vecObs.produitScalaire(vec2)
+
+		return scal1 >= 0 and scal2 <= 0
+	
+	def doesCollidebis(self):
+		for i in self.agent.getCarcasse():
+			for obs in self.setObstacle:
+				min_x = min(obs.x0,obs.x1)
+				max_x = max(obs.x0,obs.x1)
+				min_y = min(obs.y0,obs.y1)
+				max_y = max(obs.y0,obs.y1)
+				if min_x<=i[0]<=max_x and min_y<=i[1]<=max_y or self.collisionLigne(obs.x0, obs.y0, obs.x1, obs.y1, i[0], i[1]):
+					print(f"En collision avec : {min_x} {max_x} {min_y} {max_y}")
+					return True
+		return False
+				
 	def doesRayCollide(self):
 		"""
 			Calcule de la collision entre le rayon du capteur et de la bordure haute
@@ -146,7 +167,7 @@ class Environnement() :
 
 	def update(self):
 		print("UPDATE")
-		if self.doesCollide():
+		if self.doesCollidebis():
 			print("En collision!")
 			return
 		self.run()
