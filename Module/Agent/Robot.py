@@ -134,3 +134,15 @@ class Robot :
 	def update(self):
 		self.rotateAllVect(self.VitesseAngulaire())
 		self.avancerRobot()
+
+	def getRectangle(self):
+		"""
+			Permet d'obtenir les lignes représentant les 4 côtés du rectangle
+		"""
+		coins = self.getCarcasse()
+
+		haut = ((coins[1]),(coins[0]))
+		bas = ((coins[2]),(coins[3]))
+		gauche = ((coins[1],(coins[3])))
+		droit = ((coins[0]),[coins[3]])
+		return [haut,bas,gauche,droit]
