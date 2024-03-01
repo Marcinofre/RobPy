@@ -108,25 +108,45 @@ class Environnement() :
 				return True
 		return False
 	
-	def collisionLigne(self,x0, y0, x1, y1, ix, iy):
-		vecObs = self.creerVecteur((x1,y1),(x0,y0))
-		vec1 = self.creerVecteur((x0,y0),(ix,iy))
-		vec2 = self.creerVecteur((x1,y1),(ix,iy))
-		
-		scal1 = vecObs.produitScalaire(vec1)
-		scal2 = vecObs.produitScalaire(vec2)
+	def collisionLigne(self,x0, y0, x1, y1, x2,y2,x3,y3):
 
-		return scal1 >= 0 and scal2 <= 0
+		dx1 = x1 - x0
+		dy1 = y1 - y0
+		dx2 = x3 - x2
+		dy2 = y3 - y2
+
+		# Calculate determinant
+		det = dx1 * dy2 - dy1 * dx2
+
+		if det == 0:
+			# Lines are parallel
+			return False
+
+		# Calculate intersection point
+		s = (dx1 * (y0 - y2) - dy1 * (x0 - x2)) / det
+		t = (-dx2 * (y0 - y2) + dy2 * (x0 - x2)) / det
+
+		if 0 <= s <= 1 and 0 <= t <= 1:
+			# Intersection point lies within both line segments
+			return True
+		else:
+			# Intersection point is outside the line segments
+			return False
 	
 	def doesCollidebis(self):
-		for i in self.agent.getCarcasse():
-			for obs in self.setObstacle:
+		for obs in self.setObstacle:
+			for i in self.agent.getCarcasse():
 				min_x = min(obs.x0,obs.x1)
 				max_x = max(obs.x0,obs.x1)
 				min_y = min(obs.y0,obs.y1)
 				max_y = max(obs.y0,obs.y1)
-				if min_x<=i[0]<=max_x and min_y<=i[1]<=max_y or self.collisionLigne(obs.x0, obs.y0, obs.x1, obs.y1, i[0], i[1]):
+				if min_x<=i[0]<=max_x and min_y<=i[1]<=max_y:
 					print(f"En collision avec : {min_x} {max_x} {min_y} {max_y}")
+					return True
+			for i in self.agent.getRectangle():
+				if self.collisionLigne(obs.x0, obs.y0, obs.x1, obs.y1, i[0][0], i[0][1],i[1][0],i[1][1]):
+					print(f"Je suis : {i[0][0]},{i[0][1]},{i[1][0]},{i[1][1]}")
+					print(f"En collision avec : {obs.x0} {obs.y0} {obs.x1} {obs.y1}")
 					return True
 		return False
 				

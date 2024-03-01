@@ -5,6 +5,7 @@ from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.ControleurCarre import ControleurCarre
 from Module.Contr.AvancerSansCollision import AvancerSansCollision
+from Module.Env.Obstacle import Obstacle
 import time
 import threading
 
@@ -43,6 +44,8 @@ controleurRobot = AvancerSansCollision(robot,environnement)
 
 #Initialisation de l'interface graphique et lancement
 sim = Interface(environnement,controleurRobot)
+sim.ajoutObstacle(Obstacle(400,200,600,200))
+environnement.addObstacle(Obstacle(400,200,600,200))
 interface = threading.Thread(target=updateAll, args=(environnement, controleurRobot))
 
 interface.start()

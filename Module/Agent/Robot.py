@@ -143,6 +143,6 @@ class Robot :
 
 		haut = ((coins[1]),(coins[0]))
 		bas = ((coins[2]),(coins[3]))
-		gauche = ((coins[1],(coins[3])))
-		droit = ((coins[0]),[coins[3]])
+		gauche = ((coins[1]),(coins[3]))
+		droit = ((coins[0]),(coins[3]))
 		return [haut,bas,gauche,droit]
