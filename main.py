@@ -22,6 +22,7 @@ def updateAll(env, contr):
 def updateContr(contr):
     if contr.stop() :
         contr.start()
+        updateContr(contr)
     else:
         contr.step()
         contr.strats[contr.cur].step()
