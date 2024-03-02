@@ -165,6 +165,8 @@ class Environnement() :
 
 	def update(self):
 		print("UPDATE")
+		if self.isOut():
+			return
 		if self.doesCollidebis():
 			print("En collision!")
 			return
