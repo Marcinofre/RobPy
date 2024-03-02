@@ -15,8 +15,8 @@ def updateEnv(env):
 		"""
 		env.initSimulation()
 		while env.isRunning :
-			env.update()			#---> Update l'environnement
-			time.sleep(1./env.clockPace)	#---> frame par sec 
+                        env.update()			#---> Update l'environnement
+                        time.sleep(1./env.clockPace)	#---> frame par sec 
 
 def updateContr(env, contr):
     while env.isRunning:
@@ -27,7 +27,6 @@ def updateContr(env, contr):
             contr.step()
             contr.strats[contr.cur].step()
         time.sleep(1./env.clockPace)
-
 
 
 ##Script de lancement de la simulation
@@ -48,7 +47,7 @@ controleurRobot = AvancerSansCollision(robot,environnement)
 sim = Interface(environnement,controleurRobot)
 sim.ajoutObstacle(Obstacle(400,200,600,180))
 environnement.addObstacle(Obstacle(400,200,600,200))
-updateE = threading.Thread(target=updateEnv, args=(environnement))
+updateE = threading.Thread(target=updateEnv, args=(environnement,))
 updateC = threading.Thread(target=updateContr, args=(environnement, controleurRobot))
 updateE.start()
 updateC.start()

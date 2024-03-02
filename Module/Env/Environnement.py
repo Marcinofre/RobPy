@@ -88,22 +88,6 @@ class Environnement() :
 				self.setObstacle.add(obs)
 		else :
 			print("L'élément n'est pas un obstacle")
-
-	def doesCollide(self):
-		"""
-        	Détermine si rob est en collision avec obs, renvoie True ou False. 
-			Fait un produit de produit vectoriel de la forme (AB ^ AC)(AB ^ AD) ET (CD ^ CA)(CD ^ CB)
-        """
-		for i in self.setObstacle:
-			AB = self.agent.vectD
-			AC = self.creerVecteur((self.agent.posCenter[0], self.agent.posCenter[1]), (i.x0, i.y0))
-			AD = self.creerVecteur((self.agent.posCenter[0], self.agent.posCenter[1]), (i.x1, i.y1))
-			CA = self.creerVecteur((i.x0, i.y0), (self.agent.posCenter[0], self.agent.posCenter[1]))
-			CB = self.creerVecteur((i.x0, i.y0), (self.agent.posCenter[0]+self.agent.vectD.x, self.agent.posCenter[1]+self.agent.vectD.y))
-			CD = self.creerVecteur((i.x0, i.y0), (i.x1, i.y1))
-			if (AB.produitVectoriel(AC)*AB.produitVectoriel(AD))<0 and (CD.produitVectoriel(CA)*CD.produitVectoriel(CB))<0 :
-				return True
-		return False
 	
 	def collisionLigne(self,x1, y1, x2, y2, x3,y3,x4,y4):
 		denom = ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
