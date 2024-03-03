@@ -6,7 +6,7 @@ from Module.Env.Environnement import Environnement as env
 #from Module.Contr.ControleurCarre import ControleurCarre
 from Module.Contr.AvancerSansCollision import AvancerSansCollision
 from Module.Env.Obstacle import Obstacle
-
+from Module.Vecteur import Vecteur
 import time
 import threading
 
@@ -39,6 +39,9 @@ def updateContr(env, contr):
         while env.isRunning:
             if not contr.isActive :
                 env.agent.setVitesseRoue(0,0)
+                env.agent.capteur.ray = Vecteur(0,1)
+                env.agent.capteur.ray.rotationAngle(env.agent.vectD.calculerAngle(env.agent.capteur.ray))
+                env.agent.capteur.interfaceRay = env.agent.capteur.ray
                 updateContr(env, contr)
                 break
             if contr.stop():
