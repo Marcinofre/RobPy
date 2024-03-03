@@ -61,6 +61,7 @@ class Interface():
         self.TextframeRight = tkinter.Frame(self.framer)
         self.TextframeLeft = tkinter.Frame(self.framer)
         self.TextframeBottom = tkinter.Frame(self.framer)
+        self.TextframeB = tkinter.Frame(self.framer)
 
         #Positionnement des différentes frame
         self.TextframeBottom.pack(side=tkinter.BOTTOM, 
@@ -97,23 +98,33 @@ class Interface():
         self.vitesse_label.pack()
         
         #Position des zone de saisie et leur label
-        #self.label_vitesseMD.pack()
-        #self.zone_saisie_vitesseMD.pack()
+        self.label_vitesseMD.pack()
+        self.zone_saisie_vitesseMD.pack()
 
         #self.label_vitesseMG.pack()
-        #self.zone_saisie_vitesseMG.pack()
+        self.zone_saisie_vitesseMG.pack()
         
         #self.labe_pacetime.pack()
-        #self.zone_saisie_pacetime.pack()
+        self.zone_saisie_pacetime.pack()
 
         #Définition d'un bouton d'envoie
-        boutton = tkinter.Button(self.TextframeBottom,
+        buttonEnvoie = tkinter.Button(self.TextframeBottom,
                                  text="Envoie",
                                  command=self.dispatchVariableCommande)
         
-        #Positionnement des boutons
-        boutton.pack()
+        buttonStop = tkinter.Button(self.TextframeBottom,
+                                 text="Stop",
+                                 command=self.stop)
         
+        buttonRun = tkinter.Button(self.TextframeBottom,
+                                 text="Lancer",
+                                 command=self.run)
+        
+        #Positionnement des boutons
+        buttonEnvoie.pack()
+        buttonStop.pack()
+        buttonRun.pack()
+
 
         
         #Dessin Robot initial
@@ -219,3 +230,11 @@ class Interface():
         self.fenetre.update()
         self.fenetre.update_idletasks()
         self.fenetre.after(50, self.updateAll)
+
+    
+    def run(self):
+        self.ctrl.isActive = True
+    
+    def stop(self):
+        self.ctrl.isActive = False
+    

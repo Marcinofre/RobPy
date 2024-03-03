@@ -35,14 +35,19 @@ def updateEnv(env):
         time.sleep(1./env.clockPace)	#---> frame par sec 
 
 def updateContr(env, contr):
-    while env.isRunning:
-        if contr.stop():
-            contr.start()
-            updateContr(env, contr) 
-        else:
-            contr.step()
-            contr.strats[contr.cur].step()
-        time.sleep(1./env.clockPace)
+    if contr.isActive:
+        while env.isRunning and contr.isActive:
+            if contr.stop():
+                contr.start()
+                updateContr(env, contr) 
+            else:
+                contr.step()
+                contr.strats[contr.cur].step()
+            time.sleep(1./env.clockPace)
+    else:
+        if env.isRunning:
+            time.sleep(1./env.clockPace)
+            updateContr(env, contr)
 
 ######################################################################################################################################
         

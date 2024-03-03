@@ -30,6 +30,8 @@ class ControleurCarre():
                        AvancerDroit(distance, self.speed, robot), 
                        TournerDirecte(90, robot)]
         self.cur = -1
+        self.isActive = False
+    
     
     def start(self):
         """
