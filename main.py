@@ -66,4 +66,6 @@ updateE = threading.Thread(target=updateEnv, args=(environnement,))
 updateC = threading.Thread(target=updateContr, args=(environnement, controleurRobot))
 updateE.start()
 updateC.start()
-sim.affiche()
+
+if interfaceOn:
+    sim.affiche()
