@@ -84,6 +84,7 @@ class Interface():
         self.vitesseMG = tkinter.DoubleVar()
 
         self.paceTime  = tkinter.DoubleVar()
+        self.paceTime.set(1.0)
 
         #Définition des label et de leurs zone d'entrée respective
         self.label_vitesseMD = tkinter.Label(self.TextframeLeft, text="Vitesse Moteur droit :" )
