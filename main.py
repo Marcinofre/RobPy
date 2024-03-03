@@ -36,7 +36,11 @@ def updateEnv(env):
 
 def updateContr(env, contr):
     if contr.isActive:
-        while env.isRunning and contr.isActive:
+        while env.isRunning:
+            if not contr.isActive :
+                env.agent.setVitesseRoue(0,0)
+                updateContr(env, contr)
+                break
             if contr.stop():
                 contr.start()
                 updateContr(env, contr) 
