@@ -9,6 +9,17 @@ from Module.Env.Obstacle import Obstacle
 import time
 import threading
 
+def introductionSimulation():
+    print("The RobPy simulation is currently being initialized.")
+    print("Please kindly follow the instructions that may follow")
+    print("For each instruction, please write \"yes\" or (\"y\") or \"no\" (\"n\"). If another element is detected, it will be considered \"no\" as default")
+    response = input("Do you want to start the simulation with the interface ?\n--->>>")
+
+    if response in ["yes", "y"]:
+        return True
+    else:
+        return False
+
 def updateEnv(env):
 		"""
 			Update l'ensemble des classe de la simulation
@@ -31,6 +42,9 @@ def updateContr(env, contr):
 
 ##Script de lancement de la simulation
 
+interfaceOn = introductionSimulation()
+
+print("Initialization in progress")
 #Définition de la taille de l'environnment
 taille = (1024, 720)
 #Définition du vecteur directeur initial du robot, puis du robot
@@ -44,8 +58,9 @@ environnement = env(taille[0], taille[1], robot)
 controleurRobot = AvancerSansCollision(robot,environnement)
 
 #Initialisation de l'interface graphique et lancement
-sim = Interface(environnement,controleurRobot)
-sim.ajoutObstacle(Obstacle(400,200,600,180))
+if interfaceOn :
+    sim = Interface(environnement,controleurRobot)
+    sim.ajoutObstacle(Obstacle(400,200,600,180))
 environnement.addObstacle(Obstacle(400,200,600,200))
 updateE = threading.Thread(target=updateEnv, args=(environnement,))
 updateC = threading.Thread(target=updateContr, args=(environnement, controleurRobot))
