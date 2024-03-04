@@ -41,12 +41,16 @@ class AvancerSansCollision():
         if self.stop():
             return
         
-        self.distance = self.robot.capteur.getObstacle() # On update la distance entre le robot et l'obstacle
-        self.freinage = - ( self.speed ** 2 ) / ( 2 * self.distance) # On calcule le freinage nécéssaire 
-        self.speed -= round(self.freinage, 2)  # On applique le freinage à la roue en évitant les valeures absurdes
-        self.robot.setVitesseRoue(self.speed, self.speed)  # Modification de la vitesse des roues puis avance selon la vitesse moyenne
-        
-        print("Distance entre le robot et le mur",self.robot.capteur.distanceObstacle)
+        if self.distance != 0:
+            self.distance = self.robot.capteur.getObstacle() # On update la distance entre le robot et l'obstacle
+            self.freinage = - ( self.speed ** 2 ) / ( 2 * self.distance) # On calcule le freinage nécéssaire 
+            if self.speed != 0:
+                self.speed -= round(self.freinage, 2)  # On applique le freinage à la roue en évitant les valeures absurdes
+                self.robot.setVitesseRoue(self.speed, self.speed)  # Modification de la vitesse des roues puis avance selon la vitesse moyenne
+            else:
+                return
+
+        print(" Distance entre le robot et l'obstacle ",self.robot.capteur.distanceObstacle)
         
         if self.cur<0 or self.strats[self.cur].stop():
             self.cur+=1
