@@ -1,14 +1,15 @@
 from Module.Agent.Robot import Robot as rob
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.VoirObstacle import VoirObstacle
+from Module.Agent.Capteur import Capteur
 
 class AvancerSansCollision():
     """
-        Un controleur du robot dont le but est de lui faire tracer un carré
+        Un controleur du robot 
     """
     def __init__(self, robot: rob, en: env):
         """
-            Constructeur de la classe ControleurCarré:
+            Constructeur de la classe AvancerSansCollision :
             arg env : Environnement que le controleur a accès
             
             ---
@@ -40,22 +41,10 @@ class AvancerSansCollision():
         if self.stop():
             return
         
-        #Update de la distance en fonction de la distance calculer par rapport à l'obstacle
-        self.distance = self.robot.capteur.distanceObstacle
-
-        #Calcule de la dist pour le freinage par rapport à la longeur frontale du robot
-        dist = self.distance - self.robot._dim[1]
-        
-        #Systeme de frein/decceleration
-        if dist < 0 and self.distance != 0:
-            new_speed = self.speed*abs(dist)/self.distance
-            if self.speed > 0:
-                self.speed -= round(new_speed, 2)           # ---> Arrondie pour eviter d'avoir des chiffres un peu absurde
-            else:
-                self.speed = 0
-
-        #Modification de la vitesse des roues puis avance selon la vitesse moyenne
-        self.robot.setVitesseRoue(self.speed, self.speed)
+        self.distance = self.robot.capteur.getObstacle() # On update la distance entre le robot et l'obstacle
+        self.freinage = - ( self.speed ** 2 ) / ( 2 * self.distance) # On calcule le freinage nécéssaire 
+        self.speed -= round(self.freinage, 2)  # On applique le freinage à la roue en évitant les valeures absurdes
+        self.robot.setVitesseRoue(self.speed, self.speed)  # Modification de la vitesse des roues puis avance selon la vitesse moyenne
         
         print("Distance entre le robot et le mur",self.robot.capteur.distanceObstacle)
         

@@ -1,4 +1,8 @@
 from Module.Vecteur import Vecteur
+from Module.Contr.VoirObstacle import VoirObstacle
+from Module.Agent.Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
+
 
 class Capteur :
     """
@@ -15,9 +19,9 @@ class Capteur :
         self.ray = Vecteur(0,1)
         self.ray.rotationAngle(vecteurDirecteurRobot.calculerAngle(self.ray))
         self.vision = 8000
+        self.interfaceRay = 0
         self.touchObstacle = False
         self.distanceObstacle = 0
-
 
     def getObstacle(self):
         """
