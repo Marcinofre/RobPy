@@ -21,11 +21,15 @@ class AvancerSansCollision():
         self.robot = robot                          # ---> Robot à controler
         self.distance = 0                           # ---> Distance entre le robot et l'obstacle
         self.speed = 0.6                            # ---> Vitesse du robot initial
-        self.strats = [VoirObstacle(robot, en)]     # ---> Strategies choisies
+        self.strats = [VoirObstacle(robot, en),
+                       VoirObstacle(robot, en),
+                       VoirObstacle(robot, en),
+                       VoirObstacle(robot, en),
+                       VoirObstacle(robot, en),]    
         self.cur = -1                               # ---> Strategie courante
         self.isActive = False
     
-    
+
     def start(self):
         """
             Remet cur à -1 pour remettre le controleur sur la première instruction possible
