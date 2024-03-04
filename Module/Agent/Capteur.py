@@ -11,24 +11,22 @@ class Capteur :
              Attributs d'un capteur
                 => Vecteur ray : vecteur représentant le rayon du capteur
 			    => int vision : distance de vision passée en paramètre du constructeur
-                => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )
-                                                                                      -> True ( obsctale)
+                => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )                                                                                                                                       -> True ( obsctale)
 	    """
-
         self.ray = Vecteur(0,1)
         self.ray.rotationAngle(vecteurDirecteurRobot.calculerAngle(self.ray))
-        self.interfaceRay = self.ray
-        self.vision = 500
+        self.vision = 8000
         self.touchObstacle = False
-        
         self.distanceObstacle = 0
 
-    def projectionRay(self,distance):
-        """
-            Retourne le rayon projeté à la distance passé en paramètre en mètres
-        """
-        return (self.ray.x * distance, self.ray.y * distance)
-    
+    def getObstacle(self):
+
+        if self.e.retourCapteur(self.pas_distance):
+            print(f"Stopped by obstacle ? : {self.r.capteur.touchObstacle}")
+            print(f"Stopped by vision_max ? : {self.r.capteur.vision < self.distance_vue}")	
+            return self.distanceObstacle
+        return -1
+        
 
 
        
