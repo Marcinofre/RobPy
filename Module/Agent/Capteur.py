@@ -28,8 +28,6 @@ class Capteur :
             Retourne la distance entre le robot et l'obstacle si il y'en a un, sinon retourne -1
         """
         if self.e.retourCapteur(self.pas_distance):
-            print(f"Stopped by obstacle ? : {self.r.capteur.touchObstacle}")
-            print(f"Stopped by vision_max ? : {self.r.capteur.vision < self.distance_vue}")	
             return self.distanceObstacle
         return -1
         

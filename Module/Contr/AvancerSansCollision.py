@@ -19,11 +19,12 @@ class AvancerSansCollision():
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
         self.robot = robot                          # ---> Robot à controler
-        self.distance = 0                           # ---> Distance à parcourir
+        self.distance = 0                           # ---> Distance entre le robot et l'obstacle
         self.speed = 0.6                            # ---> Vitesse du robot initial
-        self.strats = [VoirObstacle(robot, en)]
+        self.strats = [VoirObstacle(robot, en)]     # ---> Strategies choisies
         self.cur = -1                               # ---> Strategie courante
         self.isActive = False
+    
     
     def start(self):
         """
@@ -32,6 +33,7 @@ class AvancerSansCollision():
         self.cur = -1
         for i in self.strats :
             i.start()
+
 
     def step(self):
         """
@@ -54,7 +56,8 @@ class AvancerSansCollision():
         
         if self.cur<0 or self.strats[self.cur].stop():
             self.cur+=1
-    
+
+
     def stop(self):
         """
             Condition d'arrêt de step
