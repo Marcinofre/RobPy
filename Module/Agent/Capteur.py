@@ -18,14 +18,15 @@ class Capteur :
 	    """
         self.ray = Vecteur(0,1)
         self.ray.rotationAngle(vecteurDirecteurRobot.calculerAngle(self.ray))
-        self.vision = 8000
+        self.vision = 8000 # distance max du capteur en mm
         self.interfaceRay = 0
         self.touchObstacle = False
         self.distanceObstacle = 0
 
     def getObstacle(self):
         """
-            Retourne la distance entre le robot et l'obstacle si il y'en a un, sinon retourne -1
+            Retourne la distance entre le robot et l'obstacle si il y'en a un dans la vision du capteur,
+            sinon retourne -1
         """
         if self.e.retourCapteur(self.pas_distance):
             return self.distanceObstacle
