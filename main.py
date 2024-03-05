@@ -3,7 +3,7 @@ from Module.Vecteur import Vecteur as vect
 from Module.Agent.Robot import Robot
 from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
-#from Module.Contr.ControleurCarre import ControleurCarre
+from Module.Contr.ControleurCarre import ControleurCarre
 from Module.Contr.AvancerSansCollision import AvancerSansCollision
 from Module.Env.Obstacle import Obstacle
 from Module.Vecteur import Vecteur
@@ -45,7 +45,6 @@ def updateContr(env, contr):
                 break
             if contr.stop():
                 contr.start()
-                updateContr(env, contr) 
             else:
                 contr.step()
                 contr.strats[contr.cur].step()
@@ -77,16 +76,17 @@ robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
 environnement = env(taille[0], taille[1], robot)
 
 #Initialisation du controleur du robot
-controleurRobot = AvancerSansCollision(robot,environnement)
+controleurCollision = AvancerSansCollision(robot,environnement)
+controleurCarre = ControleurCarre(robot)
 
 #Initialisation de l'interface graphique et lancement
 if interfaceOn :
-    sim = Interface(environnement,controleurRobot)
+    sim = Interface(environnement,controleurCarre)
     sim.ajoutObstacle(Obstacle(400,200,600,180))
 
 environnement.addObstacle(Obstacle(400,200,600,200))
 updateE = threading.Thread(target=updateEnv, args=(environnement,))
-updateC = threading.Thread(target=updateContr, args=(environnement, controleurRobot))
+updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
 
 
 #Lancemement de la simulation SANS interface

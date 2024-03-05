@@ -234,6 +234,11 @@ class Interface():
 
     
     def run(self):
+        speed = (self.vitesseMG.get() + self.vitesseMD.get())/2
+        if speed > 0 :
+            self.ctrl.speed = speed
+            print("LA VITESSE EST MODIFIEE")
+        self.ctrl.start()
         self.ctrl.isActive = True
     
     def stop(self):
