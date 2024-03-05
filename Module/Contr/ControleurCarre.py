@@ -38,7 +38,7 @@ class ControleurCarre():
             Remet cur à -1 pour remettre le controleur sur la première instruction possible
         """
         self.cur = -1
-        print("VITESSE AU START : {self.speed}")
+        print(f"VITESSE AU START : {self.speed}")
         for i in self.strats :
             i.speed = self.speed
             i.start()

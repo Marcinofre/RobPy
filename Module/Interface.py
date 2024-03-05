@@ -1,5 +1,5 @@
 import itertools
-from threading import Thread
+from Module.Contr.ControleurCarre import ControleurCarre
 import tkinter
 from Module.Env.Obstacle import Obstacle
 
@@ -234,11 +234,12 @@ class Interface():
 
     
     def run(self):
-        speed = (self.vitesseMG.get() + self.vitesseMD.get())/2
-        if speed > 0 :
-            self.ctrl.speed = speed
-            print("LA VITESSE EST MODIFIEE")
-        self.ctrl.start()
+        if isinstance(self.ctrl, ControleurCarre):
+            speed = (self.vitesseMG.get() + self.vitesseMD.get())/2
+            if speed > 0 :
+                self.ctrl.speed = speed
+                print("LA VITESSE EST MODIFIEE")
+            self.ctrl.start()
         self.ctrl.isActive = True
     
     def stop(self):
