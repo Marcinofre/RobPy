@@ -228,6 +228,8 @@ class Interface():
 
         #Mise à jour de l'affichage du temps courant
         self.temps_label.config(text=f"Temps Courant : {self.env.currentClock}")
+        ##
+        self.draw_path()
 
         self.fenetre.update()
         self.fenetre.update_idletasks()
@@ -246,4 +248,10 @@ class Interface():
     def stop(self):
         self.env.agent.isControlled = False
 
-
+    ##
+    def draw_path(self):
+       for position in self.env.agent.trace:
+          self.canvas.create_oval(
+            position[0] - 2, position[1] - 2, 
+            position[0] + 2, position[1] + 2, 
+               fill='blue' )
