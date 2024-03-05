@@ -10,19 +10,19 @@ class Robot(unittest.TestCase) :
 		robot.vectD = vec(0.1, 0)
 		
 		
-		robot.vitesseMoyenne = 2.0
+		robot.setVitesseRoue(2,2)
 		for time in range(10):
 			robot.avancerRobot()
 
 		self.assertEqual(robot.posCenter, (round(2.0*0.1*10, 2), 0.0))
 		
-		robot.vitesseMoyenne = 0
+		robot.setVitesseRoue(0,0)
 		robot.posCenter = (0.0,0.0)
 		for time in range(10):
 			robot.avancerRobot()
 		self.assertEqual(robot.posCenter, (0.0, 0.0))
 
-		robot.vitesseMoyenne = 15
+		robot.setVitesseRoue(15,15)
 		robot.posCenter = (0.0,0.0)
 		robot.vectD = vec(0.1, -4)
 		for time in range(5):

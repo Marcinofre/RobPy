@@ -20,7 +20,6 @@ class Robot :
 			Attribut d'instance env. :
 			dim				-> Dimension du robot défini par sa largeur et sa longueur
 			isActive		-> Booléen qui définit si le robot est allumé ou non
-			vitesseMoyenne	-> Scalaire définissant la vitesse du robot
 			vectD 	        -> Vecteur direction du mouvement du robot
 			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
 			Capteur			-> Capteur d'obstacle du robot
@@ -37,8 +36,6 @@ class Robot :
 		self.isActive = 1
 		
 		self.vectD = vecteurDirecteur 	# Vecteur direction
-        
-		self.vitesseMoyenne = 0
 	
 		self.posCenter = (x,y)			# Position en x et y du centre du robot
 		
@@ -70,16 +67,16 @@ class Robot :
 		"""
 			Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
 		"""
-		self.vitesseMoyenne = round((self.MoteurD.vitesseMoteur*self.MoteurD.state + self.MoteurG.vitesseMoteur*self.MoteurG.state)/2,2)
+		return round((self.MoteurD.vitesseMoteur*self.MoteurD.state + self.MoteurG.vitesseMoteur*self.MoteurG.state)/2,2)
 
 	def avancerRobot(self):
 		"""
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		self.calcVitesseMoyenne()
-		print(self.vitesseMoyenne)
-		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * self.vitesseMoyenne), 1),
-						round(self.posCenter[1] + (self.vectD.y * self.vitesseMoyenne), 1))
+		vit = self.calcVitesseMoyenne()
+		print(vit)
+		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * vit), 1),
+						round(self.posCenter[1] + (self.vectD.y * vit), 1))
 
 	def setVitesseRoue(self, d, g):
 		"""
