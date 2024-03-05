@@ -23,6 +23,12 @@ class Capteur :
         self.touchObstacle = False
         self.distanceObstacle = 0
 
+    def projectionRay(self,distance):
+        """
+            Retourne le rayon projeté à la distance passé en paramètre en mètres
+        """
+        return (self.ray.x * distance, self.ray.y * distance)
+
     def getObstacle(self):
         """
             Retourne la distance entre le robot et l'obstacle si il y'en a un dans la vision du capteur,
