@@ -1,5 +1,6 @@
 import itertools
 from Module.Contr.ControleurCarre import ControleurCarre
+from Module.Contr.AvancerSansCollision import AvancerSansCollision
 import tkinter
 from Module.Env.Obstacle import Obstacle
 
@@ -239,7 +240,7 @@ class Interface():
 
     
     def run(self):
-        if isinstance(self.ctrl, ControleurCarre):
+        if isinstance(self.ctrl, ControleurCarre) or isinstance(self.ctrl, AvancerSansCollision):
             speed = (self.vitesseMG.get() + self.vitesseMD.get())/2
             if speed > 0 :
                 self.ctrl.speed = speed
