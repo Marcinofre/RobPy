@@ -39,8 +39,7 @@ def updateContr(env, contr):
         while env.isRunning:
             if not contr.isActive :
                 env.agent.setVitesseRoue(0,0)
-                env.agent.capteur.ray = Vecteur(0,1)
-                env.agent.capteur.ray.rotationAngle(env.agent.vectD.calculerAngle(env.agent.capteur.ray))
+                env.agent.capteur.ray = env.agent.capteur.treatVector(env.agent.vectD)
                 env.agent.capteur.interfaceRay = env.agent.capteur.ray
                 updateContr(env, contr)
                 break
