@@ -21,7 +21,7 @@ class TournerDirecte():
         """
         self.angle = angle
         self.r = rob
-        self.speed = 0.043633
+        self.speed = 1
         self.parcouru = 0
     
     def start(self):

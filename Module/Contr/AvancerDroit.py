@@ -36,11 +36,12 @@ class AvancerDroit():
         """
 
         self.r.setVitesseRoue(self.speed,self.speed)
+        self.r.calcVitesseMoyenne()
         avancement = self.r.vitesseMoyenne
         while avancement> self.distance - self.parcouru > 0 :
             self.speed -= self.speed*0.1
             self.r.setVitesseRoue(self.speed, self.speed)
-            self.r.calcVitesseMoyenne
+            self.r.calcVitesseMoyenne()
             avancement = self.r.vitesseMoyenne
         self.parcouru += self.r.vitesseMoyenne
         if self.stop() :
