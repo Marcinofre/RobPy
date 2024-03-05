@@ -51,7 +51,7 @@ class Robot :
 		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
 
 		# ici 
-		self.trace=[] # enregister la position
+		self.trace=[self.posCenter] # enregister la position
 
 	def VitesseAngulaire(self) :
 		"""
@@ -139,7 +139,8 @@ class Robot :
 	def update(self):
 		self.rotateAllVect(self.VitesseAngulaire())
 		self.avancerRobot()
-
+		
+		#enregister chaque update 
 		self.update_trace()
 	
 
