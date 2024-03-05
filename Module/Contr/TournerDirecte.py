@@ -51,4 +51,4 @@ class TournerDirecte():
         """
             Return True si self.parcouru > self.angle sinon return False
         """
-        return round(self.parcouru,5) >= self.angle
+        return round(self.parcouru,4) >= self.angle
