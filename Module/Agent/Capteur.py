@@ -14,7 +14,7 @@ class Capteur :
                 => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )                                                                                                                                       -> True ( obsctale)
 	    """
         self.ray = self.treatVector(vecteurDirecteurRobot)
-        self.vision = 8000 # distance max du capteur en mm
+        self.vision = 500
         self.interfaceRay = self.ray
         self.touchObstacle = False
         self.distanceObstacle = 0

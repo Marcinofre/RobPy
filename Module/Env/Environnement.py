@@ -139,7 +139,6 @@ class Environnement() :
 
 		# On projete le rayon si distance_vue est inférieur à la vision
 		while (not self.agent.capteur.touchObstacle) and distance_vue < vision:
-			
 			distance_vue += pas_distance														#---> Incrementation de la distance
 			self.agent.capteur.interfaceRay = self.agent.getRay(distance_vue)					#---> Récupère le rayon projeté à x distance
 			self.doesRayCollide()																#---> Regarde si le rayon coupe un vecteur
