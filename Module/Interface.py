@@ -89,7 +89,7 @@ class Interface():
         #Définition des label et de leurs zone d'entrée respective
         self.label_vitesseMD = tkinter.Label(self.TextframeLeft, text="Vitesse Moteur droit :" )
         self.label_vitesseMG = tkinter.Label(self.TextframeLeft, text="Vitesse Moteur gauche :" )
-        self.labe_pacetime = tkinter.Label(self.TextframeLeft, text="Pas de temps :" )
+        self.label_pacetime = tkinter.Label(self.TextframeLeft, text="Pas de temps :" )
         self.zone_saisie_vitesseMD = tkinter.Entry(self.TextframeRight, textvariable=self.vitesseMD)
         self.zone_saisie_vitesseMG = tkinter.Entry(self.TextframeRight, textvariable=self.vitesseMG)
         self.zone_saisie_pacetime = tkinter.Entry(self.TextframeRight, textvariable=self.paceTime)
@@ -102,10 +102,10 @@ class Interface():
         self.label_vitesseMD.pack()
         self.zone_saisie_vitesseMD.pack()
 
-        #self.label_vitesseMG.pack()
+        self.label_vitesseMG.pack()
         self.zone_saisie_vitesseMG.pack()
         
-        #self.labe_pacetime.pack()
+        self.label_pacetime.pack()
         self.zone_saisie_pacetime.pack()
 
         #Définition d'un bouton d'envoie
