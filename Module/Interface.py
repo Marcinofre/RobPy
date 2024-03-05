@@ -229,7 +229,9 @@ class Interface():
 
         #Mise à jour de l'affichage du temps courant
         self.temps_label.config(text=f"Temps Courant : {self.env.currentClock}")
-        ##
+        
+        
+        #Trace le passage du robot sur le Canevas
         self.draw_path()
 
         self.fenetre.update()
@@ -249,8 +251,11 @@ class Interface():
     def stop(self):
         self.env.agent.isControlled = False
 
-    ##
+
     def draw_path(self):
+       """
+            Trace le passage du robot
+       """
        for position in self.env.agent.trace:
           self.canvas.create_oval(
             position[0] - 2, position[1] - 2, 
