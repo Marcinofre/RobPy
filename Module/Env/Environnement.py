@@ -147,6 +147,9 @@ class Environnement() :
 		return True
 
 	def update(self):
+		#
+		print(len(self.agent.trace))
+		#
 		print("UPDATE")
 		if self.isOut():
 			return

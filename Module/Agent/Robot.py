@@ -50,6 +50,9 @@ class Robot :
 
 		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
 
+		# ici 
+		self.trace=[self.posCenter] # enregister la position
+
 	def VitesseAngulaire(self) :
 		"""
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
@@ -136,6 +139,10 @@ class Robot :
 	def update(self):
 		self.rotateAllVect(self.VitesseAngulaire())
 		self.avancerRobot()
+		
+		#enregister chaque update 
+		self.update_trace()
+	
 
 	def getRectangle(self):
 		"""
@@ -148,3 +155,8 @@ class Robot :
 		gauche = ((coins[1]),(coins[3]))
 		droit = ((coins[0]),(coins[3]))
 		return [haut,bas,gauche,droit]
+	
+	#test ici
+	def update_trace(self):
+		if not self.trace or (self.trace[-1]!=self.posCenter):
+			self.trace.append(self.posCenter)

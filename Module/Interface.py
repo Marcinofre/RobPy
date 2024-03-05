@@ -220,6 +220,7 @@ class Interface():
                             self.env.agent.posCenter[0] + position_ray.x,
                             self.env.agent.posCenter[1] + position_ray.y)
         
+        
         #Mise a jour de l'affichage de la vitesse des moteurs
         vitesseG=self.env.agent.MoteurG.vitesseMoteur
         vitesseD=self.env.agent.MoteurD.vitesseMoteur
@@ -244,4 +245,5 @@ class Interface():
     
     def stop(self):
         self.env.agent.isControlled = False
-    
+
+
