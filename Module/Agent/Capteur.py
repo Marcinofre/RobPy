@@ -1,4 +1,8 @@
 from Module.Vecteur import Vecteur
+from Module.Contr.VoirObstacle import VoirObstacle
+from Module.Agent.Robot import Robot as rob
+from Module.Env.Environnement import Environnement as env
+
 
 class Capteur :
     """
@@ -6,29 +10,28 @@ class Capteur :
 	"""
 
     def __init__(self, vecteurDirecteurRobot:Vecteur) -> None:
-
         """
              Attributs d'un capteur
                 => Vecteur ray : vecteur représentant le rayon du capteur
-			    => int vision : distance de vision passée en paramètre du constructeur
-                => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )
-                                                                                      -> True ( obsctale)
+			    => int vision : distance de vision max
+                => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )                                                                                                                                       -> True ( obsctale)
 	    """
-
         self.ray = Vecteur(0,1)
         self.ray.rotationAngle(vecteurDirecteurRobot.calculerAngle(self.ray))
-        self.interfaceRay = self.ray
-        self.vision = 500
+        self.vision = 8000 # distance max du capteur en mm
+        self.interfaceRay = 0
         self.touchObstacle = False
-        
         self.distanceObstacle = 0
 
-    def projectionRay(self,distance):
+    def getObstacle(self):
         """
-            Retourne le rayon projeté à la distance passé en paramètre en mètres
+            Retourne la distance entre le robot et l'obstacle si il y'en a un dans la vision du capteur,
+            sinon retourne -1
         """
-        return (self.ray.x * distance, self.ray.y * distance)
-    
+        if self.e.retourCapteur(self.pas_distance):
+            return self.distanceObstacle
+        return -1
+        
 
 
        
