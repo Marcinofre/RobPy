@@ -86,7 +86,7 @@ if interfaceOn :
 
 #environnement.addObstacle(Obstacle(400,200,600,200))
 updateE = threading.Thread(target=updateEnv, args=(environnement,))
-updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
+updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
 
 
 #Lancemement de la simulation SANS interface
