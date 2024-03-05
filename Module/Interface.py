@@ -220,6 +220,9 @@ class Interface():
                             self.env.agent.posCenter[0] + position_ray.x,
                             self.env.agent.posCenter[1] + position_ray.y)
         
+        #ici
+        #self.draw_path()
+        
         #Mise a jour de l'affichage de la vitesse des moteurs
         vitesseG=self.env.agent.MoteurG.vitesseMoteur
         vitesseD=self.env.agent.MoteurD.vitesseMoteur
@@ -244,4 +247,12 @@ class Interface():
     
     def stop(self):
         self.env.agent.isControlled = False
-    
+
+
+    #def draw_path(self):
+     #   for position in self.agent.trace:
+      #      self.canvas.create_oval(
+       #         position[0] - 2, position[1] - 2, 
+        #        position[0] + 2, position[1] + 2, 
+         #       fill='blue'
+          #  )
