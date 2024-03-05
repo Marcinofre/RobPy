@@ -22,7 +22,6 @@ class AvancerSansCollision():
         self.speed = 0.6                            # ---> Vitesse du robot initial
         self.strats = [VoirObstacle(robot, en)]
         self.cur = -1                               # ---> Strategie courante
-        self.isActive = False
     
     def start(self):
         """

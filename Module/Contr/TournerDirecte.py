@@ -37,14 +37,18 @@ class TournerDirecte():
         """
         if self.stop() :
             return
-        self.r.setVitesseRoue(-0.043633, 0.043633)
+        self.r.setVitesseRoue(-self.speed, self.speed)
         avancement = self.r.VitesseAngulaire()
         print(f"{avancement}")
+        while abs(avancement) > self.angle - self.parcouru > 0 :
+            self.speed -= self.speed*0.1
+            self.r.setVitesseRoue(-self.speed, self.speed)
+            avancement = self.r.VitesseAngulaire()
         self.parcouru += abs(avancement)
-        print('je tourne')
+        print(f"Je tourne et j'ai déjà tourné de : {self.parcouru}")
 
     def stop(self):
         """
             Return True si self.parcouru > self.angle sinon return False
         """
-        return self.parcouru >= self.angle
+        return round(self.parcouru,5) >= self.angle

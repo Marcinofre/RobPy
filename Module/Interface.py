@@ -240,8 +240,8 @@ class Interface():
                 self.ctrl.speed = speed
                 print("LA VITESSE EST MODIFIEE")
             self.ctrl.start()
-        self.ctrl.isActive = True
+        self.env.agent.isControlled = True
     
     def stop(self):
-        self.ctrl.isActive = False
+        self.env.agent.isControlled = False
     

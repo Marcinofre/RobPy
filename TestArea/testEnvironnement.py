@@ -23,7 +23,7 @@ class Environnement(unittest.TestCase):
 		
 		r.vectD.x = 2
 		r.vectD.y = 0
-		self.assertTrue(e.doesCollide())
+		self.assertTrue(e.doesCollidebis())
 
 
 			

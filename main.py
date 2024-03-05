@@ -35,9 +35,9 @@ def updateEnv(env):
         time.sleep(1./env.clockPace)	#---> frame par sec 
 
 def updateContr(env, contr):
-    if contr.isActive:
+    if env.agent.isControlled:
         while env.isRunning:
-            if not contr.isActive :
+            if not env.agent.isControlled :
                 env.agent.setVitesseRoue(0,0)
                 env.agent.capteur.ray = env.agent.capteur.treatVector(env.agent.vectD)
                 env.agent.capteur.interfaceRay = env.agent.capteur.ray
@@ -82,23 +82,24 @@ controleurCarre = ControleurCarre(robot)
 #Initialisation de l'interface graphique et lancement
 if interfaceOn :
     sim = Interface(environnement,controleurCarre)
-    sim.ajoutObstacle(Obstacle(400,200,600,180))
+    #sim.ajoutObstacle(Obstacle(400,200,600,180))
 
-environnement.addObstacle(Obstacle(400,200,600,200))
+#environnement.addObstacle(Obstacle(400,200,600,200))
 updateE = threading.Thread(target=updateEnv, args=(environnement,))
 updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
 
 
 #Lancemement de la simulation SANS interface
 if not interfaceOn:
-    
     #Lancement des threads
     updateE.start()
     updateC.start()
+    robot.isControlled = True
     
     while True:
         input('--->>>>Press any key to stop<<<<---\n\n\n')
         environnement.isRunning = False
+        robot.isControlled = False
         break
 
 #Lancement de la simulation AVEC interface

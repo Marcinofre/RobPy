@@ -30,7 +30,6 @@ class ControleurCarre():
                        AvancerDroit(distance, self.speed, robot), 
                        TournerDirecte(90, robot)]
         self.cur = -1
-        self.isActive = False
     
     
     def start(self):
@@ -51,7 +50,7 @@ class ControleurCarre():
         if self.stop():
             return
         if self.cur<0 or self.strats[self.cur].stop():
-            self.robot.setVitesseRoue(0.5,0.5)
+            self.robot.setVitesseRoue(0,0)
             self.cur+=1
     
     def stop(self):

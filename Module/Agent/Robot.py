@@ -46,6 +46,8 @@ class Robot :
 
 		self.loin = True
 
+		self.isControlled = False
+
 		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
 
 	def VitesseAngulaire(self) :
@@ -59,7 +61,7 @@ class Robot :
 		angle = diff / self.rayon
 		pi = math.pi
 		angle = angle * (180/pi)
-		return round(angle,4)
+		return round(angle,5)
 
 	def calcVitesseMoyenne(self) :
 		"""
