@@ -39,7 +39,7 @@ class Robot :
 	
 		self.posCenter = (x,y)			# Position en x et y du centre du robot
 		
-		self.rotation = 0
+		self.rotation = self.vectD.calculerAngle(Vecteur(0,-1))
 
 		self.loin = True
 
