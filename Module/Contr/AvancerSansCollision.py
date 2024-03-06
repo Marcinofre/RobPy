@@ -22,7 +22,8 @@ class AvancerSansCollision():
         self.distance = 0                           # ---> Distance à parcourir
         self.speed = 0.6                            # ---> Vitesse du robot initial
         self.strats = [VoirObstacle(robot, en)]
-        self.cur = -1                               # ---> Strategie courante
+        self.cur = -1 
+        self.pas_distance = 1                              # ---> Strategie courante
     
     def start(self):
         """
@@ -37,14 +38,21 @@ class AvancerSansCollision():
             Fonction qui parcours les instructions 
         """
 
-        if self.stop():
-            return
-        self.distance = self.robot.capteur.distanceObstacle
-        if self.distance <100:
-            if self.speed != 0:
-                self.speed = round(self.speed * self.distance*0.01, 2)  # On applique le freinage à la roue en évitant les valeures absurdes
-        self.robot.setVitesseRoue(self.speed, self.speed) 
+        #if self.stop():
+            #return
+        #self.distance = self.robot.capteur.distanceObstacle
+        #if self.distance <100:
+            #if self.speed != 0:
+               # self.speed = round(self.speed * self.distance*0.01, 2)  # On applique le freinage à la roue en évitant les valeures absurdes
+        #self.robot.setVitesseRoue(self.speed, self.speed) 
+        if self.env.retourCapteur(self.pas_distance):
+            print("Where i Am")
+            if self.robot.capteur.distanceObstacle < 45 :
+                print("-----------------------------------------Where i Am---------------------------------------------------------")
+                self.speed = 0.0
+                self.robot.setVitesseRoue(self.speed, self.speed)
         
+            
         print(" Distance entre le robot et l'obstacle ",self.robot.capteur.distanceObstacle)
         
         if self.cur<0 or self.strats[self.cur].stop():

@@ -69,7 +69,7 @@ taille = (1024, 720)
 
 
 #Définition du vecteur directeur initial du robot, puis du robot
-vecteurDirecteur = vect(0,-15)
+vecteurDirecteur = vect(0,-1)
 robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
 
 #Initialisation de l'environnment
@@ -85,7 +85,7 @@ if interfaceOn :
     sim = Interface(environnement,controleurCollision)
     sim.ajoutObstacle(Obstacle(400,200,600,180))
 
-#environnement.addObstacle(Obstacle(400,200,600,200))
+environnement.addObstacle(Obstacle(400,200,600,200))
 updateE = threading.Thread(target=updateEnv, args=(environnement,))
 #updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
 updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
