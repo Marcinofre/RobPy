@@ -83,12 +83,12 @@ controleurCarre = ControleurCarre(robot)
 if interfaceOn :
     #sim = Interface(environnement,controleurCarre)
     sim = Interface(environnement,controleurCollision)
-    sim.ajoutObstacle(Obstacle(400,200,600,180))
+    #sim.ajoutObstacle(Obstacle(400,200,600,180))
 
-environnement.addObstacle(Obstacle(400,200,600,200))
+#environnement.addObstacle(Obstacle(400,200,600,200))
 updateE = threading.Thread(target=updateEnv, args=(environnement,))
-#updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
-updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
+updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
+#updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
 
 
 #Lancemement de la simulation SANS interface
