@@ -4,7 +4,7 @@ from Module.Agent.Robot import Robot
 from Module.Interface import Interface
 from Module.Env.Environnement import Environnement as env
 from Module.Contr.ControleurCarre import ControleurCarre
-from Module.Contr.AvancerSansCollision import AvancerSansCollision
+from Module.Contr.ControleurCollision import ControleurCollision
 from Module.Env.Obstacle import Obstacle
 from Module.Vecteur import Vecteur
 import time
@@ -76,7 +76,7 @@ robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
 environnement = env(taille[0], taille[1], robot)
 
 #Initialisation du controleur du robot
-controleurCollision = AvancerSansCollision(robot,environnement)
+controleurCollision = ControleurCollision(robot,environnement)
 controleurCarre = ControleurCarre(robot)
 
 #Initialisation de l'interface graphique et lancement
