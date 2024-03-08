@@ -9,7 +9,7 @@ class Robot :
 		Modélisation d'un robot de Sorbonne Université
 	"""
 
-	def __init__(self, width:int, length:int, x:float=0, y:float=0, vecteurDirecteur = Vecteur(0,-10)):
+	def __init__(self, width:int, length:int, x:float=0, y:float=0, vecteurDirecteur = Vecteur(0,-1)):
 		"""
 			Constructeur de la classe Robot :
 			arg width : Largeur du robot

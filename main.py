@@ -20,10 +20,7 @@ def introductionSimulation():
     print("For each instruction, please write \"yes\" or (\"y\") or \"no\" (\"n\"). If another element is detected, it will be considered \"no\" as default")
     response = input("Do you want to start the simulation with the interface ?\n--->>>")
 
-    if response in ["yes", "y"]:
-        return True
-    else:
-        return False
+    return response in ["yes", "y"]
 
 def updateEnv(env):
     """
@@ -69,8 +66,7 @@ taille = (1024, 720)
 
 
 #Définition du vecteur directeur initial du robot, puis du robot
-vecteurDirecteur = vect(0,-1)
-robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5,vecteurDirecteur)
+robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
 
 #Initialisation de l'environnment
 environnement = env(taille[0], taille[1], robot)
