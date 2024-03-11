@@ -1,12 +1,8 @@
-from Module.Env.Environnement import Environnement as env
-from Module.Vecteur import Vecteur as vect
-from Module.Agent.Robot import Robot
-from Module.Interface import Interface
-from Module.Env.Environnement import Environnement as env
-from Module.Contr.ControleurCarre import ControleurCarre
-from Module.Contr.ControleurCollision import ControleurCollision
-from Module.Env.Obstacle import Obstacle
-from Module.Vecteur import Vecteur
+from Env.environnement import Environnement as env
+from Agent.robot import Robot
+from interface import Interface
+from Controleur.controleurCarre import ControleurCarre
+from Controleur.controleurCollision import ControleurCollision
 import time
 import threading
 

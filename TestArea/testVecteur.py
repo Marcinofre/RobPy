@@ -1,6 +1,6 @@
 import unittest
 import math as m
-from Module.Vecteur import Vecteur as vect
+from vecteur import Vecteur as vect
 
 class TestClassVecteur(unittest.TestCase):
 	def test_vect_is_vect(self):

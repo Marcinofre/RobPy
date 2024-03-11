@@ -1,8 +1,44 @@
-from Module.Vecteur import Vecteur
+from vecteur import Vecteur
 import os
 import math
-from Module.Agent.Moteur import Moteur
-from Module.Agent.Capteur import Capteur
+
+class Capteur :
+    """
+		Modélisation du capteur de mouvement du robot de Sorbonne Université
+	"""
+
+    def __init__(self, vecteurDirecteurRobot:Vecteur) -> None:
+        """
+             Attributs d'un capteur
+                => Vecteur ray : vecteur représentant le rayon du capteur
+			    => int vision : distance de vision max
+                => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )                                                                                                                                       -> True ( obsctale)
+	    """
+        self.ray = self.treatVector(vecteurDirecteurRobot)
+        self.vision = 500
+        self.interfaceRay = self.ray
+        self.touchObstacle = False
+        self.distanceObstacle = 0
+
+    def projectionRay(self,distance):
+        """
+            Retourne le rayon projeté à la distance passé en paramètre en mètres
+        """
+        return (self.ray.x * distance, self.ray.y * distance)
+    
+    def treatVector(self, vec : Vecteur):
+        res = Vecteur(0,0)
+        if vec.y > 0 :
+            res.y = 1
+        if vec.x > 0 :
+            res.x = 1
+        if vec.x<0 :
+            res.x = -1
+        if vec.y<0 :
+            res.y = -1
+        return res
+
+       
 
 class Robot :
 	"""
@@ -27,9 +63,9 @@ class Robot :
 		
 		self._dim = (width, length)
 
-		self.MoteurD = Moteur("Droit") 	# Moteur de la roue droite
+		self.MoteurD = 0.0
 
-		self.MoteurG = Moteur("Gauche") # Moteur de la roue gauche
+		self.MoteurG = 0.0
 
 		self.rayon = 1 					# rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
@@ -57,7 +93,7 @@ class Robot :
 		# 1er Cas : La roue droite est plus rapide, l'angle est positif, le robot tourne à gauche.
 		# 2ème Cas : La roue gauche est plus rapide, l'angle est négatif, le robot tourne à droite.
 		# 3ème Cas : Les deux roues ont la même vitesse, l'angle est nul, le robot ne tourne pas.
-		diff = self.MoteurD.vitesseMoteur - self.MoteurG.vitesseMoteur 
+		diff = self.MoteurD - self.MoteurG 
 		angle = diff / self.rayon
 		pi = math.pi
 		angle = angle * (180/pi)
@@ -67,7 +103,7 @@ class Robot :
 		"""
 			Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
 		"""
-		return round((self.MoteurD.vitesseMoteur*self.MoteurD.state + self.MoteurG.vitesseMoteur*self.MoteurG.state)/2,2)
+		return round((self.MoteurD + self.MoteurG)/2,2)
 
 	def avancerRobot(self):
 		"""
@@ -82,8 +118,8 @@ class Robot :
 		"""
 			Définit la vitesse des deux roue du robot
 		"""
-		self.MoteurD.vitesseMoteur = d
-		self.MoteurG.vitesseMoteur = g
+		self.MoteurD = d
+		self.MoteurG = g
 
 	def rotateAllVect(self, angle) :
 		"""

@@ -1,8 +1,8 @@
 import itertools
-from Module.Contr.ControleurCarre import ControleurCarre
-from Module.Contr.AvancerSansCollision import AvancerSansCollision
+from Controleur.controleurCarre import ControleurCarre
+from Controleur.controleurCollision import ControleurCollision
 import tkinter
-from Module.Env.Obstacle import Obstacle
+from Env.environnement import Obstacle
 
 
 class Interface():
@@ -75,7 +75,7 @@ class Interface():
                                  fill=tkinter.BOTH)
 
         self.vitesse_label=tkinter.Label(self.displayTop,
-                                         text=f"VitesseG : {env.agent.MoteurG.vitesseMoteur}, VitesseD : {env.agent.MoteurD.vitesseMoteur}")
+                                         text=f"VitesseG : {env.agent.MoteurG}, VitesseD : {env.agent.MoteurD}")
         self.temps_label= tkinter.Label(self.displayTop,
                                          text=f"Temps Courant : {env.currentClock}")
         
@@ -195,16 +195,16 @@ class Interface():
         """
 
         #Mise a jour de l'affichage de la vitesse des moteurs
-        vitesseG=self.env.agent.MoteurG.vitesseMoteur
-        vitesseD=self.env.agent.MoteurD.vitesseMoteur
+        vitesseG=self.env.agent.MoteurG
+        vitesseD=self.env.agent.MoteurD
         self.vitesse_label.config(text=f"VitesseG : {vitesseG}, VitesseD : {vitesseD}")
 
         #Mise à jour de l'affichage du temps courant
         self.temps_label.config(text=f"Temps Courant : {self.env.currentClock}")
 
     def dispatchVariableCommande(self):
-        self.env.agent.MoteurD.vitesseMoteur = round(self.vitesseMD.get(), 1)
-        self.env.agent.MoteurG.vitesseMoteur = round(self.vitesseMG.get(), 1)
+        self.env.agent.MoteurD = round(self.vitesseMD.get(), 1)
+        self.env.agent.MoteurG = round(self.vitesseMG.get(), 1)
         self.env.clockPace = round(self.paceTime.get(),1)
     
     def updateAll(self):
@@ -212,8 +212,8 @@ class Interface():
         self.updateCanevas()
 
         #Mise a jour de l'affichage de la vitesse des moteurs
-        vitesseG=self.env.agent.MoteurG.vitesseMoteur
-        vitesseD=self.env.agent.MoteurD.vitesseMoteur
+        vitesseG=self.env.agent.MoteurG
+        vitesseD=self.env.agent.MoteurD
         self.vitesse_label.config(text=f"VitesseG : {vitesseG}, VitesseD : {vitesseD}")
 
         #Mise à jour de l'affichage du temps courant
@@ -229,7 +229,7 @@ class Interface():
 
     
     def run(self):
-        if isinstance(self.ctrl, ControleurCarre) or isinstance(self.ctrl, AvancerSansCollision):
+        if isinstance(self.ctrl, ControleurCarre) or isinstance(self.ctrl, ControleurCollision):
             speed = (self.vitesseMG.get() + self.vitesseMD.get())/2
             if speed > 0 :
                 self.ctrl.speed = speed

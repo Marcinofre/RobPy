@@ -1,5 +1,5 @@
-from Module.Env.Environnement import Environnement as env
-from Module.Agent.Robot import Robot as r
+from Env.environnement import Environnement as env
+from Agent.robot import Robot as r
 
 
 class TournerDirecte():
