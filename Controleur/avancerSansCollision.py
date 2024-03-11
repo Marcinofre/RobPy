@@ -41,9 +41,6 @@ class AvancerSansCollision():
                 self.speed = 0.0
         self.robot.setVitesseRoue(self.speed, self.speed)
         self.robot.capteur.touchObstacle = False
-        
-            
-        print(" Distance entre le robot et l'obstacle ",self.robot.capteur.distanceObstacle)
     
     def stop(self):
         """

@@ -28,7 +28,6 @@ class ControleurGenerique():
         """
             Fonction qui parcours les instructions 
         """
-        print("STEP!")
         if self.stop():
             return
         if self.cur<0 or self.strats[self.cur].stop():

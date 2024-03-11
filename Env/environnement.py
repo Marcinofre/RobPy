@@ -158,11 +158,9 @@ class Environnement() :
 			self.agent.capteur.interfaceRay = self.agent.getRay(distance_vue)					#---> Récupère le rayon projeté à x distance
 			self.doesRayCollide()																#---> Regarde si le rayon coupe un vecteur
 			self.agent.capteur.distanceObstacle = self.agent.getRay(distance_vue).calcNorm()	#---> Calcul de la distance entre le robot est l'obstacle
-		print(f'je regarde à {self.agent.capteur.distanceObstacle}')
 		return True
 
 	def update(self):
-		print("UPDATE")
 		if self.isOut():
 			return
 		if self.doesCollidebis():

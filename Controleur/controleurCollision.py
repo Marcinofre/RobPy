@@ -27,7 +27,6 @@ class ControleurCollision():
             Remet cur à -1 pour remettre le controleur sur la première instruction possible
         """
         self.cur = -1
-        print(f"VITESSE AU START : {self.speed}")
         for i in self.strats :
             i.speed = self.speed
             i.start()
@@ -36,7 +35,6 @@ class ControleurCollision():
         """
             Fonction qui parcours les instructions 
         """
-        print("STEP!")
         if self.stop():
             return
         if self.cur<0 or self.strats[self.cur].stop():

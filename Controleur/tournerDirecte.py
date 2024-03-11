@@ -39,13 +39,11 @@ class TournerDirecte():
             return
         self.r.setVitesseRoue(-self.speed, self.speed)
         avancement = self.r.VitesseAngulaire()
-        print(f"{avancement}")
         while abs(avancement) > self.angle - self.parcouru > 0 :
             self.speed -= self.speed*0.1
             self.r.setVitesseRoue(-self.speed, self.speed)
             avancement = self.r.VitesseAngulaire()
         self.parcouru += abs(avancement)
-        print(f"Je tourne et j'ai déjà tourné de : {self.parcouru}")
 
     def stop(self):
         """
