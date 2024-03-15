@@ -1,6 +1,6 @@
 from Env.environnement import Environnement as env
 from Agent.robot import Robot as r
-
+import math
 
 class TournerDirecte():
     """
@@ -39,10 +39,10 @@ class TournerDirecte():
             return
         self.r.setVitesseRoue(-self.speed, self.speed)
         avancement = self.r.VitesseAngulaire()
-        while abs(avancement) > self.angle - self.parcouru > 0 :
-            self.speed -= self.speed*0.1
+        if abs(avancement) > self.angle - self.parcouru > 0 :
+            self.speed = ((self.angle - self.parcouru)*self.r.rayon*(180/math.pi))/2
             self.r.setVitesseRoue(-self.speed, self.speed)
-            avancement = self.r.VitesseAngulaire()
+            avancement = self.r.VitesseAngulaire
         self.parcouru += abs(avancement)
 
     def stop(self):
