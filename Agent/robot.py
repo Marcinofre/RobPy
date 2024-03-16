@@ -191,3 +191,6 @@ class Robot :
 	def update_trace(self):
 		if not self.trace or (self.trace[-1]!=self.posCenter):
 			self.trace.append(self.posCenter)
+
+class RobotSimule(Robot):
+	pass
