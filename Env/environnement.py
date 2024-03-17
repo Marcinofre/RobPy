@@ -1,5 +1,5 @@
 from Agent.robot import Robot
-from vecteur import Vecteur
+from utils.vecteur import Vecteur
 
 class Obstacle :
     """

@@ -1,6 +1,6 @@
 from Env.environnement import Environnement as env
 from Agent.robot import Robot
-from interface import Interface
+from utils.interface import Interface
 from Controleur.controleurCarre import ControleurCarre
 from Controleur.controleurCollision import ControleurCollision
 import time
@@ -49,62 +49,63 @@ def updateContr(env, contr):
 
 ######################################################################################################################################
         
+def main():
+    ##Script de lancement de la simulation
 
-##Script de lancement de la simulation
+    interfaceOn = introductionSimulation()
 
-interfaceOn = introductionSimulation()
-
-print("Initialization in progress")
-
-
-#Définition de la taille de l'environnment
-taille = (1024, 720)
+    print("Initialization in progress")
 
 
-#Définition du vecteur directeur initial du robot, puis du robot
-robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
-
-#Initialisation de l'environnment
-environnement = env(taille[0], taille[1], robot)
-
-#Initialisation du controleur du robot
-controleurCollision = ControleurCollision(robot,environnement)
-controleurCarre = ControleurCarre(robot)
-
-#Initialisation de l'interface graphique et lancement
-if interfaceOn :
-    #sim = Interface(environnement,controleurCarre)
-    sim = Interface(environnement,controleurCollision)
-    #sim.ajoutObstacle(Obstacle(400,200,600,180))
-
-#environnement.addObstacle(Obstacle(400,200,600,200))
-updateE = threading.Thread(target=updateEnv, args=(environnement,))
-updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
-#updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
+    #Définition de la taille de l'environnment
+    taille = (1024, 720)
 
 
-#Lancemement de la simulation SANS interface
-if not interfaceOn:
-    #Lancement des threads
-    updateE.start()
-    updateC.start()
-    robot.isControlled = True
-    
-    while True:
-        input('--->>>>Press any key to stop<<<<---\n\n\n')
-        environnement.isRunning = False
-        robot.isControlled = False
-        break
+    #Définition du vecteur directeur initial du robot, puis du robot
+    robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
 
-#Lancement de la simulation AVEC interface
-if interfaceOn:
-    
-    #Lancement des threads
-    updateE.start()
-    updateC.start()
+    #Initialisation de l'environnment
+    environnement = env(taille[0], taille[1], robot)
 
-    #Affichage de la fenetre
-    sim.affiche()
+    #Initialisation du controleur du robot
+    controleurCollision = ControleurCollision(robot,environnement)
+    controleurCarre = ControleurCarre(robot)
+
+    #Initialisation de l'interface graphique et lancement
+    if interfaceOn :
+        #sim = Interface(environnement,controleurCarre)
+        sim = Interface(environnement,controleurCollision)
+        #sim.ajoutObstacle(Obstacle(400,200,600,180))
+
+    #environnement.addObstacle(Obstacle(400,200,600,200))
+    updateE = threading.Thread(target=updateEnv, args=(environnement,))
+    updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
+    #updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
 
 
- 
+    #Lancemement de la simulation SANS interface
+    if not interfaceOn:
+        #Lancement des threads
+        updateE.start()
+        updateC.start()
+        robot.isControlled = True
+        
+        while True:
+            input('--->>>>Press any key to stop<<<<---\n\n\n')
+            environnement.isRunning = False
+            robot.isControlled = False
+            break
+
+    #Lancement de la simulation AVEC interface
+    if interfaceOn:
+        
+        #Lancement des threads
+        updateE.start()
+        updateC.start()
+
+        #Affichage de la fenetre
+        sim.affiche()
+
+
+if __name__ == "__main__":
+	main()

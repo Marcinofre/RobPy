@@ -1,7 +1,7 @@
 import unittest
 from Agent.robot import Robot as rob
 from Env.environnement import Environnement as env
-from vecteur import Vecteur as vec
+from utils.vecteur import Vecteur as vec
 from Env.environnement import Obstacle as obs
 
 

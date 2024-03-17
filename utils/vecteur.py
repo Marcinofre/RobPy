@@ -6,28 +6,36 @@ class Vecteur:
     """
     def __init__(self,x,y) :
         """
-            Constructeur de la classe Vecteur :
-            arg x  ->  Coordonnée en abcisse du vecteur
-            arg y  ->  Coordonnée en ordonnée du vecteur
+            Constructeur de la classe Vecteur
+
+            Args:
+                x: Coordonnée en abcisse du vecteur
+                y: Coordonnée en ordonnée du vecteur
         """
         self.x = x
         self.y = y
     
     def calcNorm(self):
         """
-            Permet de calculer la norme d'un vecteur
+            Calcule la norme d'un vecteur
         """
         return (self.x**2+self.y**2)**0.5
     
     def produitVectoriel(self,other):
         """
-            Calculer le produit vectoriel de deux vecteur 
+            Calcule le produit vectoriel de deux vecteur
+
+            Args:
+                other: un autre objet de class `Vecteur`
         """
         return self.x*other.y-self.y*other.x 
     
     def produitScalaire(self, other):
         """
-            Calculer le produit Scalaire de deux vecteur
+            Calcule le produit scalaire de deux vecteur
+
+            Args:
+                other: un autre objet de class `Vecteur` 
         """
 
         return self.x*other.x+self.y*other.y

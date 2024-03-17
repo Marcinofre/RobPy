@@ -1,4 +1,4 @@
-from vecteur import Vecteur
+from utils.vecteur import Vecteur
 import os
 import math
 
