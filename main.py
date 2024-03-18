@@ -3,6 +3,7 @@ from Agent.robot import Robot
 from interface import Interface
 from Controleur.controleurCarre import ControleurCarre
 from Controleur.controleurCollision import ControleurCollision
+from Agent.robotAdapteur import robotAdapteur
 import time
 import threading
 
@@ -63,18 +64,19 @@ taille = (1024, 720)
 
 #Définition du vecteur directeur initial du robot, puis du robot
 robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
+robotA = robotAdapteur(30,40,taille[0]*0.5,taille[1]*0.5)
 
 #Initialisation de l'environnment
-environnement = env(taille[0], taille[1], robot)
+environnement = env(taille[0], taille[1], robotA)
 
 #Initialisation du controleur du robot
-controleurCollision = ControleurCollision(robot,environnement)
-controleurCarre = ControleurCarre(robot)
+controleurCollision = ControleurCollision(robotA,environnement)
+controleurCarre = ControleurCarre(robotA)
 
 #Initialisation de l'interface graphique et lancement
 if interfaceOn :
-    #sim = Interface(environnement,controleurCarre)
-    sim = Interface(environnement,controleurCollision)
+    sim = Interface(environnement,controleurCarre)
+    #sim = Interface(environnement,controleurCollision)
     #sim.ajoutObstacle(Obstacle(400,200,600,180))
 
 #environnement.addObstacle(Obstacle(400,200,600,200))
@@ -88,12 +90,12 @@ if not interfaceOn:
     #Lancement des threads
     updateE.start()
     updateC.start()
-    robot.isControlled = True
+    robotA.isControlled = True
     
     while True:
         input('--->>>>Press any key to stop<<<<---\n\n\n')
         environnement.isRunning = False
-        robot.isControlled = False
+        robotA.isControlled = False
         break
 
 #Lancement de la simulation AVEC interface
