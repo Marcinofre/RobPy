@@ -61,28 +61,27 @@ def main():
     #Définition de la taille de l'environnment
     taille = (1024, 720)
 
+    #Définition du vecteur directeur initial du robot, puis du robot
+    robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
+    robotA = robotAdapteur(30,40,taille[0]*0.5,taille[1]*0.5)
 
-#Définition du vecteur directeur initial du robot, puis du robot
-robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
-robotA = robotAdapteur(30,40,taille[0]*0.5,taille[1]*0.5)
+    #Initialisation de l'environnment
+    environnement = env(taille[0], taille[1], robotA)
 
-#Initialisation de l'environnment
-environnement = env(taille[0], taille[1], robotA)
+    #Initialisation du controleur du robot
+    controleurCollision = ControleurCollision(robotA,environnement)
+    controleurCarre = ControleurCarre(robotA)
 
-#Initialisation du controleur du robot
-controleurCollision = ControleurCollision(robotA,environnement)
-controleurCarre = ControleurCarre(robotA)
+    #Initialisation de l'interface graphique et lancement
+    if interfaceOn :
+        sim = Interface(environnement,controleurCarre)
+        #sim = Interface(environnement,controleurCollision)
+        #sim.ajoutObstacle(Obstacle(400,200,600,180))
 
-#Initialisation de l'interface graphique et lancement
-if interfaceOn :
-    sim = Interface(environnement,controleurCarre)
-    #sim = Interface(environnement,controleurCollision)
-    #sim.ajoutObstacle(Obstacle(400,200,600,180))
-
-    #environnement.addObstacle(Obstacle(400,200,600,200))
-    updateE = threading.Thread(target=updateEnv, args=(environnement,))
-    updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
-    #updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
+        #environnement.addObstacle(Obstacle(400,200,600,200))
+        updateE = threading.Thread(target=updateEnv, args=(environnement,))
+        updateC = threading.Thread(target=updateContr, args=(environnement, controleurCarre))
+        #updateC = threading.Thread(target=updateContr, args=(environnement, controleurCollision))
 
 
     #Lancemement de la simulation SANS interface
