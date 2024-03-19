@@ -105,7 +105,7 @@ def main():
         updateC.start()
 
         #Affichage de la fenetre
-        sim.affiche()
+        sim.display_interface()
 
 
 if __name__ == "__main__":

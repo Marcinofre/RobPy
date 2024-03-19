@@ -9,10 +9,17 @@ class Obstacle :
     def __init__(self, x0, y0, x1, y1) :
         """
         Constructeur d'un obstacle
-        arg x0 -> Position en x de départ du vecteur
-        arg x1 -> Position en x d'arrivée du vecteur
-        arg y0 -> Position en y de départ du vecteur
-        arg y1 -> Position en y d'arrivée du vecteur
+		Args:
+			x0: Position en x de départ du vecteur
+			x1: Position en x d'arrivée du vecteur
+			y0: Position en y de départ du vecteur
+			y1: Position en y d'arrivée du vecteur
+
+		Attributes
+			x0: Position en x de départ du vecteur
+			x1: Position en x d'arrivée du vecteur
+			y0: Position en y de départ du vecteur
+			y1: Position en y d'arrivée du vecteur
         """
         self.x0 = x0
         self.y0 = y0
@@ -25,29 +32,23 @@ class Environnement() :
 	"""
 
 	def __init__(self, x, y, agent:Robot) -> None:
-		"""
-			Constructeur de la classe Environnement.
-			arg x : taille max de l'abscisse du rectangle
-			arg y : taille max de l'ordonnée du rectangle
-			arg clockPace : Pas de temps de l'environnement
+		"""Constructeur de la classe Environnement
+			Args:
+				x (int | float): taille max de l'abscisse du rectangle
+				y (int | float): taille max de l'ordonnée du rectangle
+				agent (Robot): Agent présent sur le terrain 
 
-			---
-
-			Attribut d'instance env. :
-			onGoing 			-> boolean qui dit si oui on non la simulation est en cours
-			currentClock 		-> variable qui retient le temps courant
-			clockPace			-> Increment de temps de la simulation
-			maxReachablePoint 	-> Définition de l'aire de simulation par le point maximal (diagonale au centre)
-			setObstacle	        -> Un ensemble contenant tous les obstacles de l'environnement
+			Attributes:
+				isRunning (boolean): boolean qui dit si oui on non la simulation est en cours
+				currentClock (int): variable qui retient le temps courant
+				maxReachablePoint (tuple[int | float , int | float]): Définition de l'aire de simulation par le point maximal (diagonale au centre)
+				setObstacle (set[Obstacle]): Un ensemble contenant tous les obstacles de l'environnement
 		"""
 
 		self.currentClock = 0
-		self.clockPace = 1
-		self.gentime = None
-		self.maxTime = 10000
 		self.maxReachablePoint = (x,y)
 		self.isRunning = False
-		
+		self.clockPace = 1
 		self.agent = agent
 		self.setObstacle = set()
 
@@ -62,31 +63,16 @@ class Environnement() :
 			print("l'agent est en dehors de la zone de test")
 			return 1
 
-	def clockCount(self) :
-		"""
-			Générateur de temps qui incrémente self.currentClock de self.clockPace à chaque appel
-		"""
-		while True:
-			self.currentClock += self.clockPace
-			yield self.currentClock
 	
 	def initSimulation(self):
 		"""
 			Initialisation des variable de l'environnement pour la simulation
 		"""
-		#Initialise le générateur
-		self.gentime = self.clockCount()
 		#Initialise à True isRunning pour l'updater dans le main
 		self.isRunning = True
 		#reset le currentClock
 		self.currentClock = 0
 		
-	def run(self):
-		try :
-			print(next(self.gentime))
-		except:
-			print("Fin du compteur")
-			return
 
 	def addObstacle(self, obs) :
 		"""
@@ -94,6 +80,9 @@ class Environnement() :
 				- Si c'est un objet de la classe Obstacle, il est ajouté au setObstacle.
 				- Si c'est une List, il parcourt la liste et chaque élément de la classe Obstacle est ajouté au setObstacle.
 				- Si c'est ni l'un ni l'autre, on affiche : L'élément n'est pas un obstacle.
+
+			Args:
+				obs: Obstacle à ajouter
 		"""
 		if isinstance(obs, list):
 			for obj in obs :
@@ -104,7 +93,23 @@ class Environnement() :
 		else :
 			print("L'élément n'est pas un obstacle")
 	
-	def collisionLigne(self,x1, y1, x2, y2, x3,y3,x4,y4):
+	def collisionLigne(self,x1, y1, x2, y2, x3, y3, x4, y4):
+		"""
+			Détermine si deux ligne sont en collision
+			
+			Args:
+				x1: Point x origine ligne 1
+				y1: Point y origine ligne 1
+				x2: Point x arrivee ligne 1
+				y2: Point y arrivee ligne 1
+				x3: Point x origine ligne 2
+				y3: Point y origine ligne 2
+				x4: Point x arrivee ligne 2
+				y4: Point y arrivee ligne 2
+			
+			Returns:
+				Retourne si deux ligne se rencontre sous forme d'un bool 
+		"""
 		denom = ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
 		if denom == 0:
 			return False
@@ -148,6 +153,9 @@ class Environnement() :
 	def retourCapteur(self, pas_distance):
 		"""
 			Simule la réponse que reçoit le capteur si son ray rencontre un objet
+
+			Args:
+				pas_distance: Distance que l'on incrémente au rayon à chaque tour de boucle
 		"""
 		distance_vue = 0
 		vision = self.agent.capteur.vision
@@ -161,17 +169,20 @@ class Environnement() :
 		return True
 
 	def update(self):
+		"""
+			Met à jour l'environnement
+		"""
 		if self.isOut():
 			return
 		if self.doesCollidebis():
 			print("En collision!")
 			return
-		self.run()
+		self.currentClock += 1
 		self.agent.update()
 
 
 	def creerVecteur(self,coord1, coord2) :
-			"""
-				Prend les coordonnés des points A et B et retournent le vecteur AB
-			"""
-			return Vecteur(coord2[0]-coord1[0],coord2[1]-coord1[1])  
+		"""
+			Prend les coordonnés des points A et B et retournent le vecteur AB
+		"""
+		return Vecteur(coord2[0]-coord1[0],coord2[1]-coord1[1])  
