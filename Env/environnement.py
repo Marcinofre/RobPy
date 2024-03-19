@@ -1,3 +1,4 @@
+from Agent import robot
 from Agent.robot import Robot
 from utils.vecteur import Vecteur
 
@@ -178,6 +179,7 @@ class Environnement() :
 			print("En collision!")
 			return
 		self.currentClock += 1
+		self.agent.update()
 
 
 	def creerVecteur(self,coord1, coord2) :
