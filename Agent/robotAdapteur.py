@@ -1,7 +1,6 @@
 from Agent.robot import Robot
 import math
-import time
-from vecteur import Vecteur
+from utils.vecteur import Vecteur
 
 class robotFake:
     def __init__(self, x , y , vectD = Vecteur(0,-1)):
