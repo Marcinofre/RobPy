@@ -1,4 +1,4 @@
-from Agent.robot import Robot as rob
+from Agent.robot import Robot
 from Env.environnement import Environnement as env
 
 
@@ -6,7 +6,7 @@ class AvancerDroit():
     """
         Classe Strat de l'action d'avancer tout droit
     """
-    def __init__(self, distance: int, speed, r : rob):
+    def __init__(self, distance: int, speed, r : Robot):
         """
             Constructeur de la classe AvancerDroit:
             arg env : Environnement que le controleur a accès
@@ -34,7 +34,6 @@ class AvancerDroit():
         """
             Incrémente parcourue par la vitesseMoyenne de l'agent, fait avancer l'agent si stop() est false sinon ne return rien
         """
-
         self.r.setVitesseRoue(self.speed,self.speed)
         avancement = self.r.calcVitesseMoyenne()
         if avancement> self.distance - self.parcouru > 0 :
