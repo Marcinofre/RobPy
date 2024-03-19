@@ -1,6 +1,6 @@
-from Env.environnement import Environnement as env
 from Agent.robot import Robot as r
-import math
+import time
+
 
 class TournerDirecte():
     """
@@ -23,12 +23,15 @@ class TournerDirecte():
         self.r = rob
         self.speed = 1
         self.parcouru = 0
+        self.last_update = 0
+
     
     def start(self):
         """
             Initialize la rotation déjà effectuée à 0
         """
         self.parcouru = 0
+        self.last_update = time.time()
 
     def step(self):
         """
@@ -37,12 +40,20 @@ class TournerDirecte():
         """
         if self.stop() :
             return
+        
+        #Calcul du temps entre le dernier appel et celui-ci
+        current_time = time.time()
+        time_passed = current_time - self.last_update
+        self.last_update = current_time
+        
         self.r.setVitesseRoue(-self.speed, self.speed)
         avancement = self.r.VitesseAngulaire()
+        
         while abs(avancement) > self.angle - self.parcouru > 0 :
             self.speed -= self.speed*0.1
             self.r.setVitesseRoue(-self.speed, self.speed)
             avancement = self.r.VitesseAngulaire()
+        
         self.parcouru += abs(avancement)
         
     def stop(self):

@@ -1,7 +1,7 @@
 from Agent.robot import Robot as rob
-from Env.environnement import Environnement as env
 from Controleur.avancerDroit import AvancerDroit
 from Controleur.tournerDirecte import TournerDirecte
+import time
 
 class ControleurCarre():
     """
@@ -18,7 +18,7 @@ class ControleurCarre():
             strats = Liste comprenant des instances des classes AvancerDroit et TournerDirecte, les instructions que le controleur enverra au Robot
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
-        distance = 5
+        distance = 50
         self.robot = robot
         self.speed = 1
         self.strats = [AvancerDroit(distance, self.speed,  robot), 
@@ -30,6 +30,7 @@ class ControleurCarre():
                        AvancerDroit(distance, self.speed, robot), 
                        TournerDirecte(90, robot)]
         self.cur = -1
+        self.last_update = 0
     
     
     def start(self):
@@ -45,11 +46,16 @@ class ControleurCarre():
         """
             Fonction qui parcours les instructions 
         """
+
         if self.stop():
             return
-        if self.cur<0 or self.strats[self.cur].stop():
+        if self.cur < 0 or self.strats[self.cur].stop():
             self.robot.setVitesseRoue(0,0)
+            self.last_update = time.time()
             self.cur+=1
+        else:
+            print(f"time passed : {time.time()-self.last_update}")
+            
     
     def stop(self):
         """
