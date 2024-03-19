@@ -4,15 +4,20 @@ import math
 
 class Capteur :
     """
-		Modélisation du capteur de mouvement du robot de Sorbonne Université
+		Modélisation du capteur de mouvement du robot
 	"""
 
     def __init__(self, vecteurDirecteurRobot:Vecteur) -> None:
         """
-             Attributs d'un capteur
-                => Vecteur ray : vecteur représentant le rayon du capteur
-			    => int vision : distance de vision max
-                => boolean touchObstacle : indique si un obstacle touche le vecteur   -> False ( aucun obstacle )                                                                                                                                       -> True ( obsctale)
+			Attributes:
+
+				ray: Vecteur représentant le rayon unitaire du capteur (de même orientation et direction que le vecteurDirecteur du robot)
+				vision: Portée maximale de la vision du capteur
+				touchObstacle: Etat du rayon qui indique s'il croise un obstacle
+
+			Args:
+				vecteurDirecteurRobot: Vecteur directeur du robot sur lequel repose le capteur
+				
 	    """
         self.ray = self.treatVector(vecteurDirecteurRobot)
         self.vision = 500
@@ -46,19 +51,28 @@ class Robot :
 	"""
 
 	def __init__(self, width:int, length:int, x:float=0, y:float=0, vecteurDirecteur = Vecteur(0,-1)):
-		"""
-			Constructeur de la classe Robot :
-			arg width : Largeur du robot
-			arg length : Longueur du robot
+		"""Constructeur de la classe Robot
+			
+			Args:
+				width : Largeur du robot
+				length : Longueur du robot
+				x: Position en x du centre du robot
+				y: Position en y du centre du robot
+			
+			Attributes:
+				dim: Dimension du robot défini par sa largeur et sa longueur
+				MoteurD: Scalaire vitesse du moteur droit du robot
+				MoteurG: Scalaire vitesse du moteur gauche du robot
+				rayon: Empatement entre les deux roue/moteur 
+				isActive: Booléen qui définit si le robot est allumé ou non
+				vectD: Vecteur direction du robot
+				posCenter: Position du centre au départ de la simulation du robot défini par x et y (initialisé à 0,0)
+				capteur: Capteur d'obstacle du robot
+				loin: Booléen qui exprime si l'obstacle est loin ou non
+				isControlled: Booléen qui status si le robot est controlé par un controleur ou non
+				trace: Tableau de tuple qui comprend toutes les positions que prend le robot durant la simulation
 
-			---
-
-			Attribut d'instance env. :
-			dim				-> Dimension du robot défini par sa largeur et sa longueur
-			isActive		-> Booléen qui définit si le robot est allumé ou non
-			vectD 	        -> Vecteur direction du mouvement du robot
-			posCenter       -> Position du centre du robot dans l'environnement défini par x et y (initialisé à 0,0)
-			Capteur			-> Capteur d'obstacle du robot
+			
 		"""
 		
 		self._dim = (width, length)
@@ -82,55 +96,63 @@ class Robot :
 		self.isControlled = False
 
 		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
-
-		# ici 
-		self.trace=[self.posCenter] # enregister la position
+ 
+		self.trace=[self.posCenter] 					# enregister la position
 
 	def VitesseAngulaire(self) :
-		"""
-			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
+		"""Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
+
+			Returns:
+				Retourne l'angle de rotation a effectuer en prenant en compte la vitesse entre les deux moteurs
 		"""
 		# 1er Cas : La roue droite est plus rapide, l'angle est positif, le robot tourne à gauche.
 		# 2ème Cas : La roue gauche est plus rapide, l'angle est négatif, le robot tourne à droite.
 		# 3ème Cas : Les deux roues ont la même vitesse, l'angle est nul, le robot ne tourne pas.
 		diff = self.MoteurD - self.MoteurG 
 		angle = diff / self.rayon
-		pi = math.pi
-		angle = angle * (180/pi)
+		angle = angle * (180/math.pi)
 		return round(angle,5)
 
 	def calcVitesseMoyenne(self) :
-		"""
-			Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
+		"""Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
+
+			Returns:
+				Retourne la vitesse moyenne du robot
 		"""
 		return round((self.MoteurD + self.MoteurG)/2,2)
 
 	def avancerRobot(self):
-		"""
-			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
+		"""Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
 		vit = self.calcVitesseMoyenne()
-		self.posCenter = (round(self.posCenter[0] + (self.vectD.x * vit), 1),
-						round(self.posCenter[1] + (self.vectD.y * vit), 1))
+		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 1),
+							round(self.posCenter[1] + (self.vectD.y * vit), 1))
 
-	def setVitesseRoue(self, d, g):
-		"""
-			Définit la vitesse des deux roue du robot
-		"""
+	def setVitesseRoue(self, d:"int | float", g:"int | float"):
+		"""Définit les vitesses des moteurs
+
+			Args:
+				d: Vitesse du moteur droit
+				g: Vitesse du moteur gauche
+        """
 		self.MoteurD = d
 		self.MoteurG = g
 
-	def rotateAllVect(self, angle) :
-		"""
-			Rotation en degré du robot, ce qui demande une rotation du vecteur directeur et du vecteur representé par les 4 coins du robot
+	def rotateAllVect(self, angle):
+		"""Rotation en degré du vecteur directeur et du vecteur unitaire du capteur du robot
+
+			Args:
+				angle: Angle de rotation à appliquer en degré
 		"""
 		self.vectD.rotationAngle(angle)
 		self.capteur.ray.rotationAngle(angle)
 		self.rotation += angle
 
-	def getCarcasse(self):
-		"""
-			Renvoie les coordonnées des 4 points du robot sous la forme de Liste de Tuple
+	def getCarcasse(self) -> list[tuple["int|float", "int|float"]]: 
+		"""Calcule les coordonnées des 4 points du robot en fonction de l'angle du robot
+
+			Returns:
+				Une liste de tuple correspondant au quatre point de l'armature du robot
 		"""
 		larg = self._dim[0]/2
 		long = self._dim[1]/2
@@ -158,8 +180,14 @@ class Robot :
 		return [TRC_T,TLC_T,BLC_T,BRC_T]
 
 	def getRay(self, distance):
-		"""
-			Récupère le rayon projeté, puis le translate vers le centre du robot
+		"""Récupère le rayon projeté, puis le translate vers le centre du robot
+			
+			Args:
+				distance: Distance de projection du vecteur
+
+			Returns:
+				Un vecteur 
+
 		"""
 		vecteurRayon = self.capteur.projectionRay(distance)
 		return Vecteur(vecteurRayon[0],vecteurRayon[1])
@@ -176,8 +204,10 @@ class Robot :
 	
 
 	def getRectangle(self):
-		"""
-			Permet d'obtenir les lignes représentant les 4 côtés du rectangle
+		"""Permet d'obtenir les lignes représentant les 4 côtés du rectangle
+
+			Returns:
+				???
 		"""
 		coins = self.getCarcasse()
 
@@ -187,10 +217,10 @@ class Robot :
 		droit = ((coins[0]),(coins[3]))
 		return [haut,bas,gauche,droit]
 	
-	#test ici
+
 	def update_trace(self):
+		"""Met à jour la trace en ajoutant la nouvelle position à l'attribut `trace`
+		"""
 		if not self.trace or (self.trace[-1]!=self.posCenter):
 			self.trace.append(self.posCenter)
 
-class RobotSimule(Robot):
-	pass
