@@ -77,8 +77,6 @@ class Interface():
 
         self.speed_label = tkinter.Label(self.display_top,
                                          text=f"VitesseG : {environment.agent.MoteurG}, VitesseD : {environment.agent.MoteurD}")
-        self.time_label = tkinter.Label(self.display_top,
-                                         text=f"Temps Courant : {environment.currentClock}")
         
 
         #definition des variables d'acceuil des entrees
@@ -97,7 +95,6 @@ class Interface():
         self.zone_saisie_pacetime = tkinter.Entry(self.textframe_right, textvariable=self.paceTime)
 
         #Position des labels d'affichage
-        self.time_label.pack(side=tkinter.TOP)
         self.speed_label.pack()
         
         #Position des zone de saisie et leur label
@@ -200,8 +197,6 @@ class Interface():
         right_speed = self.environment.agent.MoteurD
         self.speed_label.config(text=f"VitesseG : {left_speed}, VitesseD : {right_speed}")
 
-        #Mise à jour de l'affichage du temps courant
-        self.time_label.config(text=f"Temps Courant : {self.environment.currentClock}")
 
     def dispatch_order(self):
         self.environment.agent.MoteurD = round(self.speedmotor_right.get(), 1)

@@ -121,12 +121,12 @@ class Robot :
 		"""
 		return round((self.MoteurD + self.MoteurG)/2,2)
 
-	def avancerRobot(self):
+	def avancerRobot(self, deltat):
 		"""Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
 		vit = self.calcVitesseMoyenne()
-		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 1),
-							round(self.posCenter[1] + (self.vectD.y * vit), 1))
+		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit*deltat), 1),
+							round(self.posCenter[1] + (self.vectD.y * vit*deltat), 1))
 
 	def setVitesseRoue(self, d:"int | float", g:"int | float"):
 		"""Définit les vitesses des moteurs
@@ -195,9 +195,9 @@ class Robot :
 	def getForInterfaceRay(self):
 		return self.capteur.interfaceRay
 	
-	def update(self):
-		self.rotateAllVect(self.VitesseAngulaire())
-		self.avancerRobot()
+	def update(self,deltat):
+		self.rotateAllVect(self.VitesseAngulaire()*deltat)
+		self.avancerRobot(deltat)
 		
 		#enregister chaque update 
 		self.update_trace()

@@ -1,6 +1,6 @@
-from Agent import robot
 from Agent.robot import Robot
 from utils.vecteur import Vecteur
+import time
 
 class Obstacle :
     """
@@ -41,18 +41,14 @@ class Environnement() :
 
 			Attributes:
 				isRunning (boolean): boolean qui dit si oui on non la simulation est en cours
-				currentClock (int): variable qui retient le temps courant
 				maxReachablePoint (tuple[int | float , int | float]): Définition de l'aire de simulation par le point maximal (diagonale au centre)
 				setObstacle (set[Obstacle]): Un ensemble contenant tous les obstacles de l'environnement
 		"""
-
-		self.currentClock = 0
+		self.clockPace = 1
 		self.maxReachablePoint = (x,y)
 		self.isRunning = False
-		self.clockPace = 1
 		self.agent = agent
 		self.setObstacle = set()
-
 		self.addObstacle((Obstacle(0,y,x,y))) # ---> Bordure haute
 		self.addObstacle((Obstacle(x,y,x,0))) # ---> Bordure droite
 		self.addObstacle((Obstacle(0,0,0,y))) # ---> Bordure gauche
@@ -71,9 +67,7 @@ class Environnement() :
 		"""
 		#Initialise à True isRunning pour l'updater dans le main
 		self.isRunning = True
-		#reset le currentClock
-		self.currentClock = 0
-		
+		self.last_update = time.time()
 
 	def addObstacle(self, obs) :
 		"""
@@ -178,8 +172,10 @@ class Environnement() :
 		if self.doesCollidebis():
 			print("En collision!")
 			return
-		self.currentClock += 1
-		self.agent.update()
+		current_time = time.time()
+		deltat = current_time-self.last_update
+		self.last_update = current_time
+		self.agent.update(deltat)
 
 
 	def creerVecteur(self,coord1, coord2) :

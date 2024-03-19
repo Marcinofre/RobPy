@@ -39,7 +39,7 @@ class robotFake:
                 port: Port sur lequel on communique
                 dps: Vitesse de rotation du moteur
         """
-        print(f"Je met la vitesse de {port} à {dps}")
+        #print(f"Je met la vitesse de {port} à {dps}")
     
     def get_distance(self) -> None:
         pass
@@ -95,13 +95,13 @@ class robotAdapteur(Robot):
         angle = angle * (180/math.pi)
         return round(angle,5)
 
-    def avancerRobot(self) -> None:
+    def avancerRobot(self, deltat) -> None:
         """
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
         vit = self.calcVitesseMoyenne()
-        self.rob.posCenter = (  round(self.rob.posCenter[0] + (self.rob.vectD.x * vit), 1),
-						        round(self.rob.posCenter[1] + (self.rob.vectD.y * vit), 1))
+        self.rob.posCenter = (  round(self.rob.posCenter[0] + (self.rob.vectD.x * vit*deltat), 1),
+						        round(self.rob.posCenter[1] + (self.rob.vectD.y * vit*deltat), 1))
         print(f"J'ai une vitesse de {vit} et je suis à {self.rob.posCenter[0]} {self.rob.posCenter[1]}")
 
     def calcVitesseMoyenne(self) :
@@ -121,13 +121,12 @@ class robotAdapteur(Robot):
         self.rob.vectD.rotationAngle(angle)
         self.rotation += angle
     
-    def update(self):
+    def update(self, deltat):
         """
             Mise à jour du vecteur directeur et la position du robot
         """
-        self.rotateAllVect(self.VitesseAngulaire())
-        self.avancerRobot()
-        self.update_trace()
+        self.rotateAllVect(self.VitesseAngulaire()*deltat)
+        self.avancerRobot(deltat)
         self.copie()
 
     def copie(self):
