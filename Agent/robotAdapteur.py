@@ -54,7 +54,6 @@ class robotAdapteur(Robot):
             Initialisation de l'adaptateur pour le robot IRL
 
             Args:
-                
                 width: Largeur du robot
                 length: Longueur du robot
                 x: Position du robot en x
@@ -62,7 +61,6 @@ class robotAdapteur(Robot):
                 vectD: Vecteur directeur représentant la direction que prend le robot par défaut (0,-1)
 
             Attributes:
-
                 rob: Instance de robotFake
 
             
@@ -77,7 +75,6 @@ class robotAdapteur(Robot):
             Définit les vitesses des moteurs
 
             Args:
-
                 d: Vitesse du moteur droit
                 g: Vitesse du moteur gauche
         """
@@ -130,6 +127,7 @@ class robotAdapteur(Robot):
         """
         self.rotateAllVect(self.VitesseAngulaire())
         self.avancerRobot()
+        self.update_trace()
         self.copie()
 
     def copie(self):
