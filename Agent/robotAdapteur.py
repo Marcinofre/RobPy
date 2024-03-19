@@ -1,6 +1,7 @@
 from Agent.robot import Robot
 import math
 from utils.vecteur import Vecteur
+import time
 
 class robotFake:
     """
@@ -127,7 +128,9 @@ class robotAdapteur(Robot):
         """
         self.rotateAllVect(self.VitesseAngulaire()*deltat)
         self.avancerRobot(deltat)
+        self.update_trace()
         self.copie()
+        self.last_update = time.time()
 
     def copie(self):
         """

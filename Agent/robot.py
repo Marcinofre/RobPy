@@ -1,5 +1,5 @@
 from utils.vecteur import Vecteur
-import os
+import time
 import math
 
 class Capteur :
@@ -74,7 +74,8 @@ class Robot :
 
 			
 		"""
-		
+		self.last_update = 0.0
+
 		self._dim = (width, length)
 
 		self.MoteurD = 0.0
@@ -98,7 +99,13 @@ class Robot :
 		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
  
 		self.trace=[self.posCenter] 					# enregister la position
-
+	
+	def get_distance_parcourue(self, deltat):
+		return self.calcVitesseMoyenne() * deltat
+	
+	def get_time_passed(self, t):
+		return self.last_update - t
+	 
 	def VitesseAngulaire(self) :
 		"""Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 
@@ -124,9 +131,9 @@ class Robot :
 	def avancerRobot(self, deltat):
 		"""Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
-		vit = self.calcVitesseMoyenne()
-		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit*deltat), 1),
-							round(self.posCenter[1] + (self.vectD.y * vit*deltat), 1))
+		vit = self.calcVitesseMoyenne() * deltat
+		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 1),
+							round(self.posCenter[1] + (self.vectD.y * vit), 1))
 
 	def setVitesseRoue(self, d:"int | float", g:"int | float"):
 		"""Définit les vitesses des moteurs
@@ -198,7 +205,7 @@ class Robot :
 	def update(self,deltat):
 		self.rotateAllVect(self.VitesseAngulaire()*deltat)
 		self.avancerRobot(deltat)
-		
+		self.last_update = time.time()
 		#enregister chaque update 
 		self.update_trace()
 	
@@ -223,4 +230,3 @@ class Robot :
 		"""
 		if not self.trace or (self.trace[-1]!=self.posCenter):
 			self.trace.append(self.posCenter)
-
