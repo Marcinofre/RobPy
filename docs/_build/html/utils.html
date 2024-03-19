@@ -107,6 +107,45 @@
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>L’interface permet une représentation graphique de la simulation</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="utils.interface.Interface.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">controller</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1280</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">720</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.interface.Interface.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialise la window graphique et ses éléments qui la compose</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – Largeur de l’interface graphique</p></li>
+<li><p><strong>height</strong> – Hauteur de l’interface graphique</p></li>
+<li><p><strong>controller</strong> – Controleur de l’agent</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.interface.Interface.window">
+<span class="sig-name descname"><span class="pre">window</span></span><a class="headerlink" href="#utils.interface.Interface.window" title="Link to this definition"></a></dt>
+<dd><p>Fenetre de l’interface graphique</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.interface.Interface.frame_left">
+<span class="sig-name descname"><span class="pre">frame_left</span></span><a class="headerlink" href="#utils.interface.Interface.frame_left" title="Link to this definition"></a></dt>
+<dd><p>Frame contenant le canvas et prenant 80% de la largeur de la fenêtre</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.interface.Interface.frame_right">
+<span class="sig-name descname"><span class="pre">frame_right</span></span><a class="headerlink" href="#utils.interface.Interface.frame_right" title="Link to this definition"></a></dt>
+<dd><p>Frame contenant les différents widget permettant de manipuler les attributs et prenant 20% de la fenêtre</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.interface.Interface.canvas">
+<span class="sig-name descname"><span class="pre">canvas</span></span><a class="headerlink" href="#utils.interface.Interface.canvas" title="Link to this definition"></a></dt>
+<dd><p>Partie de la window, dans frame_left, ou l’agent sera representé</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="utils.interface.Interface.add_obstacle">
 <span class="sig-name descname"><span class="pre">add_obstacle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="Env.html#Env.environnement.Obstacle" title="Env.environnement.Obstacle"><span class="pre">Obstacle</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.interface.Interface.add_obstacle" title="Link to this definition"></a></dt>
 <dd><p>Ajoute un obstacle dans l’interface graphique, lève une exception si il y a déjà un objet à cet endroit là</p>
@@ -173,6 +212,20 @@
 <dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Un vecteur permet de modéliser le robot (et ses mouvements) et les différents obstacles de l’environnement</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="utils.vecteur.Vecteur.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.vecteur.Vecteur.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructeur de la classe Vecteur</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Coordonnée en abcisse du vecteur</p></li>
+<li><p><strong>y</strong> – Coordonnée en ordonnée du vecteur</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="utils.vecteur.Vecteur.calcNorm">
 <span class="sig-name descname"><span class="pre">calcNorm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utils.vecteur.Vecteur.calcNorm" title="Link to this definition"></a></dt>
 <dd><p>Calcule la norme d’un vecteur</p>
@@ -188,8 +241,9 @@
 <dt class="sig sig-object py" id="utils.vecteur.Vecteur.produitScalaire">
 <span class="sig-name descname"><span class="pre">produitScalaire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.vecteur.Vecteur.produitScalaire" title="Link to this definition"></a></dt>
 <dd><p>Calcule le produit scalaire de deux vecteur</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>other: un autre objet de class <cite>Vecteur</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – un autre objet de class <cite>Vecteur</cite></p>
 </dd>
 </dl>
 </dd></dl>
@@ -198,8 +252,9 @@
 <dt class="sig sig-object py" id="utils.vecteur.Vecteur.produitVectoriel">
 <span class="sig-name descname"><span class="pre">produitVectoriel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#utils.vecteur.Vecteur.produitVectoriel" title="Link to this definition"></a></dt>
 <dd><p>Calcule le produit vectoriel de deux vecteur</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>other: un autre objet de class <cite>Vecteur</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – un autre objet de class <cite>Vecteur</cite></p>
 </dd>
 </dl>
 </dd></dl>

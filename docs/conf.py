@@ -20,8 +20,11 @@ author = 'SI MOHAMMED Yaniss, GU David, YAN Nanlin, MANOUBI Taysir'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-	"sphinx.ext.autodoc"
+	"sphinx.ext.autodoc", "sphinx.ext.napoleon"
 ]
+
+# Napoleon settings
+napoleon_include_init_with_doc = True
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
