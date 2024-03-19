@@ -45,7 +45,7 @@ class ControleurCarre():
     def step(self):
         """
             Fonction qui parcours les instructions 
-        """
+        """ 
 
         if self.stop():
             return
@@ -55,6 +55,7 @@ class ControleurCarre():
             self.cur+=1
         else:
             print(f"time passed : {time.time()-self.last_update}")
+            self.robot.update()
             
     
     def stop(self):
