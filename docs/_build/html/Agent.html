@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent package &mdash; Documentation RobPy </title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d1a510d7"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=d99ca74e"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Env package" href="Env.html" />
+    <link rel="prev" title="ueProjetPy" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RobPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ueProjetPy</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Agent package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Agent.robot">Agent.robot module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Agent.robot.Capteur"><code class="docutils literal notranslate"><span class="pre">Capteur</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Agent.robot.Robot"><code class="docutils literal notranslate"><span class="pre">Robot</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Agent.robotAdapteur">Agent.robotAdapteur module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Agent.robotAdapteur.robotAdapteur"><code class="docutils literal notranslate"><span class="pre">robotAdapteur</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Agent.robotAdapteur.robotFake"><code class="docutils literal notranslate"><span class="pre">robotFake</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-Agent">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Env.html">Env package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TestArea.html">TestArea package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RobPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">ueProjetPy</a></li>
+      <li class="breadcrumb-item active">Agent package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Agent.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="agent-package">
+<h1>Agent package<a class="headerlink" href="#agent-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-Agent.robot">
+<span id="agent-robot-module"></span><h2>Agent.robot module<a class="headerlink" href="#module-Agent.robot" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Agent.robot.Capteur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Agent.robot.</span></span><span class="sig-name descname"><span class="pre">Capteur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vecteurDirecteurRobot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.vecteur.Vecteur" title="utils.vecteur.Vecteur"><span class="pre">Vecteur</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Capteur" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Modélisation du capteur de mouvement du robot</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Capteur.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vecteurDirecteurRobot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.vecteur.Vecteur" title="utils.vecteur.Vecteur"><span class="pre">Vecteur</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Agent.robot.Capteur.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Capteur.ray">
+<span class="sig-name descname"><span class="pre">ray</span></span><a class="headerlink" href="#Agent.robot.Capteur.ray" title="Link to this definition"></a></dt>
+<dd><p>Vecteur représentant le rayon unitaire du capteur (de même orientation et direction que le vecteurDirecteur du robot)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Capteur.vision">
+<span class="sig-name descname"><span class="pre">vision</span></span><a class="headerlink" href="#Agent.robot.Capteur.vision" title="Link to this definition"></a></dt>
+<dd><p>Portée maximale de la vision du capteur</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Capteur.touchObstacle">
+<span class="sig-name descname"><span class="pre">touchObstacle</span></span><a class="headerlink" href="#Agent.robot.Capteur.touchObstacle" title="Link to this definition"></a></dt>
+<dd><p>Etat du rayon qui indique s’il croise un obstacle</p>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vecteurDirecteurRobot</strong> – Vecteur directeur du robot sur lequel repose le capteur</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Capteur.projectionRay">
+<span class="sig-name descname"><span class="pre">projectionRay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Capteur.projectionRay" title="Link to this definition"></a></dt>
+<dd><p>Retourne le rayon projeté à la distance passé en paramètre en mètres</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Capteur.treatVector">
+<span class="sig-name descname"><span class="pre">treatVector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="utils.html#utils.vecteur.Vecteur" title="utils.vecteur.Vecteur"><span class="pre">Vecteur</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Capteur.treatVector" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Agent.robot.Robot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Agent.robot.</span></span><span class="sig-name descname"><span class="pre">Robot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vecteurDirecteur=&lt;utils.vecteur.Vecteur</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Modélisation d’un robot de Sorbonne Université</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.VitesseAngulaire">
+<span class="sig-name descname"><span class="pre">VitesseAngulaire</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.VitesseAngulaire" title="Link to this definition"></a></dt>
+<dd><p>Permet de faire tourner le vecteur direction quand une roue va plus vite que l’autre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Retourne l’angle de rotation a effectuer en prenant en compte la vitesse entre les deux moteurs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y:</span> <span class="pre">float</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vecteurDirecteur=&lt;utils.vecteur.Vecteur</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructeur de la classe Robot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – Largeur du robot</p></li>
+<li><p><strong>length</strong> – Longueur du robot</p></li>
+<li><p><strong>x</strong> – Position en x du centre du robot</p></li>
+<li><p><strong>y</strong> – Position en y du centre du robot</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.dim">
+<span class="sig-name descname"><span class="pre">dim</span></span><a class="headerlink" href="#Agent.robot.Robot.dim" title="Link to this definition"></a></dt>
+<dd><p>Dimension du robot défini par sa largeur et sa longueur</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.MoteurD">
+<span class="sig-name descname"><span class="pre">MoteurD</span></span><a class="headerlink" href="#Agent.robot.Robot.MoteurD" title="Link to this definition"></a></dt>
+<dd><p>Scalaire vitesse du moteur droit du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.MoteurG">
+<span class="sig-name descname"><span class="pre">MoteurG</span></span><a class="headerlink" href="#Agent.robot.Robot.MoteurG" title="Link to this definition"></a></dt>
+<dd><p>Scalaire vitesse du moteur gauche du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.rayon">
+<span class="sig-name descname"><span class="pre">rayon</span></span><a class="headerlink" href="#Agent.robot.Robot.rayon" title="Link to this definition"></a></dt>
+<dd><p>Empatement entre les deux roue/moteur</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.isActive">
+<span class="sig-name descname"><span class="pre">isActive</span></span><a class="headerlink" href="#Agent.robot.Robot.isActive" title="Link to this definition"></a></dt>
+<dd><p>Booléen qui définit si le robot est allumé ou non</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.vectD">
+<span class="sig-name descname"><span class="pre">vectD</span></span><a class="headerlink" href="#Agent.robot.Robot.vectD" title="Link to this definition"></a></dt>
+<dd><p>Vecteur direction du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.posCenter">
+<span class="sig-name descname"><span class="pre">posCenter</span></span><a class="headerlink" href="#Agent.robot.Robot.posCenter" title="Link to this definition"></a></dt>
+<dd><p>Position du centre au départ de la simulation du robot défini par x et y (initialisé à 0,0)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.capteur">
+<span class="sig-name descname"><span class="pre">capteur</span></span><a class="headerlink" href="#Agent.robot.Robot.capteur" title="Link to this definition"></a></dt>
+<dd><p>Capteur d’obstacle du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.loin">
+<span class="sig-name descname"><span class="pre">loin</span></span><a class="headerlink" href="#Agent.robot.Robot.loin" title="Link to this definition"></a></dt>
+<dd><p>Booléen qui exprime si l’obstacle est loin ou non</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.isControlled">
+<span class="sig-name descname"><span class="pre">isControlled</span></span><a class="headerlink" href="#Agent.robot.Robot.isControlled" title="Link to this definition"></a></dt>
+<dd><p>Booléen qui status si le robot est controlé par un controleur ou non</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robot.Robot.trace">
+<span class="sig-name descname"><span class="pre">trace</span></span><a class="headerlink" href="#Agent.robot.Robot.trace" title="Link to this definition"></a></dt>
+<dd><p>Tableau de tuple qui comprend toutes les positions que prend le robot durant la simulation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.avancerRobot">
+<span class="sig-name descname"><span class="pre">avancerRobot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.avancerRobot" title="Link to this definition"></a></dt>
+<dd><p>Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.calcVitesseMoyenne">
+<span class="sig-name descname"><span class="pre">calcVitesseMoyenne</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.calcVitesseMoyenne" title="Link to this definition"></a></dt>
+<dd><p>Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Retourne la vitesse moyenne du robot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.getCarcasse">
+<span class="sig-name descname"><span class="pre">getCarcasse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#Agent.robot.Robot.getCarcasse" title="Link to this definition"></a></dt>
+<dd><p>Calcule les coordonnées des 4 points du robot en fonction de l’angle du robot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Une liste de tuple correspondant au quatre point de l’armature du robot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.getForInterfaceRay">
+<span class="sig-name descname"><span class="pre">getForInterfaceRay</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.getForInterfaceRay" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.getRay">
+<span class="sig-name descname"><span class="pre">getRay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.getRay" title="Link to this definition"></a></dt>
+<dd><p>Récupère le rayon projeté, puis le translate vers le centre du robot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>distance</strong> – Distance de projection du vecteur</p>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un vecteur</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.getRectangle">
+<span class="sig-name descname"><span class="pre">getRectangle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.getRectangle" title="Link to this definition"></a></dt>
+<dd><p>Permet d’obtenir les lignes représentant les 4 côtés du rectangle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>???</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.rotateAllVect">
+<span class="sig-name descname"><span class="pre">rotateAllVect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.rotateAllVect" title="Link to this definition"></a></dt>
+<dd><p>Rotation en degré du vecteur directeur et du vecteur unitaire du capteur du robot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>angle</strong> – Angle de rotation à appliquer en degré</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.setVitesseRoue">
+<span class="sig-name descname"><span class="pre">setVitesseRoue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.setVitesseRoue" title="Link to this definition"></a></dt>
+<dd><p>Définit les vitesses des moteurs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – Vitesse du moteur droit</p></li>
+<li><p><strong>g</strong> – Vitesse du moteur gauche</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robot.Robot.update_trace">
+<span class="sig-name descname"><span class="pre">update_trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robot.Robot.update_trace" title="Link to this definition"></a></dt>
+<dd><p>Met à jour la trace en ajoutant la nouvelle position à l’attribut <cite>trace</cite></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Agent.robotAdapteur">
+<span id="agent-robotadapteur-module"></span><h2>Agent.robotAdapteur module<a class="headerlink" href="#module-Agent.robotAdapteur" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Agent.robotAdapteur.</span></span><span class="sig-name descname"><span class="pre">robotAdapteur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectD=&lt;utils.vecteur.Vecteur</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur" title="Link to this definition"></a></dt>
+<dd><p>Bases : <a class="reference internal" href="#Agent.robot.Robot" title="Agent.robot.Robot"><code class="xref py py-class docutils literal notranslate"><span class="pre">Robot</span></code></a></p>
+<p>Classe permettant de communiquer avec un autre robot que le robot simulé. Plus précisément, cet adaptateur permet de communiquer avec le robot IRL</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.VitesseAngulaire">
+<span class="sig-name descname"><span class="pre">VitesseAngulaire</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.VitesseAngulaire" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Permet de faire tourner le vecteur direction quand une roue va plus vite que l’autre.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Renvoie l’angle de rotation induit par la vitesse des roue en degré (arrondie au 5eme chiffre significatif)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectD=&lt;utils.vecteur.Vecteur</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialisation de l’adaptateur pour le robot IRL</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – Largeur du robot</p></li>
+<li><p><strong>length</strong> – Longueur du robot</p></li>
+<li><p><strong>x</strong> – Position du robot en x</p></li>
+<li><p><strong>y</strong> – Position du robot en y</p></li>
+<li><p><strong>vectD</strong> – Vecteur directeur représentant la direction que prend le robot par défaut (0,-1)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.rob">
+<span class="sig-name descname"><span class="pre">rob</span></span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.rob" title="Link to this definition"></a></dt>
+<dd><p>Instance de robotFake</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.avancerRobot">
+<span class="sig-name descname"><span class="pre">avancerRobot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.avancerRobot" title="Link to this definition"></a></dt>
+<dd><p>Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.calcVitesseMoyenne">
+<span class="sig-name descname"><span class="pre">calcVitesseMoyenne</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.calcVitesseMoyenne" title="Link to this definition"></a></dt>
+<dd><p>Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.copie">
+<span class="sig-name descname"><span class="pre">copie</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.copie" title="Link to this definition"></a></dt>
+<dd><p>Copie les positions et le vecteur directeur du robot simuler au robot irl ???</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.rotateAllVect">
+<span class="sig-name descname"><span class="pre">rotateAllVect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.rotateAllVect" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Rotation en degré du vecteur directeur et du vecteur unitaire du capteur du robot</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>angle</strong> – Angle de rotation à appliquer en degré</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.setVitesseRoue">
+<span class="sig-name descname"><span class="pre">setVitesseRoue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">g</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.setVitesseRoue" title="Link to this definition"></a></dt>
+<dd><p>Définit les vitesses des moteurs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – Vitesse du moteur droit</p></li>
+<li><p><strong>g</strong> – Vitesse du moteur gauche</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotAdapteur.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotAdapteur.update" title="Link to this definition"></a></dt>
+<dd><p>Mise à jour du vecteur directeur et la position du robot</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Agent.robotAdapteur.</span></span><span class="sig-name descname"><span class="pre">robotFake</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectD=&lt;utils.vecteur.Vecteur</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Agent.robotAdapteur.robotFake" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Représentation factice du Robot irl et de ses fonctions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vectD=&lt;utils.vecteur.Vecteur</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialisation du robot factice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Position en x du robot</p></li>
+<li><p><strong>y</strong> – Position en y du robot</p></li>
+<li><p><strong>vectD</strong> – Vecteur directeur représentant la direction que prend le robot</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.MOTOR_LEFT">
+<span class="sig-name descname"><span class="pre">MOTOR_LEFT</span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.MOTOR_LEFT" title="Link to this definition"></a></dt>
+<dd><p>Correspond au moteur gauche du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.MOTOR_RIGHT">
+<span class="sig-name descname"><span class="pre">MOTOR_RIGHT</span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.MOTOR_RIGHT" title="Link to this definition"></a></dt>
+<dd><p>Correspond au moteur gauche du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.posCenter">
+<span class="sig-name descname"><span class="pre">posCenter</span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.posCenter" title="Link to this definition"></a></dt>
+<dd><p>Position du centre du robot</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.rayon">
+<span class="sig-name descname"><span class="pre">rayon</span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.rayon" title="Link to this definition"></a></dt>
+<dd><p>Rayon de la roue ?</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.rotation">
+<span class="sig-name descname"><span class="pre">rotation</span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.rotation" title="Link to this definition"></a></dt>
+<dd><p>Rotation initiale du robot vis-a-vis du plan</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.get_distance">
+<span class="sig-name descname"><span class="pre">get_distance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.get_distance" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Agent.robotAdapteur.robotFake.set_motor_dps">
+<span class="sig-name descname"><span class="pre">set_motor_dps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dps</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Agent.robotAdapteur.robotFake.set_motor_dps" title="Link to this definition"></a></dt>
+<dd><p>Définit la vitesse <cite>dps</cite> d’un moteur choisit selon le <cite>port</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>port</strong> – Port sur lequel on communique</p></li>
+<li><p><strong>dps</strong> – Vitesse de rotation du moteur</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-Agent">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Agent" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="modules.html" class="btn btn-neutral float-left" title="ueProjetPy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="Env.html" class="btn btn-neutral float-right" title="Env package" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, SI MOHAMMED Yaniss, GU David, YAN Nanlin, MANOUBI Taysir.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

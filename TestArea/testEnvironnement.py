@@ -1,8 +1,8 @@
 import unittest
-from Module.Agent.Robot import Robot as rob
-from Module.Env.Environnement import Environnement as env
-from Module.Vecteur import Vecteur as vec
-from Module.Env.Obstacle import Obstacle as obs
+from Agent.robot import Robot as rob
+from Env.environnement import Environnement as env
+from utils.vecteur import Vecteur as vec
+from Env.environnement import Obstacle as obs
 
 
 class Environnement(unittest.TestCase):
