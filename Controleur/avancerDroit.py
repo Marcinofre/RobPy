@@ -57,7 +57,6 @@ class AvancerDroit():
                 self.speed = (self.distance - self.parcouru)/time_passed
                 self.r.setVitesseRoue(self.speed, self.speed)
                 distance_traveled = self.r.get_distance_parcourue(time_passed)
-            print(self.parcouru)
             #Mise a jour de la distance parcourue en fonction du temps passé
             self.parcouru += distance_traveled
         

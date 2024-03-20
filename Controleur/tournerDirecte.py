@@ -41,6 +41,7 @@ class TournerDirecte():
         if self.last_update == 0:
             self.last_update = time.time()
         else :
+            
             self.r.setVitesseRoue(-self.speed, self.speed)
             #Calcul du temps entre le dernier appel et celui-ci
             current_time = time.time()
@@ -49,13 +50,10 @@ class TournerDirecte():
             
             avancement = self.r.VitesseAngulaire()
             if abs(avancement)*time_passed > (self.angle - self.parcouru) > 0 :
-                print("AVANCEMENT TROP HAUT")
                 self.speed = ((self.angle-self.parcouru)*self.r.rayon)/(180/math.pi)
                 self.r.setVitesseRoue(-(self.speed)/2, self.speed/2)
-                print(f"{self.speed}")
                 avancement = self.r.VitesseAngulaire() * time_passed
             self.parcouru += abs(avancement*time_passed)
-            print(abs(avancement))
         
     def stop(self):
         """

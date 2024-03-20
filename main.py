@@ -1,4 +1,5 @@
 from Env.environnement import Environnement as env
+from Env.environnement import Obstacle
 from Agent.robot import Robot
 from utils.interface import Interface
 from Controleur.controleurCarre import ControleurCarre
@@ -76,7 +77,7 @@ def main():
     if interfaceOn :
         sim = Interface(environnement,controleurCarre)
         #sim = Interface(environnement,controleurCollision)
-        #sim.ajoutObstacle(Obstacle(400,200,600,180))
+        #sim.add_obstacle(Obstacle(400,200,600,180))
 
     #environnement.addObstacle(Obstacle(400,200,600,200))
     updateE = threading.Thread(target=updateEnv, args=(environnement,))

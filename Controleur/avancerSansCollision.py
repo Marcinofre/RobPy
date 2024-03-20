@@ -19,8 +19,8 @@ class AvancerSansCollision():
         self.env = en
         self.robot = robot                          # ---> Robot à controler
         self.distance = 0                           # ---> Distance à parcourir
-        self.speed = 1                            # ---> Vitesse du robot initial
-        self.pas_distance = 1                              # ---> Strategie courante
+        self.speed = 1                              # ---> Vitesse du robot initial
+        self.pas_distance = 1                       # ---> Strategie courante
     
     def start(self):
         """
@@ -37,7 +37,8 @@ class AvancerSansCollision():
         if self.stop():
             return
         if self.env.retourCapteur(self.pas_distance):
-            if self.robot.capteur.distanceObstacle < 30:
+            print(f"{self.robot.capteur.distanceObstacle} vs {self.robot.vectD.calcNorm()*max(self.robot._dim[0], self.robot._dim[1])*1.1}")
+            if self.robot.capteur.distanceObstacle <= (self.robot.vectD.calcNorm()*max(self.robot._dim[0], self.robot._dim[1])/2)*1.1:
                 self.speed = 0.0
         self.robot.setVitesseRoue(self.speed, self.speed)
         self.robot.capteur.touchObstacle = False

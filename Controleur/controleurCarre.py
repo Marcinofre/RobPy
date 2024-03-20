@@ -53,9 +53,6 @@ class ControleurCarre():
             self.robot.setVitesseRoue(0,0)
             self.last_update = time.time()
             self.cur+=1
-        else:
-            print(f"time passed : {time.time()-self.last_update}")
-        
             
     
     def stop(self):
