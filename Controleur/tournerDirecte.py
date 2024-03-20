@@ -1,5 +1,6 @@
 from Agent.robot import Robot as r
 import time
+import math
 
 
 class TournerDirecte():
@@ -40,25 +41,27 @@ class TournerDirecte():
         if self.last_update == 0:
             self.last_update = time.time()
         else :
+            self.r.setVitesseRoue(-self.speed, self.speed)
             #Calcul du temps entre le dernier appel et celui-ci
             current_time = time.time()
-            time_passed = current_time - self.last_update
+            time_passed = current_time - self.last_update 
             self.last_update = current_time
             
             avancement = self.r.VitesseAngulaire()
-            while abs(avancement) > (self.angle - self.parcouru) > 0 :
-                self.speed -= self.speed*0.1
-                self.r.setVitesseRoue(-self.speed, self.speed)
-                avancement = self.r.VitesseAngulaire()
+            if abs(avancement)*time_passed > (self.angle - self.parcouru) > 0 :
+                print("AVANCEMENT TROP HAUT")
+                self.speed = ((self.angle-self.parcouru)*self.r.rayon)/(180/math.pi)
+                self.r.setVitesseRoue(-(self.speed)/2, self.speed/2)
+                print(f"{self.speed}")
+                avancement = self.r.VitesseAngulaire() * time_passed
             self.parcouru += abs(avancement*time_passed)
             print(abs(avancement))
-        self.r.setVitesseRoue(-self.speed, self.speed)
         
     def stop(self):
         """
             Return True si self.parcouru > self.angle sinon return False
         """
-        if round(self.parcouru,4) >= self.angle:
+        if round(self.parcouru,3) >= self.angle:
             self.parcouru = 0
             self.last_update = 0
             return True

@@ -99,12 +99,11 @@ class Robot :
 		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
  
 		self.trace=[self.posCenter] 					# enregister la position
+
+		self.last_called = 0
 	
 	def get_distance_parcourue(self, deltat):
 		return self.calcVitesseMoyenne() * deltat
-	
-	def get_time_passed(self, t):
-		return self.last_update - t
 	 
 	def VitesseAngulaire(self) :
 		"""Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
@@ -126,14 +125,14 @@ class Robot :
 			Returns:
 				Retourne la vitesse moyenne du robot
 		"""
-		return round((self.MoteurD + self.MoteurG)/2,2)
+		return round((self.MoteurD + self.MoteurG)/2,4)
 
 	def avancerRobot(self, deltat):
 		"""Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
 		vit = self.calcVitesseMoyenne() * deltat
-		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 1),
-							round(self.posCenter[1] + (self.vectD.y * vit), 1))
+		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 4),
+							round(self.posCenter[1] + (self.vectD.y * vit), 4))
 
 	def setVitesseRoue(self, d:"int | float", g:"int | float"):
 		"""Définit les vitesses des moteurs

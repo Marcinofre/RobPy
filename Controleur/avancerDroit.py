@@ -47,20 +47,19 @@ class AvancerDroit():
         if self.last_update == 0:
             self.last_update = time.time()
         else :
-            time_passed = self.r.get_time_passed(self.last_update)
-            print(f"TEMPS PASSE : {time_passed}")
-            self.last_update = time.time()
+            self.r.setVitesseRoue(self.speed,self.speed)
+            current_time = time.time()
+            time_passed = current_time - self.last_update
+            self.last_update = current_time
             #Distance parcourue selon le temps passer et la vitesse actuelle
             distance_traveled = self.r.get_distance_parcourue(time_passed)
             if distance_traveled > self.distance - self.parcouru > 0 :
-                self.speed = self.distance - self.parcouru
+                self.speed = (self.distance - self.parcouru)/time_passed
                 self.r.setVitesseRoue(self.speed, self.speed)
                 distance_traveled = self.r.get_distance_parcourue(time_passed)
             print(self.parcouru)
             #Mise a jour de la distance parcourue en fonction du temps passé
             self.parcouru += distance_traveled
-        
-        self.r.setVitesseRoue(self.speed,self.speed)
         
         
 
@@ -68,7 +67,7 @@ class AvancerDroit():
         """
             Return True si self.parcouru > self.distance sinon return False
         """
-        if self.parcouru >= self.distance:
+        if round(self.parcouru,1) >= self.distance:
             self.parcouru = 0
             self.last_update = 0
             return True
