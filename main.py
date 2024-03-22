@@ -5,6 +5,7 @@ from utils.interface import Interface
 from Controleur.controleurCarre import ControleurCarre
 from Controleur.controleurCollision import ControleurCollision
 from Agent.robotAdapteur import robotAdapteur
+from Agent.robotAdapteur import robotFake
 import time
 
 
@@ -48,7 +49,7 @@ def main():
 
     #Définition du vecteur directeur initial du robot, puis du robot
     robot = Robot(30,40,taille[0]*0.5,taille[1]*0.5)
-    robotA = robotAdapteur(30,40,taille[0]*0.5,taille[1]*0.5)
+    robotA = robotAdapteur(robotFake())
 
     #Initialisation de l'environnment
     environnement = env(taille[0], taille[1], robotA)
