@@ -167,11 +167,12 @@ class Environnement() :
 		"""
 			Met à jour l'environnement
 		"""
-		if self.isOut():
-			return
-		if self.doesCollidebis():
-			print("En collision!")
-			return
+		if(isinstance, Robot):
+			if self.isOut():
+				return
+			if self.doesCollidebis():
+				print("En collision!")
+				return
 		current_time = time.time()
 		deltat = current_time-self.last_update
 		self.last_update = current_time
