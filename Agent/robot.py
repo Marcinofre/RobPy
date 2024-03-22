@@ -207,7 +207,6 @@ class Robot :
 		self.last_update = time.time()
 		#enregister chaque update 
 		self.update_trace()
-	
 
 	def getRectangle(self):
 		"""Permet d'obtenir les lignes représentant les 4 côtés du rectangle
@@ -222,7 +221,6 @@ class Robot :
 		gauche = ((coins[1]),(coins[3]))
 		droit = ((coins[0]),(coins[3]))
 		return [haut,bas,gauche,droit]
-	
 
 	def update_trace(self):
 		"""Met à jour la trace en ajoutant la nouvelle position à l'attribut `trace`
