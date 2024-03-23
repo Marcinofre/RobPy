@@ -1,11 +1,11 @@
-from Env.environnement import Environnement as env
-from Env.environnement import Obstacle
-from Agent.robot import Robot
-from utils.interface import Interface
-from Controleur.controleurCarre import ControleurCarre
-from Controleur.controleurCollision import ControleurCollision
-from Agent.robotAdapteur import robotAdapteur
-from Agent.robotAdapteur import robotFake
+from simpack.Env.environnement import Environnement as env
+from simpack.Env.environnement import Obstacle
+from simpack.Agent.robot import Robot
+from simpack.utils.interface import Interface
+from simpack.Controleur.controleurCarre import ControleurCarre
+from simpack.Controleur.controleurCollision import ControleurCollision
+from simpack.Agent.robotAdapteur import robotAdapteur
+from simpack.Agent.robotAdapteur import robotFake
 import time
 
 
