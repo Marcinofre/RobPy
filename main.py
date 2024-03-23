@@ -68,6 +68,9 @@ def main():
     if interfaceOn:
         if isinstance(environnement.agent, robotAdapteur):
             print("Erreur! On ne peut pas utiliser l'interface pour le robotAdapteur")
+            print("Lancement de la simulation sans interface")
+            time.sleep(1)
+            runSimulation(None, environnement, controleurCarre)
         else :
             sim = Interface(environnement,controleurCarre)
             #sim = Interface(environnement,controleurCollision)
