@@ -1,5 +1,5 @@
-from Agent.robot import Robot as rob
-from Env.environnement import Environnement as env
+from simpack.Agent.robot import Robot as rob
+from simpack.Env.environnement import Environnement as env
 
 class AvancerSansCollision():
     """

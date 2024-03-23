@@ -1,6 +1,6 @@
-from Agent.robot import Robot as rob
-from Env.environnement import Environnement as env
-from Controleur.avancerSansCollision import AvancerSansCollision as asc
+from simpack.Agent.robot import Robot as rob
+from simpack.Env.environnement import Environnement as env
+from simpack.Controleur.avancerSansCollision import AvancerSansCollision as asc
 class ControleurCollision():
     """
         Un controleur du robot dont le but est de lui faire tracer un carré

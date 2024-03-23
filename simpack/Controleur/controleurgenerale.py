@@ -1,6 +1,6 @@
-from Agent.robot import Robot as rob
-from Controleur.avancerDroit import AvancerDroit
-from Controleur.tournerDirecte import TournerDirecte
+from simpack.Agent.robot import Robot as rob
+from simpack.Controleur.avancerDroit import AvancerDroit
+from simpack.Controleur.tournerDirecte import TournerDirecte
 import time
 
 class controleurgenerale:

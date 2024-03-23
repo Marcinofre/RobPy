@@ -1,5 +1,5 @@
-from Agent.robot import Robot
-from utils.vecteur import Vecteur
+from simpack.Agent.robot import Robot
+from simpack.utils.vecteur import Vecteur
 import time
 
 class Obstacle :

@@ -1,4 +1,4 @@
-from utils.vecteur import Vecteur
+from simpack.utils.vecteur import Vecteur
 import time
 import math
 

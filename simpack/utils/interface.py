@@ -2,10 +2,10 @@
     Module correspondant à la partie graphique de la simulation (GUI), son lancement est optionnel.
 """
 import itertools
-from Controleur.controleurCarre import ControleurCarre
-from Controleur.controleurCollision import ControleurCollision
+from simpack.Controleur.controleurCarre import ControleurCarre
+from simpack.Controleur.controleurCollision import ControleurCollision
 import tkinter
-from Env.environnement import Obstacle
+from simpack.Env.environnement import Obstacle
 
 class Interface():
     """

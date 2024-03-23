@@ -1,5 +1,5 @@
-from Agent.robot import Robot as r
-from utils.vecteur import Vecteur as vec
+from simpack.Agent.robot import Robot as r
+from simpack.utils.vecteur import Vecteur as vec
 import random as rand
 import unittest
 

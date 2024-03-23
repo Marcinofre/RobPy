@@ -1,4 +1,4 @@
-from Agent.robot import Robot as r
+from simpack.Agent.robot import Robot as r
 import time
 import math
 
