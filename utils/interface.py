@@ -168,6 +168,7 @@ class Interface():
         """
             Affiche la fenêtre de l'interface graphique
         """
+        self.environment.initSimulation()
         self.window.mainloop()
 
     def update_canvas(self):
@@ -204,29 +205,28 @@ class Interface():
         self.environment.clockPace = round(self.paceTime.get(),1)
     
     def update_all(self):
-        
+        self.environment.update()
+        if self.environment.agent.isControlled:
+            if not self.controller.stop():
+                self.controller.step()
+                self.controller.strats[self.controller.cur].step()
+            elif self.controller.stop():
+                self.controller.start()
         self.update_canvas()
 
         #Mise a jour de l'affichage des labels 
         self.update_labels()
         
-        
         #Trace le passage du robot sur le Canevas
-        self.draw_path()
-
+        self.draw_path()    
         self.window.update()
         self.window.update_idletasks()
-        self.window.after(50, self.update_all)
+        self.window.after(int(1000/self.environment.clockPace), self.update_all)
 
     
     def run(self):
-        if isinstance(self.controller, ControleurCarre) or isinstance(self.controller, ControleurCollision):
-            speed = (self.speedmotor_left.get() + self.speedmotor_right.get())/2
-            if speed > 0 :
-                self.controller.speed = speed
-                print("LA VITESSE EST MODIFIEE")
-            self.controller.start()
         self.environment.agent.isControlled = True
+
     
     def stop(self):
         self.environment.agent.isControlled = False

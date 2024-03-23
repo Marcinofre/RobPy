@@ -35,6 +35,7 @@ class AvancerDroit():
         """
         #Initialisation de la distance parcourue
         self.parcouru = 0
+        self.last_update = 0
 
     def step(self):
         """
@@ -66,8 +67,4 @@ class AvancerDroit():
         """
             Return True si self.parcouru > self.distance sinon return False
         """
-        if round(self.parcouru,1) >= self.distance:
-            self.parcouru = 0
-            self.last_update = 0
-            return True
-        return False
+        return round(self.parcouru,1) >= self.distance

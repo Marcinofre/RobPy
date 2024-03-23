@@ -74,7 +74,7 @@ class Robot :
 
 			
 		"""
-		self.last_update = 0.0
+		self.last_update = time.time()
 
 		self._dim = (width, length)
 
@@ -104,6 +104,11 @@ class Robot :
 	
 	def get_distance_parcourue(self, deltat):
 		return self.calcVitesseMoyenne() * deltat
+	
+	def get_time_passed(self):
+		time_passed = self.last_update - time.time()
+		self.last_update = time.time()
+		return time_passed
 	 
 	def VitesseAngulaire(self) :
 		"""Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
@@ -202,12 +207,11 @@ class Robot :
 		return self.capteur.interfaceRay
 	
 	def update(self,deltat):
+		deltat = self.get_time_passed()
 		self.rotateAllVect(self.VitesseAngulaire()*deltat)
 		self.avancerRobot(deltat)
-		self.last_update = time.time()
 		#enregister chaque update 
 		self.update_trace()
-	
 
 	def getRectangle(self):
 		"""Permet d'obtenir les lignes représentant les 4 côtés du rectangle
@@ -222,7 +226,6 @@ class Robot :
 		gauche = ((coins[1]),(coins[3]))
 		droit = ((coins[0]),(coins[3]))
 		return [haut,bas,gauche,droit]
-	
 
 	def update_trace(self):
 		"""Met à jour la trace en ajoutant la nouvelle position à l'attribut `trace`

@@ -32,7 +32,7 @@ class Environnement() :
 	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
 	"""
 
-	def __init__(self, x, y, agent:Robot) -> None:
+	def __init__(self, x, y, agent) -> None:
 		"""Constructeur de la classe Environnement
 			Args:
 				x (int | float): taille max de l'abscisse du rectangle
@@ -167,11 +167,12 @@ class Environnement() :
 		"""
 			Met à jour l'environnement
 		"""
-		if self.isOut():
-			return
-		if self.doesCollidebis():
-			print("En collision!")
-			return
+		if isinstance(self.agent, Robot):
+			if self.isOut():
+				return
+			if self.doesCollidebis():
+				print("En collision!")
+				return
 		current_time = time.time()
 		deltat = current_time-self.last_update
 		self.last_update = current_time

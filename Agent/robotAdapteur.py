@@ -1,13 +1,15 @@
 from Agent.robot import Robot
-import math
+from Agent.robot import Capteur
 from utils.vecteur import Vecteur
+import math
 import time
+
 
 class robotFake:
     """
         Représentation factice du Robot irl et de ses fonctions
     """
-    def __init__(self, x: int, y: int, vectD = Vecteur(0,-1)) -> None:
+    def __init__(self) -> None:
         """Initialisation du robot factice
 
             Args:
@@ -24,12 +26,8 @@ class robotFake:
 
         """
 
-        self.MOTOR_LEFT = 0
-        self.MOTOR_RIGHT = 0
-        self.posCenter = (x,y)
-        self.vectD = vectD
-        self.rayon = 1
-        self.rotation = self.vectD.calculerAngle(Vecteur(0,-1))
+        self.MOTOR_LEFT = 1
+        self.MOTOR_RIGHT = 2
 
     def set_motor_dps(self, port, dps) -> None:
         """
@@ -40,17 +38,20 @@ class robotFake:
                 port: Port sur lequel on communique
                 dps: Vitesse de rotation du moteur
         """
-        #print(f"Je met la vitesse de {port} à {dps}")
+        if port == 1:
+            print(f"Je met la vitesse du moteur gauche à {dps}")
+        elif port == 2:
+            print(f"Je met la vitesse du moteur droit à {dps}")
     
     def get_distance(self) -> None:
         pass
 
-class robotAdapteur(Robot):
+class robotAdapteur():
     """
         Classe permettant de communiquer avec un autre robot que le robot simulé. Plus précisément, cet adaptateur permet de communiquer avec le robot IRL
     """
 
-    def __init__(self, width:int, length:int, x:int = 0, y:int = 0, vectD = Vecteur(0,-1)):
+    def __init__(self, robotFake):
         """
             Initialisation de l'adaptateur pour le robot IRL
 
@@ -67,9 +68,16 @@ class robotAdapteur(Robot):
             
 
         """
-        
-        self.rob = robotFake(x, y)
-        super().__init__(width, length, x, y, vectD)
+        self.rob = robotFake
+        self.posCenter = (250,250)
+        self.MoteurG = 0
+        self.MoteurD = 0
+        self.rayon = 1
+        self.vectD = Vecteur(0,1)
+        self.rotation = self.vectD.calculerAngle(Vecteur(0,1))
+        self.last_update = time.time()
+        self._dim = [30,45]
+        self.capteur = self.capteur = Capteur(self.vectD)
 
     def setVitesseRoue(self, d:"int | float", g:"int | float"):
         """
@@ -79,10 +87,18 @@ class robotAdapteur(Robot):
                 d: Vitesse du moteur droit
                 g: Vitesse du moteur gauche
         """
-        self.rob.MOTOR_RIGHT = d
-        self.rob.MOTOR_LEFT = g
-        self.rob.set_motor_dps("MOTOR_LEFT", d)
-        self.rob.set_motor_dps("MOTOR_RIGHT", g)
+        self.MoteurD = d
+        self.MoteurG = g
+        self.rob.set_motor_dps(self.rob.MOTOR_LEFT, g)
+        self.rob.set_motor_dps(self.rob.MOTOR_RIGHT, d)
+
+    def get_distance_parcourue(self, deltat):
+        return self.calcVitesseMoyenne() * deltat
+
+    def get_time_passed(self):
+        time_passed = self.last_update - time.time()
+        self.last_update = time.time()
+        return time_passed
     
     def VitesseAngulaire(self) -> float:
         """
@@ -91,8 +107,8 @@ class robotAdapteur(Robot):
             Returns:
                 Renvoie l'angle de rotation induit par la vitesse des roue en degré (arrondie au 5eme chiffre significatif)
 		"""
-        diff = self.rob.MOTOR_RIGHT - self.rob.MOTOR_LEFT
-        angle = diff / self.rob.rayon
+        diff = self.MoteurD - self.MoteurG
+        angle = diff / self.rayon
         angle = angle * (180/math.pi)
         return round(angle,5)
 
@@ -101,15 +117,14 @@ class robotAdapteur(Robot):
 			Met à jour la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
         vit = self.calcVitesseMoyenne()
-        self.rob.posCenter = (  round(self.rob.posCenter[0] + (self.rob.vectD.x * vit*deltat), 1),
-						        round(self.rob.posCenter[1] + (self.rob.vectD.y * vit*deltat), 1))
-        print(f"J'ai une vitesse de {vit} et je suis à {self.rob.posCenter[0]} {self.rob.posCenter[1]}")
+        self.posCenter = (round(self.posCenter[0] + (self.vectD.x * vit*deltat), 1), round(self.posCenter[1] + (self.vectD.y * vit*deltat), 1))
+        print(f"J'ai une vitesse de {vit} et je suis à {self.posCenter[0]} {self.posCenter[1]}")
 
     def calcVitesseMoyenne(self) :
         """
             Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
         """
-        return round((self.rob.MOTOR_LEFT + self.rob.MOTOR_RIGHT)/2,2)
+        return round((self.MoteurD + self.MoteurG)/2,2)
 
     def rotateAllVect(self, angle:float) :
         """
@@ -119,22 +134,57 @@ class robotAdapteur(Robot):
 
                 angle: Angle de rotation à appliquer en degré
 		"""
-        self.rob.vectD.rotationAngle(angle)
+        self.vectD.rotationAngle(angle)
         self.rotation += angle
     
     def update(self, deltat):
         """
             Mise à jour du vecteur directeur et la position du robot
         """
+        deltat = self.get_time_passed()
         self.rotateAllVect(self.VitesseAngulaire()*deltat)
         self.avancerRobot(deltat)
-        self.update_trace()
-        self.copie()
-        self.last_update = time.time()
+    
+    def getCarcasse(self) -> list[tuple["int|float", "int|float"]]: 
+        """Calcule les coordonnées des 4 points du robot en fonction de l'angle du robot
 
-    def copie(self):
-        """
-            Copie les positions et le vecteur directeur du robot simuler au robot irl ???
-        """
-        self.posCenter = self.rob.posCenter
-        self.vectD = self.rob.vectD
+			Returns:
+				Une liste de tuple correspondant au quatre point de l'armature du robot
+		"""
+        larg = self._dim[0]/2
+        long = self._dim[1]/2
+
+        x = self.posCenter[0]
+        y = self.posCenter[1]
+
+        TRC_V = Vecteur(+larg, -long)
+        TLC_V = Vecteur(+larg, +long)
+        BRC_V = Vecteur(-larg, -long)
+        BLC_V = Vecteur(-larg, +long)
+		
+        if self.rotation!=0 :
+            TRC_V.rotationAngle(self.rotation)
+            TLC_V.rotationAngle(self.rotation)
+            BRC_V.rotationAngle(self.rotation)
+            BLC_V.rotationAngle(self.rotation)
+		
+        TRC_T = (TRC_V.x + x,TRC_V.y + y)
+        TLC_T = (TLC_V.x + x,TLC_V.y + y)
+        BRC_T = (BRC_V.x + x,BRC_V.y + y)
+        BLC_T = (BLC_V.x + x,BLC_V.y + y)
+		
+        return [TRC_T,TLC_T,BLC_T,BRC_T]
+
+    def getRectangle(self):
+        """Permet d'obtenir les lignes représentant les 4 côtés du rectangle
+
+			Returns:
+				???
+		"""
+        coins = self.getCarcasse()
+
+        haut = ((coins[1]),(coins[0]))
+        bas = ((coins[2]),(coins[3]))
+        gauche = ((coins[1]),(coins[3]))
+        droit = ((coins[0]),(coins[3]))
+        return [haut,bas,gauche,droit]
