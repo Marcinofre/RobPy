@@ -38,10 +38,10 @@ class robotFake:
                 port: Port sur lequel on communique
                 dps: Vitesse de rotation du moteur
         """
-        if port == 1:
-            print(f"Je met la vitesse du moteur gauche à {dps}")
-        elif port == 2:
-            print(f"Je met la vitesse du moteur droit à {dps}")
+        #if port == 1:
+        #    print(f"Je met la vitesse du moteur gauche à {dps}")
+        #elif port == 2:
+        #    print(f"Je met la vitesse du moteur droit à {dps}")
     
     def get_distance(self) -> None:
         pass
@@ -137,6 +137,8 @@ class robotAdapteur():
 		"""
         self.vectD.rotationAngle(angle)
         self.rotation += angle
+        if angle > 0:
+            print(f"{self.vectD.x} {self.vectD.y}")
     
     def update(self, deltat):
         """

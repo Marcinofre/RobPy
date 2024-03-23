@@ -136,8 +136,9 @@ class Robot :
 		"""Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
 		"""
 		vit = self.calcVitesseMoyenne() * deltat
-		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 4),
-							round(self.posCenter[1] + (self.vectD.y * vit), 4))
+		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 1),
+							round(self.posCenter[1] + (self.vectD.y * vit), 1))
+		print(f"J'ai une vitesse de {vit} et je suis à {self.posCenter[0]} {self.posCenter[1]}")
 
 	def setVitesseRoue(self, d:"int | float", g:"int | float"):
 		"""Définit les vitesses des moteurs

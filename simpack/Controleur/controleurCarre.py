@@ -18,7 +18,7 @@ class ControleurCarre():
             strats = Liste comprenant des instances des classes AvancerDroit et TournerDirecte, les instructions que le controleur enverra au Robot
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
-        distance = 3
+        distance = 1
         self.robot = robot
         self.speed = 1
         self.strats = [AvancerDroit(distance, self.speed,  robot), 
@@ -30,7 +30,6 @@ class ControleurCarre():
                        AvancerDroit(distance, self.speed, robot), 
                        TournerDirecte(90, robot)]
         self.cur = -1
-        self.last_update = 0
     
     
     def start(self):
@@ -38,9 +37,7 @@ class ControleurCarre():
             Remet cur à -1 pour remettre le controleur sur la première instruction possible
         """
         self.cur = -1
-        self.robot.setVitesseRoue(0,0)
         for i in self.strats :
-            i.speed = self.speed
             i.start()
 
     def step(self):
@@ -52,7 +49,6 @@ class ControleurCarre():
             return
         if self.cur < 0 or self.strats[self.cur].stop():
             self.robot.setVitesseRoue(0,0)
-            self.last_update = time.time()
             self.cur+=1
             
     

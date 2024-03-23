@@ -23,7 +23,6 @@ def introductionSimulation():
 def runSimulation(interface, environnement, controleur):
     if not interface:
         environnement.initSimulation()
-        
         while True:
             if not controleur.stop():
                 environnement.update()
