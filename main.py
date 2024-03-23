@@ -58,26 +58,22 @@ def main():
     controleurCollision = ControleurCollision(robotA,environnement)
     controleurCarre = ControleurCarre(robotA)
 
-    #Initialisation de l'interface graphique et lancement
-    if interfaceOn :
-        sim = Interface(environnement,controleurCarre)
-        #sim = Interface(environnement,controleurCollision)
-        #sim.add_obstacle(Obstacle(400,200,600,180))
-
-    #environnement.addObstacle(Obstacle(400,200,600,200))
 
     #Lancemement de la simulation SANS interface
     if not interfaceOn:
         #Lancement des threads
-        sim = Interface(environnement,controleurCarre)
-        #sim = Interface(environnement,controleurCollision)
-        #sim.add_obstacle(Obstacle(400,200,600,180))
-        #environnement.addObstacle(Obstacle(400,200,600,200))
         runSimulation(None, environnement, controleurCarre)
 
     #Lancement de la simulation AVEC interface
     if interfaceOn:
-        runSimulation(sim, environnement, controleurCarre)
+        if isinstance(environnement.agent, robotAdapteur):
+            print("Erreur! On ne peut pas utiliser l'interface pour le robotAdapteur")
+        else :
+            sim = Interface(environnement,controleurCarre)
+            #sim = Interface(environnement,controleurCollision)
+            #sim.add_obstacle(Obstacle(400,200,600,180))
+            #environnement.addObstacle(Obstacle(400,200,600,200))
+            runSimulation(sim, environnement, controleurCarre)
 
 
 if __name__ == "__main__":

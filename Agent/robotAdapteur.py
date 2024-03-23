@@ -78,6 +78,7 @@ class robotAdapteur():
         self.last_update = time.time()
         self._dim = [30,45]
         self.capteur = self.capteur = Capteur(self.vectD)
+        self.isControlled = False
 
     def setVitesseRoue(self, d:"int | float", g:"int | float"):
         """
@@ -144,47 +145,3 @@ class robotAdapteur():
         deltat = self.get_time_passed()
         self.rotateAllVect(self.VitesseAngulaire()*deltat)
         self.avancerRobot(deltat)
-    
-    def getCarcasse(self) -> list[tuple["int|float", "int|float"]]: 
-        """Calcule les coordonnées des 4 points du robot en fonction de l'angle du robot
-
-			Returns:
-				Une liste de tuple correspondant au quatre point de l'armature du robot
-		"""
-        larg = self._dim[0]/2
-        long = self._dim[1]/2
-
-        x = self.posCenter[0]
-        y = self.posCenter[1]
-
-        TRC_V = Vecteur(+larg, -long)
-        TLC_V = Vecteur(+larg, +long)
-        BRC_V = Vecteur(-larg, -long)
-        BLC_V = Vecteur(-larg, +long)
-		
-        if self.rotation!=0 :
-            TRC_V.rotationAngle(self.rotation)
-            TLC_V.rotationAngle(self.rotation)
-            BRC_V.rotationAngle(self.rotation)
-            BLC_V.rotationAngle(self.rotation)
-		
-        TRC_T = (TRC_V.x + x,TRC_V.y + y)
-        TLC_T = (TLC_V.x + x,TLC_V.y + y)
-        BRC_T = (BRC_V.x + x,BRC_V.y + y)
-        BLC_T = (BLC_V.x + x,BLC_V.y + y)
-		
-        return [TRC_T,TLC_T,BLC_T,BRC_T]
-
-    def getRectangle(self):
-        """Permet d'obtenir les lignes représentant les 4 côtés du rectangle
-
-			Returns:
-				???
-		"""
-        coins = self.getCarcasse()
-
-        haut = ((coins[1]),(coins[0]))
-        bas = ((coins[2]),(coins[3]))
-        gauche = ((coins[1]),(coins[3]))
-        droit = ((coins[0]),(coins[3]))
-        return [haut,bas,gauche,droit]
