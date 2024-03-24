@@ -79,7 +79,6 @@ class robotAdapteur():
         self._dim = (30,45)
         self.rayon = self._dim[0]/2
         self.capteur = self.capteur = Capteur(self.vectD)
-        self.ca
         self.isControlled = False
 
     def setVitesseRoue(self, d:"int | float", g:"int | float"):
