@@ -51,11 +51,11 @@ def main():
     robotA = robotAdapteur(robotFake())
 
     #Initialisation de l'environnment
-    environnement = env(taille[0], taille[1], robotA)
+    environnement = env(taille[0], taille[1], robot)
 
     #Initialisation du controleur du robot
     controleurCollision = ControleurCollision(robotA,environnement)
-    controleurCarre = ControleurCarre(robotA)
+    controleurCarre = ControleurCarre(robot)
 
 
     #Lancemement de la simulation SANS interface

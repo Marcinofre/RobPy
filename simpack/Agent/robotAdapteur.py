@@ -72,11 +72,11 @@ class robotAdapteur():
         self.posCenter = (250,250)
         self.MoteurG = 0
         self.MoteurD = 0
-        self.rayon = 1
         self.vectD = Vecteur(0,1)
         self.rotation = self.vectD.calculerAngle(Vecteur(0,1))
         self.last_update = time.time()
-        self._dim = [30,45]
+        self._dim = (30,45)
+        self.rayon = self._dim[0]/2
         self.capteur = self.capteur = Capteur(self.vectD)
         self.isControlled = False
 

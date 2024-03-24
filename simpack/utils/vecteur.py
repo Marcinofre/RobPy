@@ -70,9 +70,9 @@ class Vecteur:
         # On met dans des variables temporaires les nouvelles valeurs de x et y
         newx = self.x*math.cos(anglerad) - self.y*math.sin(anglerad)
         newy = self.x*math.sin(anglerad) + self.y*math.cos(anglerad)
-        # On arrondit les valeurs à 1 chiffre après la virgule
-        self.x = round(newx,1)
-        self.y = round(newy,1)
+        # On arrondit les valeurs à 2 chiffre après la virgule
+        self.x = round(newx,2)
+        self.y = round(newy,2)
 
     def toTuple(self):
         """

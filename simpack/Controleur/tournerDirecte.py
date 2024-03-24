@@ -48,12 +48,13 @@ class TournerDirecte():
             self.last_update = current_time
             
             self.r.setVitesseRoue(-self.speed, self.speed)
-            avancement = self.r.VitesseAngulaire()
-            if abs(avancement)*time_passed > (self.angle - self.parcouru) > 0 :
+            avancement = self.r.VitesseAngulaire()*time_passed
+            if abs(avancement)> (self.angle - self.parcouru) > 0 :
                 self.speed = ((self.angle-self.parcouru)*self.r.rayon)/(180/math.pi)
                 self.r.setVitesseRoue(-(self.speed)/2, self.speed/2)
-                avancement = self.r.VitesseAngulaire() * time_passed
-            self.parcouru += abs(avancement*time_passed)
+                avancement = self.r.VitesseAngulaire()
+            self.parcouru += abs(avancement)
+            print(avancement)
         
     def stop(self):
         """

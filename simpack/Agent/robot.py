@@ -7,23 +7,24 @@ class Capteur :
 		Modélisation du capteur de mouvement du robot
 	"""
 
-    def __init__(self, vecteurDirecteurRobot:Vecteur) -> None:
+    def __init__(self, vecteurDirecteurRobot: Vecteur) -> None:
         """
-			Attributes:
+		Attributes:
 
-				ray: Vecteur représentant le rayon unitaire du capteur (de même orientation et direction que le vecteurDirecteur du robot)
-				vision: Portée maximale de la vision du capteur
-				touchObstacle: Etat du rayon qui indique s'il croise un obstacle
+			ray: Vecteur représentant le rayon unitaire du capteur (de même orientation et direction que le vecteurDirecteur du robot)
+			vision: Portée maximale de la vision du capteur
+			touchObstacle: Etat du rayon qui indique s'il croise un obstacle
 
-			Args:
-				vecteurDirecteurRobot: Vecteur directeur du robot sur lequel repose le capteur
-				
-	    """
+		Args:
+		vecteurDirecteurRobot: Vecteur directeur du robot sur lequel repose le capteur
+		"""
         self.ray = self.treatVector(vecteurDirecteurRobot)
+        self.initial_ray = self.ray
         self.vision = 500
         self.interfaceRay = self.ray
         self.touchObstacle = False
         self.distanceObstacle = 0
+
 
     def projectionRay(self,distance):
         """
@@ -82,7 +83,7 @@ class Robot :
 
 		self.MoteurG = 0.0
 
-		self.rayon = 1 					# rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
+		self.rayon = self._dim[0]/2 					# rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
 
 		self.isActive = 1
 		
@@ -101,6 +102,8 @@ class Robot :
 		self.trace=[self.posCenter] 					# enregister la position
 
 		self.last_called = 0
+
+		self.initial_vectD = self.vectD
 	
 	def get_distance_parcourue(self, deltat):
 		return self.calcVitesseMoyenne() * deltat
@@ -156,9 +159,11 @@ class Robot :
 			Args:
 				angle: Angle de rotation à appliquer en degré
 		"""
-		self.vectD.rotationAngle(angle)
-		self.capteur.ray.rotationAngle(angle)
+		self.vectD = Vecteur(self.initial_vectD.x, self.initial_vectD.y)
+		self.capteur.ray = Vecteur(self.capteur.initial_ray.x, self.capteur.initial_ray.y)
 		self.rotation += angle
+		self.capteur.ray.rotationAngle(self.rotation)
+		self.vectD.rotationAngle(self.rotation)
 
 	def getCarcasse(self) -> list[tuple["int|float", "int|float"]]: 
 		"""Calcule les coordonnées des 4 points du robot en fonction de l'angle du robot
