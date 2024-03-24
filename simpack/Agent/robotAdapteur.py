@@ -73,11 +73,13 @@ class robotAdapteur():
         self.MoteurG = 0
         self.MoteurD = 0
         self.vectD = Vecteur(0,1)
+        self.initial_vectD = self.vectD
         self.rotation = self.vectD.calculerAngle(Vecteur(0,1))
         self.last_update = time.time()
         self._dim = (30,45)
         self.rayon = self._dim[0]/2
         self.capteur = self.capteur = Capteur(self.vectD)
+        self.ca
         self.isControlled = False
 
     def setVitesseRoue(self, d:"int | float", g:"int | float"):
@@ -135,8 +137,11 @@ class robotAdapteur():
 
                 angle: Angle de rotation à appliquer en degré
 		"""
-        self.vectD.rotationAngle(angle)
+        self.vectD = Vecteur(self.initial_vectD.x, self.initial_vectD.y)
+        self.capteur.ray = Vecteur(self.capteur.initial_ray.x, self.capteur.initial_ray.y)
         self.rotation += angle
+        self.capteur.ray.rotationAngle(self.rotation)
+        self.vectD.rotationAngle(self.rotation)
         if angle > 0:
             print(f"{self.vectD.x} {self.vectD.y}")
     
