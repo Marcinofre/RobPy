@@ -2,16 +2,16 @@
     Module correspondant à la partie graphique de la simulation (GUI), son lancement est optionnel.
 """
 import itertools
-from Controleur.controleurCarre import ControleurCarre
-from Controleur.controleurCollision import ControleurCollision
+from src.Controleur.controleurCarre import ControleurCarre
+from src.Controleur.controleurCollision import ControleurCollision
 import tkinter
-from Env.environnement import Obstacle
+from src.Env.environnement import Obstacle
 
 class Interface():
     """
         L'interface permet une représentation graphique de la simulation
     """
-    def __init__(self, environment, controller, width = 1280,height = 720):
+    def __init__(self, environment, controller, width = 1280,height = 720, color_obstacle = "black"):
         """
             Initialise la window graphique et ses éléments qui la compose
 
@@ -83,6 +83,9 @@ class Interface():
         self.speedmotor_right = tkinter.DoubleVar()
         self.speedmotor_left = tkinter.DoubleVar()
 
+        # Variable d'activation pour le dessin (activé par défaut)
+        self.draw = True 
+
         self.paceTime = tkinter.DoubleVar()
         self.paceTime.set(1)
 
@@ -119,21 +122,25 @@ class Interface():
         buttonRun = tkinter.Button(self.textframe_bottom,
                                  text="Lancer",
                                  command=self.run)
+        buttonDraw = tkinter.Button(self.textframe_bottom,
+                                 text="Dessine",
+                                 command=self.dessine)
         
         #Positionnement des boutons
         buttonEnvoie.pack()
         buttonStop.pack()
         buttonRun.pack()
+        buttonDraw.pack()
 
 
         
-        #Dessin Robot initial
+        # Dessin Robot initial
         initialPosition = environment.agent.getCarcasse()                   #--> Récupère la carcasse du robot (pour dessiner ses contours)
         self.rob = self.canvas.create_polygon(*initialPosition,
                                               fill="white",
                                               outline="black")
         
-        #Dessin d'une fleche représentant le vecteur direction
+        # Dessin d'une fleche représentant le vecteur direction
         self.line = self.canvas.create_line(*self.environment.agent.posCenter,
                                             self.environment.agent.posCenter[0]+self.environment.agent.vectD.x, 
                                             self.environment.agent.posCenter[1]+self.environment.agent.vectD.y,
@@ -147,6 +154,15 @@ class Interface():
                                             width=5, 
                                             fill="pink")
         
+        # Dessin des obstacles à l'initialisation
+        ens_obstacle = self.environment.setObstacle
+        
+        for obs in ens_obstacle:
+            if self.canvas.find_overlapping(obs.x0, obs.y0, obs.x1, obs.y1):
+                print("Il y a déjà un objet à cet endroit là")
+            self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = color_obstacle)
+    
+        
         
         #rappelle de la window, pour rafraichissement
         self.window.after(50, self.update_all)
@@ -156,14 +172,20 @@ class Interface():
         """Flatten one level of nesting"""
         return itertools.chain.from_iterable(list_of_lists)
 
-    def add_obstacle(self, obs : Obstacle):
+    def add_obstacle(self, color: str):
         """
             Ajoute un obstacle dans l'interface graphique, lève une exception si il y a déjà un objet à cet endroit là
         """
-        if self.canvas.find_overlapping(obs.x0, obs.y0, obs.x1, obs.y1):
-            raise Exception("Il y a déjà un objet à cet endroit là")
-        self.canvas.create_rectangle(obs.x0, obs.y0, obs.x1, obs.y1, fill = 'black')
-    
+
+    def dessine(self):
+        """
+            Modifie la variable self.draw en true ou false, pour activer ou non le dessin de la trace du robot        
+        """
+        if self.draw:
+            self.draw = False
+        else:
+            self.draw = True
+        
     def display_interface(self):
         """
             Affiche la fenêtre de l'interface graphique
@@ -212,7 +234,8 @@ class Interface():
         
         
         #Trace le passage du robot sur le Canevas
-        self.draw_path()
+        if self.draw :
+            self.draw_path()
 
         self.window.update()
         self.window.update_idletasks()

@@ -1,6 +1,6 @@
-from Agent.robot import Robot
+from src.Agent.robot import Robot
 import math
-from utils.vecteur import Vecteur
+from src.utils.vecteur import Vecteur
 import time
 
 class robotFake:

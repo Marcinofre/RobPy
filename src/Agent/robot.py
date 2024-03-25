@@ -1,4 +1,4 @@
-from utils.vecteur import Vecteur
+from src.utils.vecteur import Vecteur
 import time
 import math
 

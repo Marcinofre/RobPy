@@ -1,5 +1,5 @@
 import time
-from Agent.robot import Robot
+from src.Agent.robot import Robot
 
 
 class AvancerDroit():

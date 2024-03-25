@@ -1,5 +1,5 @@
-from Agent.robot import Robot as rob
-from Env.environnement import Environnement as env
+from src.Agent.robot import Robot as rob
+from src.Env.environnement import Environnement as env
 
 class AvancerSansCollision():
     """
@@ -39,7 +39,7 @@ class AvancerSansCollision():
         if self.env.retourCapteur(self.pas_distance):
             print(f"{self.robot.capteur.distanceObstacle} vs {self.robot.vectD.calcNorm()*max(self.robot._dim[0], self.robot._dim[1])*1.1}")
             if self.robot.capteur.distanceObstacle <= (self.robot.vectD.calcNorm()*max(self.robot._dim[0], self.robot._dim[1])/2)*1.1:
-                self.speed = 0.0
+                return
         self.robot.setVitesseRoue(self.speed, self.speed)
         self.robot.capteur.touchObstacle = False
     

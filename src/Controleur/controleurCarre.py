@@ -1,6 +1,6 @@
-from Agent.robot import Robot as rob
-from Controleur.avancerDroit import AvancerDroit
-from Controleur.tournerDirecte import TournerDirecte
+from src.Agent.robot import Robot as rob
+from src.Controleur.avancerDroit import AvancerDroit
+from src.Controleur.tournerDirecte import TournerDirecte
 import time
 
 class ControleurCarre():

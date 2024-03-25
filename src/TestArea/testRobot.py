@@ -1,5 +1,5 @@
-from Agent.robot import Robot as r
-from utils.vecteur import Vecteur as vec
+from src.Agent.robot import Robot as r
+from src.utils.vecteur import Vecteur as vec
 import random as rand
 import unittest
 

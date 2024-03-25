@@ -1,10 +1,10 @@
-from Env.environnement import Environnement as env
-from Env.environnement import Obstacle
-from Agent.robot import Robot
-from utils.interface import Interface
-from Controleur.controleurCarre import ControleurCarre
-from Controleur.controleurCollision import ControleurCollision
-from Agent.robotAdapteur import robotAdapteur
+from src.Env.environnement import Environnement as env
+from src.Env.environnement import Obstacle
+from src.Agent.robot import Robot
+from src.utils.interface import Interface
+from src.Controleur.controleurCarre import ControleurCarre
+from src.Controleur.controleurCollision import ControleurCollision
+from src.Agent.robotAdapteur import robotAdapteur
 import time
 import threading
 
@@ -67,11 +67,11 @@ def main():
     robotA = robotAdapteur(30,40,taille[0]*0.5,taille[1]*0.5)
 
     #Initialisation de l'environnment
-    environnement = env(taille[0], taille[1], robotA)
+    environnement = env(taille[0], taille[1], robot)
 
     #Initialisation du controleur du robot
-    controleurCollision = ControleurCollision(robotA,environnement)
-    controleurCarre = ControleurCarre(robotA)
+    controleurCollision = ControleurCollision(robot,environnement)
+    controleurCarre = ControleurCarre(robot)
 
     #Initialisation de l'interface graphique et lancement
     if interfaceOn :

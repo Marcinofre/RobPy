@@ -1,5 +1,5 @@
-from Agent.robot import Robot
-from utils.vecteur import Vecteur
+from src.Agent.robot import Robot
+from src.utils.vecteur import Vecteur
 import time
 
 class Obstacle :
@@ -50,9 +50,9 @@ class Environnement() :
 		self.agent = agent
 		self.setObstacle = set()
 		self.addObstacle((Obstacle(0,y,x,y))) # ---> Bordure haute
-		self.addObstacle((Obstacle(x,y,x,0))) # ---> Bordure droite
-		self.addObstacle((Obstacle(0,0,0,y))) # ---> Bordure gauche
-		self.addObstacle((Obstacle(0,0,x,0))) # ---> Bordure basse
+		#self.addObstacle((Obstacle(x,y,x,0))) # ---> Bordure droite
+		#self.addObstacle((Obstacle(0,0,0,y))) # ---> Bordure gauche
+		#self.addObstacle((Obstacle(0,0,x,0))) # ---> Bordure basse
 
 
 	def isOut(self) :
