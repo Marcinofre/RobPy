@@ -212,7 +212,10 @@ class Interface():
         
         
         #Trace le passage du robot sur le Canevas
-        self.draw_path()
+
+        #Q1.3
+        if(self.environment.agent.dessin==True):
+            self.draw_path()
 
         self.window.update()
         self.window.update_idletasks()

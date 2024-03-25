@@ -101,6 +101,8 @@ class Robot :
 		self.trace=[self.posCenter] 					# enregister la position
 
 		self.last_called = 0
+		#Q1.3
+		self.dessin=False
 	
 	def get_distance_parcourue(self, deltat):
 		return self.calcVitesseMoyenne() * deltat
@@ -229,3 +231,9 @@ class Robot :
 		"""
 		if not self.trace or (self.trace[-1]!=self.posCenter):
 			self.trace.append(self.posCenter)
+	
+
+	#Q1.3
+	def dessine(self,b:bool):
+		self.dessin=b
+		pass
