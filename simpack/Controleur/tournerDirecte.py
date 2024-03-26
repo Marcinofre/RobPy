@@ -1,4 +1,5 @@
 from simpack.Agent.robot import Robot as r
+from simpack.utils.vecteur import Vecteur
 import time
 import math
 
@@ -24,6 +25,7 @@ class TournerDirecte():
         self.r = rob
         self.speed = 1
         self.last_update = 0
+        self.pas_angle = 1 
 
     
     def start(self):
@@ -39,6 +41,14 @@ class TournerDirecte():
         """
         if self.last_update == 0:
             self.last_update = time.time()
+
+            #Création du vecteur d'arrivée en fonction de la postion de départ et d'un angle
+            self.vecteur_finale = Vecteur(self.r.vectD.x, self.r.vectD.y)
+
+            # -self.angle car il tourne a gauche, si on laisse self.angle il fera trois car de tour pour aller a droite
+            self.vecteur_finale.rotationAngle(-self.angle)
+            
+            # Compteur d'etape step effectuer
             self.count = 0 
         else :
             #Calcul du temps entre le dernier appel et celui-ci
@@ -49,21 +59,22 @@ class TournerDirecte():
             self.count += 1
             
             self.r.setVitesseRoue(-self.speed, self.speed)
-            avancement = self.r.get_angle(time_passed)
-            reste = self.angle - abs(self.r.angle_parcourue)
-            
-            print(f"Angle restant a parcourir {reste}")
-            print(f"Angle parcouru {avancement}")
 
-            if (abs(avancement) > reste) and (reste > 0) :
-                self.speed = (reste/(180/math.pi))
-                self.r.setVitesseRoue(-(self.speed)*0.5, self.speed*0.5)
+            # On calcul l'angle qui sépart le vecteur finale de la position du vecteur courant
+            angle_restant = self.vecteur_finale.calculerAngle(self.r.vectD)
+            self.pas_angle = self.r.VitesseAngulaire()*time_passed
+            print(f"Angle restant a parcourir : {angle_restant}")
+            print(f"Pas de l'angle : {self.pas_angle}")
+
+
+            if abs(self.pas_angle) > angle_restant :
+                self.speed /= 2
+                self.r.setVitesseRoue(-self.speed, self.speed)
+
+            
         
     def stop(self):
         """
             Return True si self.parcouru > self.angle sinon return False
         """
-        if abs(round(self.r.angle_parcourue,3)) >= self.angle:
-            self.r.angle_parcourue = 0
-            return True
-        return False
+        return self.vecteur_finale.calculerAngle(self.r.vectD) == 0
