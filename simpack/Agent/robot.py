@@ -220,9 +220,10 @@ class Robot :
 		return self.capteur.interfaceRay
 	
 	def update(self,deltat):
-		deltat = self.get_time_passed()
-		self.rotateAllVect(self.get_angle(deltat))
+		deltat = self.get_time_passed(time.time())
+		self.rotateAllVect(self.VitesseAngulaire()*deltat)
 		self.avancerRobot(deltat)
+		self.last_update = time.time()
 		#enregister chaque update 
 		self.update_trace()
 
