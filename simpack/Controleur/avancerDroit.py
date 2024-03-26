@@ -53,7 +53,7 @@ class AvancerDroit():
             distance_traveled = self.r.get_distance_parcourue(time_passed)
             reste = self.distance - self.r.distance_parcourue
             if distance_traveled > reste > 0 :
-                self.speed = (reste)/time_passed
+                self.speed = round((reste)/time_passed, 0)
                 self.r.setVitesseRoue(self.speed, self.speed)
         
         

@@ -45,7 +45,7 @@ class TournerDirecte():
             #Création du vecteur d'arrivée en fonction de la postion de départ et d'un angle
             self.vecteur_finale = Vecteur(self.r.vectD.x, self.r.vectD.y)
 
-            # -self.angle car il tourne a gauche, si on laisse self.angle il fera trois car de tour pour aller a droite
+            # -self.angle car il tourne a gauche, si on laisse self.angle il fera trois quart de tour pour aller a droite
             self.vecteur_finale.rotationAngle(-self.angle)
             
             # Compteur d'etape step effectuer
