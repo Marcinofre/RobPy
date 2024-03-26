@@ -72,14 +72,16 @@ class robotAdapteur():
         self.posCenter = (250,250)
         self.MoteurG = 0
         self.MoteurD = 0
-        self.vectD = Vecteur(0,1)
+        self.vectD = Vecteur(0,-1)
         self.initial_vectD = self.vectD
-        self.rotation = self.vectD.calculerAngle(Vecteur(0,1))
+        self.rotation = self.vectD.calculerAngle(Vecteur(0,-1))
         self.last_update = time.time()
         self._dim = (30,45)
         self.rayon = self._dim[0]/2
         self.capteur = self.capteur = Capteur(self.vectD)
         self.isControlled = False
+        self.distance_parcourue = 0
+        self.angle_parcourue = 0
 
     def setVitesseRoue(self, d:"int | float", g:"int | float"):
         """
@@ -95,12 +97,16 @@ class robotAdapteur():
         self.rob.set_motor_dps(self.rob.MOTOR_RIGHT, d)
 
     def get_distance_parcourue(self, deltat):
+        self.distance_parcourue += self.calcVitesseMoyenne() * deltat
         return self.calcVitesseMoyenne() * deltat
 
-    def get_time_passed(self):
-        time_passed =  time.time() -self.last_update - time.time()
-        self.last_update = time.time()
-        return time_passed
+    def get_time_passed(self, t):
+        time_passed =  t -self.last_update
+        return abs(time_passed)
+    
+    def get_angle(self, deltat):
+        self.angle_parcourue += self.VitesseAngulaire() * deltat
+        return self.VitesseAngulaire() * deltat
     
     def VitesseAngulaire(self) -> float:
         """
@@ -148,6 +154,7 @@ class robotAdapteur():
         """
             Mise à jour du vecteur directeur et la position du robot
         """
-        deltat = self.get_time_passed()
+        deltat = self.get_time_passed(time.time())
         self.rotateAllVect(self.VitesseAngulaire()*deltat)
         self.avancerRobot(deltat)
+        self.last_update = time.time()

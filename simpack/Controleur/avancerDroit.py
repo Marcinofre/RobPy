@@ -26,7 +26,6 @@ class AvancerDroit():
         self.distance = distance
         self.speed = speed
         self.r = r
-        self.parcouru = 0
         self.last_update = 0 
     
     def start(self):
@@ -34,7 +33,6 @@ class AvancerDroit():
             Initialize la distance parcourue à 0 et du temps
         """
         #Initialisation de la distance parcourue
-        self.parcouru = 0
         self.last_update = 0
 
     def step(self):
@@ -49,17 +47,14 @@ class AvancerDroit():
             self.last_update = time.time()
         else :
             self.r.setVitesseRoue(self.speed,self.speed)
-            current_time = time.time()
-            time_passed = current_time - self.last_update
-            self.last_update = current_time
+            time_passed = self.r.get_time_passed(self.last_update)
+            self.last_update = time.time()
             #Distance parcourue selon le temps passer et la vitesse actuelle
             distance_traveled = self.r.get_distance_parcourue(time_passed)
-            if distance_traveled > self.distance - self.parcouru > 0 :
-                self.speed = (self.distance - self.parcouru)/time_passed
+            reste = self.distance - self.r.distance_parcourue
+            if distance_traveled > reste > 0 :
+                self.speed = (reste)/time_passed
                 self.r.setVitesseRoue(self.speed, self.speed)
-                distance_traveled = self.r.get_distance_parcourue(time_passed)
-            #Mise a jour de la distance parcourue en fonction du temps passé
-            self.parcouru += distance_traveled
         
         
 
@@ -67,4 +62,7 @@ class AvancerDroit():
         """
             Return True si self.parcouru > self.distance sinon return False
         """
-        return round(self.parcouru,1) >= self.distance
+        if round(self.r.distance_parcourue,1) >= self.distance:
+            self.r.distance_parcourue = 0
+            return True
+        return False

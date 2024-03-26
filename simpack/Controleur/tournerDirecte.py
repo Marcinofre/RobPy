@@ -23,7 +23,6 @@ class TournerDirecte():
         self.angle = angle
         self.r = rob
         self.speed = 1
-        self.parcouru = 0
         self.last_update = 0
 
     
@@ -31,7 +30,6 @@ class TournerDirecte():
         """
             Initialize la rotation déjà effectuée à 0
         """
-        self.parcouru = 0
         self.last_update = 0
 
     def step(self):
@@ -43,21 +41,21 @@ class TournerDirecte():
             self.last_update = time.time()
         else :
             #Calcul du temps entre le dernier appel et celui-ci
-            current_time = time.time()
-            time_passed = current_time - self.last_update 
-            self.last_update = current_time
+            time_passed = self.r.get_time_passed(self.last_update)
+            self.last_update = time.time()
             
             self.r.setVitesseRoue(-self.speed, self.speed)
-            avancement = self.r.VitesseAngulaire()*time_passed
-            if abs(avancement)> (self.angle - self.parcouru) > 0 :
-                self.speed = ((self.angle-self.parcouru)*self.r.rayon)/(180/math.pi)
+            avancement = self.r.get_angle(time_passed)
+            reste = (self.angle - self.r.angle_parcourue)
+            if abs(avancement)> reste  > 0 :
+                self.speed = (reste*self.r.rayon)/(180/math.pi)
                 self.r.setVitesseRoue(-(self.speed)/2, self.speed/2)
-                avancement = self.r.VitesseAngulaire()
-            self.parcouru += abs(avancement)
-            print(avancement)
         
     def stop(self):
         """
             Return True si self.parcouru > self.angle sinon return False
         """
-        return round(self.parcouru,3) >= self.angle
+        if abs(round(self.r.angle_parcourue,3)) >= self.angle:
+            self.r.angle_parcourue =0
+            return True
+        return False
