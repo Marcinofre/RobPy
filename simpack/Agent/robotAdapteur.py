@@ -98,7 +98,7 @@ class robotAdapteur():
         return self.calcVitesseMoyenne() * deltat
 
     def get_time_passed(self):
-        time_passed = self.last_update - time.time()
+        time_passed =  time.time() -self.last_update - time.time()
         self.last_update = time.time()
         return time_passed
     
