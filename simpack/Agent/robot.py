@@ -113,8 +113,8 @@ class Robot :
 		return self.calcVitesseMoyenne() * deltat
 
 	def get_angle(self, deltat):
-		self.angle_parcourue+=self.VitesseAngulaire() * deltat
-		return self.VitesseAngulaire() * deltat
+		self.angle_parcourue += round(self.VitesseAngulaire() * deltat,1)
+		return round(self.VitesseAngulaire() * deltat,1)
 	
 	def get_time_passed(self, t):
 		time_passed =  t - self.last_update
@@ -132,7 +132,7 @@ class Robot :
 		diff = self.MoteurD - self.MoteurG 
 		angle = diff / self.rayon
 		angle = angle * (180/math.pi)
-		return round(angle,5)
+		return round(angle,0)
 
 	def calcVitesseMoyenne(self) :
 		"""Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
@@ -169,6 +169,7 @@ class Robot :
 		self.vectD = Vecteur(self.initial_vectD.x, self.initial_vectD.y)
 		self.capteur.ray = Vecteur(self.capteur.initial_ray.x, self.capteur.initial_ray.y)
 		self.rotation += angle
+		print(f"Rotation totale: {self.rotation}")
 		self.capteur.ray.rotationAngle(self.rotation)
 		self.vectD.rotationAngle(self.rotation)
 

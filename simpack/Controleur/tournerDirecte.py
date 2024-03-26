@@ -39,23 +39,31 @@ class TournerDirecte():
         """
         if self.last_update == 0:
             self.last_update = time.time()
+            self.count = 0 
         else :
             #Calcul du temps entre le dernier appel et celui-ci
             time_passed = self.r.get_time_passed(self.last_update)
             self.last_update = time.time()
+
+            print(f"ETAPE {self.count}")
+            self.count += 1
             
             self.r.setVitesseRoue(-self.speed, self.speed)
             avancement = self.r.get_angle(time_passed)
-            reste = (self.angle - self.r.angle_parcourue)
-            if abs(avancement)> reste  > 0 :
-                self.speed = (reste*self.r.rayon)/(180/math.pi)
-                self.r.setVitesseRoue(-(self.speed)/2, self.speed/2)
+            reste = self.angle - abs(self.r.angle_parcourue)
+            
+            print(f"Angle restant a parcourir {reste}")
+            print(f"Angle parcouru {avancement}")
+
+            if (abs(avancement) > reste) and (reste > 0) :
+                self.speed = (reste/(180/math.pi))
+                self.r.setVitesseRoue(-(self.speed)*0.5, self.speed*0.5)
         
     def stop(self):
         """
             Return True si self.parcouru > self.angle sinon return False
         """
         if abs(round(self.r.angle_parcourue,3)) >= self.angle:
-            self.r.angle_parcourue =0
+            self.r.angle_parcourue = 0
             return True
         return False

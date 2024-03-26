@@ -18,9 +18,9 @@ class ControleurCarre():
             strats = Liste comprenant des instances des classes AvancerDroit et TournerDirecte, les instructions que le controleur enverra au Robot
             cur = Index permettant de désigner l'instruction qui est en train d'éxécuter (Initialisé à -1 et va jusqu'à len de strats -1)
         """
-        distance = 1
+        distance = 50
         self.robot = robot
-        self.speed = 1
+        self.speed = 10
         self.strats = [AvancerDroit(distance, self.speed,  robot), 
                        TournerDirecte(90, robot), 
                        AvancerDroit(distance, self.speed, robot), 
