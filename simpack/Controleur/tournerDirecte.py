@@ -25,7 +25,8 @@ class TournerDirecte():
         self.r = rob
         self.speed = 1
         self.last_update = 0
-        self.pas_angle = 1 
+        self.pas_angle = 1
+        self.initial_speed = self.speed 
 
     
     def start(self):
@@ -50,6 +51,7 @@ class TournerDirecte():
             
             # Compteur d'etape step effectuer
             self.count = 0 
+            self.speed = self.initial_speed
         else :
             #Calcul du temps entre le dernier appel et celui-ci
             time_passed = self.r.get_time_passed(self.last_update)
