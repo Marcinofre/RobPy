@@ -29,15 +29,15 @@ class Obstacle :
 
 class Environnement() :
 	"""
-	Classe définissant un environnement de simulation virtuel pour la manipulation d'un agent (robot)
+	Classe définissant un environnement de simulation virtuel pour la manipulation d'un robot (robot)
 	"""
 
-	def __init__(self, x, y, agent) -> None:
+	def __init__(self, x, y, robot) -> None:
 		"""Constructeur de la classe Environnement
 			Args:
 				x (int | float): taille max de l'abscisse du rectangle
 				y (int | float): taille max de l'ordonnée du rectangle
-				agent (Robot): Agent présent sur le terrain 
+				robot (Robot): robot présent sur le terrain 
 
 			Attributes:
 				isRunning (boolean): boolean qui dit si oui on non la simulation est en cours
@@ -47,7 +47,7 @@ class Environnement() :
 		self.clockPace = 1
 		self.maxReachablePoint = (x,y)
 		self.isRunning = False
-		self.agent = agent
+		self.robot = robot
 		self.setObstacle = set()
 		self.addObstacle((Obstacle(0,y,x,y))) # ---> Bordure haute
 		self.addObstacle((Obstacle(x,y,x,0))) # ---> Bordure droite
@@ -56,8 +56,8 @@ class Environnement() :
 
 
 	def isOut(self) :
-		if self.agent.posCenter[0]<0  or self.agent.posCenter[0] > self.maxReachablePoint[0] or self.agent.posCenter[1]<0  or self.agent.posCenter[0] > self.maxReachablePoint[1] :
-			print("l'agent est en dehors de la zone de test")
+		if self.robot.posCenter[0]<0  or self.robot.posCenter[0] > self.maxReachablePoint[0] or self.robot.posCenter[1]<0  or self.robot.posCenter[0] > self.maxReachablePoint[1] :
+			print("l'robot est en dehors de la zone de test")
 			return 1
 
 	
@@ -115,7 +115,7 @@ class Environnement() :
 		return 0 <= uA <= 1 and 0 <= uB <= 1
 	
 	def doesCollidebis(self):
-		for coin,cote in zip(self.agent.getCarcasse(), self.agent.getRectangle()):
+		for coin,cote in zip(self.robot.getCarcasse(), self.robot.getRectangle()):
 			for obs in self.setObstacle:
 				min_x = min(obs.x0,obs.x1)
 				max_x = max(obs.x0,obs.x1)
@@ -131,8 +131,8 @@ class Environnement() :
 			Calcule de la collision entre le rayon du capteur et de la bordure haute
 		"""
 		for i in self.setObstacle:
-			(x1, y1) = self.agent.posCenter
-			(x2, y2) = self.agent.capteur.interfaceRay.toTuple()
+			(x1, y1) = self.robot.posCenter
+			(x2, y2) = self.robot.capteur.interfaceRay.toTuple()
 			(x2,y2) = (x2+x1, y1+y2)			
 			(x3, y3) = (i.x0,i.y0)
 			(x4, y4) = (i.x1,i.y1)
@@ -142,7 +142,7 @@ class Environnement() :
 			intersec3 = (x1 - x3) * (y4 - y3) - (y1 - y3) * (x4 - x3)
 			intersec4 = (x2 - x3) * (y4 - y3) - (y2 - y3) * (x4 - x3)
 			if(intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0) :
-				self.agent.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
+				self.robot.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
 				return
 
 	def retourCapteur(self, pas_distance):
@@ -153,21 +153,21 @@ class Environnement() :
 				pas_distance: Distance que l'on incrémente au rayon à chaque tour de boucle
 		"""
 		distance_vue = 0
-		vision = self.agent.capteur.vision
+		vision = self.robot.capteur.vision
 
 		# On projete le rayon si distance_vue est inférieur à la vision
-		while (not self.agent.capteur.touchObstacle) and distance_vue < vision:
+		while (not self.robot.capteur.touchObstacle) and distance_vue < vision:
 			distance_vue += pas_distance														#---> Incrementation de la distance
-			self.agent.capteur.interfaceRay = self.agent.getRay(distance_vue)					#---> Récupère le rayon projeté à x distance
+			self.robot.capteur.interfaceRay = self.robot.getRay(distance_vue)					#---> Récupère le rayon projeté à x distance
 			self.doesRayCollide()																#---> Regarde si le rayon coupe un vecteur
-			self.agent.capteur.distanceObstacle = self.agent.getRay(distance_vue).calcNorm()	#---> Calcul de la distance entre le robot est l'obstacle
+			self.robot.capteur.distanceObstacle = self.robot.getRay(distance_vue).calcNorm()	#---> Calcul de la distance entre le robot est l'obstacle
 		return True
 
 	def update(self):
 		"""
 			Met à jour l'environnement
 		"""
-		if isinstance(self.agent, Robot):
+		if isinstance(self.robot, Robot):
 			if self.isOut():
 				return
 			if self.doesCollidebis():
@@ -176,7 +176,7 @@ class Environnement() :
 		current_time = time.time()
 		deltat = current_time-self.last_update
 		self.last_update = current_time
-		self.agent.update(deltat)
+		self.robot.update(deltat)
 
 
 	def creerVecteur(self,coord1, coord2) :

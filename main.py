@@ -51,11 +51,11 @@ def main():
     robotA = robotAdapteur(robotFake())
 
     #Initialisation de l'environnment
-    environnement = env(taille[0], taille[1], robot)
+    environnement = env(taille[0], taille[1], robotA)
 
     #Initialisation du controleur du robot
     controleurCollision = ControleurCollision(robotA,environnement)
-    controleurCarre = ControleurCarre(robot)
+    controleurCarre = ControleurCarre(robotA)
 
 
     #Lancemement de la simulation SANS interface
@@ -65,7 +65,7 @@ def main():
 
     #Lancement de la simulation AVEC interface
     if interfaceOn:
-        if isinstance(environnement.agent, robotAdapteur):
+        if isinstance(environnement.robot, robotAdapteur):
             print("Erreur! On ne peut pas utiliser l'interface pour le robotAdapteur")
             print("Lancement de la simulation sans interface")
             time.sleep(1)

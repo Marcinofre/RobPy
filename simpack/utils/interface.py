@@ -18,13 +18,13 @@ class Interface():
             Args:
                 width: Largeur de l'interface graphique
                 height: Hauteur de l'interface graphique
-                controller: Controleur de l'agent
+                controller: Controleur de l'robot
 
             Attributes:
                 window: Fenetre de l'interface graphique
                 frame_left: Frame contenant le canvas et prenant 80% de la largeur de la fenêtre
                 frame_right: Frame contenant les différents widget permettant de manipuler les attributs et prenant 20% de la fenêtre
-                canvas: Partie de la window, dans frame_left, ou l'agent sera representé
+                canvas: Partie de la window, dans frame_left, ou l'robot sera representé
         """
 
 
@@ -76,7 +76,7 @@ class Interface():
                                  fill=tkinter.BOTH)
 
         self.speed_label = tkinter.Label(self.display_top,
-                                         text=f"VitesseG : {environment.agent.MoteurG}, VitesseD : {environment.agent.MoteurD}")
+                                         text=f"VitesseG : {environment.robot.MoteurG}, VitesseD : {environment.robot.MoteurD}")
         
 
         #definition des variables d'acceuil des entrees
@@ -128,21 +128,21 @@ class Interface():
 
         
         #Dessin Robot initial
-        initialPosition = environment.agent.getCarcasse()                   #--> Récupère la carcasse du robot (pour dessiner ses contours)
+        initialPosition = environment.robot.getCarcasse()                   #--> Récupère la carcasse du robot (pour dessiner ses contours)
         self.rob = self.canvas.create_polygon(*initialPosition,
                                               fill="white",
                                               outline="black")
         
         #Dessin d'une fleche représentant le vecteur direction
-        self.line = self.canvas.create_line(*self.environment.agent.posCenter,
-                                            self.environment.agent.posCenter[0]+self.environment.agent.vectD.x, 
-                                            self.environment.agent.posCenter[1]+self.environment.agent.vectD.y,
+        self.line = self.canvas.create_line(*self.environment.robot.posCenter,
+                                            self.environment.robot.posCenter[0]+self.environment.robot.vectD.x, 
+                                            self.environment.robot.posCenter[1]+self.environment.robot.vectD.y,
                                             arrow=tkinter.LAST,
                                             width=5, 
                                             fill="red")
-        self.line2 = self.canvas.create_line(*self.environment.agent.posCenter,
-                                            self.environment.agent.posCenter[0]+self.environment.agent.capteur.ray.x, 
-                                            self.environment.agent.posCenter[1]+self.environment.agent.capteur.ray.y,
+        self.line2 = self.canvas.create_line(*self.environment.robot.posCenter,
+                                            self.environment.robot.posCenter[0]+self.environment.robot.capteur.ray.x, 
+                                            self.environment.robot.posCenter[1]+self.environment.robot.capteur.ray.y,
                                             arrow=tkinter.LAST,
                                             width=5, 
                                             fill="pink")
@@ -175,18 +175,18 @@ class Interface():
         """
             Mets a jour la position du robot dans l'interface graphique
         """
-        position = self.environment.agent.getCarcasse()
-        position_ray = self.environment.agent.getForInterfaceRay()
+        position = self.environment.robot.getCarcasse()
+        position_ray = self.environment.robot.getForInterfaceRay()
         self.canvas.coords(self.rob, 
                            *self.flatten(position))
         self.canvas.coords(self.line, 
-                           *self.environment.agent.posCenter,
-                           self.environment.agent.posCenter[0] + self.environment.agent.vectD.x*self.environment.agent._dim[0]/2,
-                           self.environment.agent.posCenter[1] + self.environment.agent.vectD.y*self.environment.agent._dim[1]/2)
+                           *self.environment.robot.posCenter,
+                           self.environment.robot.posCenter[0] + self.environment.robot.vectD.x*self.environment.robot._dim[0]/2,
+                           self.environment.robot.posCenter[1] + self.environment.robot.vectD.y*self.environment.robot._dim[1]/2)
         self.canvas.coords(self.line2, 
-                           *self.environment.agent.posCenter,
-                            self.environment.agent.posCenter[0] + position_ray.x,
-                            self.environment.agent.posCenter[1] + position_ray.y)
+                           *self.environment.robot.posCenter,
+                            self.environment.robot.posCenter[0] + position_ray.x,
+                            self.environment.robot.posCenter[1] + position_ray.y)
 
     def update_labels(self):
         """
@@ -194,19 +194,19 @@ class Interface():
         """
 
         #Mise a jour de l'affichage de la vitesse des moteurs
-        left_speed = self.environment.agent.MoteurG
-        right_speed = self.environment.agent.MoteurD
+        left_speed = self.environment.robot.MoteurG
+        right_speed = self.environment.robot.MoteurD
         self.speed_label.config(text=f"VitesseG : {left_speed}, VitesseD : {right_speed}")
 
 
     def dispatch_order(self):
-        self.environment.agent.MoteurD = round(self.speedmotor_right.get(), 1)
-        self.environment.agent.MoteurG = round(self.speedmotor_left.get(), 1)
+        self.environment.robot.MoteurD = round(self.speedmotor_right.get(), 1)
+        self.environment.robot.MoteurG = round(self.speedmotor_left.get(), 1)
         self.environment.clockPace = round(self.paceTime.get(),1)
     
     def update_all(self):
         self.environment.update()
-        if self.environment.agent.isControlled:
+        if self.environment.robot.isControlled:
             if not self.controller.stop():
                 self.controller.step()
                 self.controller.strats[self.controller.cur].step()
@@ -225,18 +225,18 @@ class Interface():
 
     
     def run(self):
-        self.environment.agent.isControlled = True
+        self.environment.robot.isControlled = True
 
     
     def stop(self):
-        self.environment.agent.isControlled = False
+        self.environment.robot.isControlled = False
 
 
     def draw_path(self):
        """
             Trace le passage du robot
        """
-       for position in self.environment.agent.trace:
+       for position in self.environment.robot.trace:
           self.canvas.create_oval(
             position[0] - 2, position[1] - 2, 
             position[0] + 2, position[1] + 2, 

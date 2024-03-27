@@ -38,10 +38,10 @@ class robotFake:
                 port: Port sur lequel on communique
                 dps: Vitesse de rotation du moteur
         """
-        #if port == 1:
-        #    print(f"Je met la vitesse du moteur gauche à {dps}")
-        #elif port == 2:
-        #    print(f"Je met la vitesse du moteur droit à {dps}")
+        if port == 1:
+            print(f"Je met la vitesse du moteur gauche à {dps}")
+        elif port == 2:
+            print(f"Je met la vitesse du moteur droit à {dps}")
     
     def get_distance(self) -> None:
         pass
@@ -105,10 +105,10 @@ class robotAdapteur():
         return abs(time_passed)
     
     def get_angle(self, deltat):
-        self.angle_parcourue += self.VitesseAngulaire() * deltat
-        return self.VitesseAngulaire() * deltat
+        self.angle_parcourue += self.vitesseAngulaire() * deltat
+        return self.vitesseAngulaire() * deltat
     
-    def VitesseAngulaire(self) -> float:
+    def vitesseAngulaire(self) -> float:
         """
 			Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 
@@ -155,6 +155,6 @@ class robotAdapteur():
             Mise à jour du vecteur directeur et la position du robot
         """
         deltat = self.get_time_passed(time.time())
-        self.rotateAllVect(self.VitesseAngulaire()*deltat)
+        self.rotateAllVect(self.vitesseAngulaire()*deltat)
         self.avancerRobot(deltat)
         self.last_update = time.time()

@@ -64,7 +64,7 @@ class TournerDirecte():
 
             # On calcul l'angle qui sépart le vecteur finale de la position du vecteur courant
             angle_restant = self.vecteur_finale.calculerAngle(self.r.vectD)
-            self.pas_angle = self.r.VitesseAngulaire()*time_passed
+            self.pas_angle = self.r.vitesseAngulaire()*time_passed
             print(f"Angle restant a parcourir : {angle_restant}")
             print(f"Pas de l'angle : {self.pas_angle}")
 
