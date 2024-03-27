@@ -27,6 +27,7 @@ class AvancerDroit():
         self.speed = speed
         self.r = r
         self.last_update = 0 
+        self.initial_speed = speed
     
     def start(self):
         """
@@ -45,6 +46,7 @@ class AvancerDroit():
         
         if self.last_update == 0:
             self.last_update = time.time()
+            self.speed = self.initial_speed
         else :
             self.r.setVitesseRoue(self.speed,self.speed)
             time_passed = self.r.get_time_passed(self.last_update)

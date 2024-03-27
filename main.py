@@ -28,7 +28,7 @@ def runSimulation(interface, environnement, controleur):
                 environnement.update()
                 controleur.step()
                 controleur.strats[controleur.cur].step()
-                time.sleep(1)
+                time.sleep(1/60)
             elif controleur.stop():
                 controleur.start()
     elif interface:
