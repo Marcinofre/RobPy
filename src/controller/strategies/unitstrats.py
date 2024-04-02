@@ -1,7 +1,9 @@
+# -IMPORT ZONE---------------------------------------------------------------------------
 from src.model.robot import Robot
 import math
+# ---------------------------------------------------------------------------------------
 
-
+# ----------------------------------------------------------------------------
 class unitStrat:
 	"""Class abstraite
 	"""
@@ -17,7 +19,10 @@ class unitStrat:
 	def stop(self):
 		pass
 	pass
+# ----------------------------------------------------------------------------
 
+
+# ----------------------------------------------------------------------------
 class MoveForward(unitStrat):
 	"""Stratégie unitaire qui fait avancer
 
@@ -72,7 +77,9 @@ class MoveForward(unitStrat):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
 		return (self._distance - self._distance_traveled) <= 0.01
-	
+
+
+# ----------------------------------------------------------------------------
 class RotateInPlace(unitStrat):
 	"""Pivote sur place le robot à gauche ou à droite
 
@@ -138,6 +145,8 @@ class RotateInPlace(unitStrat):
 		"""
 		return abs(self._theta_final - self._robot._total_theta) <= 0.001
 
+
+# ----------------------------------------------------------------------------
 class MoveForwardWithSensor(unitStrat):
 	"""Avance le robot au plus près de l'obstacle
 		

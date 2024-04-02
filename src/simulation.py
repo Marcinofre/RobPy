@@ -9,7 +9,6 @@ from .controller.strategies.unitstrats import unitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
 
 # -CONSTANTE ZONE---------------------------------------------------------------------------
-
 STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
 STRATS_REAL_ROBOT = [StratSquare]
 

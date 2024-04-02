@@ -1,7 +1,9 @@
+# -IMPORT ZONE---------------------------------------------------------------------------
 from src.controller.strategies.unitstrats import *
 from src.model.robot import Robot
+# ---------------------------------------------------------------------------------------
 
-
+# ----------------------------------------------------------------------------
 def StratSquare(robot: Robot) -> list[unitStrat]:
 	"""Stratégie pour faire parcourir au robot un carré de 50 par 50
 	"""
@@ -30,7 +32,7 @@ def StratSquare(robot: Robot) -> list[unitStrat]:
 			MoveForward(distance, speed, robot),
 			RotateInPlace(90, speed,robot)]
 
-
+# ----------------------------------------------------------------------------
 def StratDontTouchTheWall(robot: Robot) -> list[unitStrat]:
 	"""Stratégie pour aller vers un mur sans le toucher
 	"""
@@ -52,6 +54,6 @@ def StratDontTouchTheWall(robot: Robot) -> list[unitStrat]:
 
 	return [MoveForwardWithSensor(distance_from_wall, speed, robot)]
 
-
+# ----------------------------------------------------------------------------
 def StratFollowTheLight(robot: Robot):
 	pass

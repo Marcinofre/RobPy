@@ -56,14 +56,14 @@ class Obstacle:
 		#		Probleme de l'enveloppe convexe ? https://fr.wikipedia.org/wiki/Calcul_de_l%27enveloppe_convexe
 		#			-> Ne relie pas tout les points de la figure
 		#		Trier par plus petit chemin ? 
-		#			-> Ne fonctionne pas avec une forme en S croissante
+		#			-> Ne fonctionne pas pour un losange.
 		#		Trier par plus grand des deux plus petit chemin ? 
 		#			-> Ne fonctionne pas pour un losange...
 		#"""
 		#pass
 
 
-#--CLASS Environment----------------------------------------
+#--ENVIRONMENT----------------------------------------
 class Environment:
 	"""Class Environment qui représente le lieu de la simulation dans lequel évolue un robot
 	
@@ -96,6 +96,8 @@ class Environment:
 		# Condition d'arret de la simulation
 		self.stop = False
 
+
+	#-METHODE-------------------------------------------------------------------------------------------------
 	def add_obstacle(self, obs: Obstacle) -> None:
 		"""Ajoute des obstacles à l'environnement
 
@@ -178,7 +180,7 @@ class Environment:
 
 
 
-#--CLASS Interface----------------------------------------
+#--INTERFACE----------------------------------------
 class Interface:
 	"""Class Interface correspondant à la partie graphique de l'environnement (GUI)
 
@@ -202,6 +204,8 @@ class Interface:
 
 	"""
 
+
+	#-CONSTRUCTEUR-------------------------------------------------------------------------------------------------
 	def __init__(self, environment: Environment, dimension: tuple[int, int] = (1280, 720)) -> None:
 		"""Constructeur d'une view pour afficher une simulation
 
@@ -287,11 +291,9 @@ class Interface:
 		# Rappel de la fenetre
 		self.window.after(50, self.update_tk)
 	
-	#Voir source de cette fonction : https://stackoverflow.com/questions/32449670/tkinter-tclerror-bad-screen-distance-in-pythons-tkinter-when-trying-to-modi
-	def flatten(self, list_of_lists):
-		"""Flatten one level of nesting"""
-		return itertools.chain.from_iterable(list_of_lists)
 
+
+	#-METHODE-------------------------------------------------------------------------------------------------
 	def update_tk(self) -> None:
 		"""Rafraichit l'affichage de la simulation
 		"""
@@ -324,7 +326,10 @@ class Interface:
 		"""
 		self.info_label.config(text=f"Speed L : {self.robot._motorspeed_left}, Speed R : {self.robot._motorspeed_right} \nAngle {round(math.degrees(self.robot._total_theta), 5)}°\nDistance Sensor {self.robot._distance_obstacle}")
 
-
+	#Voir source de cette fonction : https://stackoverflow.com/questions/32449670/tkinter-tclerror-bad-screen-distance-in-pythons-tkinter-when-trying-to-modi
+	def flatten(self, list_of_lists):
+		"""Flatten one level of nesting"""
+		return itertools.chain.from_iterable(list_of_lists)
 
 	def draw_path(self) -> None:
 		"""Trace le passage du robot

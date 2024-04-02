@@ -1,5 +1,8 @@
+# -IMPORT ZONE---------------------------------------------------------------------------
 from src.controller.strategies.unitstrats import unitStrat
+# ---------------------------------------------------------------------------------------
 
+# -CONTROLLER----------------------------------------------------------------------------
 class SequentialController():
 	
 	def __init__(self, strats: list[unitStrat]) -> None:

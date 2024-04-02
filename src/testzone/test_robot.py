@@ -1,7 +1,7 @@
+import math
 import unittest
 from unittest.mock import MagicMock
 from unittest.mock import patch
-import math
 from src.model.robot import Robot
 
 class TestRobot(unittest.TestCase):

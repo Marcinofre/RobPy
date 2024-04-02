@@ -2,13 +2,13 @@
 	Class définissant le robot, le robotFake et son adaptateur qui sera utiliser dans l'environnement de simulation
 """
 
-#----Import zone-----------------------------------
+#- Import zone-----------------------------------
 import math
 import time
 #--------------------------------------------------
 
 
-#----ROBOT------------------------------------------
+#- ROBOT------------------------------------------
 class Robot:
 	"""Class Robot qui définit un robot de licence d'Informatique de Sorbonne Université
 
@@ -32,7 +32,7 @@ class Robot:
 	
 	
 	
-	#-CONSTRUCTEUR-------------------------------------------------------------------------------------------------
+	#- CONSTRUCTEUR-------------------------------------------------------------------------------------------------
 	def __init__(self, x: float, y: float, theta: float) -> None:
 		"""Constructeur de l'instance Robot
 		
@@ -67,7 +67,7 @@ class Robot:
 	
 	
 	
-	#-METHODE-------------------------------------------------------------------------------------------------
+	#- METHODE-------------------------------------------------------------------------------------------------
 	def update_position(self) -> None:
 		"""Mise à jour de la position du robot
 		"""
@@ -235,7 +235,7 @@ class Robot:
 		corners = [corner_upper_left, corner_upper_right, corner_lower_left, corner_lower_right]
 		return corners
 
-#-ROBOT MOCKUP-------------------------------------------------------------------------------------------------
+# -ROBOT MOCKUP-------------------------------------------------------------------------------------------------
 class RobotFake:
 	"""Robot Fake simulant la future API du Robot2I013 
 	"""
@@ -257,7 +257,7 @@ class RobotFake:
 		pass
 	
 	
-	#-METHODE-------------------------------------------------------------------------------------------------
+	# -METHODE-------------------------------------------------------------------------------------------------
 	def set_motor_dps(self, port, dps) -> None:
 		"""Mets a jour la vitesse à dps du robot selon le port (moreur droit ou gauche)
 		"""
@@ -293,7 +293,7 @@ class RobotFake:
 		"""
 		return self.offset_encoder_left + self.motorspeed_left, self.offset_encoder_right + self.motorspeed_right
 
-#-APDATER PATTERN-------------------------------------------------------------------------------------------------
+# -APDATER PATTERN-------------------------------------------------------------------------------------------------
 class RobotAdapter:
 	"""Adapte les fonctions du robot simulé Robot() pour un robot du type RoboFake()
 
@@ -315,7 +315,7 @@ class RobotAdapter:
 		self._total_theta = theta
 		self._last_update = 0
 
-	#-METHODE-------------------------------------------------------------------------------------------------
+	#- METHODE-------------------------------------------------------------------------------------------------
 	def set_speed(self, speed_left: float = 0.0, speed_right: float = 0.0) -> None:
 		"""Mise a jour de la vitesse des moteurs
 
