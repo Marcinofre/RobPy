@@ -60,160 +60,114 @@ class Obstacle:
 		#pass
 
 
-class Environnement() :
+class Environment:
+	"""Class Environment qui représente le lieu de la simulation dans lequel évolue un robot
+	
+		Attributes:
+			_area_max (tuple[int,int]): Taille maximale de l'environnement
+			_robot (Robot): Robot qui évolue dans l'environnement
+			_obstacles (list[Obstacle]): Liste d'obstacle qui se peuple l'environnement
+			_grid_obstacles (list[list[int]]): Matrice qui représente l'environnement et ses obstacles sous forme discrète
+			stop (bool): Booleen qui permet d'arreter la simulation lorsque sa valeur True
 	"""
-	Classe définissant un environnement de simulation virtuel pour la manipulation d'un robot (robot)
-	"""
 
-	def __init__(self, x, y, robot) -> None:
-		"""Constructeur de la classe Environnement
+	def __init__(self, robot: Robot, border_point: tuple[int,int] = (1280, 720)) -> None:
+		"""Constructeur de l'environnement de la simulation
+
 			Args:
-				x (int | float): taille max de l'abscisse du rectangle
-				y (int | float): taille max de l'ordonnée du rectangle
-				robot (Robot): robot présent sur le terrain 
-
-			Attributes:
-				isRunning (boolean): boolean qui dit si oui on non la simulation est en cours
-				maxReachablePoint (tuple[int | float , int | float]): Définition de l'aire de simulation par le point maximal (diagonale au centre)
-				setObstacle (set[Obstacle]): Un ensemble contenant tous les obstacles de l'environnement
+				border_point (tuple[int,int]): Point maximale de l'environnement
+				robot (Robot): Un robot
 		"""
-		self.clockPace = 1
-		self.maxReachablePoint = (x,y)
-		self.isRunning = False
-		self.robot = robot
-		self.setObstacle = set()
-		self.addObstacle((Obstacle(0,y,x,y))) # ---> Bordure haute
-		self.addObstacle((Obstacle(x,y,x,0))) # ---> Bordure droite
-		self.addObstacle((Obstacle(0,0,0,y))) # ---> Bordure gauche
-		self.addObstacle((Obstacle(0,0,x,0))) # ---> Bordure basse
 
+		# Dimension de l'Arene
+		self._area_max = border_point
 
-	def isOut(self) :
-		if self.robot.posCenter[0]<0  or self.robot.posCenter[0] > self.maxReachablePoint[0] or self.robot.posCenter[1]<0  or self.robot.posCenter[0] > self.maxReachablePoint[1] :
-			print("l'robot est en dehors de la zone de test")
-			return 1
+		# Ajout du robot passé en paramètre 
+		self._robot = robot
 
+		# Initialisation de la liste des obstacle de l'environnement (vide initialement) et de son positionnement dans la grille
+		self._osbtacles = []
+		self._grid_obstacles = [[0 for y in range(border_point[1])] for x in range(border_point[0])]
+		
+		# Condition d'arret de la simulation
+		self.stop = False
+
+	def add_obstacle(self, obs: Obstacle) -> None:
+		"""Ajoute des obstacles à l'environnement
+
+			Modifie la grille `_osbtacles` et `_grid_obstacle`
+
+			Args: 
+				obs (Obstacle): Un obstacle
+		"""
+		# On ajoute l'obstacle à la liste d'obstacle
+		self._osbtacles.append(obs)
+
+		# On récupère la liste de points innaccessible 
+		obstacle_zone = obs.make_rect_point()
+		
+		# On map les obstacles sur la grille d'obstacle
+		for x,y in obstacle_zone:
+			self._grid_obstacles[x][y] = 1
 	
-	def initSimulation(self):
+	def get_obstacles(self) -> list[Obstacle]:
+		"""Retourne la liste d'obstacle présent dans l'environnement
 		"""
-			Initialisation des variable de l'environnement pour la simulation
-		"""
-		#Initialise à True isRunning pour l'updater dans le main
-		self.isRunning = True
-		self.last_update = time.time()
+		return self._osbtacles
 
-	def addObstacle(self, obs) :
+	def sensor_return(self) -> None:
+		"""Simule le retour du capteur de distance
 		"""
-			Prend en argument obs soit une List soit un objet de la classe Obstacle :
-				- Si c'est un objet de la classe Obstacle, il est ajouté au setObstacle.
-				- Si c'est une List, il parcourt la liste et chaque élément de la classe Obstacle est ajouté au setObstacle.
-				- Si c'est ni l'un ni l'autre, on affiche : L'élément n'est pas un obstacle.
 
-			Args:
-				obs: Obstacle à ajouter
+			# On récupère la position du robot et la direction du capteur
+		pos_x, pos_y = self._robot.get_position()
+		vect_sensor_x, vect_sensor_y = self._robot.get_vector_captor()
+
+		# Pas du rayon
+		step = 1
+		
+		# On boucle jusqu'à trouver un obstacle ou atteindre le maximum de step
+		while step < 800 :
+			try:
+				if self._grid_obstacles[int(pos_x + vect_sensor_x*step)][int(pos_y + vect_sensor_y*step)]:
+					#print(f"Obstacle rencontrer à {(int(pos_x + vect_sensor_x*step), int(pos_y + vect_sensor_y*step))}")
+					#print(f"Distance de l'obstacle = {step}")
+					self._robot._distance_obstacle = step
+					return
+			except IndexError:
+				self._robot._distance_obstacle = -1
+			step += 1
+		self._robot._distance_obstacle = -1
+
+
+	def is_out(self) -> bool:
+		"""Détermine si le robot se trouve en dehors de la zone de la simulation
+
+			Return:
+				outside (bool): Bouléen qui exprime true s'il est en dehors ou false sinon 
 		"""
-		if isinstance(obs, list):
-			for obj in obs :
-				if isinstance(obj, Obstacle) :
-					self.setObstacle.add(obj)
-		elif isinstance(obs, Obstacle):
-				self.setObstacle.add(obs)
-		else :
-			print("L'élément n'est pas un obstacle")
+		pos_x, pos_y = self._robot.get_position()
+		arene_x,arene_y = self._area_max
+		outside = (pos_x > arene_x) or (pos_y > arene_y) or (pos_x < 0) or (pos_y < 0)
+		return outside
 	
-	def collisionLigne(self,x1, y1, x2, y2, x3, y3, x4, y4):
+	def update_environment(self) -> None:
+		"""Mets à jour l'ensemble de l'environnement
 		"""
-			Détermine si deux ligne sont en collision
-			
-			Args:
-				x1: Point x origine ligne 1
-				y1: Point y origine ligne 1
-				x2: Point x arrivee ligne 1
-				y2: Point y arrivee ligne 1
-				x3: Point x origine ligne 2
-				y3: Point y origine ligne 2
-				x4: Point x arrivee ligne 2
-				y4: Point y arrivee ligne 2
-			
-			Returns:
-				Retourne si deux ligne se rencontre sous forme d'un bool 
-		"""
-		denom = ((y4-y3)*(x2-x1) - (x4-x3)*(y2-y1))
-		if denom == 0:
-			return False
-		uA = ((x4-x3)*(y1-y3) - (y4-y3)*(x1-x3)) / denom
+		
+		if not self.stop:
 
-		uB = ((x2-x1)*(y1-y3) - (y2-y1)*(x1-x3)) / denom
+		
+			# Mise à jour du capteur de distance et la position du robot
+			if isinstance(self._robot, Robot):
+				self.sensor_return()
+			self._robot.update_position()
 
-		return 0 <= uA <= 1 and 0 <= uB <= 1
-	
-	def doesCollidebis(self):
-		for coin,cote in zip(self.robot.getCarcasse(), self.robot.getRectangle()):
-			for obs in self.setObstacle:
-				min_x = min(obs.x0,obs.x1)
-				max_x = max(obs.x0,obs.x1)
-				min_y = min(obs.y0,obs.y1)
-				max_y = max(obs.y0,obs.y1)
-				if min_x<=coin[0]<=max_x and min_y<=coin[1]<=max_y or self.collisionLigne(obs.x0, obs.y0, obs.x1, obs.y1, cote[0][0], cote[0][1],cote[1][0],cote[1][1]):
-					print(f"En collision avec : {min_x} {max_x} {min_y} {max_y}")
-					return True
-		return False
-				
-	def doesRayCollide(self):
-		"""
-			Calcule de la collision entre le rayon du capteur et de la bordure haute
-		"""
-		for i in self.setObstacle:
-			(x1, y1) = self.robot.posCenter
-			(x2, y2) = self.robot.capteur.interfaceRay.toTuple()
-			(x2,y2) = (x2+x1, y1+y2)			
-			(x3, y3) = (i.x0,i.y0)
-			(x4, y4) = (i.x1,i.y1)
+			# Vérifie s'il touche un obstacle ou s'il est en dehors de la zone de simulation
+			if self.is_out():
 
-			intersec1 = (x3 - x1) * (y2 - y1) - (y3 - y1) * (x2 - x1)
-			intersec2 = (x4 - x1) * (y2 - y1) - (y4 - y1) * (x2 - x1)
-			intersec3 = (x1 - x3) * (y4 - y3) - (y1 - y3) * (x4 - x3)
-			intersec4 = (x2 - x3) * (y4 - y3) - (y2 - y3) * (x4 - x3)
-			if(intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0) :
-				self.robot.capteur.touchObstacle = (intersec1 * intersec2 < 0) and (intersec3 * intersec4 < 0)
-				return
+				# On remets le robot à sa place précédente (celle avant le 'choc')
+				# On conserve la rotation cependant
+				x,y = self._robot.get_last_position()
+				self._robot.set_position(x, y)
 
-	def retourCapteur(self, pas_distance):
-		"""
-			Simule la réponse que reçoit le capteur si son ray rencontre un objet
-
-			Args:
-				pas_distance: Distance que l'on incrémente au rayon à chaque tour de boucle
-		"""
-		distance_vue = 0
-		vision = self.robot.capteur.vision
-
-		# On projete le rayon si distance_vue est inférieur à la vision
-		while (not self.robot.capteur.touchObstacle) and distance_vue < vision:
-			distance_vue += pas_distance														#---> Incrementation de la distance
-			self.robot.capteur.interfaceRay = self.robot.getRay(distance_vue)					#---> Récupère le rayon projeté à x distance
-			self.doesRayCollide()																#---> Regarde si le rayon coupe un vecteur
-			self.robot.capteur.distanceObstacle = self.robot.getRay(distance_vue).calcNorm()	#---> Calcul de la distance entre le robot est l'obstacle
-		return True
-
-	def update(self):
-		"""
-			Met à jour l'environnement
-		"""
-		if isinstance(self.robot, Robot):
-			if self.isOut():
-				return
-			if self.doesCollidebis():
-				print("En collision!")
-				return
-		current_time = time.time()
-		deltat = current_time-self.last_update
-		self.last_update = current_time
-		self.robot.update(deltat)
-
-
-	def creerVecteur(self,coord1, coord2) :
-		"""
-			Prend les coordonnés des points A et B et retournent le vecteur AB
-		"""
-		return Vecteur(coord2[0]-coord1[0],coord2[1]-coord1[1])  
