@@ -101,7 +101,7 @@ class Robot :
  
 		self.trace=[self.posCenter] 					# enregister la position
 
-		self.last_called = 0
+		self.last_called = (x,y)
 
 		self.initial_vectD = self.vectD
 
@@ -113,14 +113,14 @@ class Robot :
 		return self.calcVitesseMoyenne() * deltat
 
 	def get_angle(self, deltat):
-		self.angle_parcourue += round(self.VitesseAngulaire() * deltat,1)
-		return round(self.VitesseAngulaire() * deltat,1)
+		self.angle_parcourue += round(self.vitesseAngulaire() * deltat,1)
+		return round(self.vitesseAngulaire() * deltat,1)
 	
 	def get_time_passed(self, t):
 		time_passed =  t - self.last_update
 		return abs(time_passed)
 	 
-	def VitesseAngulaire(self) :
+	def vitesseAngulaire(self) :
 		"""Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
 
 			Returns:
@@ -222,7 +222,7 @@ class Robot :
 	
 	def update(self,deltat):
 		deltat = self.get_time_passed(time.time())
-		self.rotateAllVect(self.VitesseAngulaire()*deltat)
+		self.rotateAllVect(self.vitesseAngulaire()*deltat)
 		self.avancerRobot(deltat)
 		self.last_update = time.time()
 		#enregister chaque update 

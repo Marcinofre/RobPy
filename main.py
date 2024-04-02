@@ -28,7 +28,7 @@ def runSimulation(interface, environnement, controleur):
                 environnement.update()
                 controleur.step()
                 controleur.strats[controleur.cur].step()
-                time.sleep(1)
+                time.sleep(1/60)
             elif controleur.stop():
                 controleur.start()
     elif interface:
@@ -65,7 +65,7 @@ def main():
 
     #Lancement de la simulation AVEC interface
     if interfaceOn:
-        if isinstance(environnement.agent, robotAdapteur):
+        if isinstance(environnement.robot, robotAdapteur):
             print("Erreur! On ne peut pas utiliser l'interface pour le robotAdapteur")
             print("Lancement de la simulation sans interface")
             time.sleep(1)
@@ -79,4 +79,21 @@ def main():
 
 
 if __name__ == "__main__":
+	main()
+
+
+"""Lanceur de la simulation
+"""
+# -IMPORT ZONE--------------------------------------------------------------------------
+from src.simulation import *
+
+# -CONSTANTE---------------------------------------------------------------------------
+SIZE_WORLD = (1024, 720)
+FPS = 7000
+
+# -APPLICATION PRINCIPALE--------------------------------------------------------------
+def main():
+	simulation(SIZE_WORLD, FPS)
+
+if __name__ == '__main__':
 	main()
