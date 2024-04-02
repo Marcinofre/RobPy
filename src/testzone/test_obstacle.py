@@ -1,6 +1,7 @@
 import unittest
 from src.environment.environment import Obstacle
 
+
 class TestObstacle(unittest.TestCase):
 	def test_make_rect_point(self):
 		# Initialisation des valeurs de test
