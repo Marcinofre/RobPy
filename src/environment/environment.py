@@ -5,6 +5,9 @@ import itertools
 from src.model.robot import Robot
 #--------------------------------------------------
 
+
+
+#--CLASS Obstacle----------------------------------------
 class Obstacle:
 	"""Class Obstacle qui représente un obstacle dans un environnement
 
@@ -60,6 +63,7 @@ class Obstacle:
 		#pass
 
 
+#--CLASS Environment----------------------------------------
 class Environment:
 	"""Class Environment qui représente le lieu de la simulation dans lequel évolue un robot
 	
@@ -171,6 +175,10 @@ class Environment:
 				x,y = self._robot.get_last_position()
 				self._robot.set_position(x, y)
 
+
+
+
+#--CLASS Interface----------------------------------------
 class Interface:
 	"""Class Interface correspondant à la partie graphique de l'environnement (GUI)
 
@@ -268,6 +276,7 @@ class Interface:
 															fill='blue'
 														)
 		
+		# On ajoute les obstacles à la view
 		for obs in obstacles:
 			self.canvas.create_rectangle(
 				obs.origin,
@@ -305,9 +314,6 @@ class Interface:
 						   *position,
 						   position[0] + vector_captor[0]*10,
 						   position[1] + vector_captor[1]*10)
-		
-		
-
 		
 		self.draw_path()
 		self.update_label()

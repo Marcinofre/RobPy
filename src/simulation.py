@@ -8,7 +8,7 @@ from .controller.controller import SequentialController
 from .controller.strategies.unitstrats import unitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
 
-# -CONSTANCE ZONE---------------------------------------------------------------------------
+# -CONSTANTE ZONE---------------------------------------------------------------------------
 
 STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
 STRATS_REAL_ROBOT = [StratSquare]

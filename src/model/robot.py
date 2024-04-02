@@ -1,51 +1,3 @@
-from simpack.utils.vecteur import Vecteur
-import time
-import math
-
-class Capteur :
-    """
-		Modélisation du capteur de mouvement du robot
-	"""
-
-    def __init__(self, vecteurDirecteurRobot: Vecteur) -> None:
-        """
-		Attributes:
-
-			ray: Vecteur représentant le rayon unitaire du capteur (de même orientation et direction que le vecteurDirecteur du robot)
-			vision: Portée maximale de la vision du capteur
-			touchObstacle: Etat du rayon qui indique s'il croise un obstacle
-
-		Args:
-		vecteurDirecteurRobot: Vecteur directeur du robot sur lequel repose le capteur
-		"""
-        self.ray = self.treatVector(vecteurDirecteurRobot)
-        self.initial_ray = self.ray
-        self.vision = 500
-        self.interfaceRay = self.ray
-        self.touchObstacle = False
-        self.distanceObstacle = 0
-
-
-    def projectionRay(self,distance):
-        """
-            Retourne le rayon projeté à la distance passé en paramètre en mètres
-        """
-        return (self.ray.x * distance, self.ray.y * distance)
-    
-    def treatVector(self, vec : Vecteur):
-        res = Vecteur(0,0)
-        if vec.y > 0 :
-            res.y = 1
-        if vec.x > 0 :
-            res.x = 1
-        if vec.x<0 :
-            res.x = -1
-        if vec.y<0 :
-            res.y = -1
-        return res
-
-       
-
 """
 	Class définissant le robot, le robotFake et son adaptateur qui sera utiliser dans l'environnement de simulation
 """
@@ -282,8 +234,8 @@ class Robot:
 		# On regroupe le tout dans une liste
 		corners = [corner_upper_left, corner_upper_right, corner_lower_left, corner_lower_right]
 		return corners
-	
-	#-ROBOT MOCKUP-------------------------------------------------------------------------------------------------
+
+#-ROBOT MOCKUP-------------------------------------------------------------------------------------------------
 class RobotFake:
 	"""Robot Fake simulant la future API du Robot2I013 
 	"""
@@ -466,3 +418,8 @@ class RobotAdapter:
 		"""
 		
 		return (self._robot.motorspeed_right + self._robot.motorspeed_left) / 2
+	
+
+
+
+
