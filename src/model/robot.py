@@ -282,3 +282,61 @@ class Robot:
 		# On regroupe le tout dans une liste
 		corners = [corner_upper_left, corner_upper_right, corner_lower_left, corner_lower_right]
 		return corners
+	
+	#-ROBOT MOCKUP-------------------------------------------------------------------------------------------------
+class RobotFake:
+	"""Robot Fake simulant la future API du Robot2I013 
+	"""
+
+	WHEEL_BASE_WIDTH = 117  # distance (mm) de la roue gauche a la roue droite.
+	WHEEL_DIAMETER = 66.5 #  diametre de la roue (mm)
+	
+	def __init__(self):
+		"""Constructeur du robotFake simulant une api
+		"""
+		self.MOTOR_LEFT = 1
+		self.MOTOR_RIGHT = 2
+
+		self.offset_encoder_right = 0
+		self.offset_encoder_left = 0
+
+		self.motorspeed_right = 0
+		self.motorspeed_left = 0
+		pass
+	
+	
+	#-METHODE-------------------------------------------------------------------------------------------------
+	def set_motor_dps(self, port, dps) -> None:
+		"""Mets a jour la vitesse à dps du robot selon le port (moreur droit ou gauche)
+		"""
+		
+		# En fonction du port, on assigne le dps au bon moteur (ou les deux le cas échéant)
+		if port == self.MOTOR_RIGHT:
+			self.motorspeed_right = dps
+		elif port == self.MOTOR_LEFT:
+			self.motorspeed_left = dps
+		elif port == (self.MOTOR_RIGHT + self.MOTOR_LEFT):
+			self.motorspeed_right = dps
+			self.motorspeed_left = dps
+
+		print(f"set_motor_dps : port = {port}, dps = {dps}")
+
+	def offset_motor_encoder(self, port, offset) -> None:
+		"""Simulation mise a jour offset
+		"""
+
+		# Modification de l'offset selon le port choisit
+		if port == self.MOTOR_RIGHT:
+			self.offset_encoder_right = offset
+		elif port == self.MOTOR_LEFT:
+			self.offset_encoder_left = offset
+		elif port == (self.MOTOR_RIGHT + self.MOTOR_LEFT):
+			self.offset_encoder_right = offset
+			self.offset_encoder_left = offset
+
+		print(f"offset_motor_encoder : port = {port}, offset = {offset}")
+
+	def get_motor_position(self) -> tuple[float,float]:
+		"""Simulation de récuperation de la position des moteurs
+		"""
+		return self.offset_encoder_left + self.motorspeed_left, self.offset_encoder_right + self.motorspeed_right
