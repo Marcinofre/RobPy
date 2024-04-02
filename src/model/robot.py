@@ -46,204 +46,239 @@ class Capteur :
 
        
 
-class Robot :
+"""
+	Class définissant le robot, le robotFake et son adaptateur qui sera utiliser dans l'environnement de simulation
+"""
+
+#----Import zone-----------------------------------
+import math
+import time
+#--------------------------------------------------
+
+
+#----ROBOT------------------------------------------
+class Robot:
+	"""Class Robot qui définit un robot de licence d'Informatique de Sorbonne Université
+
+		Attributes:
+			_dim (tuple[int,int]): Dimension du robot longueur, largeur
+			_wheelbase (int): Empatement entre les deux roues
+
+			_position_x (float): Position courante du robot sur l'abcisse dans l'environnement virtuelle
+			_position_y (float): Position courante du robot sur l'ordonnée dans l'environnement virtuelle
+			_total_theta (float): Angle de rotation vis-à-vis du plan de l'environnement
+			_captor_theta (float): Angle de rotation du capteur vis-à-vis du plan du vecteur directeur
+
+
+			_motorspeed_right (float): Vitesse du moteur droit
+			_motorspeed_left (float): Vitesse du moteur gauche
+
+			_trail_position (list[tuple[float, float]]): Tableau enregistrant toutes les positions du robot précédente
+			_last_update (float): Temps de la dernière mise à jour effectué
+
 	"""
-		Modélisation d'un robot de Sorbonne Université
-	"""
-
-	def __init__(self, width:int, length:int, x:float=0, y:float=0, vecteurDirecteur = Vecteur(0,-1)):
-		"""Constructeur de la classe Robot
-			
-			Args:
-				width : Largeur du robot
-				length : Longueur du robot
-				x: Position en x du centre du robot
-				y: Position en y du centre du robot
-			
-			Attributes:
-				dim: Dimension du robot défini par sa largeur et sa longueur
-				MoteurD: Scalaire vitesse du moteur droit du robot
-				MoteurG: Scalaire vitesse du moteur gauche du robot
-				rayon: Empatement entre les deux roue/moteur 
-				isActive: Booléen qui définit si le robot est allumé ou non
-				vectD: Vecteur direction du robot
-				posCenter: Position du centre au départ de la simulation du robot défini par x et y (initialisé à 0,0)
-				capteur: Capteur d'obstacle du robot
-				loin: Booléen qui exprime si l'obstacle est loin ou non
-				isControlled: Booléen qui status si le robot est controlé par un controleur ou non
-				trace: Tableau de tuple qui comprend toutes les positions que prend le robot durant la simulation
-
-			
-		"""
-		self.last_update = time.time()
-
-		self._dim = (width, length)
-
-		self.MoteurD = 0.0
-
-		self.MoteurG = 0.0
-
-		self.rayon = self._dim[0]/2 					# rayon du cercle passant par les deux roues en mètres, à définir, 0.25 n'est qu'une valeur abstraite
-
-		self.isActive = 1
+	
+	
+	
+	#-CONSTRUCTEUR-------------------------------------------------------------------------------------------------
+	def __init__(self, x: float, y: float, theta: float) -> None:
+		"""Constructeur de l'instance Robot
 		
-		self.vectD = vecteurDirecteur 	# Vecteur direction
-	
-		self.posCenter = (x,y)			# Position en x et y du centre du robot
-		
-		self.rotation = self.vectD.calculerAngle(Vecteur(0,-1))
-
-		self.loin = True
-
-		self.isControlled = False
-
-		self.capteur = Capteur(vecteurDirecteur) 		# Ajout d'un capteur pour le Robot
- 
-		self.trace=[self.posCenter] 					# enregister la position
-
-		self.last_called = (x,y)
-
-		self.initial_vectD = self.vectD
-
-		self.distance_parcourue = 0
-		self.angle_parcourue = 0
-	
-	def get_distance_parcourue(self, deltat):
-		self.distance_parcourue +=self.calcVitesseMoyenne() * deltat
-		return self.calcVitesseMoyenne() * deltat
-
-	def get_angle(self, deltat):
-		self.angle_parcourue += round(self.vitesseAngulaire() * deltat,1)
-		return round(self.vitesseAngulaire() * deltat,1)
-	
-	def get_time_passed(self, t):
-		time_passed =  t - self.last_update
-		return abs(time_passed)
-	 
-	def vitesseAngulaire(self) :
-		"""Permet de faire tourner le vecteur direction quand une roue va plus vite que l'autre.
-
-			Returns:
-				Retourne l'angle de rotation a effectuer en prenant en compte la vitesse entre les deux moteurs
-		"""
-		# 1er Cas : La roue droite est plus rapide, l'angle est positif, le robot tourne à gauche.
-		# 2ème Cas : La roue gauche est plus rapide, l'angle est négatif, le robot tourne à droite.
-		# 3ème Cas : Les deux roues ont la même vitesse, l'angle est nul, le robot ne tourne pas.
-		diff = self.MoteurD - self.MoteurG 
-		angle = diff / self.rayon
-		angle = angle * (180/math.pi)
-		return round(angle,0)
-
-	def calcVitesseMoyenne(self) :
-		"""Calcule la vitesse moyenne du Robot en fonction de la vitesse des ses moteurs
-
-			Returns:
-				Retourne la vitesse moyenne du robot
-		"""
-		return round((self.MoteurD + self.MoteurG)/2,4)
-
-	def avancerRobot(self, deltat):
-		"""Calcul la position du robot en le faisant avancer en fonction de la vitesse et du vecteur direction
-		"""
-		vit = self.calcVitesseMoyenne() * deltat
-		self.posCenter = (	round(self.posCenter[0] + (self.vectD.x * vit), 1),
-							round(self.posCenter[1] + (self.vectD.y * vit), 1))
-		print(f"J'ai une vitesse de {vit} et je suis à {self.posCenter[0]} {self.posCenter[1]}")
-
-	def setVitesseRoue(self, d:"int | float", g:"int | float"):
-		"""Définit les vitesses des moteurs
+			Le constructeur se base sur les caractéristique réelles du robot attribué par l'université. Pour avoir de plus amples détails, merci de vous référer à sa fiche technique (voir lien: https://github.com/baskiotisn/2IN013robot2023/blob/main/docs/cours5.pdf)
 
 			Args:
-				d: Vitesse du moteur droit
-				g: Vitesse du moteur gauche
-        """
-		self.MoteurD = d
-		self.MoteurG = g
-
-	def rotateAllVect(self, angle):
-		"""Rotation en degré du vecteur directeur et du vecteur unitaire du capteur du robot
-
-			Args:
-				angle: Angle de rotation à appliquer en degré
+				x (float): Position initial en abscisse du robot
+				y (float): Position initial en ordonnée du robot
+				theta (float): Angle initial de rotation vis-à-vis du plan de l'environnement
 		"""
-		self.vectD = Vecteur(self.initial_vectD.x, self.initial_vectD.y)
-		self.capteur.ray = Vecteur(self.capteur.initial_ray.x, self.capteur.initial_ray.y)
-		self.rotation += angle
-		print(f"Rotation totale: {self.rotation}")
-		self.capteur.ray.rotationAngle(self.rotation)
-		self.vectD.rotationAngle(self.rotation)
+		# Caractéristique constante du robot
+		self._dim = (40,30)
+		self._WHEELBASE = self._dim[1]
 
-	def getCarcasse(self) -> list[tuple["int|float", "int|float"]]: 
-		"""Calcule les coordonnées des 4 points du robot en fonction de l'angle du robot
+		# Position, angle et direction du robot dans l'environnement
+		self._position_x = x
+		self._position_y = y
+		self._total_theta = theta
+		self._captor_theta = math.radians(90)
+		self._distance_obstacle = -1
 
-			Returns:
-				Une liste de tuple correspondant au quatre point de l'armature du robot
+		# Vitesse des moteurs initialisé à 0
+		self._motorspeed_right = 0
+		self._motorspeed_left = 0
+
+		# Historique des positions du robot depuis le point de départ
+		self._trail_position = [self.get_position()]
+
+		# Temps de la dernière mise à jour, initialisé à 0 quand aucune mise à jour n'a été faite
+		self._last_update = 0
+
+	
+	
+	
+	#-METHODE-------------------------------------------------------------------------------------------------
+	def update_position(self) -> None:
+		"""Mise à jour de la position du robot
 		"""
-		larg = self._dim[0]/2
-		long = self._dim[1]/2
+		# Calcule du temps écoulé
+		dtime = self.get_time_passed()
 
-		x = self.posCenter[0]
-		y = self.posCenter[1]
+		# Calcule les nouvelles positions x et y, ainsi que l'angle de rotation selon la vitesse et le temps écoulé
+		self._position_x += self.get_speed() * math.cos(self._total_theta) * dtime
+		self._position_y -= self.get_speed() * math.sin(self._total_theta) * dtime
+		self._total_theta += self.get_angular_speed() * dtime
 
-		TRC_V = Vecteur(+larg, -long)
-		TLC_V = Vecteur(+larg, +long)
-		BRC_V = Vecteur(-larg, -long)
-		BLC_V = Vecteur(-larg, +long)
+		# Enregistrement de la nouvelle position
+		self._trail_position.append(self.get_position())
+		if len(self._trail_position) > 5:
+			self._trail_position.pop(0)
+
+	def get_time_passed(self) -> float:
+		"""Calcule le temps passé entre le dernier appel et le temps courant
+
+			Return:
+				dtime (float): Correspond au temps écoulé depuis le dernier appel renseigné dans `self._last_update`
+		"""
+		# On initialise si c'est le premier appel
+		if not self._last_update:
+			self._last_update = time.time()
 		
-		if self.rotation!=0 :
-			TRC_V.rotationAngle(self.rotation)
-			TLC_V.rotationAngle(self.rotation)
-			BRC_V.rotationAngle(self.rotation)
-			BLC_V.rotationAngle(self.rotation)
-		
-		TRC_T = (TRC_V.x + x,TRC_V.y + y)
-		TLC_T = (TLC_V.x + x,TLC_V.y + y)
-		BRC_T = (BRC_V.x + x,BRC_V.y + y)
-		BLC_T = (BLC_V.x + x,BLC_V.y + y)
-		
+		# On calcule le temps écoulé depuis _last_update
+		dtime = time.time() - self._last_update
+		self._last_update = time.time()
 
-		return [TRC_T,TLC_T,BLC_T,BRC_T]
+		return dtime 
+	
+	def get_vector_dir(self) -> tuple[float, float]:
+		"""Calcule le vecteur directeur pour apercevoir la direction du robot
 
-	def getRay(self, distance):
-		"""Récupère le rayon projeté, puis le translate vers le centre du robot
+			La taille du vecteur directeur ne correspond pas à sa vitesse, il n'est ici qu'a des fins de représentation. La taille est donc arbitraire et correspond ici à la longeur du robot
+
+			Return:
+				vector_dir (tuple[float, float]): Vecteur qui représente la direction que prend le robot
+		"""
+	
+		# Calcule du vecteur direction
+		vector_dir = (	self._dim[0]/2 * math.cos(-self._total_theta), 
+						self._dim[0]/2 * math.sin(-self._total_theta))
+		return vector_dir
+	
+	def get_vector_captor(self) -> tuple[float, float]:
+		"""Calcule le vecteur directeur du capteur du robot
+
+			La taille du vecteur directeur ne correspond pas à sa projection, il n'est ici qu'a des fins de représentation. La taille est donc arbitraire et correspond ici à une unité aribtraire
+
+			Return:
+				vector_captor (tuple[float, float]): Vecteur qui représente la direction vers laquel pointe le capteur
+		"""
+		# Permet d'obtenir un range de rotation entre -90 et 90 au lieu de 0 et 180
+		rotation = self._captor_theta - math.radians(90)
+	
+		# Calcule du vecteur du capteur 
+		vector_captor = (	1 * math.cos(-self._total_theta + rotation), 
+							1 * math.sin(-self._total_theta + rotation))
+		return vector_captor
+	
+	def get_distance(self) -> float:
+		"""Renvoie la distance entre le robot et l'obstacle en face de lui
+
+			Return:
+				distance_obstacle (float): Distance entre l'obstacle et le robot. -1 si il ne rencontre aucun objet
+		"""
+		return self._distance_obstacle
+	
+	def set_speed(self, speed_left: float = 0, speed_right: float = 0) -> None:
+		"""Modifie les vitesses des deux moteurs du robot
 			
 			Args:
-				distance: Distance de projection du vecteur
-
-			Returns:
-				Un vecteur 
-
+				speed_left (float): Nouvelle vitesse du moteur gauche
+				speed_right (float): Nouvelle vitesse du moteur droit
 		"""
-		vecteurRayon = self.capteur.projectionRay(distance)
-		return Vecteur(vecteurRayon[0],vecteurRayon[1])
+		self._motorspeed_left = speed_left
+		self._motorspeed_right = speed_right
+
+	def get_speed(self) -> float:
+		"""Calcule la vitesse moyenne du robot
+			
+			Return:
+				Retourne un float correspondant à la vitesse moyenne instantané du robot
+		"""
+		return (self._motorspeed_right + self._motorspeed_left) / 2
 	
-	def getForInterfaceRay(self):
-		return self.capteur.interfaceRay
+	def get_angular_speed(self) -> float:
+		"""Calcule la vitesse angulaire (autrement dit, la vitesse de rotation du robot)
+
+			Return:
+				angular_speed (float): Vitesse angulaire en radian/seconde
+		"""
+		angular_speed = (self._motorspeed_right - self._motorspeed_left) / self._WHEELBASE
+		return angular_speed
 	
-	def update(self,deltat):
-		deltat = self.get_time_passed(time.time())
-		self.rotateAllVect(self.vitesseAngulaire()*deltat)
-		self.avancerRobot(deltat)
-		self.last_update = time.time()
-		#enregister chaque update 
-		self.update_trace()
+	def get_distance_traveled(self) -> float:
+		"""Calcule la distance parcouru du robot
 
-	def getRectangle(self):
-		"""Permet d'obtenir les lignes représentant les 4 côtés du rectangle
-
-			Returns:
-				???
+			Return:
+				distance (float): Distance parcourue calculer depuis les deux dernières positions
 		"""
-		coins = self.getCarcasse()
+		# On prends ls deux dernier élément de la liste
+		x1, y1 = self._trail_position[-2]
+		x2, y2 = self._trail_position[-1]
 
-		haut = ((coins[1]),(coins[0]))
-		bas = ((coins[2]),(coins[3]))
-		gauche = ((coins[1]),(coins[3]))
-		droit = ((coins[0]),(coins[3]))
-		return [haut,bas,gauche,droit]
+		# On calcule la distance qui sépare ces deux points
+		distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
-	def update_trace(self):
-		"""Met à jour la trace en ajoutant la nouvelle position à l'attribut `trace`
+		return distance
+
+	def get_position(self) -> tuple[float, float]:
+		"""Renvoie la position courante
+
+			Return:
+				Un tuple correspondant à la position courante
 		"""
-		if not self.trace or (self.trace[-1]!=self.posCenter):
-			self.trace.append(self.posCenter)
+		return (self._position_x, self._position_y)
+	
+	def get_last_position(self) -> tuple[float, float]:
+		"""Renvoie la pénultième position enregistré
+
+			Return:
+				Un tuple correspondant à la pénultième position enregistrer
+		"""
+		return self._trail_position[len(self._trail_position)-2]
+	
+	def set_position(self, x: float, y: float) -> None:
+		"""Positione le robot au coordonné indiqué
+
+			Args:
+				x (float): Nouvelle position x
+				y (float): Nouvelle position y
+		"""
+
+		self._position_x = x
+		self._position_y = y
+	
+	def get_corners(self) -> list[tuple[float,float]]:
+		"""Renvoie les quatres points qui délimite l'armature du robot
+
+			Return:
+				corners: Liste de 4 points (dans le sens horaire) qui forme le rectangle représentant l'armature du robot
+		"""
+		# Récupération du point centrale du robot
+		origin_x, origin_y = self.get_position()
+		
+		# On prend le vecteur directeur et un vecteur qui lui est perpendiculaire
+		vect_dir_x, vect_dir_y = self.get_vector_dir()
+		vect_per_x, vect_per_y = (	self._dim[1]/2 * math.cos(-self._total_theta+(math.pi/2)), 
+									self._dim[1]/2 * math.sin(-self._total_theta+(math.pi/2)))
+		
+		# On additionne les vecteur entre eux pour obtenir les quatres points
+		corner_upper_right = (	origin_x + vect_dir_x - vect_per_x,
+								origin_y + vect_dir_y - vect_per_y)
+		corner_upper_left = (	origin_x + vect_dir_x + vect_per_x, 
+					   			origin_y + vect_dir_y + vect_per_y)
+		corner_lower_right = (	origin_x - vect_dir_x + vect_per_x, 
+								origin_y - vect_dir_y + vect_per_y)
+		corner_lower_left = (	origin_x - vect_dir_x - vect_per_x, 
+					   			origin_y - vect_dir_y - vect_per_y)
+
+		# On regroupe le tout dans une liste
+		corners = [corner_upper_left, corner_upper_right, corner_lower_left, corner_lower_right]
+		return corners
