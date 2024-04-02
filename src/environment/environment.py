@@ -1,31 +1,64 @@
-from simpack.Agent.robot import Robot
-from simpack.utils.vecteur import Vecteur
-import time
+#----Import zone-----------------------------------
+import math
+import tkinter
+import itertools
+from src.model.robot import Robot
+#--------------------------------------------------
 
-class Obstacle :
-    """
-        Un obstacle est une partie de l'environnement et est representé par un vecteur
-    """
+class Obstacle:
+	"""Class Obstacle qui représente un obstacle dans un environnement
 
-    def __init__(self, x0, y0, x1, y1) :
-        """
-        Constructeur d'un obstacle
-		Args:
-			x0: Position en x de départ du vecteur
-			x1: Position en x d'arrivée du vecteur
-			y0: Position en y de départ du vecteur
-			y1: Position en y d'arrivée du vecteur
+		Attributes:
+			origin (tuple[int, int]): Point d'origine de la diagonale de l'obstacle
+			end (tuple[int, int]): Point de fin de la diagonale de l'obstacle
 
-		Attributes
-			x0: Position en x de départ du vecteur
-			x1: Position en x d'arrivée du vecteur
-			y0: Position en y de départ du vecteur
-			y1: Position en y d'arrivée du vecteur
-        """
-        self.x0 = x0
-        self.y0 = y0
-        self.x1 = x1
-        self.y1 = y1
+	"""
+
+	def __init__(self, points: (list[tuple[int,int]])) -> None:
+		"""Constructeur d'une instance Obstacle 
+			
+			Args:
+				args (list[tuple[int,int]]): list de point contenant les deux point de la diagonale d'un rectangle
+				
+		"""
+		self.origin = points[0]
+		self.end = points[1]
+
+	def make_rect_point(self) -> list[tuple[int,int]]:
+		"""Retourne le rectangle formé par les deux point de la diagonale
+		"""
+		org_x, org_y = self.origin
+		end_x, end_y = self.end
+		points = [(x, y) for x in range(org_x, end_x + 1) for y in range(org_y, end_y + 1)]
+		return points
+	
+	
+	
+	#def get_all_point(self) ->list[tuple[int,int]]:
+	#	"""Rends l'ensemble des points qui constitue le périmètre de l'obstacle
+	#	"""
+	#
+	#		# "Trie" la liste de points
+	#	self.sort_points(self.list_of_points)
+	#
+	#		 
+
+
+	#	pass
+
+	#def sort_points(self) -> list[tuple[int,int]]:
+		#"""Trie les points de tel sorte que s'il sont relier un à un, aucun croisement n'est possible
+
+		#	Possible ressource/hint pour un algo de ce type :
+		#		Probleme de l'enveloppe convexe ? https://fr.wikipedia.org/wiki/Calcul_de_l%27enveloppe_convexe
+		#			-> Ne relie pas tout les points de la figure
+		#		Trier par plus petit chemin ? 
+		#			-> Ne fonctionne pas avec une forme en S croissante
+		#		Trier par plus grand des deux plus petit chemin ? 
+		#			-> Ne fonctionne pas pour un losange...
+		#"""
+		#pass
+
 
 class Environnement() :
 	"""
