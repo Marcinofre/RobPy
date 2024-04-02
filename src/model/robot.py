@@ -340,3 +340,129 @@ class RobotFake:
 		"""Simulation de récuperation de la position des moteurs
 		"""
 		return self.offset_encoder_left + self.motorspeed_left, self.offset_encoder_right + self.motorspeed_right
+
+#-APDATER PATTERN-------------------------------------------------------------------------------------------------
+class RobotAdapter:
+	"""Adapte les fonctions du robot simulé Robot() pour un robot du type RoboFake()
+
+		Attributes:
+			_robot (Robot): Correspond à l'API du véritable robot (ici, on utilisera un robotFake ou la véritable API)
+			_total_theta (int | float): Angle totale parcouru par le robot (en rapport avec le plan)
+			_last_update (int | float): Temps de la dernière update effectué par le robot
+	"""
+
+	def __init__(self, robotfake: RobotFake, theta: float) -> None:
+		"""Constructeur d'un adaptateur
+
+			Petite précision : 
+				L'angle theta est ajouter comme attribut car l'API n'enregistre pas d'angle
+				Une variable `last_update` aussi est ajouté pour conserver en mémoire le dernier appel
+		"""
+
+		self._robot = robotfake
+		self._total_theta = theta
+		self._last_update = 0
+
+	#-METHODE-------------------------------------------------------------------------------------------------
+	def set_speed(self, speed_left: float = 0.0, speed_right: float = 0.0) -> None:
+		"""Mise a jour de la vitesse des moteurs
+
+			Adapte la fonction set_speed du robot simulé
+
+			Args:
+				speed_left (float): Vitesses du moteur gauche
+				speed_right (float): Vitesses du moteur droit
+		"""
+		
+		# Si le robot est à l'arrêt, c'est qu'il éxécute une nouvelle stratégie dans notre cas
+		# On peut donc faire la mise a jour de l'offset en même temps
+		if speed_left == 0 and speed_right == 0:
+			
+			# On récupère la position des deux moteurs
+			new_offset_left, new_offset_right  = self._robot.get_motor_position()
+			
+			# On met à jour l'offset des moteurs pour les nouveaux calcule de distance
+			self._robot.offset_motor_encoder(self._robot.MOTOR_LEFT,new_offset_left)
+			self._robot.offset_motor_encoder(self._robot.MOTOR_RIGHT,new_offset_right)
+
+		# Si les moteurs doivent avoir la même vitesse, on assigne le dps en 1 seule commande, sinon de façon séparé
+		if speed_left == speed_right:
+			self._robot.set_motor_dps(self._robot.MOTOR_LEFT + self._robot.MOTOR_RIGHT, speed_left)
+		else:
+			self._robot.set_motor_dps(self._robot.MOTOR_LEFT, speed_left)
+			self._robot.set_motor_dps(self._robot.MOTOR_RIGHT, speed_right)
+
+	def get_distance_traveled(self) -> float:
+		"""Renvoie la distance parcourue du robot
+
+			Récupère la distance parcourue du robot en calculant la distance avec décalage entre les offsets, puis renvoie la moyenne des deux pour avoir la distance moyenne parcourue
+
+			Return:
+				distance_traveled (float): Moyenne correspondant à la distance parcourue par le robot
+		"""
+
+		# On récupère la position des moteurs
+		angle_left, angle_right = self._robot.get_motor_position()
+
+		# On calcule la distance parcourue selon l'angle effectuer en soustrayant l'offset multiplier par le rayon
+		# Voir page 10 du lien : https://ena.etsmtl.ca/pluginfile.php/650822/mod_resource/content/0/PHYchap6.pdf
+		distance_left = math.radians(angle_left - self._robot.offset_encoder_left) * (self._robot.WHEEL_DIAMETER/2) 
+		distance_right = math.radians(angle_right - self._robot.offset_encoder_right) * (self._robot.WHEEL_DIAMETER/2)
+
+		# Calcule de la moyenne parcourue
+		distance_traveled = (distance_left + distance_right)/2
+		print(f"Distance parcourue = {distance_traveled}")
+		
+		return distance_traveled
+
+	def update_position(self) -> None:
+		"""Mise à jour de la position du robot
+
+			Petite remarque : Ne met à jour que l'angle du robot contrairement au robot simulé
+		"""
+		# Calcule du temps écoulé
+		dtime = self.get_time_passed()
+
+		# l'angle de rotation selon la vitesse et le temps écoulé
+		self._total_theta += self.get_angular_speed() * dtime
+		
+	def get_time_passed(self) -> float:
+		"""Calcule le temps passé entre le dernier appel et le temps courant
+
+			Return:
+				dtime (float): Correspond au temps écoulé depuis le dernier appel renseigné dans `self._last_update`
+		"""
+		# On initialise si c'est le premier appel
+		if not self._last_update:
+			self._last_update = time.time()
+		
+		# On calcule le temps écoulé depuis _last_update
+		dtime = time.time() - self._last_update
+		self._last_update = time.time()
+
+		return dtime
+	
+	def get_angular_speed(self) -> float:
+		"""Calcule la vitesse angulaire (autrement dit, la vitesse de rotation du robot)
+
+			Return:
+				angular_speed (float): Vitesse angulaire du robot 
+		"""
+		# Calcule de la vitesse angulaire 
+		angular_speed = (self._robot.motorspeed_right - self._robot.motorspeed_left) / self._robot.WHEEL_BASE_WIDTH
+		
+		return angular_speed
+
+	def get_position(self) -> tuple[int, int]:
+		"""Renvoie une position unique (figuration)
+		"""
+		return (0,0)
+	
+	def get_speed(self) -> float:
+		"""Renvoie la vitesse moyenne du robot
+			
+			Return:
+				Retourne un float correspondant à la vitesse moyenne instantané du robot
+		"""
+		
+		return (self._robot.motorspeed_right + self._robot.motorspeed_left) / 2
