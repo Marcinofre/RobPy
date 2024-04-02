@@ -81,3 +81,67 @@ def user_strat_choice(robot: Robot) -> list[unitStrat]:
 	strats_list = meta_strat(robot)
 
 	return strats_list
+
+
+def simulation(size: tuple[int,int], fps: int) -> None:
+	"""Simulation
+		
+		Args:
+			size (tuple[int, int]): Taille de l'environnement (longueur, hauteur)
+			fps (int): Taux de rafraichissement de l'environnement/simulation
+	"""
+	
+	# Condition d'arrêt
+	good_choice = False
+	
+	# Condition de l'interface
+	interface = False
+
+	while not good_choice:
+		try:
+			print("Robot mock/real --> 0 ")
+			print("Robot simulé --> 1")
+
+			robot_choice = input("Which robot dou you want to use ?")
+			
+			if robot_choice not in ['0','1']:
+				raise(IndexError)
+			
+			robot_choice = int(robot_choice)
+		except IndexError :
+			print("Error : Wrong Number")
+			pass
+		except ValueError :
+			print("Error : Not a Number")
+			pass
+
+		good_choice = True
+
+
+	if robot_choice:
+		# Initialisation d'un robot 
+		robot = Robot(size[0]*0.5,size[1]*0.5, math.radians(90))
+		interface = True
+	else:
+		robotFake = RobotFake()
+		robot = RobotAdapter(robotFake, math.radians(90))
+
+	# Intialisation de l'environnement de simulation
+	environment = Environment(robot, size)
+
+	# AJOUTER ICI UNE FONCTION QUI AJOUTE UN NOMBRE D'OBSTACLES DISPOSER ALÉATOIREMENT SUR LE CANEVA
+	environment.add_obstacle(Obstacle([(0,0),(990,75)]))
+
+	choosen_strats = user_strat_choice(robot)
+
+	# On initialise le controleur avec une stratégie ou liste de stratégie définit au niveau de metastrats.py ou unitstrats.py
+	controller = SequentialController(strats=choosen_strats)
+
+	# On lance le thread relatif aux updates en indiquant le taux de rafraichissement de l'environnment
+	update_t = threading.Thread(target=update, args=(fps, environment, controller))
+	update_t.start()
+	
+	if interface:
+		# On initialise l'interface 
+		gui = Interface(environment)
+		gui.window.mainloop()
