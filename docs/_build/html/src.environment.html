@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.environment package &mdash; Documentation RobPy 0.1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=897fae25"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=d99ca74e"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="src.model package" href="src.model.html" />
+    <link rel="prev" title="src.controller.strategies package" href="src.controller.strategies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RobPy
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">RobPy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="src.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="src.controller.html">src.controller package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">src.environment package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.model.html">src.model package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.testzone.html">src.testzone package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src.simulation">src.simulation module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.html#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RobPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">RobPy</a></li>
+          <li class="breadcrumb-item"><a href="src.html">src package</a></li>
+      <li class="breadcrumb-item active">src.environment package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.environment.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-environment-package">
+<h1>src.environment package<a class="headerlink" href="#src-environment-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-src.environment.environment">
+<span id="src-environment-environment-module"></span><h2>src.environment.environment module<a class="headerlink" href="#module-src.environment.environment" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.environment.environment.Environment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.environment.</span></span><span class="sig-name descname"><span class="pre">Environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">robot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.model.html#src.model.robot.Robot" title="src.model.robot.Robot"><span class="pre">Robot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1280,</span> <span class="pre">720)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment.Environment" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Environment qui représente le lieu de la simulation dans lequel évolue un robot</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Environment._area_max">
+<span class="sig-name descname"><span class="pre">_area_max</span></span><a class="headerlink" href="#src.environment.environment.Environment._area_max" title="Link to this definition"></a></dt>
+<dd><p>Taille maximale de l’environnement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int,int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Environment._robot">
+<span class="sig-name descname"><span class="pre">_robot</span></span><a class="headerlink" href="#src.environment.environment.Environment._robot" title="Link to this definition"></a></dt>
+<dd><p>Robot qui évolue dans l’environnement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.model.html#src.model.robot.Robot" title="src.model.robot.Robot">Robot</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Environment._obstacles">
+<span class="sig-name descname"><span class="pre">_obstacles</span></span><a class="headerlink" href="#src.environment.environment.Environment._obstacles" title="Link to this definition"></a></dt>
+<dd><p>Liste d’obstacle qui se peuple l’environnement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[<a class="reference internal" href="#src.environment.environment.Obstacle" title="src.environment.environment.Obstacle">Obstacle</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Environment._grid_obstacles">
+<span class="sig-name descname"><span class="pre">_grid_obstacles</span></span><a class="headerlink" href="#src.environment.environment.Environment._grid_obstacles" title="Link to this definition"></a></dt>
+<dd><p>Matrice qui représente l’environnement et ses obstacles sous forme discrète</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[list[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><a class="headerlink" href="#src.environment.environment.Environment.stop" title="Link to this definition"></a></dt>
+<dd><p>Booleen qui permet d’arreter la simulation lorsque sa valeur True</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">robot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.model.html#src.model.robot.Robot" title="src.model.robot.Robot"><span class="pre">Robot</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">border_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1280,</span> <span class="pre">720)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Environment.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructeur de l’environnement de la simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>border_point</strong> (<em>tuple</em><em>[</em><em>int</em><em>,</em><em>int</em><em>]</em>) – Point maximale de l’environnement</p></li>
+<li><p><strong>robot</strong> (<a class="reference internal" href="src.model.html#src.model.robot.Robot" title="src.model.robot.Robot"><em>Robot</em></a>) – Un robot</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.add_obstacle">
+<span class="sig-name descname"><span class="pre">add_obstacle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.environment.environment.Obstacle" title="src.environment.environment.Obstacle"><span class="pre">Obstacle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Environment.add_obstacle" title="Link to this definition"></a></dt>
+<dd><p>Ajoute des obstacles à l’environnement</p>
+<p>Modifie la grille <cite>_osbtacles</cite> et <cite>_grid_obstacle</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obs</strong> (<a class="reference internal" href="#src.environment.environment.Obstacle" title="src.environment.environment.Obstacle"><em>Obstacle</em></a>) – Un obstacle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.get_obstacles">
+<span class="sig-name descname"><span class="pre">get_obstacles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.environment.environment.Obstacle" title="src.environment.environment.Obstacle"><span class="pre">Obstacle</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.environment.Environment.get_obstacles" title="Link to this definition"></a></dt>
+<dd><p>Retourne la liste d’obstacle présent dans l’environnement</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.is_out">
+<span class="sig-name descname"><span class="pre">is_out</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#src.environment.environment.Environment.is_out" title="Link to this definition"></a></dt>
+<dd><p>Détermine si le robot se trouve en dehors de la zone de la simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Renvoie<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Bouléen qui exprime true s’il est en dehors ou false sinon</p>
+</dd>
+<dt class="field-even">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-even"><p>outside (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.sensor_return">
+<span class="sig-name descname"><span class="pre">sensor_return</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Environment.sensor_return" title="Link to this definition"></a></dt>
+<dd><p>Simule le retour du capteur de distance</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Environment.update_environment">
+<span class="sig-name descname"><span class="pre">update_environment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Environment.update_environment" title="Link to this definition"></a></dt>
+<dd><p>Mets à jour l’ensemble de l’environnement</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.environment.environment.Interface">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.environment.</span></span><span class="sig-name descname"><span class="pre">Interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.environment.environment.Environment" title="src.environment.environment.Environment"><span class="pre">Environment</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1280,</span> <span class="pre">720)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment.Interface" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Interface correspondant à la partie graphique de l’environnement (GUI)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.Elements">
+<span class="sig-name descname"><span class="pre">Elements</span></span><a class="headerlink" href="#src.environment.environment.Interface.Elements" title="Link to this definition"></a></dt>
+<dd><p>env (Environment): Environnement de simulation à afficher
+robot (Robot): Robot qui se situe dans l’environnment</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.Window">
+<span class="sig-name descname"><span class="pre">Window</span></span><a class="headerlink" href="#src.environment.environment.Interface.Window" title="Link to this definition"></a></dt>
+<dd><p>window (???): Fenetre Tkinter
+Composition:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Drawing:</dt><dd><p>frame_caneva (???): Frame Tkinter contenant le caneva
+caneva (???): Zone de dessin de la simulation
+display_robot (???): Polygone représentant le robot
+display_vect_line (???): Flèche représentant la direction du robot</p>
+</dd>
+<dt>Text:</dt><dd><p>frame_display (???): Zone d’affichage des informations relatif au robot qui évolue dans l’environnement
+info_display (???): —
+info_label (???): Label des informations sur le robot (vitesse du moteur droit/gauche et son angle de rotation)</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.environment.environment.Environment" title="src.environment.environment.Environment"><span class="pre">Environment</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(1280,</span> <span class="pre">720)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Interface.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructeur d’une view pour afficher une simulation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>environment</strong> (<a class="reference internal" href="#src.environment.environment.Environment" title="src.environment.environment.Environment"><em>Environment</em></a>) – Environnement de la simulation</p></li>
+<li><p><strong>dimension</strong> (<em>tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em>) – Taille de la fenetre</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.draw_path">
+<span class="sig-name descname"><span class="pre">draw_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Interface.draw_path" title="Link to this definition"></a></dt>
+<dd><p>Trace le passage du robot</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.flatten">
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_of_lists</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment.Interface.flatten" title="Link to this definition"></a></dt>
+<dd><p>Flatten one level of nesting</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.update_label">
+<span class="sig-name descname"><span class="pre">update_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Interface.update_label" title="Link to this definition"></a></dt>
+<dd><p>Mise à jour des labels d’affichage</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Interface.update_tk">
+<span class="sig-name descname"><span class="pre">update_tk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Interface.update_tk" title="Link to this definition"></a></dt>
+<dd><p>Rafraichit l’affichage de la simulation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.environment.environment.Obstacle">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.environment.environment.</span></span><span class="sig-name descname"><span class="pre">Obstacle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.environment.environment.Obstacle" title="Link to this definition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class Obstacle qui représente un obstacle dans un environnement</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Obstacle.origin">
+<span class="sig-name descname"><span class="pre">origin</span></span><a class="headerlink" href="#src.environment.environment.Obstacle.origin" title="Link to this definition"></a></dt>
+<dd><p>Point d’origine de la diagonale de l’obstacle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.environment.environment.Obstacle.end">
+<span class="sig-name descname"><span class="pre">end</span></span><a class="headerlink" href="#src.environment.environment.Obstacle.end" title="Link to this definition"></a></dt>
+<dd><p>Point de fin de la diagonale de l’obstacle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[int, int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Obstacle.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.environment.environment.Obstacle.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructeur d’une instance Obstacle</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>list</em><em>[</em><em>tuple</em><em>[</em><em>int</em><em>,</em><em>int</em><em>]</em><em>]</em>) – list de point contenant les deux point de la diagonale d’un rectangle</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.environment.environment.Obstacle.make_rect_point">
+<span class="sig-name descname"><span class="pre">make_rect_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.environment.environment.Obstacle.make_rect_point" title="Link to this definition"></a></dt>
+<dd><p>Retourne le rectangle formé par les deux point de la diagonale</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.environment">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.environment" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="src.controller.strategies.html" class="btn btn-neutral float-left" title="src.controller.strategies package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="src.model.html" class="btn btn-neutral float-right" title="src.model package" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, GU David, YAN Nanlin, SI MOHAMMED Yaniss and MANOUBI Taysir.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
