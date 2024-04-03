@@ -103,13 +103,15 @@ class RotateInPlace(unitStrat):
 		self._speed = speed
 		self.angle =  angle
 		self._theta_final = 0
+		self.parcouru = 0
 
 	def start(self):
 		"""Initialisation de la stratégie
 		"""
 		# On arrête le robot avant de commancer la stratégie et on initialise le theta_final à 0
 		self._robot.set_speed()
-		self._theta_final = 0 
+		self._theta_final = 0
+		self.parcouru = 0 
 
 		
 	def step(self):

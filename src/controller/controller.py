@@ -3,7 +3,7 @@ from src.controller.strategies.unitstrats import unitStrat
 # ---------------------------------------------------------------------------------------
 
 # -CONTROLLER----------------------------------------------------------------------------
-class SequentialController():
+class SequentialStrategy(unitStrat):
 	
 	def __init__(self, strats: list[unitStrat]) -> None:
 		"""
@@ -21,8 +21,6 @@ class SequentialController():
 	def step(self) -> None:
 		"""Parcours des instructions de la liste self.strats
 		"""
-		
-		
 		if self.cur<0 or self.strats[self.cur].stop():
 			print("Passage à la stratégie suivante")
 			if self.stop():
