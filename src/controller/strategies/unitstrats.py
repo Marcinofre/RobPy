@@ -130,12 +130,13 @@ class RotateInPlace(unitStrat):
 			# Puis on active les moteurs selon l'angle final
 			if self._theta_final > self._robot._total_theta:
 				
-				#print("On allume les moteur pour tourner a gauche")
+			#print("On allume les moteur pour tourner a gauche")
 				self._robot.set_speed(-self._speed, self._speed)
 			else:
 
 				#print("On allume les moteur pour tourner a droite")
 				self._robot.set_speed(self._speed, -self._speed)
+
 		self._robot.get_angle()
 
 	

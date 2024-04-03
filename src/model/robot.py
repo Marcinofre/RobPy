@@ -387,7 +387,7 @@ class RobotAdapter:
 		distance_left = math.radians(angle_left - self.offset_encoder_left)
 		distance_right = math.radians(angle_right - self.offset_encoder_right)
 		print(f"{self._total_theta}")
-		self._total_theta += distance_right - distance_left / self._robot.WHEEL_BASE_WIDTH
+		self._total_theta += (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
 
 	def get_position(self) -> tuple[int, int]:
 		"""Renvoie une position unique (figuration)
