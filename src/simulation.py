@@ -101,7 +101,7 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 			print("Robot mock/real --> 0 ")
 			print("Robot simulé --> 1")
 
-			robot_choice = input("Which robot dou you want to use ?")
+			robot_choice = input("Which robot do you want to use ?")
 			
 			if robot_choice not in ['0','1']:
 				raise(IndexError)
