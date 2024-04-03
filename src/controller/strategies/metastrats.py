@@ -11,7 +11,7 @@ def StratSquare(robot: Robot) -> list[unitStrat]:
 	good_choice = False
 	while not good_choice:
 		try:
-			speed = int(input("Vitesse du robot : "))
+			speed = float(input("Vitesse du robot : "))
 		except ValueError:
 			print("Error: Not a Number")
 			pass

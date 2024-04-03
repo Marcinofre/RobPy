@@ -45,7 +45,6 @@ class MoveForward(unitStrat):
 		self._robot = robot
 		self._speed = abs(speed)
 		self._distance = abs(distance)
-		self._distance_traveled = 0
 
 	def start(self):
 		"""Initialisation de la stratégie
@@ -63,21 +62,19 @@ class MoveForward(unitStrat):
 			self._robot.set_speed()
 			return
 		
-		# Si le robot est à l'arrêt ou qu'il est a reculons, on le remets sur le droit chemin 
-		if self._robot.get_speed() <= 0.0:
-			
-			self._robot.set_speed(self._speed, self._speed)
 
+		self._robot.set_speed(self._speed, self._speed)
 
-		#On ajoute la distance parcourue par la robot
-		self._distance_traveled += self._robot.get_distance_traveled()
+		self._robot.get_distance_traveled()
 			
 
 	def stop(self):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		return (self._distance - self._distance_traveled) <= 0.01
-
+		if (self._distance - self._robot._distance_traveled) <= 0.01:
+			self._robot.reset()
+			return True
+		return False
 
 # ----------------------------------------------------------------------------
 class RotateInPlace(unitStrat):
@@ -103,7 +100,6 @@ class RotateInPlace(unitStrat):
 		self._speed = speed
 		self.angle =  angle
 		self._theta_final = 0
-		self.parcouru = 0
 
 	def start(self):
 		"""Initialisation de la stratégie
@@ -111,7 +107,6 @@ class RotateInPlace(unitStrat):
 		# On arrête le robot avant de commancer la stratégie et on initialise le theta_final à 0
 		self._robot.set_speed()
 		self._theta_final = 0
-		self.parcouru = 0 
 
 		
 	def step(self):
@@ -123,6 +118,7 @@ class RotateInPlace(unitStrat):
 			self._theta_final = 0
 			# On éteint les moteurs
 			self._robot.set_speed(0,0)
+			self._robot.reset()
 			return 
 		
 		# Si le theta n'est pas initialisé
@@ -140,12 +136,14 @@ class RotateInPlace(unitStrat):
 
 				#print("On allume les moteur pour tourner a droite")
 				self._robot.set_speed(self._speed, -self._speed)
+		self._robot.get_angle()
 
 	
 	def stop(self) -> bool:
 		"""Condition d'arrêt de la stratégie en cours
 		"""
 		return abs(self._theta_final - self._robot._total_theta) <= 0.001
+
 
 
 # ----------------------------------------------------------------------------

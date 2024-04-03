@@ -63,6 +63,7 @@ class Robot:
 
 		# Temps de la dernière mise à jour, initialisé à 0 quand aucune mise à jour n'a été faite
 		self._last_update = 0
+		self._distance_traveled = 0
 
 	
 	
@@ -83,10 +84,10 @@ class Robot:
 		self._trail_position.append(self.get_position())
 		if len(self._trail_position) > 5:
 			self._trail_position.pop(0)
-
+			
 	def get_angle(self):
 		# On récupère la position des moteurs
-		return self._total_theta
+		pass
 
 	def get_time_passed(self) -> float:
 		"""Calcule le temps passé entre le dernier appel et le temps courant
@@ -180,9 +181,7 @@ class Robot:
 		x2, y2 = self._trail_position[-1]
 
 		# On calcule la distance qui sépare ces deux points
-		distance = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
-
-		return distance
+		self._distance_traveled += math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
 
 	def get_position(self) -> tuple[float, float]:
 		"""Renvoie la position courante
@@ -238,6 +237,9 @@ class Robot:
 		# On regroupe le tout dans une liste
 		corners = [corner_upper_left, corner_upper_right, corner_lower_left, corner_lower_right]
 		return corners
+
+	def reset(self):
+		self._distance_traveled = 0
 
 # -ROBOT MOCKUP-------------------------------------------------------------------------------------------------
 class RobotFake:
@@ -320,6 +322,7 @@ class RobotAdapter:
 		self._last_update = 0
 		self.offset_encoder_right = 0
 		self.offset_encoder_left = 0
+		self._distance_traveled = 0
 
 	#- METHODE-------------------------------------------------------------------------------------------------
 	def set_speed(self, speed_left: float = 0.0, speed_right: float = 0.0) -> None:
@@ -365,15 +368,16 @@ class RobotAdapter:
 		distance_traveled = (distance_left + distance_right)/2
 		print(f"Distance parcourue = {distance_traveled}")
 		
-		return distance_traveled
+		self._distance_traveled += distance_traveled
 	
-	def reset_encoder(self):
+	def reset(self):
 		# On récupère la position des deux moteurs
 		new_offset_left, new_offset_right  = self._robot.get_motor_position()
 			
 		# On met à jour l'offset des moteurs pour les nouveaux calcule de distance
 		self._robot.offset_motor_encoder(self._robot.MOTOR_LEFT,new_offset_left)
 		self._robot.offset_motor_encoder(self._robot.MOTOR_RIGHT,new_offset_right)
+		self._distance_traveled = 0
 
 	
 	def get_angle(self):
@@ -382,16 +386,17 @@ class RobotAdapter:
 
 		distance_left = math.radians(angle_left - self.offset_encoder_left)
 		distance_right = math.radians(angle_right - self.offset_encoder_right)
-		angle = distance_right - distance_left
-		print(angle)
-		return angle
-
-
-
+		print(f"{self._total_theta}")
+		self._total_theta += distance_right - distance_left / self._robot.WHEEL_BASE_WIDTH
 
 	def get_position(self) -> tuple[int, int]:
 		"""Renvoie une position unique (figuration)
 		"""
 		return (0,0)
+	
+	def update_position(self) -> None:
+		"""Mise à jour de la position du robot
+		"""
+		pass
 
 
