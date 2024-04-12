@@ -90,7 +90,7 @@ class Environment:
 		self._robot = robot
 
 		# Initialisation de la liste des obstacle de l'environnement (vide initialement) et de son positionnement dans la grille
-		self._osbtacles = []
+		self._obstacles = []
 		self._grid_obstacles = [[0 for y in range(border_point[1])] for x in range(border_point[0])]
 		
 		# Condition d'arret de la simulation
@@ -101,13 +101,13 @@ class Environment:
 	def add_obstacle(self, obs: Obstacle) -> None:
 		"""Ajoute des obstacles à l'environnement
 
-			Modifie la grille `_osbtacles` et `_grid_obstacle`
+			Modifie la grille `_obstacles` et `_grid_obstacle`
 
 			Args: 
 				obs (Obstacle): Un obstacle
 		"""
 		# On ajoute l'obstacle à la liste d'obstacle
-		self._osbtacles.append(obs)
+		self._obstacles.append(obs)
 
 		# On récupère la liste de points innaccessible 
 		obstacle_zone = obs.make_rect_point()
@@ -119,7 +119,7 @@ class Environment:
 	def get_obstacles(self) -> list[Obstacle]:
 		"""Retourne la liste d'obstacle présent dans l'environnement
 		"""
-		return self._osbtacles
+		return self._obstacles
 
 	def sensor_return(self) -> None:
 		"""Simule le retour du capteur de distance

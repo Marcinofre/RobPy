@@ -4,7 +4,7 @@ import threading
 import time
 from .model.robot import Robot, RobotAdapter, RobotFake
 from .environment.environment import Environment, Obstacle, Interface
-from .controller.controller import SequentialController
+from .controller.controller import SequentialStrategy
 from .controller.strategies.unitstrats import unitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
 
@@ -13,7 +13,7 @@ STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
 STRATS_REAL_ROBOT = [StratSquare]
 
 # -FUNCTION ZONE---------------------------------------------------------------------------
-def update(fps: int , env: Environment, controller: SequentialController) -> None:
+def update(fps: int , env: Environment, controller: SequentialStrategy) -> None:
 	"""Boucle d'update qui engage les mise jour de l'environnement et de ses composants
 
 		On initialise le controleur (afin qu'il initilise les tratégies)
@@ -25,7 +25,7 @@ def update(fps: int , env: Environment, controller: SequentialController) -> Non
 		Args:
 			fps (int): Taux de rafraichissement de l'update de l'environnement/simulation
 			env (Environnement): Environnement de la simulation
-			controller (SequentialController): Controleur séquenciel (lanceur de stratégie)
+			controller (SequentialStrategy): Controleur séquenciel (lanceur de stratégie)
 	"""
 	controller.start()
 	while not env.stop:
@@ -101,7 +101,7 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 			print("Robot mock/real --> 0 ")
 			print("Robot simulé --> 1")
 
-			robot_choice = input("Which robot dou you want to use ?")
+			robot_choice = input("Which robot do you want to use ?")
 			
 			if robot_choice not in ['0','1']:
 				raise(IndexError)
@@ -134,7 +134,7 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	choosen_strats = user_strat_choice(robot)
 
 	# On initialise le controleur avec une stratégie ou liste de stratégie définit au niveau de metastrats.py ou unitstrats.py
-	controller = SequentialController(strats=choosen_strats)
+	controller = SequentialStrategy(strats=choosen_strats)
 
 	# On lance le thread relatif aux updates en indiquant le taux de rafraichissement de l'environnment
 	update_t = threading.Thread(target=update, args=(fps, environment, controller))
