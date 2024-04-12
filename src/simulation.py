@@ -3,7 +3,8 @@ import math
 import threading
 import time
 from .model.robot import Robot, RobotAdapter, RobotFake
-from .environment.environment import Environment, Obstacle, Interface
+from .environment.environment import Environment, Obstacle
+from .view.interface2d import Interface
 from .controller.controller import SequentialStrategy
 from .controller.strategies.unitstrats import unitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
