@@ -34,33 +34,6 @@ class Obstacle:
 		points = [(x, y) for x in range(org_x, end_x + 1) for y in range(org_y, end_y + 1)]
 		return points
 	
-	
-	
-	#def get_all_point(self) ->list[tuple[int,int]]:
-	#	"""Rends l'ensemble des points qui constitue le périmètre de l'obstacle
-	#	"""
-	#
-	#		# "Trie" la liste de points
-	#	self.sort_points(self.list_of_points)
-	#
-	#		 
-
-
-	#	pass
-
-	#def sort_points(self) -> list[tuple[int,int]]:
-		#"""Trie les points de tel sorte que s'il sont relier un à un, aucun croisement n'est possible
-
-		#	Possible ressource/hint pour un algo de ce type :
-		#		Probleme de l'enveloppe convexe ? https://fr.wikipedia.org/wiki/Calcul_de_l%27enveloppe_convexe
-		#			-> Ne relie pas tout les points de la figure
-		#		Trier par plus petit chemin ? 
-		#			-> Ne fonctionne pas pour un losange.
-		#		Trier par plus grand des deux plus petit chemin ? 
-		#			-> Ne fonctionne pas pour un losange...
-		#"""
-		#pass
-
 
 #--ENVIRONMENT----------------------------------------
 class Environment:
