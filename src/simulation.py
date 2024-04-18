@@ -129,7 +129,7 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	# Intialisation de l'environnement de simulation
 	environment = Environment(robot, size)
 
-	# AJOUTER ICI UNE FONCTION QUI AJOUTE UN NOMBRE D'OBSTACLES DISPOSER ALÉATOIREMENT SUR LE CANEVA
+	# ajoute un obstacle
 	environment.add_obstacle(Obstacle([(0,0),(990,75)]))
 
 	choosen_strats = user_strat_choice(robot)
