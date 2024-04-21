@@ -1,6 +1,7 @@
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from panda3d.core import Mat4
+from panda3d.core import LineSegs
 
 
 class Interface3D(ShowBase):
@@ -20,11 +21,17 @@ class Interface3D(ShowBase):
         self.robot.reparentTo(self.render)
         self.taskMgr.add(self.moveRobot, "MoveRobotTask")
         self.accept("space", self.resetCam)
+        self.line = LineSegs("lines")
+        self.line.setColor(1,1,1,1)
+        self.line.moveTo(self.robot.getPos().getX(), self.robot.getPos().getY(), self.robot.getPos().getZ())
 
     def moveRobot(self, task):
         position = self.env._robot.get_position()
         self.robot.setPos(position[0], position[1],23)
         self.robot.setHpr(self.env._robot._total_theta,-90,0)
+        self.line.drawTo(position[0], position[1],23)
+        self.linenode = self.line.create(False)
+        self.render.attachNewNode(self.linenode)
         return Task.cont
     
     def resetCam(self):
