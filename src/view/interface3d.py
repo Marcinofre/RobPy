@@ -12,7 +12,7 @@ class Interface3D(ShowBase):
         self.scene.setScale(0.25, 0.25, 0.25)
         self.scene.setPos(-8, 42, 0)
         self.robot = self.loader.loadModel("assets/Robot.glb")
-        self.robot.setScale(10, 10, 10)
+        self.robot.setScale(1, 1, 1)
         self.robot.setPos(-4,40,4)
         self.robot.reparentTo(self.render)
 
