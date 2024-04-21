@@ -5,6 +5,7 @@ import time
 from .model.robot import Robot, RobotAdapter, RobotFake
 from .environment.environment import Environment, Obstacle
 from .view.interface2d import Interface
+from .view.interface3d import Interface3D
 from .controller.controller import SequentialStrategy
 from .controller.strategies.unitstrats import unitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
@@ -95,7 +96,9 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	good_choice = False
 	
 	# Condition de l'interface
-	interface = False
+	interface = '0'
+	interface2D = False
+	interface3D = False
 
 	while not good_choice:
 		try:
@@ -121,7 +124,28 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	if robot_choice:
 		# Initialisation d'un robot 
 		robot = Robot(size[0]*0.5,size[1]*0.5, math.radians(90))
-		interface = True
+		good_choice = False
+		while not good_choice:
+			try:
+				print("None --> 0 ")
+				print("2D --> 1")
+				print("3D --> 2")
+
+				interface = input("Which interface do you want to use ?")
+				
+				if interface not in ['0','1','2']:
+					raise(IndexError)
+			except IndexError :
+				print("Error : Wrong Number")
+				pass
+			except ValueError :
+				print("Error : Not a Number")
+				pass
+			good_choice = True
+			if int(interface) == 1 :
+					interface2D = True
+			if int(interface) == 2:
+				interface3D = True
 	else:
 		robotFake = RobotFake()
 		robot = RobotAdapter(robotFake, math.radians(90))
@@ -141,7 +165,10 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	update_t = threading.Thread(target=update, args=(fps, environment, controller))
 	update_t.start()
 	
-	if interface:
+	if interface2D:
 		# On initialise l'interface 
 		gui = Interface(environment)
 		gui.window.mainloop()
+	if interface3D:
+		app = Interface3D(environment)
+		app.run()
