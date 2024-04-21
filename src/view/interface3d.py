@@ -1,20 +1,36 @@
 from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
-from direct.actor.Actor import Actor
+from panda3d.core import Mat4
 
 
 class Interface3D(ShowBase):
 
-    def __init__(self):
+    def __init__(self, env):
         ShowBase.__init__(self)
-        self.scene = self.loader.loadModel("assets/Environnement.glb")
+        self.env = env
+        self.scene = self.loader.loadModel("src/view/assets/Environnement.glb")
         self.scene.reparentTo(self.render)
-        self.scene.setScale(0.25, 0.25, 0.25)
-        self.scene.setPos(-8, 42, 0)
-        self.robot = self.loader.loadModel("assets/Robot.glb")
-        self.robot.setScale(10, 10, 10)
-        self.robot.setPos(-4,40,4)
+        self.scene.setScale(self.env._area_max[0], 1, self.env._area_max[1])
+        self.scene.setPos(0, 0, -10)
+        self.scene.setHpr(0,-90,0)
+        self.robot = self.loader.loadModel("src/view/assets/Robot.glb")
+        self.robot.setScale(self.env._robot._dim[0], 30, self.env._robot._dim[1])
+        self.robot.setPos(self.env._robot._position_x,self.env._robot._position_y,23)
+        self.robot.setHpr(0,-90,0)
         self.robot.reparentTo(self.render)
+        self.taskMgr.add(self.moveRobot, "MoveRobotTask")
+        self.accept("space", self.resetCam)
 
-app = Interface3D()
-app.run()
+    def moveRobot(self, task):
+        position = self.env._robot.get_position()
+        self.robot.setPos(position[0], position[1],23)
+        return Task.cont
+    
+    def resetCam(self):
+        self.disableMouse()
+        position = self.robot.getPos()
+        self.camera.setPos(position.getX(), position.getY()-300, position.getZ()+30)
+        mat = Mat4(self.camera.getMat())
+        mat.invertInPlace()
+        self.mouseInterfaceNode.setMat(mat)
+        self.enableMouse()
