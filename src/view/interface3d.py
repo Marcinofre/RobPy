@@ -16,7 +16,7 @@ class Interface3D(ShowBase):
         self.robot = self.loader.loadModel("src/view/assets/Robot.glb")
         self.robot.setScale(self.env._robot._dim[0], 30, self.env._robot._dim[1])
         self.robot.setPos(self.env._robot._position_x,self.env._robot._position_y,23)
-        self.robot.setHpr(0,-90,0)
+        self.robot.setHpr(self.env._robot._total_theta,-90,0)
         self.robot.reparentTo(self.render)
         self.taskMgr.add(self.moveRobot, "MoveRobotTask")
         self.accept("space", self.resetCam)
@@ -24,6 +24,7 @@ class Interface3D(ShowBase):
     def moveRobot(self, task):
         position = self.env._robot.get_position()
         self.robot.setPos(position[0], position[1],23)
+        self.robot.setHpr(self.env._robot._total_theta,-90,0)
         return Task.cont
     
     def resetCam(self):

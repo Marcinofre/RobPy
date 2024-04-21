@@ -10,6 +10,6 @@ FPS = 1000
 # -APPLICATION PRINCIPALE--------------------------------------------------------------
 def main():
 	simulation(SIZE_WORLD, FPS)
-
+	
 if __name__ == '__main__':
 	main()
