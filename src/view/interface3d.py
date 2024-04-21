@@ -29,7 +29,8 @@ class Interface3D(ShowBase):
     def resetCam(self):
         self.disableMouse()
         position = self.robot.getPos()
-        self.camera.setPos(position.getX(), position.getY()-300, position.getZ()+30)
+        self.camera.setPos(position.getX(), position.getY()-300, position.getZ()+70)
+        self.camera.lookAt(self.robot)
         mat = Mat4(self.camera.getMat())
         mat.invertInPlace()
         self.mouseInterfaceNode.setMat(mat)
