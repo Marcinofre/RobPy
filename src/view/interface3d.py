@@ -2,7 +2,7 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from panda3d.core import Mat4
 from panda3d.core import LineSegs
-
+import math
 
 class Interface3D(ShowBase):
 
@@ -28,7 +28,7 @@ class Interface3D(ShowBase):
     def moveRobot(self, task):
         position = self.env._robot.get_position()
         self.robot.setPos(position[0], position[1],23)
-        self.robot.setHpr(self.env._robot._total_theta,-90,0)
+        self.robot.setHpr(-math.degrees(self.env._robot._total_theta),-90,0)
         self.line.drawTo(position[0], position[1],23)
         self.linenode = self.line.create(False)
         self.render.attachNewNode(self.linenode)
