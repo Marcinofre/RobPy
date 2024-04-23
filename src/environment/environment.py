@@ -1,6 +1,4 @@
 #----Import zone-----------------------------------
-import math
-import itertools
 from src.model.robot import Robot
 #--------------------------------------------------
 
