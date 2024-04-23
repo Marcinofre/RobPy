@@ -1,11 +1,11 @@
 # -IMPORT ZONE---------------------------------------------------------------------------
-from src.controller.strategies.unitstrats import unitStrat
+from src.controller.strategies.unitstrats import UnitStrat
 # ---------------------------------------------------------------------------------------
 
 # -CONTROLLER----------------------------------------------------------------------------
-class SequentialStrategy(unitStrat):
+class SequentialStrategy(UnitStrat):
 	
-	def __init__(self, strats: list[unitStrat]) -> None:
+	def __init__(self, strats: list[UnitStrat]) -> None:
 		"""
 		"""
 		self.strats = strats

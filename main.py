@@ -1,7 +1,7 @@
 """Lanceur de la simulation
 """
 # -IMPORT ZONE--------------------------------------------------------------------------
-from src.simulation import *
+from src.simulation import simulation
 
 # -CONSTANTE---------------------------------------------------------------------------
 SIZE_WORLD = (1024, 720)
