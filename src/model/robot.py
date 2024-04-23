@@ -5,7 +5,27 @@
 #- Import zone-----------------------------------
 import math
 import time
+import logging
 #--------------------------------------------------
+
+# -Logging setup-------------------------------------------------------------------------
+
+logger = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s:%(name)s: %(message)s')
+
+# Niveau de logging
+logger.setLevel(logging.DEBUG)
+file_handler = logging.FileHandler("log/robot.log")
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
+# ---------------------------------------------------------------------------------------
 
 
 #- ROBOT------------------------------------------
@@ -170,7 +190,7 @@ class Robot:
 		angular_speed = (self._motorspeed_right - self._motorspeed_left) / self._WHEELBASE
 		return angular_speed
 	
-	def get_distance_traveled(self) -> float:
+	def get_distance_traveled(self) -> None:
 		"""Calcule la distance parcouru du robot
 
 			Return:
@@ -180,8 +200,11 @@ class Robot:
 		x1, y1 = self._trail_position[-2]
 		x2, y2 = self._trail_position[-1]
 
+		# On détermine si le robot est en marche arriere
+		minus = 1 if self.get_speed()>0 else -1
+
 		# On calcule la distance qui sépare ces deux points
-		self._distance_traveled += math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
+		self._distance_traveled += math.sqrt((x2 - x1)**2 + (y2 - y1)**2) * minus
 
 	def get_position(self) -> tuple[float, float]:
 		"""Renvoie la position courante
@@ -241,6 +264,10 @@ class Robot:
 	def reset(self):
 		self._distance_traveled = 0
 
+	def to_str(self):
+		
+		return f"\ntheta = {math.degrees(self._total_theta)}\nspeed left, right = {self._motorspeed_left},{self._motorspeed_right}\n_distance_traveled = {self._distance_traveled}\n"
+
 # -ROBOT MOCKUP-------------------------------------------------------------------------------------------------
 class RobotFake:
 	"""Robot Fake simulant la future API du Robot2I013 
@@ -277,7 +304,7 @@ class RobotFake:
 			self.motorspeed_right = dps
 			self.motorspeed_left = dps
 
-		print(f"set_motor_dps : port = {port}, dps = {dps}")
+		#print(f"set_motor_dps : port = {port}, dps = {dps}")
 
 	def offset_motor_encoder(self, port, offset) -> None:
 		"""Simulation mise a jour offset
@@ -292,7 +319,7 @@ class RobotFake:
 			self.offset_encoder_right = offset
 			self.offset_encoder_left = offset
 
-		print(f"offset_motor_encoder : port = {port}, offset = {offset}")
+		#print(f"offset_motor_encoder : port = {port}, offset = {offset}")
 
 	def get_motor_position(self) -> tuple[float,float]:
 		"""Simulation de récuperation de la position des moteurs
@@ -334,13 +361,6 @@ class RobotAdapter:
 				speed_left (float): Vitesses du moteur gauche
 				speed_right (float): Vitesses du moteur droit
 		"""
-		if speed_left == 0 and speed_right == 0:
-			# On récupère la position des deux moteurs
-			new_offset_left, new_offset_right  = self._robot.get_motor_position()
-				
-			# On met à jour l'offset des moteurs pour les nouveaux calcule de distance
-			self._robot.offset_motor_encoder(self._robot.MOTOR_LEFT,new_offset_left)
-			self._robot.offset_motor_encoder(self._robot.MOTOR_RIGHT,new_offset_right)
 		# Si les moteurs doivent avoir la même vitesse, on assigne le dps en 1 seule commande, sinon de façon séparé
 		if speed_left == speed_right:
 			self._robot.set_motor_dps(self._robot.MOTOR_LEFT + self._robot.MOTOR_RIGHT, speed_left)
@@ -348,7 +368,7 @@ class RobotAdapter:
 			self._robot.set_motor_dps(self._robot.MOTOR_LEFT, speed_left)
 			self._robot.set_motor_dps(self._robot.MOTOR_RIGHT, speed_right)
 
-	def get_distance_traveled(self) -> float:
+	def get_distance_traveled(self) -> None:
 		"""Renvoie la distance parcourue du robot
 
 			Récupère la distance parcourue du robot en calculant la distance avec décalage entre les offsets, puis renvoie la moyenne des deux pour avoir la distance moyenne parcourue
@@ -366,7 +386,7 @@ class RobotAdapter:
 
 		# Calcule de la moyenne parcourue
 		distance_traveled = (distance_left + distance_right)/2
-		print(f"Distance parcourue = {distance_traveled}")
+		#logger.debug(f"Distance parcourue = {distance_traveled}")
 		
 		self._distance_traveled += distance_traveled
 	
@@ -386,8 +406,10 @@ class RobotAdapter:
 
 		distance_left = math.radians(angle_left - self.offset_encoder_left)
 		distance_right = math.radians(angle_right - self.offset_encoder_right)
-		print(f"{self._total_theta}")
+
 		self._total_theta += (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
+
+	
 
 	def get_position(self) -> tuple[int, int]:
 		"""Renvoie une position unique (figuration)
@@ -398,5 +420,9 @@ class RobotAdapter:
 		"""Mise à jour de la position du robot
 		"""
 		pass
+
+	def to_str(self):
+		
+		return f"\ntheta = {math.degrees(self._total_theta)}\nlast_update = {self._last_update}\noffset right, left = {self.offset_encoder_right}, {self.offset_encoder_left}\n_distance_traveled = {self._distance_traveled}\n"
 
 
