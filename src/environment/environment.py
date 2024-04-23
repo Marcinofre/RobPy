@@ -1,7 +1,10 @@
 #----Import zone-----------------------------------
+import logging
 from src.model.robot import Robot
 #--------------------------------------------------
 
+# -Logging setup-------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
 
 #--CLASS Obstacle----------------------------------------
@@ -106,8 +109,8 @@ class Environment:
 		while step < 800 :
 			try:
 				if self._grid_obstacles[int(pos_x + vect_sensor_x*step)][int(pos_y + vect_sensor_y*step)]:
-					#print(f"Obstacle rencontrer à {(int(pos_x + vect_sensor_x*step), int(pos_y + vect_sensor_y*step))}")
-					#print(f"Distance de l'obstacle = {step}")
+					#logger.info(f"Obstacle rencontrer à {(int(pos_x + vect_sensor_x*step), int(pos_y + vect_sensor_y*step))}")
+					#logger.info(f"Distance de l'obstacle = {step}")
 					self._robot._distance_obstacle = step
 					return
 			except IndexError:

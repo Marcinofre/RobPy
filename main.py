@@ -5,7 +5,7 @@ from src.simulation import simulation
 
 # -CONSTANTE---------------------------------------------------------------------------
 SIZE_WORLD = (1024, 720)
-FPS = 7000
+FPS = 60
 
 # -APPLICATION PRINCIPALE--------------------------------------------------------------
 def main():

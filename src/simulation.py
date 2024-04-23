@@ -2,6 +2,7 @@
 import math
 import threading
 import time
+import logging
 from .model.robot import Robot, RobotAdapter, RobotFake
 from .environment.environment import Environment, Obstacle
 from .view.interface2d import Interface
@@ -9,6 +10,21 @@ from .view.interface3d import Interface3D
 from .controller.seqstrat import SequentialStrategy
 from .controller.strategies.unitstrats import UnitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
+
+# -Logging setup-------------------------------------------------------------------------
+
+logger = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
+
+# Niveau de logging
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler("log/simulation.log")
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+# ---------------------------------------------------------------------------------------
+
 
 # -CONSTANTE ZONE---------------------------------------------------------------------------
 STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
@@ -33,6 +49,7 @@ def update(fps: int , env: Environment, controller: SequentialStrategy) -> None:
 	while not env.stop:
 		env.update_environment()
 		controller.step()
+		logger.info(env._robot.to_str())
 		# Si le controller à terminer l'ensemble de ses stratégie alors on arrete la simulation 
 		if controller.stop():
 			env.stop = True
@@ -70,11 +87,11 @@ def user_strat_choice(robot: Robot) -> list[UnitStrat]:
 		try:
 			meta_strat = possible_functions[int(choice)]
 		except IndexError : 
-			print("Error : Wrong Number Index")
-			pass
+			logger.error("Error : Wrong Number Index")
+			continue
 		except ValueError :
-			print("Error : Not a Number")
-			pass
+			logger.error("Error : Not a Number")
+			continue
 		else:
 			good_choice = True
 	
@@ -112,11 +129,11 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 			
 			robot_choice = int(robot_choice)
 		except IndexError :
-			print("Error : Wrong Number")
-			pass
+			logger.error("Error : Wrong Number")
+			continue
 		except ValueError :
-			print("Error : Not a Number")
-			pass
+			logger.error("Error : Not a Number")
+			continue
 
 		good_choice = True
 
@@ -136,14 +153,15 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 				if interface not in ['0','1','2']:
 					raise(IndexError)
 			except IndexError :
-				print("Error : Wrong Number")
-				pass
+				logger.error("Error : Wrong Number")
+				continue
 			except ValueError :
-				print("Error : Not a Number")
-				pass
+				logger.error("Error : Not a Number")
+				continue
 			good_choice = True
+			
 			if int(interface) == 1 :
-					interface2D = True
+				interface2D = True
 			if int(interface) == 2:
 				interface3D = True
 	else:

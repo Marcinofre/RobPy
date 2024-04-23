@@ -1,7 +1,31 @@
 # -IMPORT ZONE---------------------------------------------------------------------------
 from src.model.robot import Robot
 import math
+import logging
 # ---------------------------------------------------------------------------------------
+
+# -Logging setup-------------------------------------------------------------------------
+
+logger = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
+
+# Niveau de logging
+logger.setLevel(logging.INFO)
+
+# Enregistrement dans un fichier
+file_handler = logging.FileHandler("log/unitstrats.log")
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(formatter)
+
+# Flux destiné au terminal
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)
+# ---------------------------------------------------------------------------------------
+
+
 
 # ----------------------------------------------------------------------------
 class UnitStrat:
@@ -32,6 +56,7 @@ class MoveForward(UnitStrat):
 			_robot (Robot): Robot qui est sujet à la stratégie
 			_distance (int): Distance à parcourir
 			_speed (float): Vitesse du robot
+			stop_strat (bool): Condition d'arret a destination du lanceur de stratégie
 	"""
 	def __init__(self, distance: int, speed: float, robot: Robot):
 		"""Constructeur de la stratégie moveForward
@@ -45,6 +70,7 @@ class MoveForward(UnitStrat):
 		self._robot = robot
 		self._speed = abs(speed)
 		self._distance = abs(distance)
+		self.stop_strat = False
 
 	def start(self):
 		"""Initialisation de la stratégie
@@ -58,23 +84,34 @@ class MoveForward(UnitStrat):
 		"""
 		# Observe si la distance à parcourir a été atteinte
 		if self.stop():
-			# On éteint les moteurs
-			self._robot.set_speed()
-			return
-		
+			
+			value = self._distance - self._robot._distance_traveled
+			
+			# Verification si le robot à trop avancer
+			if abs(value) <= 0.01:
 
-		self._robot.set_speed(self._speed, self._speed)
+				# On éteint les moteurs
+				self._robot.set_speed()
+				self._robot.reset()
+				self.stop_strat = True
+				return
+			else:
+				speed = self._speed/2
+				self._robot.set_speed(-speed, -speed)
+				self._speed /= 2
+
+		else:
+			self._robot.set_speed(self._speed, self._speed)
 
 		self._robot.get_distance_traveled()
+
 			
 
 	def stop(self):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		if (self._distance - self._robot._distance_traveled) <= 0.01:
-			self._robot.reset()
-			return True
-		return False
+		return (self._distance - self._robot._distance_traveled) <= 0.01
+
 
 # ----------------------------------------------------------------------------
 class RotateInPlace(UnitStrat):
@@ -85,6 +122,7 @@ class RotateInPlace(UnitStrat):
 			_speed (int): Vitesse du robot lors de la stratégie
 			_theta_final (float): L'angle de rotation final que doit avoir robot à la fin de la simulation 
 			angle (int): Angle de rotation à effectuer
+			stop_strat (bool): Condition d'arret a destination du lanceur de stratégie
 
 	"""
 	def __init__(self, angle: int, speed: float, robot: Robot):
@@ -100,6 +138,8 @@ class RotateInPlace(UnitStrat):
 		self._speed = speed
 		self.angle =  angle
 		self._theta_final = 0
+		self.stop_strat = False
+		self.left_right = (0,0)
 
 	def start(self):
 		"""Initialisation de la stratégie
@@ -112,30 +152,44 @@ class RotateInPlace(UnitStrat):
 	def step(self):
 		"""Exécution de la stratégie
 		"""
-		
-		# Observe si l'angle à parcourir a été atteint
-		if self.stop():
-			self._theta_final = 0
-			# On éteint les moteurs
-			self._robot.set_speed(0,0)
-			self._robot.reset()
-			return 
-		
 		# Si le theta n'est pas initialisé
 		if self._theta_final == 0:
 			
 			# On calcule l'angle final au départ de la stratégie
 			self._theta_final = self._robot._total_theta + math.radians(self.angle)
+			logger.info(f"Degree à atteindre {math.degrees(self._theta_final)}")
 
+		
+		
+		# Observe si l'angle à parcourir a été atteint
+		if self.stop():
+			value = (self._theta_final - self._robot._total_theta)
+			if abs(value) <= 0.001:
+				self._theta_final = 0
+				# On éteint les moteurs
+				self._robot.set_speed(0,0)
+				self._robot.reset()
+				self.stop_strat = True
+				return 
+			else:
+				left, right = self.left_right
+				self._robot.set_speed(self._speed * right, self._speed * left)
+				self._speed /= 2
+		else:
 			# Puis on active les moteurs selon l'angle final
 			if self._theta_final > self._robot._total_theta:
 				
-			#print("On allume les moteur pour tourner a gauche")
+				# On allume les moteur pour tourner a gauche
 				self._robot.set_speed(-self._speed, self._speed)
+				self.left_right = (-1,1)
 			else:
 
-				#print("On allume les moteur pour tourner a droite")
+				# On allume les moteur pour tourner a droite
 				self._robot.set_speed(self._speed, -self._speed)
+				self.left_right = (1,-1)
+				
+			
+		
 
 		self._robot.get_angle()
 
@@ -143,7 +197,7 @@ class RotateInPlace(UnitStrat):
 	def stop(self) -> bool:
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		return abs(self._theta_final - self._robot._total_theta) <= 0.001
+		return (self._theta_final - self._robot._total_theta) <= 0.001
 
 
 
