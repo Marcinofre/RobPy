@@ -4,7 +4,7 @@ import math
 # ---------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
-class unitStrat:
+class UnitStrat:
 	"""Class abstraite
 	"""
 	def __init__(self):
@@ -23,7 +23,7 @@ class unitStrat:
 
 
 # ----------------------------------------------------------------------------
-class MoveForward(unitStrat):
+class MoveForward(UnitStrat):
 	"""Stratégie unitaire qui fait avancer
 
 		Stratégie permettant de faire avancer le robot sur une distance donnée en parametre
@@ -77,7 +77,7 @@ class MoveForward(unitStrat):
 		return False
 
 # ----------------------------------------------------------------------------
-class RotateInPlace(unitStrat):
+class RotateInPlace(UnitStrat):
 	"""Pivote sur place le robot à gauche ou à droite
 
 		Attributes:
@@ -148,7 +148,7 @@ class RotateInPlace(unitStrat):
 
 
 # ----------------------------------------------------------------------------
-class MoveForwardWithSensor(unitStrat):
+class MoveForwardWithSensor(UnitStrat):
 	"""Avance le robot au plus près de l'obstacle
 		
 		Attributes:

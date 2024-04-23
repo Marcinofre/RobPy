@@ -6,8 +6,8 @@ from .model.robot import Robot, RobotAdapter, RobotFake
 from .environment.environment import Environment, Obstacle
 from .view.interface2d import Interface
 from .view.interface3d import Interface3D
-from .controller.controller import SequentialStrategy
-from .controller.strategies.unitstrats import unitStrat
+from .controller.seqstrat import SequentialStrategy
+from .controller.strategies.unitstrats import UnitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
 
 # -CONSTANTE ZONE---------------------------------------------------------------------------
@@ -39,14 +39,14 @@ def update(fps: int , env: Environment, controller: SequentialStrategy) -> None:
 		time.sleep(1/fps)
 		
 
-def user_strat_choice(robot: Robot) -> list[unitStrat]:
+def user_strat_choice(robot: Robot) -> list[UnitStrat]:
 	"""Demande à l'utilisateur la métastratégie à appliquer
 
 		Args:
 			robot: Un robot pour savoir à quelle stratégie il a accès
 	
 		Return:
-			strats_list (list[unitStrat]): Une liste de stratégie unitStrat
+			strats_list (list[UnitStrat]): Une liste de stratégie unitStrat
 	"""
 
 	# Initialisation des variables
