@@ -124,6 +124,11 @@ class Environment:
 			Return:
 				outside (bool): Bouléen qui exprime true s'il est en dehors ou false sinon 
 		"""
+
+		#Si c'est un robot réel, on a pas besoin de savoir s'il est en dehors de la zone de test
+		if not isinstance(self._robot, Robot):
+			return True
+		
 		pos_x, pos_y = self._robot.get_position()
 		arene_x,arene_y = self._area_max
 		outside = (pos_x > arene_x) or (pos_y > arene_y) or (pos_x < 0) or (pos_y < 0)
@@ -135,14 +140,13 @@ class Environment:
 		
 		if not self.stop:
 
-		
 			# Mise à jour du capteur de distance et la position du robot
 			if isinstance(self._robot, Robot):
 				self.sensor_return()
 			self._robot.update_position()
 
 			# Vérifie s'il touche un obstacle ou s'il est en dehors de la zone de simulation
-			if self.is_out():
+			if self.is_out() and isinstance(self._robot, Robot):
 
 				# On remets le robot à sa place précédente (celle avant le 'choc')
 				# On conserve la rotation cependant

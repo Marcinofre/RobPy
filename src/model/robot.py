@@ -392,7 +392,7 @@ class RobotAdapter:
 	def get_position(self) -> tuple[int, int]:
 		"""Renvoie une position unique (figuration)
 		"""
-		return (0,0)
+		pass
 	
 	def update_position(self) -> None:
 		"""Mise à jour de la position du robot
