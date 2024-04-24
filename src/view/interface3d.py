@@ -43,7 +43,8 @@ class Interface3D(ShowBase):
         self.taskMgr.add(self.moveRobot, "MoveRobotTask")
        
         # Lorsque l'on appuie sur espace, l'interface utilisera la fonction resetCam
-        self.accept("space", self.resetCam)
+        self.accept("a", self.resetCam)
+        self.accept("z", self.abovePOV)
         
         # Creation de la ligne tracant les mouvements du robots
         self.line = LineSegs("lines")
@@ -83,6 +84,28 @@ class Interface3D(ShowBase):
        
         #On bouge la camera par rapport a la position du robot, les differentes valeurs de X et Y peuvent etre modifiés
         self.camera.setPos(position.getX(), position.getY()-300, position.getZ()+70)
+        
+        #lookAt permet de changer la rotation de la camera de telle sorte a ce qu'elle regarde le robot
+        self.camera.lookAt(self.robot)
+        
+        #On crée une Matrice4 à partir de la position de la caméra et on modifie mouseInterfaceNode avec cette matrice inversée
+        mat = Mat4(self.camera.getMat())
+        mat.invertInPlace()
+        self.mouseInterfaceNode.setMat(mat)
+        
+        #On ré-active la souris, si on avait pas fait l'etape d'avant, la camera n'aurait pas bouger
+        self.enableMouse()
+    
+    def abovePOV(self):
+        
+        #On désactive la fonction de la souris de bouger la camera pour pouvoir modifier la position de la camera a travers des lignes de commande
+        self.disableMouse()
+        
+        #On récupère la position du robot
+        position = self.robot.getPos()
+       
+        #On bouge la camera par rapport a la position du robot, les differentes valeurs de X et Y peuvent etre modifiés
+        self.camera.setPos(position.getX(), position.getY(), position.getZ()+300)
         
         #lookAt permet de changer la rotation de la camera de telle sorte a ce qu'elle regarde le robot
         self.camera.lookAt(self.robot)
