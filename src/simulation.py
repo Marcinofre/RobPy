@@ -2,11 +2,29 @@
 import math
 import threading
 import time
+import logging
 from .model.robot import Robot, RobotAdapter, RobotFake
-from .environment.environment import Environment, Obstacle, Interface
-from .controller.controller import SequentialStrategy
-from .controller.strategies.unitstrats import unitStrat
+from .environment.environment import Environment, Obstacle
+from .view.interface2d import Interface
+from .view.interface3d import Interface3D
+from .controller.seqstrat import SequentialStrategy
+from .controller.strategies.unitstrats import UnitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
+
+# -Logging setup-------------------------------------------------------------------------
+
+logger = logging.getLogger(__name__)
+formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
+
+# Niveau de logging
+logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler("log/simulation.log")
+file_handler.setLevel(logging.INFO)
+file_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+# ---------------------------------------------------------------------------------------
+
 
 # -CONSTANTE ZONE---------------------------------------------------------------------------
 STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
@@ -31,20 +49,21 @@ def update(fps: int , env: Environment, controller: SequentialStrategy) -> None:
 	while not env.stop:
 		env.update_environment()
 		controller.step()
+		logger.info(env._robot.to_str())
 		# Si le controller à terminer l'ensemble de ses stratégie alors on arrete la simulation 
 		if controller.stop():
 			env.stop = True
 		time.sleep(1/fps)
 		
 
-def user_strat_choice(robot: Robot) -> list[unitStrat]:
+def user_strat_choice(robot: Robot) -> list[UnitStrat]:
 	"""Demande à l'utilisateur la métastratégie à appliquer
 
 		Args:
 			robot: Un robot pour savoir à quelle stratégie il a accès
 	
 		Return:
-			strats_list (list[unitStrat]): Une liste de stratégie unitStrat
+			strats_list (list[UnitStrat]): Une liste de stratégie unitStrat
 	"""
 
 	# Initialisation des variables
@@ -68,11 +87,11 @@ def user_strat_choice(robot: Robot) -> list[unitStrat]:
 		try:
 			meta_strat = possible_functions[int(choice)]
 		except IndexError : 
-			print("Error : Wrong Number Index")
-			pass
+			logger.error("Error : Wrong Number Index")
+			continue
 		except ValueError :
-			print("Error : Not a Number")
-			pass
+			logger.error("Error : Not a Number")
+			continue
 		else:
 			good_choice = True
 	
@@ -94,7 +113,9 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	good_choice = False
 	
 	# Condition de l'interface
-	interface = False
+	interface = '0'
+	interface2D = False
+	interface3D = False
 
 	while not good_choice:
 		try:
@@ -108,11 +129,11 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 			
 			robot_choice = int(robot_choice)
 		except IndexError :
-			print("Error : Wrong Number")
-			pass
+			logger.error("Error : Wrong Number")
+			continue
 		except ValueError :
-			print("Error : Not a Number")
-			pass
+			logger.error("Error : Not a Number")
+			continue
 
 		good_choice = True
 
@@ -120,7 +141,29 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	if robot_choice:
 		# Initialisation d'un robot 
 		robot = Robot(size[0]*0.5,size[1]*0.5, math.radians(90))
-		interface = True
+		good_choice = False
+		while not good_choice:
+			try:
+				print("None --> 0 ")
+				print("2D --> 1")
+				print("3D --> 2")
+
+				interface = input("Which interface do you want to use ?")
+				
+				if interface not in ['0','1','2']:
+					raise(IndexError)
+			except IndexError :
+				logger.error("Error : Wrong Number")
+				continue
+			except ValueError :
+				logger.error("Error : Not a Number")
+				continue
+			good_choice = True
+			
+			if int(interface) == 1 :
+				interface2D = True
+			if int(interface) == 2:
+				interface3D = True
 	else:
 		robotFake = RobotFake()
 		robot = RobotAdapter(robotFake, math.radians(90))
@@ -128,7 +171,7 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	# Intialisation de l'environnement de simulation
 	environment = Environment(robot, size)
 
-	# AJOUTER ICI UNE FONCTION QUI AJOUTE UN NOMBRE D'OBSTACLES DISPOSER ALÉATOIREMENT SUR LE CANEVA
+	# ajoute un obstacle
 	environment.add_obstacle(Obstacle([(0,0),(990,75)]))
 
 	choosen_strats = user_strat_choice(robot)
@@ -140,7 +183,10 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	update_t = threading.Thread(target=update, args=(fps, environment, controller))
 	update_t.start()
 	
-	if interface:
+	if interface2D:
 		# On initialise l'interface 
 		gui = Interface(environment)
 		gui.window.mainloop()
+	if interface3D:
+		app = Interface3D(environment)
+		app.run()
