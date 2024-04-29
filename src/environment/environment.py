@@ -125,7 +125,7 @@ class Environment:
 		"""Simule le retour du capteur de distance
 		"""
 
-			# On récupère la position du robot et la direction du capteur
+		# On récupère la position du robot et la direction du capteur
 		pos_x, pos_y = self._robot.get_position()
 		vect_sensor_x, vect_sensor_y = self._robot.get_vector_captor()
 
@@ -258,7 +258,7 @@ class Interface:
 		
 		self.display_robot = self.canvas.create_polygon(	
 															*corners,
-												  			fill="white",
+												  			fill="pink",
 															outline="black"
 														)
 		
@@ -287,7 +287,7 @@ class Interface:
 				obs.end,
 				fill='black'
 			)
-		
+
 		# Rappel de la fenetre
 		self.window.after(50, self.update_tk)
 	
@@ -309,6 +309,8 @@ class Interface:
 		
 		self.canvas.coords(self.display_vect_line, 
 						   *position,
+
+
 						   position[0] + vector[0],
 						   position[1] + vector[1])
 		
@@ -316,7 +318,6 @@ class Interface:
 						   *position,
 						   position[0] + vector_captor[0]*10,
 						   position[1] + vector_captor[1]*10)
-		
 		self.draw_path()
 		self.update_label()
 		self.window.after(50, self.update_tk)

@@ -53,6 +53,8 @@ class Robot:
 		self._total_theta = theta
 		self._captor_theta = math.radians(90)
 		self._distance_obstacle = -1
+		#self.led_G = led(x,y,1)
+  		#self.led_G = led(x,y,2)
 
 		# Vitesse des moteurs initialisé à 0
 		self._motorspeed_right = 0
@@ -65,7 +67,10 @@ class Robot:
 		self._last_update = 0
 		self._distance_traveled = 0
 
-	
+		#class Led:
+		#	def __init__(self, x: float, y: float, cote: int) -> None:
+		#	self.on = 0
+  
 	
 	
 	#- METHODE-------------------------------------------------------------------------------------------------
@@ -142,6 +147,9 @@ class Robot:
 				distance_obstacle (float): Distance entre l'obstacle et le robot. -1 si il ne rencontre aucun objet
 		"""
 		return self._distance_obstacle
+	
+	# def get_distance_gemme(self) -> float:
+	#	return self._distance_gemme
 	
 	def set_speed(self, speed_left: float = 0, speed_right: float = 0) -> None:
 		"""Modifie les vitesses des deux moteurs du robot

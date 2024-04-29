@@ -6,10 +6,10 @@ from .model.robot import Robot, RobotAdapter, RobotFake
 from .environment.environment import Environment, Obstacle, Interface
 from .controller.controller import SequentialStrategy
 from .controller.strategies.unitstrats import unitStrat
-from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall
+from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall, Strat_2_1, Strat_2_2, Strat_2_3, Strat_2_4
 
 # -CONSTANTE ZONE---------------------------------------------------------------------------
-STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
+STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall, Strat_2_1, Strat_2_2, Strat_2_3, Strat_2_4]
 STRATS_REAL_ROBOT = [StratSquare]
 
 # -FUNCTION ZONE---------------------------------------------------------------------------
@@ -130,7 +130,7 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 
 	# AJOUTER ICI UNE FONCTION QUI AJOUTE UN NOMBRE D'OBSTACLES DISPOSER ALÉATOIREMENT SUR LE CANEVA
 	environment.add_obstacle(Obstacle([(0,0),(990,75)]))
-
+	
 	choosen_strats = user_strat_choice(robot)
 
 	# On initialise le controleur avec une stratégie ou liste de stratégie définit au niveau de metastrats.py ou unitstrats.py

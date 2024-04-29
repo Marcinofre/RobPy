@@ -55,5 +55,60 @@ def StratDontTouchTheWall(robot: Robot) -> list[unitStrat]:
 	return [MoveForwardWithSensor(distance_from_wall, speed, robot)]
 
 # ----------------------------------------------------------------------------
-def StratFollowTheLight(robot: Robot):
-	pass
+
+def Strat_2_1(robot: Robot) -> list[unitStrat]:
+	"""Stratégie question 2.1
+	"""
+	return [MoveForward(40, 50, robot,),
+		 RotateInPlace(-40, 50,robot),
+		 MoveForward(80, 50, robot,),
+		 RotateInPlace(80, 50,robot),
+		 MoveForward(80, 50, robot,),
+		 RotateInPlace(-40, 50,robot),
+		 MoveForward(40, 50, robot,)]
+
+
+def Strat_2_2(robot: Robot) -> list[unitStrat]:
+	"""Stratégie question 2.2
+	"""
+	return [MoveForward(40, 50, robot,),
+		 RotateInPlace(-90, 50,robot),
+		 MoveForward(80, 50, robot,),
+		 RotateInPlace(90, 50,robot),
+		 MoveForward(80, 50, robot,),
+		 RotateInPlace(90, 50,robot),
+		 MoveForward(80, 50, robot,),
+		 RotateInPlace(-90, 50,robot),
+		 MoveForward(40, 50, robot,)]
+
+
+def Strat_2_3(robot: Robot) -> list[unitStrat]:
+	"""Stratégie question 2.3
+	"""
+	return [MoveForwardWithSensor(20, 20, 50, robot,),
+		 RotateInPlace(-40, 50,robot),
+		 MoveForwardWithSensor(40, 20, 50, robot,),
+		 RotateInPlace(80, 50,robot),
+		 MoveForwardWithSensor(40, 20, 50, robot,),
+		 RotateInPlace(-40, 50,robot),
+		 MoveForwardWithSensor(20, 20, 50, robot,)]
+
+
+def Strat_2_4(robot: Robot) -> list[unitStrat]:
+	"""Stratégie question 2.4
+	"""
+	return [MoveForwardWithSensor(20, 20, 50, robot,),
+		 RotateInPlace(-40, 50,robot),
+		 MoveForwardWithSensor(40, 20, 50, robot,),
+		 RotateInPlace(80, 50,robot),
+		 MoveForwardWithSensor(40, 20, 50, robot,),
+		 RotateInPlace(-40, 50,robot),
+		 MoveForwardWithSensor(20, 20, 50, robot,),
+		 RotateInPlace(-90, 50,robot),
+		 MoveForwardWithSensor(80, 20, 50, robot,),
+		 RotateInPlace(90, 50,robot),
+		 MoveForwardWithSensor(80, 20, 50, robot,),
+		 RotateInPlace(90, 50,robot),
+		 MoveForwardWithSensor(80, 20, 50, robot,),
+		 RotateInPlace(-90, 50,robot),
+		 MoveForwardWithSensor(20, 20, 50, robot,)]

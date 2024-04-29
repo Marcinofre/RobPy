@@ -156,8 +156,8 @@ class MoveForwardWithSensor(unitStrat):
 			_distance_stop (int): Distance d'arrêt au mur 
 			_speed (float): Vitesse du robot
 	"""
-
-	def __init__(self, distance_stop: int, speed: float, robot: Robot):
+	# Rajouter en attribut distance : int  (en premier après self)
+	def __init__(self,distance_stop: int, speed: float, robot: Robot):
 		"""Constructeur de la stratégie moveForward
 
 			Args:
@@ -169,6 +169,7 @@ class MoveForwardWithSensor(unitStrat):
 		self._robot = robot
 		self._distance_stop = distance_stop
 		self._speed = abs(speed)
+		#self.distance = abs(distance)
 
 	def start(self):
 		"""Initialisation de la stratégie
@@ -180,6 +181,10 @@ class MoveForwardWithSensor(unitStrat):
 	def step(self):
 		"""Exécution de la stratégie
 		"""
+
+		#self._robot.set_speed(self._speed, self._speed)
+		#self._robot.get_distance_traveled()
+
 		# Observe si la distance à parcourir a été atteinte
 		if self.stop():
 			# On éteint les moteurs
@@ -194,4 +199,10 @@ class MoveForwardWithSensor(unitStrat):
 	def stop(self):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		return self._robot.get_distance() <= self._distance_stop
+		#if (self._distance - self._robot._distance_traveled) <= 0.01:
+		#	self._robot.reset()
+		#	return True
+		"Commenter la ligne 206"
+		return self._robot.get_distance() <= self._distance_stop 
+		# if (return self._robot.get_distance() <= self._distance_stop)
+	
