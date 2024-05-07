@@ -29,8 +29,6 @@ class SequentialStrategy(UnitStrat):
 		"""Remet cur à -1 pour remettre le controleur sur la première instruction possible
 		"""
 		self.cur = -1
-		for strategy in self.strats :
-			strategy.start()
 
 	def step(self) -> None:
 		"""Parcours des instructions de la liste self.strats

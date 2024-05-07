@@ -378,38 +378,54 @@ class RobotAdapter:
 		"""
 		# On récupère la position des moteurs
 		angle_left, angle_right = self._robot.get_motor_position()
+		print(f"Angle recupérer : {angle_left}, {angle_right}")
+		
 
 		# On calcule la distance parcourue selon l'angle effectuer en soustrayant l'offset multiplier par le rayon
 		# Voir page 10 du lien : https://ena.etsmtl.ca/pluginfile.php/650822/mod_resource/content/0/PHYchap6.pdf
-		distance_left = math.radians(angle_left - self.offset_encoder_left) * (self._robot.WHEEL_DIAMETER/2) 
-		distance_right = math.radians(angle_right - self.offset_encoder_right) * (self._robot.WHEEL_DIAMETER/2)
+		distance_left = (angle_left - self.offset_encoder_left) * (self._robot.WHEEL_DIAMETER*math.pi/360) 
+		distance_right = (angle_right - self.offset_encoder_right) * (self._robot.WHEEL_DIAMETER*math.pi/360)
 
 		# Calcule de la moyenne parcourue
 		distance_traveled = (distance_left + distance_right)/2
-		#logger.debug(f"Distance parcourue = {distance_traveled}")
+		print(f"Distance parcourue = {distance_traveled}")
 		
-		self._distance_traveled += distance_traveled
+		self._distance_traveled = distance_traveled
 	
 	def reset(self):
 		# On récupère la position des deux moteurs
 		new_offset_left, new_offset_right  = self._robot.get_motor_position()
-			
+		print(f"Angle recupérer lors du reset : {new_offset_left}, {new_offset_right}")
+
+		self.offset_encoder_left = new_offset_left
+		self.offset_encoder_right = new_offset_right
+
 		# On met à jour l'offset des moteurs pour les nouveaux calcule de distance
 		self._robot.offset_motor_encoder(self._robot.MOTOR_LEFT,new_offset_left)
 		self._robot.offset_motor_encoder(self._robot.MOTOR_RIGHT,new_offset_right)
+
 		self._distance_traveled = 0
+		self._total_theta = 0
+		
 
 	
 	def get_angle(self):
 		# On récupère la position des moteurs
 		angle_left, angle_right = self._robot.get_motor_position()
+		print(f"Angle de l'Offset : {self.offset_encoder_left}, {self.offset_encoder_right}")
+		print(f"Angle de courant : {angle_left}, {angle_right}")
 
-		distance_left = math.radians(angle_left - self.offset_encoder_left)
-		distance_right = math.radians(angle_right - self.offset_encoder_right)
+		distance_left = (angle_left - self.offset_encoder_left) * (self._robot.WHEEL_DIAMETER*math.pi/360) 
+		distance_right = (angle_right - self.offset_encoder_right) * (self._robot.WHEEL_DIAMETER*math.pi/360)
 
-		self._total_theta += (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
+		#self.offset_encoder_left = angle_left
+		#self.offset_encoder_right = angle_right
 
-	
+		self._total_theta = (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
+
+
+	def get_distance(self):
+		return self._robot.get_distance()
 
 	def get_position(self) -> tuple[int, int]:
 		"""Renvoie une position unique (figuration)
