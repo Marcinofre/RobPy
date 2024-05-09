@@ -94,7 +94,7 @@ class MoveForward(UnitStrat):
 			value = self._distance - self._robot._distance_traveled
 			
 			# Verification si le robot à trop avancer
-			if abs(value) <= 1:
+			if abs(value) <= 0.01:							# ---> Pour le robot irl : 1, le simulé : 0.01
 				# On éteint les moteurs
 				self._robot.set_speed()
 				self._robot.reset()
@@ -105,7 +105,9 @@ class MoveForward(UnitStrat):
 			else:
 				speed = self._speed/2
 				self._robot.set_speed(-speed, -speed)
-				time.sleep(0.5)
+
+				#Decommenter pour le robot irl
+				#time.sleep(0.5)
 				self._speed /= 2
 
 		else:
@@ -181,18 +183,18 @@ class RotateInPlace(UnitStrat):
 		# Observe si l'angle à parcourir a été atteint
 		if self.stop():
 			value = math.degrees(self._theta_final - self._robot._total_theta)
-			if abs(value) <= 0.5:
+			if abs(value) <= 0.01:
 				self._theta_final = 0
 				# On éteint les moteurs
 				self._robot.set_speed(0,0)
 				self._robot.reset()
 				self.stop_strat = True
-				print("FIN")
 				return 
 			else:
 				left, right = self.left_right
 				self._robot.set_speed(self._speed * right, self._speed * left)
-				time.sleep(0.25)
+				# A décommenter pour le robot IRL
+				#time.sleep(0.25)
 				self._speed /= 2
 		else:
 			# Puis on active les moteurs selon l'angle final
@@ -265,12 +267,6 @@ class MoveForwardWithSensor(UnitStrat):
 			return
 		else:
 			self._robot.set_speed(self._speed, self._speed)
-			
-			self._speed = self._speed * 1.05
-		
-		# Si le robot est à l'arrêt ou qu'il est a reculons, on le remets sur le droit chemin 
-		#if self._robot.get_speed() <= 0.0:
-		#	self._robot.set_speed(self._speed, self._speed)
 			
 
 	def stop(self):

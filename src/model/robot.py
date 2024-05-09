@@ -39,6 +39,7 @@ class Robot:
 			_position_x (float): Position courante du robot sur l'abcisse dans l'environnement virtuelle
 			_position_y (float): Position courante du robot sur l'ordonnée dans l'environnement virtuelle
 			_total_theta (float): Angle de rotation vis-à-vis du plan de l'environnement
+			_current_theta (float): Angle courant (stratégie)
 			_captor_theta (float): Angle de rotation du capteur vis-à-vis du plan du vecteur directeur
 
 
@@ -336,7 +337,7 @@ class RobotAdapter:
 			_last_update (int | float): Temps de la dernière update effectué par le robot
 	"""
 
-	def __init__(self, robotfake: RobotFake, theta: float) -> None:
+	def __init__(self, robotfake: RobotFake, theta: float = 0.0) -> None:
 		"""Constructeur d'un adaptateur
 
 			Petite précision : 
@@ -417,10 +418,7 @@ class RobotAdapter:
 
 		distance_left = (angle_left - self.offset_encoder_left) * (self._robot.WHEEL_DIAMETER*math.pi/360) 
 		distance_right = (angle_right - self.offset_encoder_right) * (self._robot.WHEEL_DIAMETER*math.pi/360)
-
-		#self.offset_encoder_left = angle_left
-		#self.offset_encoder_right = angle_right
-
+		
 		self._total_theta = (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
 
 

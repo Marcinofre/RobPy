@@ -1,11 +1,11 @@
 """Lanceur de la simulation
 """
 # -IMPORT ZONE--------------------------------------------------------------------------
-from src.simulation_irl import simulation
+from src.simulation import simulation
 
 # -CONSTANTE---------------------------------------------------------------------------
 SIZE_WORLD = (1024, 720)
-FPS = 600
+FPS = 60
 
 # -APPLICATION PRINCIPALE--------------------------------------------------------------
 def main():
