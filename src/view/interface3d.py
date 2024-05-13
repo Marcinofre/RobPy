@@ -50,6 +50,7 @@ class Interface3D(ShowBase):
         self.line = LineSegs("lines")
         self.line.setColor(1,1,1,1)
         self.line.moveTo(self.robot.getPos().getX(), self.robot.getPos().getY(), self.robot.getPos().getZ())
+        self.addObs()
 
     def moveRobot(self, task):
         """Rafraichit la position du robot dans l'affichage et trace le passage du robot
@@ -72,6 +73,23 @@ class Interface3D(ShowBase):
         #Permet à la tache de se faire en boucle
         return Task.cont
     
+    def addObs(self):
+        obs = []
+        position = []
+        taille = []
+        for obst in self.env.get_obstacles() :
+            x = (obst.origin[0] + obst.end[0])/2
+            y = (obst.origin[1] + obst.end[1])/2
+            d = math.sqrt((obst.end[0] -obst.origin[0]) **2 + (obst.end[1] - obst.origin[1])**2)
+            obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
+            position.append((x,y,23))
+            taille.append((10, 30, 10))
+        for model,pos,t in zip(obs,position,taille):
+            model.reparentTo(self.render)
+            model.setPos(pos)
+            model.setScale(t)
+            model.setHpr(0,-90,0)
+
     def resetCam(self):
         """Repositionne la camera de sorte a regarder le robot
         """
@@ -83,7 +101,9 @@ class Interface3D(ShowBase):
         position = self.robot.getPos()
        
         #On bouge la camera par rapport a la position du robot, les differentes valeurs de X et Y peuvent etre modifiés
-        self.camera.setPos(position.getX(), position.getY()-300, position.getZ()+70)
+        self.camera.setPos(position.getX(), 
+                           position.getY()+300, 
+                           position.getZ()+70)
         
         #lookAt permet de changer la rotation de la camera de telle sorte a ce qu'elle regarde le robot
         self.camera.lookAt(self.robot)
@@ -117,3 +137,5 @@ class Interface3D(ShowBase):
         
         #On ré-active la souris, si on avait pas fait l'etape d'avant, la camera n'aurait pas bouger
         self.enableMouse()
+
+        
