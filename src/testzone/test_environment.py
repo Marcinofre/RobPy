@@ -1,6 +1,6 @@
 import unittest
 from src.model.robot import Robot
-from src.environment.environment import Obstacle, Environment
+from model.environment import Obstacle, Environment
 
 
 class TestEnvironnement(unittest.TestCase):

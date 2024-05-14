@@ -12,7 +12,7 @@ except Exception as e:
     exit()
 	
 from .model.robot import Robot, RobotAdapter
-from .environment.environment import Environment
+from .model.environment import Environment
 from .controller.seqstrat import SequentialStrategy
 from .controller.strategies.unitstrats import UnitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall, MoveForwardOnly, RotateOnly

@@ -1,5 +1,5 @@
 import unittest
-from src.environment.environment import Obstacle
+from model.environment import Obstacle
 
 class TestObstacle(unittest.TestCase):
 	def test_make_rect_point(self):
