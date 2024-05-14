@@ -29,13 +29,13 @@ class Interface3D(ShowBase):
         self.scene = self.loader.loadModel("src/view/assets/Environnement.glb")
         self.scene.reparentTo(self.render)
         self.scene.setScale(self.env._area_max[0], 1, self.env._area_max[1])
-        self.scene.setPos(0, 0, -10)
+        self.scene.setPos(self.env._area_max[0]/2, self.env._area_max[1]/2, -10)
         self.scene.setHpr(0,-90,0)
         
         # Ajout du modele de l'environnement dans le render, rotation et changement du positionnement pour aider l'affichage
         self.robot = self.loader.loadModel("src/view/assets/Robot.glb")
         self.robot.setScale(self.env._robot._dim[0], 30, self.env._robot._dim[1])
-        self.robot.setPos(self.env._robot._position_x,self.env._robot._position_y,23)
+        self.robot.setPos(self.env._robot._position_x+self.env._robot._dim[0]/2,self.env._robot._position_y+self.env._robot._dim[1],23)
         self.robot.setHpr(self.env._robot._total_theta,-90,0)
         self.robot.reparentTo(self.render)
         
@@ -83,7 +83,9 @@ class Interface3D(ShowBase):
             d = math.sqrt((obst.end[0] -obst.origin[0]) **2 + (obst.end[1] - obst.origin[1])**2)
             obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
             position.append((x,y,23))
-            taille.append((10, 30, 10))
+            taille.append((d*math.cos(math.radians(45)), 
+                           30,
+                           d*math.sin(math.radians(45))))
         for model,pos,t in zip(obs,position,taille):
             model.reparentTo(self.render)
             model.setPos(pos)
