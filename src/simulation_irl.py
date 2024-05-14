@@ -12,7 +12,7 @@ except Exception as e:
     exit()
 	
 from .model.robot import Robot, RobotAdapter
-from .environment.environment import Environment
+from .model.environment import Environment
 from .controller.seqstrat import SequentialStrategy
 from .controller.strategies.unitstrats import UnitStrat
 from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall, MoveForwardOnly, RotateOnly
@@ -54,7 +54,6 @@ def update(fps: int , env: Environment, controller: SequentialStrategy) -> None:
 		env.update_environment()
 		controller.step()
 		logger.info(env._robot.to_str())
-		print(f"value theta = {math.degrees(env._robot._total_theta)}")
 		# Si le controller à terminer l'ensemble de ses stratégie alors on arrete la simulation 
 		if controller.stop():
 			env.stop = True

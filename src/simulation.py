@@ -4,7 +4,7 @@ import threading
 import time
 import logging
 from .model.robot import Robot, RobotAdapter, RobotFake
-from .environment.environment import Environment, Obstacle
+from .model.environment import Environment, Obstacle
 from .view.interface2d import Interface
 from .view.interface3d import Interface3D
 from .controller.seqstrat import SequentialStrategy
