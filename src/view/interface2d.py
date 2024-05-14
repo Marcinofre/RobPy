@@ -1,4 +1,4 @@
-from model.environment import Environment
+from src.model.environment import Environment
 import tkinter
 import math
 import itertools
