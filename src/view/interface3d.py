@@ -60,13 +60,13 @@ class Interface3D(ShowBase):
         position = self.env._robot.get_position()
        
         #On change directement la position du robot dans l'affichage
-        self.robot.setPos(position[0], position[1],23)
+        self.robot.setPos(position[0]+self.env._robot._dim[0]/2, position[1]+self.env._robot._dim[1]/2,23)
         
         #On change la rotation du robot dans l'affichage
         self.robot.setHpr(-math.degrees(self.env._robot._total_theta),-90,0)
         
         #On trace et ajoute la ligne representant le deplacement entre les 2 points
-        self.line.drawTo(position[0], position[1],23)
+        self.line.drawTo(position[0]+self.env._robot._dim[0]/2, position[1]+self.env._robot._dim[1]/2,23)
         self.linenode = self.line.create(False)
         self.render.attachNewNode(self.linenode)
         
