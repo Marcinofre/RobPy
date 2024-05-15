@@ -63,7 +63,7 @@ Voici l'arborescence du repo :
 ## Contributeur au projet
 
 - YAN Nanlin 🙋‍♂️
-- MOHAMMED SI Yaniss 🙋‍♂️
+- SI MOHAMMED Yaniss 🙋‍♂️
 - GU David 🙋‍♂️
-- Manoubi Taysir 🙋‍♂️ 
+- MANOUBI Taysir 🙋‍♂️ 
 
