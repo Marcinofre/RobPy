@@ -415,7 +415,8 @@ class RobotAdapter:
 		distance_traveled = (distance_left + distance_right)/2
 		print(f"Distance parcourue = {distance_traveled}")
 		
-		self._distance_traveled = distance_traveled
+		#décommenter le `+` pour la ver irl, ajouter `+` pour la version mock
+		self._distance_traveled += distance_traveled
 	
 	def reset(self):
 		# On récupère la position des deux moteurs
@@ -443,7 +444,8 @@ class RobotAdapter:
 		distance_left = (angle_left - self.offset_encoder_left) * (self._robot.WHEEL_DIAMETER*math.pi/360) 
 		distance_right = (angle_right - self.offset_encoder_right) * (self._robot.WHEEL_DIAMETER*math.pi/360)
 		
-		self._total_theta = (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
+		#décommenter le `+` pour la ver irl, ajouter `+` pour la version mock
+		self._total_theta += (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
 
 	def servo_rotate(self, position) -> None:
 		"""Place la caméra à l'angle (degrée) voulue (entre -90 et 90)
