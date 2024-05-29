@@ -28,13 +28,13 @@ class Interface3D(ShowBase):
         self.env = env
         self.scene = self.loader.loadModel("src/view/assets/Environnement.glb")
         self.scene.reparentTo(self.render)
-        self.scene.setScale(self.env._area_max[0], 1, self.env._area_max[1])
+        self.scene.setScale(self.env._area_max[0]/2, 1, self.env._area_max[1]/2)
         self.scene.setPos(self.env._area_max[0]/2, self.env._area_max[1]/2, -10)
         self.scene.setHpr(0,-90,0)
         
         # Ajout du modele de l'environnement dans le render, rotation et changement du positionnement pour aider l'affichage
         self.robot = self.loader.loadModel("src/view/assets/Robot.glb")
-        self.robot.setScale(self.env._robot._dim[0], 30, self.env._robot._dim[1])
+        self.robot.setScale(self.env._robot._dim[0]/2, 30, self.env._robot._dim[1]/2)
         self.robot.setPos(self.env._robot._position_x+self.env._robot._dim[0]/2,self.env._robot._position_y+self.env._robot._dim[1],23)
         self.robot.setHpr(self.env._robot._total_theta,-90,0)
         self.robot.reparentTo(self.render)
@@ -72,24 +72,42 @@ class Interface3D(ShowBase):
         
         #Permet à la tache de se faire en boucle
         return Task.cont
-    
+
     def addObs(self):
         obs = []
-        position = []
         taille = []
+        position = []
+        x = 0
+        y = 0
         for obst in self.env.get_obstacles() :
-            x = (obst.origin[0] + obst.end[0])/2
-            y = (obst.origin[1] + obst.end[1])/2
-            d = math.sqrt((obst.end[0] -obst.origin[0]) **2 + (obst.end[1] - obst.origin[1])**2)
+            taille.append((obst.origin[0],23,obst.origin[1]))
+            for obsx in range(obst.origin[0], obst.end[0] + 1):
+                x = obsx
+                y = obst.origin[1]
+                position.append((x,y,23))
+                obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
+            for obsx in range(obst.origin[0], obst.end[0] + 1):
+                x = obsx
+                y = obst.end[1]
+                position.append((x,y,23))
+                obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
+            for obsy in range(obst.origin[1], obst.end[1] + 1):
+                x = obst.origin[0]
+                y = obsy
+                position.append((x,y,23))
+                obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
             obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
+            for obsy in range(obst.origin[1], obst.end[1] + 1):
+                x = obst.end[0]
+                y = obsy
+                position.append((x,y,23))
+                obs.append(self.loader.loadModel("src/view/assets/Obstacle.glb"))
+
             position.append((x,y,23))
-            taille.append((d*math.cos(math.radians(45)), 
-                           30,
-                           d*math.sin(math.radians(45))))
-        for model,pos,t in zip(obs,position,taille):
+        for model,pos in zip(obs,position):
             model.reparentTo(self.render)
             model.setPos(pos)
-            model.setScale(t)
+            model.setScale(1,23,1)
             model.setHpr(0,-90,0)
 
     def resetCam(self):
