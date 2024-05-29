@@ -4,6 +4,7 @@
 
 #- Import zone-----------------------------------
 import math
+import threading
 import time
 import logging
 #--------------------------------------------------
@@ -283,6 +284,8 @@ class RobotFake:
 		self.MOTOR_LEFT = 1
 		self.MOTOR_RIGHT = 2
 
+		self._recording = False
+
 		self.offset_encoder_right = 0
 		self.offset_encoder_left = 0
 
@@ -326,6 +329,27 @@ class RobotFake:
 		"""Simulation de récuperation de la position des moteurs
 		"""
 		return self.offset_encoder_left + self.motorspeed_left, self.offset_encoder_right + self.motorspeed_right
+	
+	def _start_recording(self) -> None:
+		"""Boucle infinie pour simuler la 
+		"""
+		while True:
+			print("Caméra active")
+			time.sleep(1/25) # -> Simule le frame par sec de la caméra
+		
+	def start_recording(self) -> None:
+		"""Simule démarrage de la caméra
+		"""
+		self._recording = True
+		self._thread = threading.Thread(target=self._start_recording)
+		self._thread.start()
+
+	def _stop_recording(self) -> None:
+		"""Simule l'arrete de la caméra
+		"""
+		self._recording = False
+		self._thread.join()
+		self._thread = None
 
 # -APDATER PATTERN-------------------------------------------------------------------------------------------------
 class RobotAdapter:
@@ -421,6 +445,21 @@ class RobotAdapter:
 		
 		self._total_theta = (distance_right - distance_left) / self._robot.WHEEL_BASE_WIDTH
 
+	def servo_rotate(self, position) -> None:
+		"""Place la caméra à l'angle (degrée) voulue (entre -90 et 90)
+		"""
+		position += 90
+		self._robot.servo_rotate(position)
+
+	def start_recording(self) -> None:
+		"""Demarre le record
+		"""
+		self._robot.start_recording()
+
+	def stop_recording(self) -> None:
+		"""Stop le record
+		"""
+		self._robot._stop_recording()
 
 	def get_distance(self):
 		return self._robot.get_distance()
