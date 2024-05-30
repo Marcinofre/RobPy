@@ -1,5 +1,7 @@
 # -IMPORT ZONE---------------------------------------------------------------------------
 from src.model.robot import Robot
+import time
+import cv2 as cv
 import math
 import logging
 # ---------------------------------------------------------------------------------------
@@ -122,7 +124,6 @@ class MoveForward(UnitStrat):
 		"""
 		return (self._distance - self._robot._distance_traveled) <= 0
 
-
 # ----------------------------------------------------------------------------
 class RotateInPlace(UnitStrat):
 	"""Pivote sur place le robot à gauche ou à droite
@@ -217,8 +218,6 @@ class RotateInPlace(UnitStrat):
 		"""
 		return math.degrees(self._theta_final - self._robot._total_theta) <= 0
 
-
-
 # ----------------------------------------------------------------------------
 class MoveForwardWithSensor(UnitStrat):
 	"""Avance le robot au plus près de l'obstacle
@@ -272,3 +271,73 @@ class MoveForwardWithSensor(UnitStrat):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
 		return self._robot.get_distance() <= self._distance_stop
+	
+# ----------------------------------------------------------------------------
+class SearchBalise(UnitStrat):
+	"""Cherche une balise puis se dirige vers celle ci
+	"""
+	def __init__(self, robot):
+		self._robot = robot
+		self._servo_angle_start = 90
+		self._start = False
+		self.stop_strat = False
+		self._balise = ["yellow", "green", "blue", "red", "white"]
+
+	def start(self):
+		"""Initialisation de la stratégie
+		"""
+		# On arrête le robot avant de commancer la stratégie
+		self._robot.set_speed()
+		self._robot.reset()
+		self._robot.servo_rotate(self._servo_angle_start)
+		self._robot.start_recording()
+
+
+	def step(self):
+		
+		# Cas initial
+		if not self._start :
+			self._start = True
+			self.start()
+
+		#Récupère l'image 
+		chemin = self._robot.get_image()
+		image = cv.imread(chemin)
+		#Traitement de l'image : si pas de balise, tourne de 10 deg vers la gauche
+		value = self._robot.search_balise_color(self._balise, image)
+		print(f"Est-ce une balise ? {value} Bonne réponse ? -> {chemin}")
+		if not self._robot.search_balise_color(self._balise, image):
+			self._servo_angle_start -= 10
+			print(f'rotation du servo : {self._servo_angle_start}')
+			self._robot.servo_rotate(self._servo_angle_start)
+		else:
+			self._robot._beacon_in_sight = True
+
+		# Cas d'arret
+		if self.stop() :
+			self._robot.stop_recording()
+			self.stop_strat = True
+
+	def stop(self):
+		return self._servo_angle_start == -90 or self._robot._beacon_in_sight
+
+class Stop():
+	"""Class abstraite
+	"""
+	def __init__(self, robot):
+		self._robot = robot 
+		self.stop_strat = False
+	
+	def start(self):
+		pass
+
+	def step(self):
+		self._robot.set_speed()
+		self.stop_strat = True
+		return 
+
+	def stop(self):
+		pass
+	pass
+
+	

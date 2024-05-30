@@ -6,6 +6,11 @@
 import math
 import threading
 import time
+import numpy as np
+import cv2 as cv
+import os
+import re
+import random
 import logging
 #--------------------------------------------------
 
@@ -291,6 +296,7 @@ class RobotFake:
 
 		self.motorspeed_right = 0
 		self.motorspeed_left = 0
+
 		pass
 	
 	
@@ -333,13 +339,14 @@ class RobotFake:
 	def _start_recording(self) -> None:
 		"""Boucle infinie pour simuler la 
 		"""
-		while True:
+		while self._recording:
 			print("Caméra active")
 			time.sleep(1/25) # -> Simule le frame par sec de la caméra
 		
 	def start_recording(self) -> None:
 		"""Simule démarrage de la caméra
 		"""
+		print("Record begin")
 		self._recording = True
 		self._thread = threading.Thread(target=self._start_recording)
 		self._thread.start()
@@ -347,9 +354,25 @@ class RobotFake:
 	def _stop_recording(self) -> None:
 		"""Simule l'arrete de la caméra
 		"""
+		print("Record stop")
 		self._recording = False
 		self._thread.join()
 		self._thread = None
+
+	def servo_rotate(self,positon):
+		pass
+
+	def get_image(self):
+		"""Simule un renvoie d'image. pioche au hazard dans le dossier ressource_photo
+		"""
+		path = "./src/model/ressource_photo/"
+		return path + random.sample(os.listdir(path), 1)[0]
+		
+	def get_distance(self):
+		return random.randint(0,100)
+		
+
+		
 
 # -APDATER PATTERN-------------------------------------------------------------------------------------------------
 class RobotAdapter:
@@ -375,6 +398,8 @@ class RobotAdapter:
 		self.offset_encoder_right = 0
 		self.offset_encoder_left = 0
 		self._distance_traveled = 0
+		self._captor_theta = 0
+		self._beacon_in_sight = False
 
 	#- METHODE-------------------------------------------------------------------------------------------------
 	def set_speed(self, speed_left: float = 0.0, speed_right: float = 0.0) -> None:
@@ -450,6 +475,7 @@ class RobotAdapter:
 	def servo_rotate(self, position) -> None:
 		"""Place la caméra à l'angle (degrée) voulue (entre -90 et 90)
 		"""
+		self._captor_theta += position
 		position += 90
 		self._robot.servo_rotate(position)
 
@@ -463,6 +489,11 @@ class RobotAdapter:
 		"""
 		self._robot._stop_recording()
 
+	def get_image(self):
+		"""Renvoie une image
+		"""
+		return self._robot.get_image()
+
 	def get_distance(self):
 		return self._robot.get_distance()
 
@@ -475,7 +506,83 @@ class RobotAdapter:
 		"""Mise à jour de la position du robot
 		"""
 		pass
+	
+	def search_balise_color(self, balise_color, image):
 
+		#bgr to hsv
+		hsv_image  = cv.cvtColor(image,cv.COLOR_BGR2HSV)
+
+		
+		all_mask = {}
+		contours = {}
+		clean_contours = []
+		apparent_color = []
+		
+		for color in balise_color: 
+			lower_limit, upper_limit = self.get_limits(color)
+			all_mask[color] = cv.inRange(hsv_image, lower_limit, upper_limit)
+		
+			#plt.figure(figsize=[10,10])
+			#plt.imshow(all_mask[color]);plt.title(color)
+
+		for color,mask in all_mask.items():
+			contours[color], _= cv.findContours(mask, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+
+			#image_copy = image.copy()
+
+			# voir : https://pyimagesearch.com/2021/10/06/opencv-contour-approximation/
+			for elem in contours[color]:
+				ep = 0.05 * cv.arcLength(elem, True)
+				approx = cv.approxPolyDP(elem, ep, True)
+				
+				#On essaie de retirer un maximum de bruit
+				if len(approx) == 4:
+					clean_contours.append(approx)
+					apparent_color.append(color)
+					#cv.drawContours(image_copy, [approx], -1, (0,255,255), 3)
+			
+
+			# Spawn a new figure
+			#plt.figure(figsize=[10,10])
+			#plt.imshow(image_copy[:,:,::-1])
+			# Turn off axis numbering
+			#plt.axis('off')
+		
+		try:
+			min_x = min([rect[0][0][0] for rect in clean_contours])
+			max_x = max([rect[2][0][0] for rect in clean_contours])
+			min_y = min([rect[0][0][1] for rect in clean_contours])
+			max_y = max([rect[2][0][1] for rect in clean_contours])
+		except:
+			return False
+
+		return max_x - min_x > 0 and max_y - min_y > 0 and set(apparent_color) == set(balise_color)
+
+
+	
+	def get_limits(self,color):
+		"""Donne les nuances max et min de la couleur en paramètre
+		"""
+
+		if "blue" == color:
+			lower_limit = np.array([100,84,46])
+			upper_limit = np.array([110,255,255])
+		if "red" == color:
+			lower_limit = np.array([0,150,100])
+			upper_limit = np.array([10,255,255])
+		if "green" == color:
+			lower_limit = np.array([59,57,57])
+			upper_limit = np.array([70,255,255])
+		if "yellow" == color:
+			lower_limit = np.array([20,128,93])
+			upper_limit = np.array([39,255,255])
+		if "white" == color:
+			lower_limit = np.array([3,26,99])
+			upper_limit = np.array([36,71,165])
+
+		return lower_limit, upper_limit
+	
+	
 	def to_str(self):
 		
 		return f"\ntheta = {math.degrees(self._total_theta)}\nlast_update = {self._last_update}\noffset right, left = {self.offset_encoder_right}, {self.offset_encoder_left}\n_distance_traveled = {self._distance_traveled}\n"

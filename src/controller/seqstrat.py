@@ -19,10 +19,13 @@ logger.addHandler(stream_handler)
 # -CONTROLLER----------------------------------------------------------------------------
 class SequentialStrategy(UnitStrat):
 	
-	def __init__(self, strats: list[UnitStrat]) -> None:
+	def __init__(self, strats: list[UnitStrat], strat_if: list[UnitStrat] = None) -> None:
 		"""
 		"""
 		self.strats = strats
+		self.strat_if = strat_if if strat_if is not None else []
+		self.strats += self.strat_if
+
 		self.cur = -1
 
 	def start(self) -> None:
