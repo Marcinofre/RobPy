@@ -60,7 +60,7 @@ class MoveForward(UnitStrat):
 			_speed (float): Vitesse du robot
 			stop_strat (bool): Condition d'arret a destination du lanceur de stratégie
 	"""
-	def __init__(self, distance: int, speed: float, robot: Robot):
+	def __init__(self, distance: int, speed: float, robot: Robot, condition: bool = False):
 		"""Constructeur de la stratégie moveForward
 
 			Args:
@@ -72,6 +72,7 @@ class MoveForward(UnitStrat):
 		self._robot = robot
 		self._speed = abs(speed)
 		self._distance = abs(distance)
+		self.condition = condition
 		self._start = False
 		self.stop_strat = False
 
@@ -81,6 +82,7 @@ class MoveForward(UnitStrat):
 		# On arrête le robot avant de commancer la stratégie
 		self._robot.set_speed()
 		self._robot.reset()
+		logger.info("Initialisation de MoveForward") 
 
 		
 	def step(self):
@@ -95,13 +97,13 @@ class MoveForward(UnitStrat):
 			value = self._distance - self._robot._distance_traveled
 			
 			# Verification si le robot à trop avancer
-			if abs(value) <= 0.01:							# ---> Pour le robot irl : 1, le simulé : 0.01
+			if abs(value) <= 0.01 or self.condition:							# ---> Pour le robot irl : 1, le simulé : 0.01
 				# On éteint les moteurs
 				self._robot.set_speed()
 				self._robot.reset()
-
 				self.stop_strat = True
-				print("FIN")
+				
+				logger.info("Fin de MoveForward") 
 				return
 			else:
 				speed = self._speed/2
@@ -122,7 +124,7 @@ class MoveForward(UnitStrat):
 	def stop(self):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		return (self._distance - self._robot._distance_traveled) <= 0
+		return ((self._distance - self._robot._distance_traveled) <= 0) or self.condition
 
 # ----------------------------------------------------------------------------
 class RotateInPlace(UnitStrat):
@@ -136,7 +138,7 @@ class RotateInPlace(UnitStrat):
 			stop_strat (bool): Condition d'arret a destination du lanceur de stratégie
 
 	"""
-	def __init__(self, angle: int, speed: float, robot: Robot):
+	def __init__(self, angle: int, speed: float, robot: Robot, condition: bool = False):
 		"""Constructeur de la stratégie moveForward
 
 			Args:
@@ -149,9 +151,11 @@ class RotateInPlace(UnitStrat):
 		self._speed = speed
 		self.angle =  angle
 		self._theta_final = 0
+		self.condition = condition
 		self._start = False
 		self.stop_strat = False
 		self.left_right = (0,0)
+
 
 	def start(self):
 		"""Initialisation de la stratégie
@@ -159,7 +163,10 @@ class RotateInPlace(UnitStrat):
 		# On arrête le robot avant de commencer la stratégie et on initialise le theta_final à 0
 		self._robot.set_speed()
 		self._robot.reset()
+		self.condition = self._robot._beacon_in_sight
 		self._theta_final = 0
+
+		logger.info("Initialisation de RotateInPlace") 
 
 		
 	def step(self):
@@ -183,12 +190,14 @@ class RotateInPlace(UnitStrat):
 		# Observe si l'angle à parcourir a été atteint
 		if self.stop():
 			value = math.degrees(self._theta_final - self._robot._total_theta)
-			if abs(value) <= 0.01:
+			if (abs(value) <= 0.01) or self.condition:
 				self._theta_final = 0
 				# On éteint les moteurs
 				self._robot.set_speed(0,0)
 				self._robot.reset()
 				self.stop_strat = True
+				logger.info("Fin de RotateInPlace") 
+
 				return 
 			else:
 				left, right = self.left_right
@@ -216,7 +225,7 @@ class RotateInPlace(UnitStrat):
 	def stop(self) -> bool:
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		return math.degrees(self._theta_final - self._robot._total_theta) <= 0
+		return (math.degrees(self._theta_final - self._robot._total_theta) <= 0) or self.condition
 
 # ----------------------------------------------------------------------------
 class MoveForwardWithSensor(UnitStrat):
@@ -228,7 +237,7 @@ class MoveForwardWithSensor(UnitStrat):
 			_speed (float): Vitesse du robot
 	"""
 
-	def __init__(self, distance_stop: int, speed: float, robot: Robot):
+	def __init__(self, distance_stop: int, speed: float, robot: Robot, condition: bool = False):
 		"""Constructeur de la stratégie moveForward
 
 			Args:
@@ -240,6 +249,7 @@ class MoveForwardWithSensor(UnitStrat):
 		self._robot = robot
 		self._distance_stop = distance_stop
 		self._speed = abs(speed)
+		self.condition = condition
 		self._start = False
 		self.stop_strat = False
 
@@ -248,6 +258,8 @@ class MoveForwardWithSensor(UnitStrat):
 		"""
 		# On arrête le robot avant de commancer la stratégie
 		self._robot.set_speed()
+		logger.info("Initialisation de MoveForwardWithSensor") 
+
 
 		
 	def step(self):
@@ -262,6 +274,8 @@ class MoveForwardWithSensor(UnitStrat):
 			# On éteint les moteurs
 			self._robot.set_speed()
 			self.stop_strat = True
+			logger.info("Initialisation de MoveForwardWithSensor") 
+
 			return
 		else:
 			self._robot.set_speed(self._speed, self._speed)
@@ -270,7 +284,7 @@ class MoveForwardWithSensor(UnitStrat):
 	def stop(self):
 		"""Condition d'arrêt de la stratégie en cours
 		"""
-		return self._robot.get_distance() <= self._distance_stop
+		return (self._robot.get_distance() <= self._distance_stop) or self.condition
 	
 # ----------------------------------------------------------------------------
 class SearchBalise(UnitStrat):
@@ -291,6 +305,8 @@ class SearchBalise(UnitStrat):
 		self._robot.reset()
 		self._robot.servo_rotate(self._servo_angle_start)
 		self._robot.start_recording()
+		logger.info("Initialisation de SearchBalise") 
+
 
 
 	def step(self):
@@ -317,11 +333,44 @@ class SearchBalise(UnitStrat):
 		if self.stop() :
 			self._robot.stop_recording()
 			self.stop_strat = True
+			logger.info("Fin de SearchBalise")
+			return
 
 	def stop(self):
-		return self._servo_angle_start == -90 or self._robot._beacon_in_sight
+		return (self._servo_angle_start == -90) or self._robot._beacon_in_sight
 
-class Stop():
+class StratIf(UnitStrat):
+	
+	def __init__(self, robot: Robot, strat1: UnitStrat = None, strat2: UnitStrat = None, condition: bool = False):
+		
+		self.strat = Stop(robot)
+		self._robot = robot 
+		self._start = False
+		self.stop_strat = False
+		
+		if not ((strat1 == None) and (strat2 == None)):
+			if condition or self._robot._beacon_in_sight:
+				self.strat = strat1
+			else:
+				self.strat = strat2
+	
+	def start(self):
+		self.strat.start()
+	
+	def stop(self):
+		self.strat.stop()
+
+	def step(self):
+		if not self._start:
+			self.start()
+		
+		if self.strat.stop():
+			self.stop_strat = True
+			return
+			
+		self.strat.step()
+		
+class Stop(UnitStrat):
 	"""Class abstraite
 	"""
 	def __init__(self, robot):
@@ -332,12 +381,14 @@ class Stop():
 		pass
 
 	def step(self):
+		logger.info("STOP ROBOT")
 		self._robot.set_speed()
 		self.stop_strat = True
 		return 
 
 	def stop(self):
-		pass
-	pass
+		stop_strat = True
+		return True
+
 
 	

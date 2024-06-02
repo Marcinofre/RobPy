@@ -9,7 +9,7 @@ from .view.interface2d import Interface
 from .view.interface3d import Interface3D
 from .controller.seqstrat import SequentialStrategy
 from .controller.strategies.unitstrats import UnitStrat
-from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall, MoveForwardOnly, RotateOnly, StratIf, SearchOnly
+from .controller.strategies.metastrats import StratSquare, StratDontTouchTheWall, MoveForwardOnly, RotateOnly, SearchOnly
 
 # -Logging setup-------------------------------------------------------------------------
 
@@ -27,8 +27,8 @@ logger.addHandler(file_handler)
 
 
 # -CONSTANTE ZONE---------------------------------------------------------------------------
-STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall]
-STRATS_REAL_ROBOT = [StratSquare, MoveForwardOnly, RotateOnly, StratIf, SearchOnly]
+STRATS_VIRTUAL_ROBOT = [StratSquare,StratDontTouchTheWall, RotateOnly, SearchOnly]
+STRATS_REAL_ROBOT = [StratSquare, MoveForwardOnly, RotateOnly, SearchOnly]
 
 # -FUNCTION ZONE---------------------------------------------------------------------------
 def update(fps: int , env: Environment, controller: SequentialStrategy) -> None:
@@ -70,9 +70,6 @@ def user_strat_choice(robot: Robot) -> list[UnitStrat]:
 	meta_strat = None
 	good_choice = False
 	strats_list = []
-	strats_optional = []
-
-	cpt = 0
 
 	# On observe si le robot est un robot simulé ou un robot enrober par un adaptateur
 	if isinstance(robot, Robot):
@@ -86,7 +83,7 @@ def user_strat_choice(robot: Robot) -> list[UnitStrat]:
 	for strat in possible_functions:
 		print(f"{strat.__name__} --> {possible_functions.index(strat)}")
 	
-	while (not good_choice) or cpt < 2:
+	while (not good_choice):
 		choice = input("Which strategy do you want to choose? (type the number) : ")
 		try:
 			meta_strat = possible_functions[int(choice)]
@@ -98,17 +95,15 @@ def user_strat_choice(robot: Robot) -> list[UnitStrat]:
 			continue
 		else:
 			good_choice = True
-			
-			if cpt == 0 :
-				# On récupère la liste issue de la métastratégie
-				strats_list = meta_strat(robot)
-			else:
-				strats_optional = meta_strat(robot)
-			cpt += 1
+
+			# On récupère la liste issue de la métastratégie
+			strats_list = meta_strat(robot)
 
 
-	print(f"You choose {strats_list,strats_optional}")
-	return strats_list,strats_optional
+
+
+	print(f"You choose {strats_list}")
+	return strats_list
 
 
 def simulation(size: tuple[int,int], fps: int) -> None:
@@ -184,10 +179,10 @@ def simulation(size: tuple[int,int], fps: int) -> None:
 	# ajoute un obstacle
 	environment.add_obstacle(Obstacle([(0,0),(990,75)]))
 
-	main_strat, secondary_strat = user_strat_choice(robot)
+	main_strat = user_strat_choice(robot)
 
 	# On initialise le controleur avec une stratégie ou liste de stratégie définit au niveau de metastrats.py ou unitstrats.py
-	controller = SequentialStrategy(strats=main_strat, strat_if=secondary_strat)
+	controller = SequentialStrategy(strats=main_strat)
 
 	# On lance le thread relatif aux updates en indiquant le taux de rafraichissement de l'environnment
 	update_t = threading.Thread(target=update, args=(fps, environment, controller))

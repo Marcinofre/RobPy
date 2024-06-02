@@ -19,14 +19,10 @@ logger.addHandler(stream_handler)
 # -CONTROLLER----------------------------------------------------------------------------
 class SequentialStrategy(UnitStrat):
 	
-	def __init__(self, strats: list[UnitStrat], strat_if: list[UnitStrat] = None) -> None:
+	def __init__(self, strats: list[UnitStrat]) -> None:
 		"""
 		"""
 		self.strats = strats
-		self.strat_if = strat_if if strat_if is not None else []
-		self.strats += self.strat_if
-
-		self.cur = -1
 
 	def start(self) -> None:
 		"""Remet cur à -1 pour remettre le controleur sur la première instruction possible

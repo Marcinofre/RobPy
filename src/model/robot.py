@@ -92,6 +92,9 @@ class Robot:
 		self._last_update = 0
 		self._distance_traveled = 0
 
+		# Balise dans le champs de vision false par défaut
+		self._beacon_in_sight = False
+
 	
 	
 	
@@ -371,9 +374,6 @@ class RobotFake:
 	def get_distance(self):
 		return random.randint(0,100)
 		
-
-		
-
 # -APDATER PATTERN-------------------------------------------------------------------------------------------------
 class RobotAdapter:
 	"""Adapte les fonctions du robot simulé Robot() pour un robot du type RoboFake()

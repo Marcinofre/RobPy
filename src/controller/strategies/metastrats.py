@@ -1,6 +1,6 @@
 # -IMPORT ZONE---------------------------------------------------------------------------
 import logging
-from src.controller.strategies.unitstrats import MoveForward, MoveForwardWithSensor, RotateInPlace, UnitStrat, SearchBalise
+from src.controller.strategies.unitstrats import MoveForward, MoveForwardWithSensor, RotateInPlace, UnitStrat, SearchBalise, Stop, StratIf
 from src.model.robot import Robot
 # ---------------------------------------------------------------------------------------
 
@@ -118,18 +118,8 @@ def RotateOnly(robot: Robot)-> list[UnitStrat]:
 
 	return [RotateInPlace(angle, speed, robot)]
 
-def StratIf(robot: Robot)-> list[UnitStrat]:
-	"""Stratégie pour faire un rotation de x degree
-	"""
-	print("\n\n------INITIALISATION IfStrat------\n")
-	
-	if robot._beacon_in_sight:
-		result = [RotateInPlace(robot._captor_theta, 100, robot), MoveForwardWithSensor(10, 100, robot)]
-	else:
-		result = [RotateInPlace(180, 100, robot), SearchBalise(robot)]
-
-	return result
 
 def SearchOnly(robot: Robot)-> list[UnitStrat]:
 
-	return [SearchBalise(robot)]
+	return [SearchBalise(robot), 
+		 	StratIf(robot, RotateInPlace(180,100,robot), MoveForwardWithSensor(30, 100, robot)), Stop(robot)]
